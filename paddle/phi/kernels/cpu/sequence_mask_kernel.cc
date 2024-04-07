@@ -13,9 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/sequence_mask_kernel.h"
+
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/sequence_mask_kernel_impl.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 PD_REGISTER_KERNEL(sequence_mask,
                    CPU,

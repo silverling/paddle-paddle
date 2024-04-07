@@ -14,9 +14,13 @@
 
 #include "paddle/phi/kernels/kron_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/kron_kernel_impl.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
 
 PD_REGISTER_KERNEL(kron,
                    CPU,

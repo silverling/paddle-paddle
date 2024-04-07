@@ -11,11 +11,40 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/partial_sum_op.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <ostream>
+
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class PartialSumOp : public framework::OperatorWithKernel {

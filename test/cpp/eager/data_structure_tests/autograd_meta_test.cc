@@ -14,12 +14,19 @@
 
 #include "paddle/fluid/eager/autograd_meta.h"
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
-#include "paddle/fluid/eager/eager_tensor.h"
+#include <ostream>
+
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "test/cpp/eager/data_structure_tests/grad_node_test.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 TEST(AutogradMeta, Constructor) {
   paddle::Tensor et1;

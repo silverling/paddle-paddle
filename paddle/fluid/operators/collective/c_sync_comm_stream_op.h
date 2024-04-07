@@ -15,13 +15,21 @@ limitations under the License. */
 #define PADDLE_FLUID_OPERATORS_COLLECTIVE_C_SYNC_COMM_STREAM_OP_H_
 
 #include <string>
+#include <ostream>
 
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/platform/collective_helper.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL) || \
     defined(PADDLE_WITH_XPU_BKCL)
 #include "paddle/common/flags.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

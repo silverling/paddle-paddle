@@ -14,9 +14,13 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/graph_viz_pass.h"
 
-#include <fstream>
+#include <stdint.h>
 #include <ostream>
 #include <string>
+#include <cstddef>
+#include <map>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/graph_printer.h"
@@ -24,6 +28,16 @@ limitations under the License. */
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/inference/analysis/dot.h"
 #include "paddle/fluid/inference/analysis/helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/string/printf.h"
 
 namespace paddle {
 namespace framework {

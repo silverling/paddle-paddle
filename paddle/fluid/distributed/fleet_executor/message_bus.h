@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <condition_variable>
 #include <mutex>
 #include <string>
@@ -30,11 +31,13 @@
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/platform/macros.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace distributed {
 
 class Carrier;
+class InterceptorMessage;
 
 // A singleton MessageBus
 class MessageBus final {

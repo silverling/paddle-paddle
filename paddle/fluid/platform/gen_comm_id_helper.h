@@ -21,6 +21,7 @@ limitations under the License. */
 #include <mutex>
 #include <string>
 #include <vector>
+#include <ostream>
 
 #include "glog/logging.h"
 

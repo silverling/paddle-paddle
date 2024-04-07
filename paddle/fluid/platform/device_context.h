@@ -68,9 +68,14 @@ limitations under the License. */
 #include "glog/logging.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/place.h"
-
 #include "paddle/phi/backends/device_ext.h"
 #include "paddle/phi/backends/stream.h"
+
+namespace phi {
+class GPUPinnedPlace;
+class Place;
+template <typename Place> struct DefaultDeviceContextType;
+}  // namespace phi
 
 #if !defined(PADDLE_WITH_XPU_KP) || defined(__xpu_on_host__)
 #include "unsupported/Eigen/CXX11/Tensor"

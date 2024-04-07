@@ -14,6 +14,13 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_r_reshard_function.h"
 
+#include <ext/alloc_traits.h>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
@@ -25,6 +32,13 @@
 #include "paddle/phi/kernels/concat_kernel.h"
 #include "paddle/phi/kernels/full_kernel.h"
 #include "paddle/phi/kernels/split_kernel.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace phi {
 namespace distributed {

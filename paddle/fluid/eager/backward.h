@@ -14,9 +14,12 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/phi/api/all.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
 
 namespace egr {
 

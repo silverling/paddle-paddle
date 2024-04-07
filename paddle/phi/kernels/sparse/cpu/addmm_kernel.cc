@@ -14,9 +14,19 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/addmm_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/kernel_factory.h"
+
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class SparseCooTensor;
+class SparseCsrTensor;
+
 namespace sparse {
 
 /* DENSE + COO @ DENSE -> DENSE */

@@ -14,12 +14,34 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <ostream>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/phi/infermeta/multiary.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 /**

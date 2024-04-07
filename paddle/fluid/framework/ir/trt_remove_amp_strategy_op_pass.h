@@ -20,6 +20,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class TrtRemoveAMPStrategyOpPass : public FusePassBase {
  public:

@@ -25,11 +25,13 @@
 namespace paddle {
 namespace framework {
 class ProgramDesc;
+class OperatorBase;
 }  // namespace framework
 }  // namespace paddle
 
 namespace paddle {
 namespace operators {
+class OpVariant;
 
 void PrepareSafeEagerDeletionOnPyLayerOpAndPyLayerGradOp(
     const framework::ProgramDesc &program,

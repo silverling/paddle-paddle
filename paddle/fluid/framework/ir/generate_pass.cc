@@ -14,10 +14,33 @@
 
 #include "paddle/fluid/framework/ir/generate_pass.h"
 
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
-#include "paddle/pir/include/core/block.h"
-#include "paddle/pir/include/core/value.h"
 #include "paddle/utils/blank.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/utils/variant.h"
+
+namespace pir {
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {

@@ -14,17 +14,32 @@
 
 #include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
 
+#include <ext/alloc_traits.h>
 #include <future>
 #include <unordered_set>
+#include <utility>
 
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/new_executor/interpreter/dependency_builder.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/platform/device_event.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/variant.h"
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/collective_helper.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

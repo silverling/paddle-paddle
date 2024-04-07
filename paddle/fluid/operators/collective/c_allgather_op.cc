@@ -14,7 +14,27 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/collective/c_allgather_op.h"
 
-#include <memory>
+#include <algorithm>
+#include <vector>
+
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

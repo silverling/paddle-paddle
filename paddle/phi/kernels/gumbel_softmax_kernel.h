@@ -15,7 +15,9 @@
 #pragma once
 
 #include "paddle/phi/core/dense_tensor.h"
+
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void GumbelSoftmaxKernel(const Context& dev_ctx,

@@ -12,19 +12,30 @@ limitations under the License. */
 #include "paddle/fluid/operators/string/faster_tokenizer_op.h"
 
 #include <utf8proc.h>
-
-#include <algorithm>
-#include <chrono>
-#include <codecvt>
 #include <fstream>
-#include <iostream>
-#include <numeric>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <cstddef>
+#include <utility>
 
 #include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

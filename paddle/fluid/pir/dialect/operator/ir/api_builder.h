@@ -15,11 +15,20 @@
 #pragma once
 #include <memory>
 #include <stack>
+#include <string>
 
 #include "paddle/common/macros.h"
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/parameter.h"
 #include "paddle/pir/include/core/program.h"
+
+namespace pir {
+class Block;
+class IrContext;
+class Operation;
+class Parameter;
+class Program;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

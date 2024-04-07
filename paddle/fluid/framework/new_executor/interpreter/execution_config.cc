@@ -16,11 +16,13 @@
 
 #include <set>
 #include <thread>
+#include <ostream>
+#include <tuple>
 
-#include "paddle/fluid/platform/device/ipu/ipu_info.h"
-#include "paddle/phi/backends/device_manager.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
-#include "paddle/phi/backends/xpu/xpu_info.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
 
 PD_DECLARE_bool(new_executor_serial_run);
 

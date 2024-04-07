@@ -14,13 +14,15 @@
 
 #include "paddle/fluid/pybind/eval_frame_tools.h"
 
-#include <Python.h>
-
 #include <unordered_set>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/errors.h"
-#include "paddle/fluid/platform/profiler/event_tracing.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "pyport.h"
+#include "tupleobject.h"
+#include "unicodeobject.h"
 
 /*============================ Dict Tree ================================*/
 

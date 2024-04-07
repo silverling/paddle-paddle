@@ -14,13 +14,13 @@ limitations under the License. */
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 
 #include <stddef.h>
-
 #include <array>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "paddle/phi/backends/gpu/gpu_types.h"
+#include "paddle/phi/backends/gpu/gpu_decls.h"
 
 namespace phi {
 namespace backends {

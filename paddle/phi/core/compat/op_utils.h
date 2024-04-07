@@ -16,6 +16,9 @@ limitations under the License. */
 
 #include <string>
 #include <unordered_set>
+#include <functional>
+#include <type_traits>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/common/macros.h"
@@ -24,6 +27,8 @@ limitations under the License. */
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/type_defs.h"
 #include "paddle/utils/flat_hash_map.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 

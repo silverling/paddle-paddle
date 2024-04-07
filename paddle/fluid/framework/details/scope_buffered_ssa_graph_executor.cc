@@ -14,16 +14,39 @@
 
 #include "paddle/fluid/framework/details/scope_buffered_ssa_graph_executor.h"
 
-#include <stdexcept>
+#include <ext/alloc_traits.h>
 #include <string>
 #include <utility>
 #include <vector>
+#include <exception>
+#include <limits>
+#include <ostream>
 
-#include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/platform/cuda_graph_with_memory_pool.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph_with_memory_pool.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/string/printf.h"
 
 namespace paddle {
 namespace framework {

@@ -13,14 +13,48 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/transforms/shape_optimization_pass.h"
+
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <iostream>
+#include <optional>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/flags.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_attribute.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_dialect.h"
 #include "paddle/pir/include/pass/pass_manager.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/infer_symbolic_shape.h"
+#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
+#include "paddle/pir/include/pass/pass.h"
 
 COMMON_DECLARE_bool(pir_apply_shape_optimization_pass);
 

@@ -14,6 +14,8 @@
 
 #include "paddle/phi/kernels/diag_embed_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/diag_embed_impl.h"

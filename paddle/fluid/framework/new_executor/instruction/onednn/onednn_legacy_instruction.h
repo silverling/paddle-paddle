@@ -14,7 +14,21 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <set>
+#include <string>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/pir/include/core/operation.h"
+
+namespace phi {
+class Kernel;
+}  // namespace phi
 
 namespace pir {
 class Operation;
@@ -24,6 +38,9 @@ namespace paddle {
 namespace framework {
 class Scope;
 class ValueExecutionInfo;
+class ExecutionContext;
+class OperatorBase;
+class RuntimeContext;
 
 class OneDNNLegacyKernelInstruction : public InstructionBase {
  public:

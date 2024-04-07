@@ -14,12 +14,22 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/full_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

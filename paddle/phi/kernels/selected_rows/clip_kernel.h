@@ -21,6 +21,8 @@
 #include "paddle/phi/kernels/impl/clip_kernel_impl.h"
 
 namespace phi {
+class SelectedRows;
+
 namespace sr {
 
 template <typename T, typename Context>

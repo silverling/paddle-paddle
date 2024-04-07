@@ -14,7 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <string>
+
 #include "paddle/fluid/framework/new_executor/instruction/onednn/onednn_instruction.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace pir {
 class Operation;

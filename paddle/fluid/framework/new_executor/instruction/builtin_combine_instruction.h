@@ -14,8 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {

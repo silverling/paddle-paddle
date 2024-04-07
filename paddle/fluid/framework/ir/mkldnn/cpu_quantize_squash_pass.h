@@ -23,6 +23,8 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
+class Node;
 
 /*
  * Squash dequantize->quantize pair pattern into requantize op

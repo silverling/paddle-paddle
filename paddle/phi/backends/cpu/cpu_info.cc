@@ -13,7 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
-#include <array>
+
+#include <stdint.h>
 
 #ifdef __APPLE__
 #include <sys/sysctl.h>
@@ -32,8 +33,10 @@ limitations under the License. */
 #endif
 
 #include <algorithm>
+#include <string>
 
 #include "paddle/common/flags.h"
+#include "xbyak.h"
 
 COMMON_DECLARE_double(fraction_of_cpu_memory_to_use);
 COMMON_DECLARE_uint64(initial_cpu_memory_in_mb);

@@ -15,6 +15,9 @@
 #pragma once
 
 #include <string>
+#include <ostream>
+#include <type_traits>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/tensor.h"
@@ -22,6 +25,11 @@
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/kernels/check_numerics_kernel.h"
 #include "paddle/phi/kernels/funcs/eigen/extensions.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 COMMON_DECLARE_int32(check_nan_inf_level);
 

@@ -14,14 +14,19 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/program_desc.h"
 
+#include <cstdint>
+#include <set>
+
 #include "gtest/gtest-message.h"
 #include "gtest/gtest-test-part.h"
-#include "gtest/gtest.h"
 #include "gtest/gtest_pred_impl.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
-class VarDesc;
 
 TEST(ProgramDesc, block_desc_move) {
   auto program = std::make_unique<ProgramDesc>();

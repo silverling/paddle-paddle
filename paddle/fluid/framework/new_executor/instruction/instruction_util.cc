@@ -14,31 +14,62 @@
 
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
 
+#include <stddef.h>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <future>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/new_executor/new_executor_defs.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/event.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
-
 #include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
 #include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/pir/include/core/block_argument.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_ref_array.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
+#include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
+#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type.h"
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/collective_helper.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

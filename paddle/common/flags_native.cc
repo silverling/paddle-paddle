@@ -12,21 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/common/flags.h"
-
+#include <stdint.h>
 #include <cassert>
 #include <cstdlib>
-#include <fstream>
 #include <iostream>
 #include <map>
 #include <mutex>
 #include <set>
-#include <sstream>
 #include <string>
 #include <vector>
+#include <exception>
+#include <stdexcept>
+#include <utility>
+
+#include "paddle/common/flags.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace flags {
+template <typename T> struct FlagTypeTraits;
 
 std::stringstream& ErrorStream() {
   static std::stringstream err_ss;

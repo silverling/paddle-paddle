@@ -14,6 +14,17 @@
 
 #include "paddle/fluid/memory/allocation/thread_local_allocator.h"
 
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <iterator>
+#include <ostream>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/memory/allocation/system_allocator.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/enforce.h"
+
 namespace paddle {
 namespace memory {
 namespace allocation {

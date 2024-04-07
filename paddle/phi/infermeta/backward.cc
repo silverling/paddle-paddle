@@ -13,9 +13,23 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/infermeta/backward.h"
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+
 #include "paddle/phi/common/type_traits.h"
 #include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/kernels/funcs/axis_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/infermeta/multiary.h"
+#include "paddle/phi/infermeta/unary.h"
 
 namespace phi {
 

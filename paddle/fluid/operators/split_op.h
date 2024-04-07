@@ -14,6 +14,9 @@ limitations under the License. */
 
 #pragma once
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <chrono>  // NOLINT
 #include <memory>
 #include <string>
@@ -22,6 +25,12 @@ limitations under the License. */
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/operators/utils.h"
 #include "paddle/phi/kernels/split_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/phi/core/ddim.h"
+
 namespace paddle {
 namespace operators {
 static inline std::vector<framework::DDim> UpdateOutsDims(

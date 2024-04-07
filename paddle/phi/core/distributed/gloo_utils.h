@@ -18,16 +18,28 @@
 #include <gloo/math.h>
 #include <gloo/transport/tcp/device.h>
 #include <gloo/types.h>
-
+#include <bits/chrono.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <climits>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "gloo/context.h"
+#include "gloo/transport/unbound_buffer.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
+namespace gloo {
+namespace transport {
+class Device;
+}  // namespace transport
+}  // namespace gloo
 
 namespace phi {
 namespace distributed {

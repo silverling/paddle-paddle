@@ -13,15 +13,17 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/operators/math/concat_and_split.h"
-#include "paddle/fluid/platform/device_context.h"
 
 #include "paddle/phi/kernels/funcs/concat_and_split_functor.h"
 
-#include "paddle/phi/common/bfloat16.h"
-#include "paddle/phi/common/float16.h"
-
 namespace phi {
 class DenseTensor;
+class CPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 }  // namespace phi
 
 namespace paddle {

@@ -14,9 +14,30 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/top_k_op.h"
 
-#include <memory>
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class TopkOp : public framework::OperatorWithKernel {

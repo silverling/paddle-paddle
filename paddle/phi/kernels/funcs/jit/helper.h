@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <cstring>
 #include <iostream>
 #include <map>
@@ -21,6 +22,9 @@
 #include <unordered_map>
 #include <utility>  // for std::move
 #include <vector>
+#include <string>
+#include <type_traits>
+#include <typeinfo>
 
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/enforce.h"
@@ -28,11 +32,15 @@
 #include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 #include "paddle/phi/kernels/funcs/jit/kernel_key.h"
 #include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
 namespace jit {
 
 class GenBase;
+template <typename Attr> class JitCodeCreator;
 
 template <typename KernelTuple, typename PlaceType>
 inline typename std::enable_if<

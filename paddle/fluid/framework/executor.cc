@@ -15,6 +15,8 @@ limitations under the License. */
 #include "paddle/fluid/framework/executor.h"
 
 #include <memory>
+#include <ostream>
+#include <utility>
 
 #include "paddle/fluid/framework/feed_fetch_method.h"
 #include "paddle/fluid/framework/trainer_desc.pb.h"
@@ -25,11 +27,35 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/trainer.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable_helper.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #endif
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/executor_gc_helper.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 PD_DECLARE_bool(benchmark);
 COMMON_DECLARE_bool(use_mkldnn);

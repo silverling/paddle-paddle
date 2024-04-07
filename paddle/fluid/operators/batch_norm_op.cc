@@ -14,23 +14,51 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/batch_norm_op.h"
 
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
-
-#include "paddle/fluid/framework/data_layout.h"
-#ifdef PADDLE_WITH_DNNL
-#include "paddle/fluid/platform/mkldnn_helper.h"
-#endif
+#include <ostream>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/prim/api/composite_backward/composite_backward_api.h"
 #include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
-#include "paddle/fluid/prim/utils/static/desc_tensor.h"
-
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/phi/infermeta/multiary.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/inplace_op_inference.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+namespace prim {
+class DescTensor;
+}  // namespace prim
+
 namespace operators {
 
 void BatchNormOp::InferShape(framework::InferShapeContext *ctx) const {

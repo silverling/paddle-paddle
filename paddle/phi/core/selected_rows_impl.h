@@ -14,20 +14,31 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <iterator>
 
 #include "paddle/common/ddim.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/utils/rw_lock.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+class Allocator;
+class Place;
+
 class SelectedRowsImpl {
   /*
    * @brief We can use the SelectedRowsImpl structure to reproduce a sparse

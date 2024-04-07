@@ -12,14 +12,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 #include "paddle/phi/backends/dynload/dynamic_loader.h"
-#include <dirent.h>
 
-#include <cstdlib>
+#include <dirent.h>
+#include <dlfcn.h>
+#include <string.h>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <ostream>
+
 #include "paddle/phi/backends/dynload/cupti_lib_path.h"
-#include "paddle/phi/common/port.h"
-#include "paddle/phi/core/enforce.h"
+#include "cuda.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/string/printf.h"
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -28,7 +34,6 @@ limitations under the License. */
 // TODO(wilber): The phi computing library requires a component to manage flags
 // (maybe not use gflags).
 #include "glog/logging.h"
-
 #include "paddle/common/flags.h"
 
 COMMON_DECLARE_string(cudnn_dir);

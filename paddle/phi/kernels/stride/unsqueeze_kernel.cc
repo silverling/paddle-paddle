@@ -14,13 +14,20 @@
 
 #include "paddle/phi/kernels/unsqueeze_kernel.h"
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <vector>
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/unsqueeze.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void UnsqueezeInferStridedKernel(const Context& dev_ctx,

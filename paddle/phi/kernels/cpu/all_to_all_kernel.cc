@@ -14,13 +14,21 @@
 
 #include "paddle/phi/kernels/all_to_all_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/phi/core/distributed/xccl_comm_context.h"
 #endif
 
 namespace phi {
+class CPUContext;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void AllToAllKernel(const Context& dev_ctx UNUSED,

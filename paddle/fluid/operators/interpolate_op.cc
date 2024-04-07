@@ -11,16 +11,32 @@
 
 #include "paddle/fluid/operators/interpolate_op.h"
 
-#include <memory>
 #include <string>
 #include <vector>
 
 #include "paddle/fluid/framework/op_registry.h"
-#ifdef PADDLE_WITH_DNNL
-#include "paddle/fluid/platform/mkldnn_helper.h"
-#endif
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 using DataLayout = phi::DataLayout;

@@ -15,9 +15,12 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "paddle/phi/backends/gpu/gpu_decls.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/layout.h"
+#include "paddle/utils/optional.h"
 #ifdef PADDLE_WITH_CUDA
 #include <cuda.h>
 #include <cuda_fp16.h>
@@ -25,6 +28,7 @@
 #include <stdint.h>
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void GroupNormKernel(const Context& dev_ctx,

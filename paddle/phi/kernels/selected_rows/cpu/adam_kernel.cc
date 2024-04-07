@@ -14,15 +14,39 @@
 
 #include "paddle/phi/kernels/selected_rows/adam_kernel.h"
 
+#include <cxxabi.h>
+#include <stddef.h>
+#include <cstdint>
+#include <exception>
+#include <future>
+#include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/core/threadpool.h"
 #include "paddle/phi/kernels/funcs/adam_functors.h"
 #include "paddle/phi/kernels/funcs/selected_rows_functor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/selected_rows.h"
+
+namespace phi {
+namespace funcs {
+struct CPUAdam;
+template <typename T, typename Flavour, typename MT = T> class SparseAdamFunctor;
+}  // namespace funcs
+}  // namespace phi
 
 PD_DECLARE_int32(inner_op_parallelism);
 

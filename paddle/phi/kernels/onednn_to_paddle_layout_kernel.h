@@ -19,6 +19,7 @@ limitations under the License. */
 #include "paddle/phi/kernels/empty_kernel.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename Context>
 void OneDNN2PaddleLayout(const Context& dev_ctx,

@@ -14,14 +14,30 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/op_trait.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
 
 class Program;
 class Block;
+class Builder;
+class IrContext;
+class Operation;
+class SideEffectTrait;
+struct OperationArgument;
+
 constexpr char kStopGradientAttrName[] = "stop_gradient";
 constexpr char kOutputDimExprs[] = "output_dim_exprs";
 constexpr char kSymbolBindings[] = "symbol_bindings";

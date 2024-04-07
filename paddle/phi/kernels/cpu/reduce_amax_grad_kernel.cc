@@ -13,11 +13,23 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/reduce_amax_grad_kernel.h"
+
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/reduce_functor.h"
 #include "paddle/phi/kernels/impl/reduce_grad.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/kernel_utils.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
+namespace funcs {
+struct AMaxOrAMinGradFunctor;
+}  // namespace funcs
 
 template <typename T, typename Context>
 void ReduceAMaxGradKernel(const Context& dev_ctx,

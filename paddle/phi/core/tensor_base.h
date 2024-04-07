@@ -14,6 +14,9 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "paddle/common/layout.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
@@ -21,8 +24,11 @@ limitations under the License. */
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/ddim.h"
 #include "paddle/phi/core/utils/type_registry.h"
+#include "paddle/phi/core/utils/type_info.h"
 
 namespace phi {
+class Allocator;
+class Place;
 
 class TensorBase {
  public:

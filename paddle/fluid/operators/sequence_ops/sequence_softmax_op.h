@@ -14,7 +14,22 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <complex>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/mixed_vector.h"
 
 namespace paddle {
 namespace operators {

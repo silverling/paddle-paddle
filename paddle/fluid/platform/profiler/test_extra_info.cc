@@ -12,8 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <string>
+#include <unordered_map>
+
 #include "paddle/fluid/platform/profiler/extra_info.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 using paddle::platform::ExtraInfo;
 

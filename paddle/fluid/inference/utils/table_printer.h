@@ -14,8 +14,11 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 #include <vector>
+#include <iosfwd>
+
 #include "paddle/utils/test_macros.h"
 
 namespace paddle {

@@ -14,9 +14,34 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/fill_zeros_like_op.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <vector>
+
 #include "paddle/fluid/platform/complex.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class FillZerosLikeOp : public framework::OperatorWithKernel {

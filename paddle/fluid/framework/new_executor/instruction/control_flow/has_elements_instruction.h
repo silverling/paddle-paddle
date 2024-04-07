@@ -14,11 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/framework/new_executor/new_executor_defs.h"
 #include "paddle/fluid/framework/tensor_ref_array.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace paddle {
 namespace framework {

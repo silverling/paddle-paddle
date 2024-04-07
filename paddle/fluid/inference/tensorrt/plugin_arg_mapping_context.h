@@ -14,12 +14,18 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 

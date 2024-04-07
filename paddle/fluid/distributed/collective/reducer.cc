@@ -13,10 +13,52 @@
 // limitations under the License.
 
 #include "paddle/fluid/distributed/collective/reducer.h"
+
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <numeric>
+#include <ostream>
+#include <queue>
+#include <set>
+#include <string>
+#include <utility>
+
 #include "paddle/common/flags.h"
 #include "paddle/phi/api/lib/data_transform.h"
-#include "paddle/phi/backends/device_guard.h"
-#include "paddle/phi/backends/device_manager.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/eager/accumulation/accumulation_node.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/grad_node_info.h"
+#include "paddle/fluid/eager/hooks.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/operators/math/concat_and_split.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/api/ext/tensor_compat.h"
+#include "paddle/phi/api/include/api.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/distributed/types.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/string/string_helper.h"
 
 PD_DECLARE_bool(use_stream_safe_cuda_allocator);
 COMMON_DECLARE_string(allocator_strategy);

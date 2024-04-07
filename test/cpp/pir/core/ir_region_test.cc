@@ -12,17 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <stdint.h>
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/ir_mapping.h"
 #include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/core/utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/value.h"
 
 TEST(region, erase_op_test) {
   // (1) Init environment.

@@ -16,6 +16,10 @@ limitations under the License. */
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/device_context.h"
 
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+
 namespace paddle {
 namespace operators {
 namespace math {

@@ -12,15 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
+#include <stdint.h>
 #include <sstream>
 #include <string>
+#include <algorithm>
+#include <memory>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/imperative/reducer.h"
-
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/phi/core/utils/data_type.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace imperative {

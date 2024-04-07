@@ -16,6 +16,11 @@ limitations under the License. */
 
 #include <algorithm>
 #include <string>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <ostream>
+#include <type_traits>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/framework.pb.h"
@@ -24,14 +29,20 @@ limitations under the License. */
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/compat/arg_map_context.h"
-#include "paddle/phi/core/compat/convert_utils.h"
-#include "paddle/phi/core/compat/op_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/phi/core/tensor_utils.h"
-
-#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/none.h"
 
 namespace paddle {
 namespace framework {

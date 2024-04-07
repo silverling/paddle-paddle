@@ -15,7 +15,8 @@ limitations under the License. */
 #pragma once
 
 #include <stdint.h>
-
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <vector>
@@ -24,6 +25,7 @@ limitations under the License. */
 #include "paddle/fluid/framework/proto_desc.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
 
 namespace paddle {
 namespace framework {

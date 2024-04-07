@@ -14,13 +14,22 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/backends/device_manager.h"
 #include "paddle/phi/core/device_context.h"
 #include "paddle/phi/core/stream.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace memory {

@@ -14,6 +14,11 @@
 
 #include "paddle/fluid/framework/details/var_handle.h"
 
+#include <sstream>
+
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+
 namespace paddle {
 namespace framework {
 namespace details {

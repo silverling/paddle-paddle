@@ -14,7 +14,6 @@
 #include "paddle/phi/kernels/svd_grad_kernel.h"
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/svd_grad_kernel_impl.h"
 

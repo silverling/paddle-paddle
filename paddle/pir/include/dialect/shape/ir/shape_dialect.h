@@ -14,7 +14,16 @@
 
 #pragma once
 
+#include <iosfwd>
+
 #include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace pir::shape {
 ///

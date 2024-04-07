@@ -12,12 +12,38 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <iterator>  // NOLINT
-#include "dnnl.hpp"  // NOLINT
-#include "paddle/fluid/framework/tensor.h"
-#include "paddle/fluid/operators/requantize_op.h"
+#include <stdint.h>
+#include <algorithm>
+#include <cmath>
+#include <memory>
+#include <string>
+#include <unordered_map>
+
 #include "paddle/phi/backends/onednn/onednn_helper.h"
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

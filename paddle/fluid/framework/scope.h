@@ -25,11 +25,13 @@ extern "C" {
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <cstddef>
 
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/phi/core/utils/rw_lock.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {

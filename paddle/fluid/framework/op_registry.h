@@ -14,6 +14,8 @@ limitations under the License. */
 
 #pragma once
 
+#include <bits/utility.h>
+#include <stddef.h>
 #include <algorithm>
 #include <atomic>
 #include <memory>
@@ -23,6 +25,7 @@ limitations under the License. */
 #include <typeinfo>
 #include <unordered_map>
 #include <unordered_set>
+#include <typeindex>
 
 #define GLOG_NO_ABBREVIATED_SEVERITIES  // msvc conflict logging with windows.h
 #include "glog/logging.h"               // For VLOG()
@@ -37,6 +40,34 @@ limitations under the License. */
 #include "paddle/fluid/framework/shape_inference.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/flat_hash_map.h"
+
+namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class KernelContext;
+}  // namespace phi
+namespace paddle {
+namespace framework {
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+}  // namespace paddle
 
 namespace paddle {
 namespace framework {

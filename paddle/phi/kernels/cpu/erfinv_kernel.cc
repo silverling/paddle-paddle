@@ -18,10 +18,15 @@
 
 #include "paddle/phi/kernels/erfinv_kernel.h"
 
+#include <math.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ErfinvKernel(const Context& ctx, const DenseTensor& x, DenseTensor* out) {

@@ -15,11 +15,36 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+
 #include "paddle/pir/include/core/builtin_type_interfaces.h"
 #include "paddle/pir/include/core/builtin_type_storage.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/common/layout.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/storage_manager_support.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
+class BFloat16Type;
+class BoolType;
+class Complex128Type;
+class Complex64Type;
+class Float16Type;
+class Float32Type;
+class Float64Type;
+class IndexType;
+class Int16Type;
+class Int32Type;
+class Int64Type;
+class Int8Type;
+class IrContext;
+class ShapedTypeInterface;
+class TypeStorage;
+class UInt8Type;
 ///
 /// \brief Define built-in parameterless types.
 ///

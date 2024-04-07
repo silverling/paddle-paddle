@@ -14,14 +14,26 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/inference/tensorrt/engine.h"
 #include "paddle/fluid/inference/tensorrt/plugin/trt_plugin.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/fluid/inference/tensorrt/plugin/trt_plugin_utils.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+
+namespace nvinfer1 {
+class IPluginV2;
+struct PluginTensorDesc;
+}  // namespace nvinfer1
 
 namespace paddle {
 namespace inference {

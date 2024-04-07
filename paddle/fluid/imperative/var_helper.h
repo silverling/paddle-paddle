@@ -15,14 +15,21 @@
 #pragma once
 
 #include <vector>
+#include <memory>
+#include <string>
 
 #include "paddle/fluid/framework/variable.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/test_macros.h"
 
 namespace egr {
 class EagerVariable;
 }  // namespace egr
 namespace phi {
 class DenseTensor;
+class KernelKey;
 }
 namespace paddle {
 namespace framework {

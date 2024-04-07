@@ -14,15 +14,30 @@
 
 #include "paddle/fluid/framework/ir/cost_model.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <memory>
+#include <algorithm>
+#include <cctype>
+#include <ostream>
 
 #include "paddle/fluid/framework/executor.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler.h"
+#include "paddle/phi/api/profiler/event.h"
 
 namespace paddle {
 namespace framework {
+namespace ir {
+class Graph;
+}  // namespace ir
 
 using ir::Graph;
 using platform::Event;

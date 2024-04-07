@@ -17,12 +17,15 @@
 #include <string>
 
 #include "paddle/phi/core/distributed/types.h"
+#include "nccl.h"
 
 #ifdef PADDLE_WITH_RCCL
 #include <hip/hip_runtime.h>
+
 #include "paddle/phi/backends/dynload/rccl.h"
 #else
 #include <cuda_runtime.h>
+
 #include "paddle/phi/backends/dynload/nccl.h"
 #endif
 

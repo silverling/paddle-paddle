@@ -14,7 +14,19 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/beam_search_decode_op.h"
 
-#include "gtest/gtest.h"
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <cstdint>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
 
 using CPUPlace = paddle::platform::CPUPlace;
 using LoD = paddle::framework::LoD;

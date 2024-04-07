@@ -14,7 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/eager/eager_tensor.h"
@@ -23,6 +31,16 @@
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/common/ddim.h"
 
 namespace egr {
 /**
@@ -49,6 +67,7 @@ namespace egr {
  **/
 class AutogradMeta;
 class GradNodeBase;
+class TensorHook;
 
 class Edge {
  public:

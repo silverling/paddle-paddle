@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <chrono>
+#include <bits/chrono.h>
 #include <iomanip>
-#include <ostream>
-#include <sstream>
 #include <string>
 #include <unordered_map>
+#include <algorithm>
+#include <iostream>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/macros.h"
 #include "paddle/pir/include/core/operation.h"

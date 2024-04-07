@@ -14,11 +14,10 @@ limitations under the License. */
 
 #include "paddle/fluid/pybind/cpython_internals.h"
 
-#include <frameobject.h>
-
 #if PY_VERSION_HEX >= 0x030b0000
 #include <internal/pycore_code.h>
 #include <internal/pycore_frame.h>
+
 #define Py_BUILD_CORE       // internal/pycore_opcode.h need this macro
 #define NEED_OPCODE_TABLES  // To get _PyOpcode_Caches and _PyOpcode_Deopt
 
@@ -26,11 +25,13 @@ limitations under the License. */
 // see https://github.com/python/cpython/issues/105268#issuecomment-1678256123
 #undef _PyGC_FINALIZED
 #include <internal/pycore_runtime.h>
+
 #define Internal_PyObject_Arena (_PyRuntime.allocators.obj_arena)
 #define _PyGC_FINALIZED
 #endif
 
 #include <internal/pycore_opcode.h>
+
 #undef NEED_OPCODE_TABLES
 #undef Py_BUILD_CORE
 #include <opcode.h>

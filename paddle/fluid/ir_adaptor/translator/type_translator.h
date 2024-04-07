@@ -16,6 +16,7 @@
 
 #include <tuple>
 #include <unordered_map>
+#include <functional>
 
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
@@ -23,8 +24,21 @@
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace paddle {
+namespace framework {
+class VarDesc;
+}  // namespace framework
+
 namespace translator {
 
 using TypeTranslateFn =

@@ -15,11 +15,24 @@ limitations under the License. */
 #pragma once
 #include <math.h>
 #include <stdlib.h>
-
+#include <stdint.h>
+#include <time.h>
 #include <iostream>
+#include <cmath>
+#include <random>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

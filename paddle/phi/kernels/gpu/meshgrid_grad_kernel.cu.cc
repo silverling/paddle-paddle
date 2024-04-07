@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/phi/kernels/meshgrid_grad_kernel.h"
+#include <cstdint>
 
 #include "paddle/phi/backends/gpu/gpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/meshgrid_grad_kernel_impl.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(meshgrid_grad,
                    GPU,

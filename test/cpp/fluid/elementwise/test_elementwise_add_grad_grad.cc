@@ -12,12 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <stddef.h>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "test/cpp/fluid/elementwise/test_elementwise_op_grad_grad.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/ddim.h"
+
+namespace paddle {
+namespace framework {
+class OperatorBase;
+}  // namespace framework
+}  // namespace paddle
 
 USE_OP_ITSELF(elementwise_add);
 PD_DECLARE_KERNEL(add_double_grad, CPU, ALL_LAYOUT);

@@ -14,12 +14,22 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/activation_grad_kernel.h"
 
+#include <cstdint>
+#include <typeinfo>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/float16.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/activation_grad_impl.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/kernels/funcs/activation_functor.h"
+#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
 
 #define DEFINE_CPU_ACTIVATION_GRAD_KERNEL_DEPX(name, functor_class) \
   template <typename T, typename Context>                           \

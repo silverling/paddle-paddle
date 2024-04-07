@@ -12,9 +12,29 @@
    See the License for the specific language governing permissions and
    limitations under the License. */
 
+#include <algorithm>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/memory/malloc.h"
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

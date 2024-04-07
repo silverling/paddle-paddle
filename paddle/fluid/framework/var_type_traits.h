@@ -14,12 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <map>
 #include <string>
 #include <tuple>
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
+#include <memory>
+#include <type_traits>
 
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/lod_tensor_array.h"
@@ -28,6 +31,7 @@
 #include "paddle/fluid/framework/tensor_ref_array.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
 #ifdef PADDLE_WITH_CUDA
 #include <cudnn.h>
 #if defined(PADDLE_WITH_NCCL)
@@ -82,7 +86,6 @@ class Scope;
 namespace operators {
 
 class CudnnRNNCache;
-
 class CUDAGraphWithInOuts;
 
 namespace reader {
@@ -95,6 +98,8 @@ class OrderedMultiDeviceLoDTensorBlockingQueueHolder;
 
 namespace paddle {
 namespace framework {
+class RawTensor;
+template <typename T> struct VarTypeTrait;
 
 TEST_API const char *ToTypeName(int var_id);
 TEST_API const std::type_index &VarTraitIdToTypeIndex(int var_id);

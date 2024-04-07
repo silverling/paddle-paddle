@@ -13,34 +13,44 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/math_function.h"
-#include "paddle/phi/core/utils/visit_place.h"
 
-#ifdef PADDLE_WITH_MKLML
-#include "paddle/phi/backends/dynload/mklml.h"
-#endif
+#include "paddle/phi/core/utils/visit_place.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/data_type.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorChipping.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 #ifdef PADDLE_USE_OPENBLAS
 #include <cblas.h>
 #endif
 
-#include <memory>
-#include <utility>
 #include <vector>
+#include <algorithm>
+#include <string>
 
-#include "paddle/phi/backends/context_pool.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/bfloat16.h"
-#include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/float16.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/funcs/math_function_impl.h"
-#include "unsupported/Eigen/CXX11/Tensor"
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/phi/api/lib/kernel_dispatch.h"
 #include "paddle/phi/core/kernel_factory.h"
 #endif
 
 namespace phi {
+class DeviceContext;
+
 namespace funcs {
 
 using float16 = phi::dtype::float16;

@@ -13,8 +13,10 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <memory>
 #include <vector>
+#include <cstdint>
 #ifdef PADDLE_WITH_BOX_PS
 #include "paddle/fluid/framework/fleet/box_wrapper.h"
 #endif
@@ -23,6 +25,13 @@
 #endif
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace paddle {
 namespace operators {

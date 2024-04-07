@@ -13,7 +13,18 @@
 // limitations under the License.
 
 #include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
+
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <array>
+#include <atomic>
+#include <queue>
+#include <unordered_set>
+
 #include "paddle/common/flags.h"
+#include "cuda_runtime.h"
+#include "paddle/phi/backends/dynload/cuda_driver.h"
+#include "paddle/utils/none.h"
 
 #if CUDA_VERSION < 11000
 cudaError_t cudaGetFuncBySymbol(cudaFunction_t *functionPtr,

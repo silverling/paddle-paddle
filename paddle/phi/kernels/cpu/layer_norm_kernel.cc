@@ -14,8 +14,13 @@
 
 #include "paddle/phi/kernels/layer_norm_kernel.h"
 
-#include "paddle/phi/kernels/cpu/elementwise.h"
 #include "paddle/phi/kernels/funcs/layer_norm_util.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
 #if !defined(PADDLE_WITH_CUDA) && !defined(_WIN32) && !defined(__APPLE__) && \
     !defined(__OSX__)
 #include "paddle/phi/kernels/funcs/jit/kernels.h"
@@ -24,7 +29,6 @@
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/elementwise_base.h"
 #include "paddle/phi/kernels/funcs/elementwise_functor.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
 
 namespace phi {
 

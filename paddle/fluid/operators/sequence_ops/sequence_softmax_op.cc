@@ -15,12 +15,31 @@ limitations under the License. */
 #include "paddle/fluid/operators/sequence_ops/sequence_softmax_op.h"
 
 #include <string>
+#include <algorithm>
 
-#if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
-#include "paddle/fluid/platform/device/gpu/gpu_dnn.h"
-#endif
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class SequenceSoftmaxOp : public framework::OperatorWithKernel {

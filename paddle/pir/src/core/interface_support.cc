@@ -14,6 +14,8 @@
 
 #include "paddle/pir/include/core/interface_support.h"
 
+#include <stdlib.h>
+
 namespace pir {
 InterfaceValue::~InterfaceValue() {
   if (model_) free(model_);

@@ -14,6 +14,10 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <functional>
+#include <memory>
+
 #include "paddle/common/macros.h"
 #include "paddle/phi/backends/callback_manager.h"
 #include "paddle/phi/common/place.h"

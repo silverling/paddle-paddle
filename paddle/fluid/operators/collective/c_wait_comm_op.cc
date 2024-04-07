@@ -12,8 +12,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 #include <string>
+#include <algorithm>
+#include <ostream>
+#include <vector>
 
 #include "paddle/fluid/framework/op_registry.h"
+#include "cuda_runtime_api.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
+
 namespace paddle {
 namespace framework {
 class Scope;
@@ -24,6 +43,7 @@ class Scope;
 #include "paddle/fluid/platform/collective_helper.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

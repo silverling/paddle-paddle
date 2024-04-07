@@ -14,16 +14,31 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/phi/api/all.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/small_vector.h"
 
 namespace egr {
 
 class TensorWrapper;
+class EagerVariable;
+class GradNodeBase;
+class GradSlotMeta;
 
 /**
  * EagerUtils is utils used to do some static conversion or autograd

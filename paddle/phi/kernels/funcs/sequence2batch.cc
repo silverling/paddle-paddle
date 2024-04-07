@@ -14,6 +14,11 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/sequence2batch.h"
 
+#include <string.h>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+
 namespace phi {
 namespace funcs {
 

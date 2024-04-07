@@ -15,16 +15,43 @@ limitations under the License. */
 #include "paddle/fluid/inference/api/api_impl.h"
 
 #include <glog/logging.h>
-
+#include <stdint.h>
 #include <memory>
 #include <sstream>
 #include <string>
+#include <algorithm>
+#include <cstring>
 
 #include "paddle/fluid/framework/feed_fetch_method.h"
 #include "paddle/fluid/inference/api/helper.h"
 #include "paddle/fluid/platform/cpu_helper.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/executor.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/inference/io.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/init.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 PD_DEFINE_bool(profile, false, "Turn on profiler for fluid");  // NOLINT
 

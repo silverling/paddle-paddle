@@ -14,8 +14,12 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/nd_mesh_reshard_function.h"
 
+#include <cstdint>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
-#include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/p_to_r_reshard_function.h"
@@ -26,8 +30,15 @@
 #include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_r_reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/same_status_reshard_function.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace phi {
+class DeviceContext;
+
 namespace distributed {
 
 namespace {

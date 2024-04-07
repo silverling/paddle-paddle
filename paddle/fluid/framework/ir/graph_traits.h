@@ -14,13 +14,17 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <stack>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <iterator>
 
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/node.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

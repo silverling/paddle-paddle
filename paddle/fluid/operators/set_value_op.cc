@@ -15,18 +15,37 @@
 #include "paddle/fluid/operators/set_value_op.h"
 
 #include <string>
+#include <algorithm>
+#include <cstdint>
+#include <iosfwd>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/inplace_op_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
-class InferShapeContext;
 class OpDesc;
-template <typename T>
-class EmptyGradOpMaker;
 }  // namespace framework
 namespace imperative {
 class OpBase;

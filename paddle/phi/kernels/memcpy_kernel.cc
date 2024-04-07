@@ -14,12 +14,20 @@
 
 #include "paddle/phi/kernels/memcpy_kernel.h"
 
-#include <vector>
+#include <stddef.h>
 
 #include "paddle/phi/backends/gpu/gpu_context.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/stream.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_utils.h"
 
 namespace phi {
 

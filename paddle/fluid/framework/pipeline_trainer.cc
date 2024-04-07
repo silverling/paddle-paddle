@@ -13,13 +13,34 @@
 // limitations under the License.
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
-#include "paddle/fluid/framework/data_feed_factory.h"
+#include <exception>
+#include <functional>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <thread>
+#include <vector>
+
 #include "paddle/fluid/framework/device_worker_factory.h"
 #include "paddle/fluid/framework/trainer.h"
 #include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/device_worker.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable_helper.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/string/string_helper.h"
 
 namespace paddle {
 namespace framework {
+class Dataset;
 
 void PipelineTrainer::Initialize(const TrainerDesc& trainer_desc,
                                  Dataset* dataset) {

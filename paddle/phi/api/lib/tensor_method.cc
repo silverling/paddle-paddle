@@ -12,25 +12,43 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stdint.h>
+#include <memory>
+#include <ostream>
+#include <string>
+
 #include "paddle/phi/api/include/tensor.h"
-
 #include "glog/logging.h"
-
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/tensor_base.h"
-
 #include "paddle/phi/api/include/context_pool.h"
 #include "paddle/phi/api/include/sparse_api.h"
 #include "paddle/phi/api/lib/api_gen_utils.h"
 #include "paddle/phi/api/lib/kernel_dispatch.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/api/lib/backend_set.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/type_info.h"
 // clang-format off
 #ifdef PADDLE_WITH_DISTRIBUTE
-#include "paddle/phi/infermeta/spmd_rules/rules.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/api/lib/data_transform.h"
 #endif
 namespace paddle {
 namespace experimental {

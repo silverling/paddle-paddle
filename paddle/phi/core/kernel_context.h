@@ -14,8 +14,10 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <iterator>
 #include <utility>
+#include <vector>
 
 #include "paddle/phi/core/attribute.h"
 #include "paddle/phi/core/device_context.h"
@@ -25,8 +27,11 @@
 #include "paddle/phi/core/type_defs.h"
 #include "paddle/utils/optional.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/utils/none.h"
 
 namespace phi {
+class DeviceContext;
+class TensorBase;
 
 /**
  * Note: KernelContext doesn't manage the life of DeviceContext and Tensor

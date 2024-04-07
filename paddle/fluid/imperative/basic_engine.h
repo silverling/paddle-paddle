@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
@@ -29,6 +30,8 @@ namespace imperative {
 
 class VarBase;
 class OpBase;
+class GradOpNode;
+class VariableWrapper;
 
 class TEST_API BasicEngine : public Engine {
  public:

@@ -15,6 +15,7 @@
 #pragma once
 
 #include <memory>
+
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
 #include "paddle/pir/include/pass/pass_manager.h"
@@ -22,6 +23,10 @@
 namespace pir {
 
 class Pass;
+class Block;
+class PassManager;
+class Program;
+class ShapeConstraintIRAnalysis;
 
 IR_API std::unique_ptr<Pass> CreateShapeOptimizationPass();
 

@@ -12,12 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <bits/std_abs.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <algorithm>
+#include <array>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/inference/api/analysis_predictor.h"
 #include "paddle/fluid/inference/api/mkldnn_quantizer.h"
-#include "paddle/fluid/inference/api/paddle_inference_api.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
 
 PD_DEFINE_string(dirname, "", "dirname to tests.");
 

@@ -19,7 +19,13 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/data_feed.h"
 
-#include "paddle/fluid/framework/fleet/ps_gpu_wrapper.h"
+#include <bits/std_abs.h>
+#include <ctype.h>
+#include <cuda_runtime.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <cmath>
 #ifdef _LINUX
 #include <stdio_ext.h>
 #include <sys/mman.h>
@@ -28,6 +34,13 @@ limitations under the License. */
 #include "io/fs.h"
 #include "paddle/fluid/platform/monitor.h"
 #include "paddle/fluid/platform/timer.h"
+#include "driver_types.h"
+#include "paddle/fluid/framework/data_feed.pb.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
 
 USE_INT_STAT(STAT_total_feasign_num_in_mem);
 COMMON_DECLARE_bool(enable_ins_parser_file);

@@ -15,6 +15,7 @@ limitations under the License. */
 #pragma once
 #include <math.h>
 #include <stdlib.h>
+#include <cmath>
 
 #include "paddle/common/hostdevice.h"
 #include "paddle/fluid/platform/device_context.h"

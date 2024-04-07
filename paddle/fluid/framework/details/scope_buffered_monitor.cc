@@ -14,14 +14,34 @@
 
 #include "paddle/fluid/framework/details/scope_buffered_monitor.h"
 
+#include <ext/alloc_traits.h>
+#include <list>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <type_traits>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/utils/string/printf.h"
 
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 COMMON_DECLARE_double(local_exe_sub_scope_limit);
 

@@ -13,15 +13,20 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/details/computation_op_handle.h"
+
 #include <string>
+#include <map>
+
 #include "paddle/common/flags.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_registry.h"
 
 COMMON_DECLARE_bool(allreduce_record_one_event);
 
 namespace paddle {
 namespace framework {
 namespace details {
-struct VarHandleBase;
 
 ComputationOpHandle::ComputationOpHandle(ir::Node *node,
                                          Scope *scope,

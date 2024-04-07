@@ -16,10 +16,15 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
+#include <functional>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_traits.h"
 #include "paddle/fluid/framework/ir/node.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

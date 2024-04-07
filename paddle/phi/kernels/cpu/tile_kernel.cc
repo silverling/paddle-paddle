@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/tile_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/tile_kernel_impl.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+
+namespace phi {
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(tile,
                    CPU,

@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/phi/common/int_array.h"

@@ -13,8 +13,23 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/transpose_grad_kernel.h"
+
+#include <stdint.h>
+#include <string>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
 
 namespace phi {
 template <typename T, typename Context>

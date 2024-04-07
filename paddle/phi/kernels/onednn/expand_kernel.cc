@@ -14,10 +14,27 @@
 
 #include "paddle/phi/kernels/expand_kernel.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
 
 std::vector<int64_t> GetExtendedXDims(const std::vector<int64_t>& x_vec_dims,
                                       int new_size) {

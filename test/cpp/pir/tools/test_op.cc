@@ -13,10 +13,26 @@
 // limitations under the License.
 
 #include "test/cpp/pir/tools/test_op.h"
+
+#include <iterator>
+#include <string>
+#include <unordered_map>
+
 #include "paddle/common/enforce.h"
-#include "paddle/fluid/platform/errors.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class Block;
+}  // namespace pir
+
 namespace test {
 
 void RegionOp::Build(pir::Builder &builder, pir::OperationArgument &argument) {

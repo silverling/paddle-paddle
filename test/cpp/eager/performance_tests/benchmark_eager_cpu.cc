@@ -14,24 +14,35 @@
 
 // Eager Dygraph
 
-#include <paddle/fluid/framework/op_registry.h>
+#include <bits/chrono.h>
+#include <stddef.h>
+#include <algorithm>
+#include <initializer_list>
+#include <iostream>
+#include <memory>
+#include <ratio>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include <chrono>
-
-#include "gtest/gtest.h"
-#include "paddle/common/flags.h"
-#include "paddle/fluid/eager/api/all.h"
-#include "paddle/fluid/eager/autograd_meta.h"
-#include "paddle/fluid/eager/backward.h"
 #include "paddle/fluid/imperative/tracer.h"
 #include "test/cpp/eager/performance_tests/benchmark_utils.h"
 #include "test/cpp/eager/test_utils.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/eager/api/utils/hook_utils.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
 
 #ifdef WITH_GPERFTOOLS
 #include "gperftools/profiler.h"
 #endif
-
-#include "paddle/phi/core/kernel_registry.h"
 
 using namespace egr;            // NOLINT
 using namespace egr_utils_api;  // NOLINT

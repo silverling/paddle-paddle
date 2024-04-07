@@ -12,17 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/phi/kernels/sparse/unary_kernel.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <numeric>
+#include <vector>
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/kernels/sparse/unary_kernel.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/cast_kernel.h"
 #include "paddle/phi/kernels/empty_kernel.h"
 #include "paddle/phi/kernels/reduce_sum_kernel.h"
-#include "paddle/phi/kernels/sparse/empty_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
 
 namespace phi {
+class CPUContext;
+
 namespace sparse {
 
 template <typename T, typename IntT, typename Context>

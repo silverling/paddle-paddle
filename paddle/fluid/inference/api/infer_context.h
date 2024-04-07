@@ -15,6 +15,8 @@
 
 #include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/common/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
 #ifdef PADDLE_WITH_XPU
 #include "paddle/phi/backends/xpu/xpu_l3_strategy.h"
 #endif

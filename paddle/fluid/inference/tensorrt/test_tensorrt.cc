@@ -14,11 +14,21 @@ limitations under the License. */
 
 #include <cuda_runtime_api.h>
 #include <glog/logging.h>
-#include <gtest/gtest.h>
+#include <memory>
+#include <ostream>
 
 #include "NvInfer.h"
 #include "paddle/fluid/inference/tensorrt/helper.h"
 #include "paddle/fluid/platform/dynload/tensorrt.h"
+#include "NvInferLegacyDims.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "driver_types.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/dynload/dynamic_loader.h"
+#include "paddle/phi/backends/gpu/forwards.h"
 
 namespace dy = paddle::platform::dynload;
 

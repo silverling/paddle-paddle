@@ -14,7 +14,11 @@
 
 #include "paddle/fluid/ir_adaptor/translator/utils.h"
 
+#include <stddef.h>
 #include <unordered_map>
+#include <algorithm>
+#include <ostream>
+#include <set>
 
 #include "paddle/common/enforce.h"
 #include "paddle/fluid/ir_adaptor/translator/op_translator.h"
@@ -23,6 +27,18 @@
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/utils.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/ir_adaptor/translator/program_translator.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_onednn_dialect.h"

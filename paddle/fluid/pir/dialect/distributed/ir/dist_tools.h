@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #pragma once
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_type.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 #include "paddle/phi/core/distributed/type_defs.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
+
+namespace pir {
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

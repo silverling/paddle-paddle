@@ -16,10 +16,15 @@
 #include <vector>
 
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 
 namespace phi {
+class CPUPlace;
+
 namespace fusion {
 
 template <typename T, typename Context>

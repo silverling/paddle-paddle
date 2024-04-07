@@ -14,12 +14,31 @@
 
 #pragma once
 
+#include <stddef.h>
+
 #include "paddle/fluid/pir/dialect/kernel/ir/type_storage.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/storage_manager_support.h"
+#include "paddle/pir/include/core/type_base.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+class WrapTypeInterface;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {
+struct AllocatedDenseTensorArrayTypeStorage;
+struct AllocatedDenseTensorTypeStorage;
+struct AllocatedSelectedRowsTypeStorage;
 
 class AllocatedDenseTensorType
     : public pir::Type::TypeBase<AllocatedDenseTensorType,

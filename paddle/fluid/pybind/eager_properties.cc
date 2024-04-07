@@ -9,29 +9,54 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 // disable numpy compile error
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
+#include <stddef.h>
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <memory>
+#include <ostream>
 
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/utils.h"
-#include "paddle/fluid/imperative/op_base.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
 #include "paddle/fluid/pybind/exception.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "descrobject.h"
+#include "object.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/imperative/layout_autotune.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/pybind.h"
+#include "pymacro.h"
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 

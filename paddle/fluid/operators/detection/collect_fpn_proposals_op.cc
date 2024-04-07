@@ -11,9 +11,35 @@ limitations under the License.*/
 
 #include "paddle/fluid/operators/detection/collect_fpn_proposals_op.h"
 
+#include <stdint.h>
+
 #include "paddle/fluid/framework/op_version_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/small_vector.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class CollectFpnProposalsOp : public framework::OperatorWithKernel {

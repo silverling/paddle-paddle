@@ -14,12 +14,15 @@
 
 #include "paddle/phi/kernels/eigh_kernel.h"
 
-#include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/complex_functors.h"
 #include "paddle/phi/kernels/funcs/values_vectors_functor.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void EighKernel(const Context& dev_ctx,

@@ -14,10 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <sstream>
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <initializer_list>
 
 #include "paddle_infer_declare.h"  // NOLINT
 

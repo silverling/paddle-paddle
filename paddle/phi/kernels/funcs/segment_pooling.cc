@@ -14,10 +14,38 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/segment_pooling.h"
 
+#include <stdint.h>
 #include <string>
+#include <array>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorConversion.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
+
+namespace paddle {
+template <class T> class optional;
+}  // namespace paddle
 
 namespace phi {
 namespace funcs {

@@ -14,11 +14,19 @@
 
 #include "paddle/phi/kernels/mode_grad_kernel.h"
 
+#include <string.h>
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/funcs/mode.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace phi {
 

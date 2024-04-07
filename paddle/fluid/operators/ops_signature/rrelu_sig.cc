@@ -13,6 +13,9 @@
 // limitations under the License.
 
 #include "paddle/phi/core/compat/op_utils.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/type_defs.h"
 
 namespace phi {
 

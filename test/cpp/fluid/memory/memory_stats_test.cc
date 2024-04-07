@@ -14,9 +14,17 @@
 
 #include <algorithm>
 #include <vector>
+#include <cstdint>
+#include <memory>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/memory/memory.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace memory {

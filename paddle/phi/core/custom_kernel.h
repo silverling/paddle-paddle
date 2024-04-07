@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "paddle/common/macros.h"
 #include "paddle/phi/core/kernel_factory.h"
 

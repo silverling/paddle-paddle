@@ -15,11 +15,17 @@
 #include "paddle/fluid/framework/details/fetch_barrier_op_handle.h"
 
 #include <string>
+#include <map>
+
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/context_pool.h"
 
 namespace paddle {
 namespace framework {
 namespace details {
-struct VarHandleBase;
 
 FetchBarrierOpHandle::FetchBarrierOpHandle(
     ir::Node *node,

@@ -14,12 +14,19 @@ limitations under the License. */
 
 #pragma once
 
+#include <type_traits>
+
 #include "paddle/phi/common/complex.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/infermeta/unary.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void ConjKernel(const Context& dev_ctx, const DenseTensor& x, DenseTensor* out);

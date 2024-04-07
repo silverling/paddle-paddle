@@ -13,16 +13,39 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/ir/delete_weight_dequant_linear_op_pass.h"
+
+#include <stdint.h>
+#include <algorithm>
+#include <iterator>
+#include <map>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/quantize_helper.h"
-
-#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 void DeleteWeightDequantLinearOpPass::ApplyImpl(ir::Graph* graph) const {
   std::unordered_set<std::string> op_list = {"matrix_multiply",

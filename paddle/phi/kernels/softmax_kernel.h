@@ -18,6 +18,7 @@ limitations under the License. */
 #include "paddle/phi/kernels/cast_kernel.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void SoftmaxKernel(const Context& dev_ctx,

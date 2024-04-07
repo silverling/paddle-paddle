@@ -14,15 +14,44 @@
 
 #include "paddle/phi/kernels/conv_transpose_kernel.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <iosfwd>
+#include <iterator>
+#include <memory>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/phi/backends/onednn/onednn_helper.h"
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
-#include "paddle/phi/core/expect.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/conv_util.h"
-#include "paddle/phi/kernels/funcs/data_layout_transform.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
 
 struct DeconvolutionCache {
   dnnl::deconvolution_forward deconvolution_forward;

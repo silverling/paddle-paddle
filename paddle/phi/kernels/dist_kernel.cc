@@ -14,12 +14,13 @@
 
 #include "paddle/phi/kernels/dist_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/elementwise_subtract_kernel.h"
 #include "paddle/phi/kernels/p_norm_kernel.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
 
 template <typename T, typename Context>
 void DistKernel(const Context& dev_ctx,

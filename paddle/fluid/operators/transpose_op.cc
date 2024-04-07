@@ -12,13 +12,47 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <memory>
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "paddle/fluid/operators/transpose_op.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/infershape_utils.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/prim/api/composite_backward/composite_backward_api.h"
+#include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/phi/infermeta/unary.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+namespace prim {
+class DescTensor;
+}  // namespace prim
+
 namespace operators {
 
 phi::KernelKey TransposeOp::GetExpectedKernelType(

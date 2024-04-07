@@ -17,9 +17,12 @@
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "paddle/common/macros.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ASGDKernelCPUImpl(const Context& dev_ctx,

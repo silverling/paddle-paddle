@@ -13,14 +13,21 @@
 // limitations under the License.
 
 #include <climits>
+#include <algorithm>
+#include <cstdint>
+#include <vector>
 
 #include "paddle/phi/kernels/cpu/unique_consecutive_functor.h"
 #include "paddle/phi/kernels/unique_consecutive_kernel.h"
-
 #include "paddle/common/errors.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/utils/data_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

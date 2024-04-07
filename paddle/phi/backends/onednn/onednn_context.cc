@@ -14,16 +14,22 @@
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/phi/backends/onednn/onednn_context.h"
 
-#include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/utils/flat_hash_map.h"
+#include <mutex>
+#include <ostream>
+#include <type_traits>
 
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/flat_hash_map.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/core/expect.h"
-
 #include "glog/logging.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
+class DenseTensor;
 
 OneDNNContextThreadLocals::Body::Body()
     : cur_engine(dnnl::engine::kind::cpu, 0), cur_stream(cur_engine) {

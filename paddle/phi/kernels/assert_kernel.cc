@@ -14,12 +14,19 @@
 
 #include "paddle/phi/kernels/assert_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include <stddef.h>
+#include <string>
 
+#include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/tensor_formatter.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
+class CPUContext;
 
 template <typename T, typename Context>
 void AssertKernel(const Context& ctx,

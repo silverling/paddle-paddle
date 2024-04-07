@@ -15,13 +15,20 @@ limitations under the License. */
 #include <algorithm>
 #include <iostream>
 #include <iterator>
+#include <utility>
 
 #include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/phi/core/distributed/auto_parallel/proto_helper.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
+#include "paddle/phi/core/distributed/auto_parallel/utils.h"
 
 namespace paddle {
 namespace distributed {

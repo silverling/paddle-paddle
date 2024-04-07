@@ -17,8 +17,11 @@
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
+class SelectedRows;
+
 namespace sr {
 
 template <typename T, typename Context>

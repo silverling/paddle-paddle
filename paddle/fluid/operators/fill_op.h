@@ -20,6 +20,9 @@ limitations under the License. */
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace operators {

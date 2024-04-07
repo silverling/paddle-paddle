@@ -11,12 +11,26 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include "paddle/phi/common/bfloat16.h"
-#include "paddle/phi/common/complex.h"
-#include "paddle/phi/common/float16.h"
+#include <stdint.h>
+
 #include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/Tensor.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 namespace funcs {
 
 template <typename T, int Rank>

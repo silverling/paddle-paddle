@@ -12,8 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
+#include <memory>
+#include <random>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/uniform_real_distribution.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

@@ -12,9 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/phi/kernels/impl/add_n_kernel_impl.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
+#include "paddle/phi/kernels/impl/add_n_kernel_impl.h"
 #include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/core/utils/type_registry.h"
+#include "paddle/phi/kernels/add_n_kernel.h"
+#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/phi/kernels/funcs/selected_rows_functor.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

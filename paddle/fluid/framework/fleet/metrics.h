@@ -15,7 +15,6 @@ limitations under the License. */
 #pragma once
 
 #include <ThreadPool.h>
-
 #include <atomic>
 #include <ctime>
 #include <map>

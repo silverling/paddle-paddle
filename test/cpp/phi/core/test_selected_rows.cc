@@ -13,11 +13,21 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <ctime>
-
 #include <thread>  // NOLINT
+#include <cstdint>
+#include <iostream>
+#include <memory>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
 namespace tests {

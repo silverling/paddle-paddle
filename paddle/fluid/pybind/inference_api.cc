@@ -14,20 +14,19 @@
 
 #include "paddle/fluid/pybind/inference_api.h"
 
-#include <pybind11/functional.h>
 #include <pybind11/numpy.h>
-#include <pybind11/stl.h>
-
 #include <cstring>
-#include <functional>
 #include <iterator>
 #include <map>
 #include <memory>
 #include <string>
-#include <type_traits>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <array>
+#include <cstdint>
+#include <ostream>
 
 #include "paddle/fluid/inference/api/analysis_predictor.h"
 #include "paddle/fluid/inference/api/helper.h"
@@ -37,10 +36,29 @@
 #include "paddle/fluid/inference/api/paddle_pass_builder.h"
 #include "paddle/fluid/inference/api/paddle_tensor.h"
 #include "paddle/fluid/inference/utils/io_utils.h"
-#include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/core/compat/convert_utils.h"
+#include "glog/logging.h"
+#include "object.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/api_impl.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/pybind.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/phi/core/cuda_stream.h"

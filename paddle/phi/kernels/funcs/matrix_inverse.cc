@@ -14,7 +14,25 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/matrix_inverse.h"
 
-#include "paddle/phi/kernels/funcs/blas/blas.h"
+#include <string>
+
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/CwiseNullaryOp.h"
+#include "Eigen/src/Core/DenseCoeffsBase.h"
+#include "Eigen/src/Core/Diagonal.h"
+#include "Eigen/src/Core/GeneralProduct.h"
+#include "Eigen/src/Core/GenericPacketMath.h"
+#include "Eigen/src/Core/NoAlias.h"
+#include "Eigen/src/Core/PermutationMatrix.h"
+#include "Eigen/src/Core/SelfCwiseBinaryOp.h"
+#include "Eigen/src/Core/TriangularMatrix.h"
+#include "Eigen/src/Core/Visitor.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "src/Core/DenseBase.h"
+#include "src/Core/MatrixBase.h"
 
 namespace phi {
 namespace funcs {

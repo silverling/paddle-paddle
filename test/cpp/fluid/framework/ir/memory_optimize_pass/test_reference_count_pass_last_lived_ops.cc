@@ -12,16 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/ir/graph.h"
-#include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/memory_optimization_var_info.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
 #include "paddle/fluid/framework/parallel_executor.h"
 #include "paddle/fluid/framework/program_desc.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/details/build_strategy.h"
+#include "paddle/fluid/framework/details/computation_op_handle.h"
+#include "paddle/fluid/framework/details/execution_strategy.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/optional.h"
 
 COMMON_DECLARE_double(eager_delete_tensor_gb);
 

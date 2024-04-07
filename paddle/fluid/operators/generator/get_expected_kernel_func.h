@@ -18,6 +18,11 @@ limitations under the License. */
 #include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
+namespace framework {
+class ExecutionContext;
+class OperatorWithKernel;
+}  // namespace framework
+
 namespace operators {
 
 phi::KernelKey GetConcatExpectedKernelType(

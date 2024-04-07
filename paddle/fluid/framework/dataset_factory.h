@@ -21,6 +21,8 @@ limitations under the License. */
 
 namespace paddle {
 namespace framework {
+class Dataset;
+
 class DatasetFactory {
  public:
   static std::string DatasetTypeList();

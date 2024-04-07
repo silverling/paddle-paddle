@@ -14,30 +14,40 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 
+#include <cuda_runtime.h>
+#include <limits.h>
 #include <array>
-#include <cstdlib>
 #include <mutex>
 #include <set>
 #include <vector>
+#include <algorithm>
+#include <atomic>
+#include <iostream>
+#include <memory>
+#include <string>
 
 #include "paddle/common/flags.h"
-#include "paddle/fluid/memory/memory.h"
 #include "paddle/fluid/platform/cuda_device_guard.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/flags.h"
 #include "paddle/fluid/platform/lock_guard_ptr.h"
-#include "paddle/fluid/platform/macros.h"
-#include "paddle/fluid/platform/monitor.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler/mem_tracing.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
-#include "paddle/utils/string/split.h"
+#include "driver_types.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
 
 #ifdef PADDLE_WITH_HIP
 #include "paddle/fluid/platform/dynload/miopen.h"
 #include "paddle/phi/backends/gpu/rocm/hip_graph.h"
 #else
-#include "paddle/fluid/platform/dynload/cudnn.h"
 #include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
 #endif
 

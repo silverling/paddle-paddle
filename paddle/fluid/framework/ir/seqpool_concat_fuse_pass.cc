@@ -14,15 +14,25 @@
 
 #include "paddle/fluid/framework/ir/seqpool_concat_fuse_pass.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
+#include <map>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
-namespace paddle {
-namespace framework {
-namespace ir {
-class Node;
-}  // namespace ir
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 #define MAX_CONCAT_INPUTS 200
 

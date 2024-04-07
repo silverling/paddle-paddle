@@ -13,10 +13,40 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/ir/quant_linear_fuse_pass.h"
-#include "paddle/fluid/framework/ir/quantize_helper.h"
+
+#include <math.h>
+#include <stdint.h>
+#include <initializer_list>
+#include <map>
+#include <ostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace {
 template <typename T1, typename T2>

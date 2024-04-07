@@ -26,6 +26,8 @@ limitations under the License. */
 namespace paddle {
 namespace framework {
 namespace ir {
+class Node;
+
 namespace fusion_group {
 
 class SubGraph;

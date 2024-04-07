@@ -16,14 +16,47 @@ limitations under the License. */
 #include "paddle/fluid/distributed/ps/wrapper/fleet.h"
 #endif
 
-#include "paddle/fluid/framework/threadpool.h"
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <exception>
+#include <future>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <thread>
+#include <vector>
 
+#include "paddle/fluid/framework/threadpool.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/device_worker_factory.h"
 #include "paddle/fluid/framework/trainer.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/data_set.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/device_worker.h"
+#include "paddle/fluid/framework/fleet/fleet_wrapper.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/complex.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/threadpool.h"
 
 namespace paddle {
 namespace framework {
+class DataFeed;
+class ProgramDesc;
 
 void DistMultiTrainer::Initialize(const TrainerDesc &trainer_desc,
                                   Dataset *dataset) {

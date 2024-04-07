@@ -13,8 +13,21 @@
 // limitations under the License.
 #pragma once
 
+#include <memory>
+#include <unordered_map>
+
 #include "paddle/phi/common/place.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class Block;
+class IrContext;
+class Operation;
+class Program;
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

@@ -14,8 +14,15 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/graph_helper.h"
 
+#include <ext/alloc_traits.h>
 #include <queue>
 #include <stack>
+#include <algorithm>
+#include <cstdint>
+#include <deque>
+#include <memory>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/framework/details/grad_merge_all_reduce_op_handle.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
@@ -24,15 +31,27 @@ limitations under the License. */
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/program_utils.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/proto_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/utils/any.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/details/nccl_op_handle.h"
 #include "paddle/fluid/platform/collective_helper.h"
-#include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 #include "paddle/fluid/platform/flags.h"
+
 PD_DECLARE_bool(convert_all_blocks);
 PD_DECLARE_bool(all_blocks_convert_trt);
 PADDLE_DEFINE_EXPORTED_string(print_sub_graph_dir,

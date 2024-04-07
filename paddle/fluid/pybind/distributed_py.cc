@@ -12,7 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <fcntl.h>
 #ifdef _POSIX_C_SOURCE
 #undef _POSIX_C_SOURCE
 #endif
@@ -21,16 +20,33 @@ limitations under the License. */
 #undef _XOPEN_SOURCE
 #endif
 
+#include <features.h>
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <vector>
+
 #include "paddle/fluid/distributed/collective/process_group.h"
 #include "paddle/fluid/distributed/collective/reducer.h"
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/framework/tensor.h"
-#include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/pybind/distributed_py.h"
 #include "paddle/fluid/pybind/eager_utils.h"
 #include "paddle/fluid/pybind/process_group_utils.h"
-#include "paddle/phi/api/all.h"
 #include "paddle/phi/core/distributed/types.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/ext/tensor_compat.h"
+#include "paddle/phi/api/include/api.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/utils/pybind.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/pytypes.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/distributed/collective/process_group_nccl.h"
@@ -53,6 +69,10 @@ limitations under the License. */
 #endif
 
 #include "paddle/phi/kernels/sync_batch_norm_kernel.h"
+
+namespace pybind11 {
+class gil_scoped_release;
+}  // namespace pybind11
 
 namespace paddle {
 namespace pybind {

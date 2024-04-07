@@ -16,11 +16,32 @@
 
 #include <functional>
 #include <vector>
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_version_registry.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

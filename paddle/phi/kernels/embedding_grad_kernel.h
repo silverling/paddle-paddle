@@ -14,10 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+class DenseTensor;
+class SelectedRows;
 
 template <typename T, typename Context>
 void EmbeddingGradKernel(const Context& ctx,

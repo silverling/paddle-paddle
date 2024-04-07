@@ -14,32 +14,37 @@
 
 #include "paddle/phi/backends/gpu/gpu_resources.h"
 
+#include <cuda_runtime.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <set>
-
 #include <map>
-#include "paddle/phi/api/include/tensor.h"
+#include <atomic>
+#include <ostream>
+#include <string>
+
 #include "paddle/phi/backends/gpu/gpu_decls.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/allocator.h"
+#include "cublas_v2.h"
+#include "cuda.h"
+#include "cudnn_version.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/gpu/gpu_types.h"
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/backends/dynload/cublas.h"
 #include "paddle/phi/backends/dynload/cublasLt.h"
 #include "paddle/phi/backends/dynload/cudnn.h"
 #include "paddle/phi/backends/dynload/cusolver.h"
 #include "paddle/phi/backends/dynload/cusparse.h"
-#if !defined(__APPLE__) && defined(PADDLE_WITH_NCCL)
-#include "paddle/phi/backends/dynload/nccl.h"
-#endif  // !defined(__APPLE__) && defined(PADDLE_WITH_NCCL)
-#endif  // PADDLE_WITH_CUDA
 
 #ifdef PADDLE_WITH_HIP
 #include "paddle/phi/backends/dynload/rocsparse.h"
 #endif
 
 #include "glog/logging.h"
-#include "unsupported/Eigen/CXX11/Tensor"
-
 #include "paddle/phi/core/enforce.h"
 
 namespace phi {

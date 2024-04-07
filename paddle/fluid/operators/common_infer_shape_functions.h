@@ -16,6 +16,8 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

@@ -14,9 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace dialect {

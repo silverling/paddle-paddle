@@ -11,8 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
-#include "paddle/fluid/primitive/utils/utils.h"
+
+#include "paddle/phi/api/ext/op_meta_info.h"
 
 namespace paddle {
 namespace primitive {

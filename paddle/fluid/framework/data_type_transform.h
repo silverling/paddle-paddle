@@ -20,6 +20,13 @@ limitations under the License. */
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/utils/test_macros.h"
+
+namespace phi {
+class DenseTensor;
+class KernelKey;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

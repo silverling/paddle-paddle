@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <cstdint>
+#include <memory>
+#include <string>
 
 #include "paddle/fluid/pir/drr/include/drr_match_context.h"
 #include "paddle/fluid/pir/drr/src/match_context_impl.h"
-#include "paddle/phi/common/data_type.h"
+
+namespace pir {
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace drr {

@@ -14,9 +14,13 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle//phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
+
 template <typename T, typename Context>
 void CEmbeddingKernel(const Context& ctx,
                       const DenseTensor& w,

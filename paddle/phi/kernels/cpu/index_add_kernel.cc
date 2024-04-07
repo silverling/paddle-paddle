@@ -13,13 +13,18 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/index_add_kernel.h"
-#include "paddle/phi/common/memory_utils.h"
+
+#include <cstdint>
+#include <string>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/kernels/cpu/index_add_impl.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/float16.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void IndexAddKernel(const Context& dev_ctx,

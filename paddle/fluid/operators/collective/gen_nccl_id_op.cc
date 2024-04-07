@@ -12,8 +12,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <string.h>
 #include <ostream>
 #include <string>
+#include <functional>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
@@ -21,15 +24,18 @@ limitations under the License. */
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/var_type_traits.h"
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/gen_comm_id_helper.h"
 #include "paddle/fluid/platform/place.h"
-
-namespace paddle {
-namespace framework {
-class Scope;
-}  // namespace framework
-}  // namespace paddle
+#include "nccl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

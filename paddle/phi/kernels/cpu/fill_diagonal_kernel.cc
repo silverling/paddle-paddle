@@ -14,9 +14,16 @@
 
 #include "paddle/phi/kernels/fill_diagonal_kernel.h"
 
+#include <stdint.h>
+#include <algorithm>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

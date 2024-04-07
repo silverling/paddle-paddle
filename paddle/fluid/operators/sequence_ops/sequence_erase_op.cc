@@ -16,6 +16,20 @@ limitations under the License. */
 
 #include <vector>
 
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
+
 namespace paddle {
 namespace operators {
 

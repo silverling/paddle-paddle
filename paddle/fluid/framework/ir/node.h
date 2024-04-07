@@ -14,17 +14,27 @@ limitations under the License. */
 
 #pragma once
 
+#include <limits.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <typeindex>
 #include <typeinfo>
 #include <vector>
+#include <algorithm>
+#include <functional>
+#include <ostream>
 
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/utils/any.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/enforce.h"
+
 namespace paddle {
 namespace framework {
 class OpDesc;

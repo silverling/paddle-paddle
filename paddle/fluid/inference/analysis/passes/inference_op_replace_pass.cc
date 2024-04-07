@@ -14,7 +14,13 @@
 
 #include "paddle/fluid/inference/analysis/passes/inference_op_replace_pass.h"
 
+#include <unordered_map>
+#include <unordered_set>
+
 #include "paddle/fluid/inference/analysis/argument.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
 
 namespace paddle {
 namespace inference {

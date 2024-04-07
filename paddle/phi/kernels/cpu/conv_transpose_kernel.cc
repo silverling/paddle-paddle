@@ -16,8 +16,10 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/conv_transpose_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void DepthwiseConv2dTransposeKernel(const Context& ctx,

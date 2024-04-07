@@ -14,9 +14,17 @@
 
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
 
+#include <ostream>
+#include <utility>
+
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace distributed {

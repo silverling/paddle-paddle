@@ -14,12 +14,20 @@
 
 #include "paddle/phi/kernels/share_buffer_kernel.h"
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <ostream>
 
+#include "glog/logging.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/visit_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void ShareBufferKernel(const Context &dev_ctx UNUSED,

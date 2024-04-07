@@ -12,26 +12,66 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <cstdint>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/phi_utils.h"
-
 // only can include the headers in paddle/phi/api dirs
 #include "paddle/fluid/prim/api/composite_backward/composite_backward_api.h"
 #include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/backward.h"
-#include "paddle/phi/infermeta/unary.h"
 #include "paddle/phi/kernels/reshape_grad_kernel.h"
 #include "paddle/phi/kernels/reshape_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/inplace_op_inference.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+class GPUContext;
+}  // namespace phi
+
 namespace paddle {
 namespace framework {
-class InferShapeContext;
 class OpDesc;
+class BlockDesc;
+class Variable;
 }  // namespace framework
 namespace imperative {
 class OpBase;
@@ -39,6 +79,10 @@ class OpBase;
 }  // namespace paddle
 
 namespace paddle {
+namespace prim {
+class DescTensor;
+}  // namespace prim
+
 namespace operators {
 
 class ReshapeOp : public framework::OperatorWithKernel {

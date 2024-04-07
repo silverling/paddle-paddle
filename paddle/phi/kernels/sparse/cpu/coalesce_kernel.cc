@@ -14,11 +14,27 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/coalesce_kernel.h"
 
+#include <string.h>
+#include <cstdint>
+#include <map>
+#include <vector>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/funcs/sparse/flatten_indices.h"
+#include "paddle/common/array.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/kernels/empty_kernel.h"
 
 namespace phi {
+class CPUContext;
+
 namespace sparse {
 
 template <typename T, typename IntT>

@@ -11,8 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include <gtest/gtest.h>
-#include <iostream>
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
 #include "paddle/fluid/framework/scope.h"
@@ -26,6 +31,27 @@
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "glog/logging.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
+#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(add, CPU, ALL_LAYOUT);

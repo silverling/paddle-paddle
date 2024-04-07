@@ -21,6 +21,8 @@ limitations under the License. */
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
+
 /*
  * Specifies which operators should be run on bfloat16.
  */

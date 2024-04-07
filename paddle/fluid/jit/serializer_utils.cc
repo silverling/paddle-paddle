@@ -16,9 +16,12 @@
 
 #include <dirent.h>
 #include <fstream>
+#include <memory>
 
-#include "paddle/fluid/framework/phi_utils.h"
 #include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace jit {

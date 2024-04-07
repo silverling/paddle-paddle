@@ -15,11 +15,14 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 class DeviceContext;
+class DenseTensor;
 
 namespace distributed {
 

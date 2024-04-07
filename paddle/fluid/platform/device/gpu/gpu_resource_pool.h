@@ -30,9 +30,12 @@
 #include <vector>
 
 #include "paddle/fluid/platform/resource_pool.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
 
 namespace paddle {
 namespace platform {
+template <typename T> class ResourcePool;
 
 using CudaStreamObject = std::remove_pointer<gpuStream_t>::type;
 using CudaEventObject = std::remove_pointer<gpuEvent_t>::type;

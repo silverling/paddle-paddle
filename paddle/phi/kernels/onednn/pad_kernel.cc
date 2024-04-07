@@ -14,10 +14,16 @@
 
 #include "paddle/phi/kernels/pad_kernel.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <utility>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/onednn/pad_kernel_impl.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void PadKernel(const Context& dev_ctx,

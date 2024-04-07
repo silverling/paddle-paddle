@@ -12,9 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <cstdint>
+#include <initializer_list>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_set>
+
 #include "paddle/fluid/framework/ir/generate_pass.h"
 #include "paddle/fluid/framework/ir/pass_tester_helper.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/pass_desc.pb.h"
+#include "paddle/fluid/platform/enforce.h"
 
 REGISTER_GENERATE_PASS(generate_fc_fuse) {
   paddle::framework::ir::PassPairs pass_pairs;

@@ -13,8 +13,17 @@
 // limitations under the License.
 #include "paddle/fluid/framework/details/grad_merge_all_reduce_op_handle.h"
 
+#include <ostream>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 COMMON_DECLARE_bool(sync_nccl_allreduce);

@@ -16,12 +16,18 @@
 // Created by Jiabin on 2019-08-16.
 //
 
+#include <stddef.h>
 #include <memory>
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <iosfwd>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/imperative/basic_engine.h"
 #include "paddle/fluid/imperative/execution_context.h"
@@ -29,6 +35,35 @@
 #include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/imperative/op_base.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/small_vector.h"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
+namespace paddle {
+namespace imperative {
+class VariableWrapper;
+}  // namespace imperative
+}  // namespace paddle
 
 PD_DECLARE_KERNEL(add, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(add_grad, CPU, ALL_LAYOUT);

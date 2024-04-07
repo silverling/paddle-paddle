@@ -13,9 +13,15 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <memory>
+#include <cstdint>
+#include <unordered_map>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/utils/test_macros.h"
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #endif
@@ -24,6 +30,10 @@
 #endif
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/core/stream.h"
+
+namespace phi {
+class Stream;
+}  // namespace phi
 
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/fluid/memory/allocation/custom_allocator.h"
@@ -42,6 +52,7 @@ namespace allocation {
 // NOTE(yy): To create a stable ABI and make compilation faster. Here we use
 // a Pimpl trick;
 class AllocatorFacadePrivate;
+
 class AllocatorFacade {
  public:
   using Allocation = phi::Allocation;

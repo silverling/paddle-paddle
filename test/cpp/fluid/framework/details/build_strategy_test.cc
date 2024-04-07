@@ -17,18 +17,35 @@
 #include <algorithm>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #include "gtest/gtest-message.h"
 #include "gtest/gtest-test-part.h"
-#include "gtest/gtest.h"
 #include "gtest/gtest_pred_impl.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/var_type_inference.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+
+namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+}  // namespace paddle
 
 PD_DECLARE_bool(convert_all_blocks);
 

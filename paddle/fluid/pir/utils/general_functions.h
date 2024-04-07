@@ -14,10 +14,13 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <utility>
 
 #include "paddle/pir/include/core/type.h"
+#include "paddle/utils/test_macros.h"
 
 namespace pir {
 

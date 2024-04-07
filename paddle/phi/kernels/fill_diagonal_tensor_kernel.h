@@ -14,8 +14,12 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/infermeta/binary.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
 

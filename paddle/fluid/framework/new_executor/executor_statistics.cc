@@ -14,19 +14,29 @@
 
 #include "paddle/fluid/framework/new_executor/executor_statistics.h"
 
-#include <fstream>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <functional>
 #include <map>
 #include <ostream>
 #include <queue>
-#include <set>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
+#include <list>
+#include <string>
+#include <unordered_set>
+#include <utility>
 
-#include "glog/logging.h"
 #include "paddle/fluid/platform/flags.h"
 #include "paddle/fluid/platform/os_info.h"
 #include "paddle/fluid/platform/profiler/utils.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/event_node.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/os_info.h"
 
 PD_DECLARE_bool(use_stream_safe_cuda_allocator);
 PADDLE_DEFINE_EXPORTED_string(static_executor_perfstat_filepath,

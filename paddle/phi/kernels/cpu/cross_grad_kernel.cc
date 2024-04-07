@@ -14,10 +14,17 @@
 
 #include "paddle/phi/kernels/cross_grad_kernel.h"
 
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 

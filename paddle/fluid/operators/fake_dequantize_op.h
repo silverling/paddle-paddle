@@ -14,11 +14,23 @@ limitations under the License. */
 
 #pragma once
 
+#include <ext/alloc_traits.h>
 #include <vector>
+#include <cmath>
+#include <string>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace paddle {
 namespace operators {

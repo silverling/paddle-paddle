@@ -11,7 +11,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include <fcntl.h>
 #ifdef _POSIX_C_SOURCE
 #undef _POSIX_C_SOURCE
 #endif
@@ -19,24 +18,38 @@ limitations under the License. */
 #ifdef _XOPEN_SOURCE
 #undef _XOPEN_SOURCE
 #endif
+#include <ext/alloc_traits.h>
+#include <features.h>
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <array>
 
-#include "google/protobuf/io/zero_copy_stream_impl.h"
-#include "google/protobuf/text_format.h"
-#include "paddle/fluid/framework/async_executor.h"
 #include "paddle/fluid/framework/data_feed.h"
-#include "paddle/fluid/framework/data_feed.pb.h"
 #include "paddle/fluid/framework/data_set.h"
 #include "paddle/fluid/framework/dataset_factory.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/inference/io.h"
 #include "paddle/fluid/platform/place.h"
-
 #include "paddle/fluid/pybind/data_set_py.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "pybind11/attr.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/pytypes.h"
+
+namespace pybind11 {
+class gil_scoped_release;
+}  // namespace pybind11
 
 namespace py = pybind11;
 

@@ -14,15 +14,33 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <set>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_interface.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/reduce_type.h"
+#include "paddle/pir/include/core/builtin_type_storage.h"
+#include "paddle/pir/include/core/storage_manager_support.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/utils/flat_hash_map.h"
+
+namespace pir {
+class IrContext;
+class WrapTypeInterface;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {
 
 class DistDenseTensorTypeStorage;
+class DistTypeInterface;
 
 common::DDim InferLocalDDim(const common::DDim& global_ddim,
                             TensorDistAttribute dist_attr);

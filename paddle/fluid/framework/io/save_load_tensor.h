@@ -15,6 +15,10 @@ limitations under the License. */
 
 #include "paddle/phi/core/dense_tensor.h"
 
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+
 namespace paddle {
 namespace framework {
 void SaveTensor(const phi::DenseTensor& x,

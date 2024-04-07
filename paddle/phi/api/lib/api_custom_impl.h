@@ -14,8 +14,10 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <tuple>
 #include <vector>
+#include <string>
 
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/int_array.h"

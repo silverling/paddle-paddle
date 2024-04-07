@@ -13,13 +13,18 @@ limitations under the License. */
 
 #include <vector>
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
-#include "paddle/phi/kernels/impl/transpose_grad_kernel_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class CPUContext;
 
 template <typename T, typename Context>
 void StridedCopyKernel(const Context& dev_ctx,

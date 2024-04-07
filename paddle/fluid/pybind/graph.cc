@@ -14,23 +14,43 @@
 
 #include "paddle/fluid/pybind/graph.h"
 
+#include <stddef.h>
 #include <algorithm>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <set>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/framework/python_headers.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/var_desc.h"
-#include "pybind11/stl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
+
+namespace paddle {
+namespace framework {
+class OpDesc;
+class ProgramDesc;
+class Scope;
+class VarDesc;
+}  // namespace framework
+}  // namespace paddle
 
 namespace py = pybind11;
 using paddle::framework::OpDesc;

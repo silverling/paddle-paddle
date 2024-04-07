@@ -14,7 +14,9 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+#include <ostream>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/data_layout.h"
@@ -25,6 +27,14 @@ limitations under the License. */
 #include "paddle/phi/core/device_context.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_factory.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 COMMON_DECLARE_bool(use_stride_kernel);
 

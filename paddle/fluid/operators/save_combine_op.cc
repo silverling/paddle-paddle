@@ -14,13 +14,31 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/save_combine_op.h"
 
+#include <stdint.h>
 #include <string>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 
 class SaveCombineOp : public framework::OperatorWithKernel {

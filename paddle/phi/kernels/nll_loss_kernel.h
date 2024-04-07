@@ -15,10 +15,18 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/utils/optional.h"
 
+namespace paddle {
+template <class T> class optional;
+}  // namespace paddle
+
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void NllLossRawKernel(const Context& dev_ctx,

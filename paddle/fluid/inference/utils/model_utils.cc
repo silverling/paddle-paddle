@@ -13,10 +13,18 @@
 // limitations under the License.
 
 #include "paddle/fluid/inference/utils/model_utils.h"
+
 #include <set>
+#include <cstddef>
+#include <vector>
+
 #include "paddle/fluid/framework/framework.pb.h"
-#include "paddle/fluid/framework/var_type_inference.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
 
 namespace paddle {
 namespace inference {

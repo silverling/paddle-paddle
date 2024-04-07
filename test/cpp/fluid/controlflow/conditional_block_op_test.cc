@@ -14,9 +14,16 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/controlflow/conditional_block_op.h"
 
-#include "gtest/gtest.h"
+#include <memory>
+
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/scope.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/phi/core/ddim.h"
 
 using LoDTensorArray = paddle::framework::LoDTensorArray;
 using Scope = paddle::framework::Scope;

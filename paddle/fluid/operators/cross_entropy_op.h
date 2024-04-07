@@ -13,6 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
+#include <string>
+
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/platform/for_range.h"
@@ -20,6 +24,16 @@ limitations under the License. */
 #include "paddle/phi/kernels/funcs/cross_entropy.h"
 #include "paddle/phi/kernels/funcs/math.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/hostdevice.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/kernels/funcs/for_range.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

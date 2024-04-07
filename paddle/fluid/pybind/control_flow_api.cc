@@ -14,25 +14,36 @@
 
 #include "paddle/fluid/pybind/control_flow_api.h"
 
-#include <Python.h>
-#include <pybind11/chrono.h>
-#include <pybind11/complex.h>
-#include <pybind11/functional.h>
-#include <pybind11/stl.h>
-#include <unordered_set>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <vector>
+#include <iterator>
+#include <memory>
+#include <utility>
 
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/phi/common/data_type.h"
-#include "paddle/phi/common/place.h"
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/value.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 using paddle::dialect::ApiBuilder;

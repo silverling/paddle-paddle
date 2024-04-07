@@ -14,21 +14,14 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function_registry.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <string>
 
+#include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/global_and_sub_mesh_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/nd_mesh_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/p_to_r_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/p_to_s_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/r_to_p_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/r_to_s_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/r_to_x_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_p_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_r_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_s_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/same_status_reshard_function.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/x_to_r_reshard_function.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 
 namespace phi {
 namespace distributed {

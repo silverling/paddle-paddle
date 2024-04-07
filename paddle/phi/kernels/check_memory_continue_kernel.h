@@ -19,6 +19,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 // WHY add this op?
 // This op is used for convert fused_all_reduce_op_handle in Graph to Program.

@@ -21,6 +21,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+#include <unordered_set>
 
 #include "paddle/fluid/distributed/fleet_executor/interceptor.h"
 #include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
@@ -31,6 +33,7 @@
 #include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {
@@ -44,6 +47,7 @@ class TaskNode;
 class InterceptorMessageServiceImpl;
 class RuntimeGraph;
 class MessageBus;
+class InterceptorMessage;
 
 // TODO(liyurui): Add CarrierId instead of std::string
 

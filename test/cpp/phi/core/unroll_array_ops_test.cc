@@ -14,9 +14,13 @@
 
 #include "paddle/common/unroll_array_ops.h"
 
-#include <gtest/gtest.h>
-
 #include <array>
+#include <algorithm>
+#include <memory>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace phi {
 namespace framework {

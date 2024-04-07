@@ -14,11 +14,19 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
 
-#include "glog/logging.h"
+#include <vector>
 
 #include "paddle/phi/api/profiler/event_tracing.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/api/profiler/trace_event.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/distributed/auto_parallel/utils.h"
 
 namespace phi {
 namespace distributed {

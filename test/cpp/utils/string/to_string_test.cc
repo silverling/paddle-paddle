@@ -14,7 +14,9 @@ limitations under the License. */
 
 #include "paddle/utils/string/to_string.h"
 
-#include <gtest/gtest.h>
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 constexpr char kOutputString[] = "User Defined Output";  // NOLINT
 class UserDefinedClass {

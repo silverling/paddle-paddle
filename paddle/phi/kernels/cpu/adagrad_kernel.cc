@@ -14,11 +14,28 @@
 
 #include "paddle/phi/kernels/adagrad_kernel.h"
 
+#include <stddef.h>
+#include <stdint.h>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/funcs/selected_rows_functor.h"
 #include "paddle/phi/kernels/impl/adagrad_kernel_impl.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

@@ -12,7 +12,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <cstdint>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "test/cpp/auto_parallel/spmd_rule_test_util.h"
+#include "glog/logging.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/infermeta/spmd_rules/softmax.h"
 
 namespace paddle {
 namespace distributed {

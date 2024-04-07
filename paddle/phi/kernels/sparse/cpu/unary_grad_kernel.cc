@@ -14,9 +14,13 @@
 
 #include "paddle/phi/kernels/sparse/unary_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/sparse/impl/unary_grad_kernel_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 #define PD_REGISTER_SPARSE_UNARY_CPU_GRAD_KERNEL(name, prefix)     \
   PD_REGISTER_KERNEL(name##_coo_grad,                              \

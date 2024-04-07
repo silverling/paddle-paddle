@@ -14,15 +14,25 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/selected_rows/elementwise_multiply_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/common/complex.h"
-#include "paddle/phi/common/float16.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/elementwise_multiply_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+
 namespace sr {
 
 template <typename T, typename Context>

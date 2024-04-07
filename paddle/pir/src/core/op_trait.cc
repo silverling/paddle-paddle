@@ -13,10 +13,16 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <algorithm>
+#include <ostream>
+#include <string>
+#include <vector>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/op_trait.h"
 #include "paddle/pir/include/core/type_utils.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace {
 

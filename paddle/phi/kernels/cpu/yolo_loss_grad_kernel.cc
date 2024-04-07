@@ -14,13 +14,18 @@
 
 #include "paddle/phi/kernels/yolo_loss_grad_kernel.h"
 
+#include <string.h>
 #include <algorithm>
 #include <vector>
+#include <cmath>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/yolo_loss_functor.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

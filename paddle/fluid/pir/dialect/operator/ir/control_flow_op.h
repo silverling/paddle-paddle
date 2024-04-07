@@ -13,16 +13,32 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
 #include <vector>
+#include <memory>
 
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/infer_symbolic_shape.h"
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
 #include "paddle/fluid/pir/dialect/operator/interface/vjp.h"
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class Builder;
+class IrPrinter;
+class Region;
+class ShapeConstraintIRAnalysis;
+class Type;
+struct OperationArgument;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {
+class InferSymbolicShapeInterface;
 
 class IfOp : public pir::Op<IfOp, VjpInterface, InferSymbolicShapeInterface> {
  public:

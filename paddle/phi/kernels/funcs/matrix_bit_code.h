@@ -13,12 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <utility>
 #include <vector>
+#include <type_traits>
 
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/utils/variant.h"
+#include "paddle/phi/core/ddim.h"
 
 #if defined(_WIN32)
 #include <intrin.h>
@@ -29,6 +33,8 @@ limitations under the License. */
 #endif  // _WIN32
 
 namespace phi {
+class SelectedRows;
+
 namespace funcs {
 /**
  * SimpleCodeTable class should support 3 functions:

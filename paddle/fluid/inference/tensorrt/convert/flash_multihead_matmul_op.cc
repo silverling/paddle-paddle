@@ -12,11 +12,38 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See
 the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/fluid/inference/analysis/helper.h"
+#include <assert.h>
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/plugin/generic_plugin.h"
-#include "paddle/fluid/inference/tensorrt/plugin_arg_mapping_context.h"
 #include "paddle/phi/common/data_type.h"
+#include "NvInfer.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "NvInferRuntimeCommon.h"
+#include "NvInferRuntimePlugin.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace inference {

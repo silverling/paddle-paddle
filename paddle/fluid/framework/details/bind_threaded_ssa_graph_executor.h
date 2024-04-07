@@ -14,7 +14,6 @@
 
 #pragma once
 #include <ThreadPool.h>
-
 #include <condition_variable>  // NOLINT
 #include <memory>
 #include <mutex>  // NOLINT

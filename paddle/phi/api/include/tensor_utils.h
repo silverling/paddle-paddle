@@ -15,8 +15,21 @@ limitations under the License. */
 #pragma once
 
 #include <functional>
+#include <memory>
 
 #include "paddle/phi/api/include/tensor.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/api/lib/api_registry.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+
+namespace phi {
+namespace distributed {
+class DistTensor;
+class TensorDistAttr;
+}  // namespace distributed
+}  // namespace phi
 #ifdef PADDLE_WITH_DISTRIBUTE
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function_registry.h"

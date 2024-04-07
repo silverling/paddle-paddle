@@ -19,8 +19,9 @@
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/op_operand.h"
 #include "paddle/pir/include/core/op_result.h"
-#include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/src/core/value_impl.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/block_argument.h"
 
 #define CHECK_NULL_IMPL(class_name, func_name)                  \
   IR_ENFORCE(impl_,                                             \

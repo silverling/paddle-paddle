@@ -14,9 +14,18 @@
 
 #include "paddle/fluid/platform/device_event.h"
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
+#include <memory>
+#include <ostream>
+
 #include "paddle/fluid/platform/place.h"
+#include "cuda_runtime_api.h"
+#include "driver_types.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
 
 using ::paddle::platform::kCPU;
 using ::paddle::platform::kCUDA;
@@ -25,7 +34,6 @@ using paddle::platform::DeviceContextPool;
 using paddle::platform::DeviceEvent;
 
 #ifdef PADDLE_WITH_CUDA
-#include <cuda_runtime.h>
 
 TEST(DeviceEvent, CUDA) {
   VLOG(1) << "In Test";

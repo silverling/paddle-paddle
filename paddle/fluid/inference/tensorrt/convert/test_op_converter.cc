@@ -12,12 +12,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>  // NOLINT
-
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
+#include "NvInferLegacyDims.h"
+#include "NvInferRuntimeBase.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/tensorrt/op_teller.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace inference {

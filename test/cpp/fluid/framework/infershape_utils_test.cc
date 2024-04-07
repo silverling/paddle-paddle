@@ -16,18 +16,32 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <iostream>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/attribute.h"
-#include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/compat/op_utils.h"
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+class SparseCooTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

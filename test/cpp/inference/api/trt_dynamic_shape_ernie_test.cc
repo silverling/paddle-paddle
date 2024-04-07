@@ -13,11 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
-#include "paddle/common/flags.h"
+#include <stdlib.h>
+#include <algorithm>
+#include <array>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/inference/tensorrt/helper.h"
 #include "test/cpp/inference/api/trt_test_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_inference_api.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "test/cpp/inference/api/tester_helper.h"
 
 namespace paddle {
 namespace inference {

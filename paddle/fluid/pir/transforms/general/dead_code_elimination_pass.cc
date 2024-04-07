@@ -13,15 +13,26 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/transforms/general/dead_code_elimination_pass.h"
+
+#include <stddef.h>
 #include <cstdint>
+#include <ostream>
+#include <vector>
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/pir/include/core/block.h"
-#include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/op_trait.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "glog/logging.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/region.h"
+
+namespace pir {
+class SideEffectTrait;
+}  // namespace pir
 
 namespace {
 

@@ -14,7 +14,14 @@
 
 #include "paddle/fluid/framework/scope_guard.h"
 
-#include "gtest/gtest.h"
+#include <memory>
+#include <stdexcept>
+#include <type_traits>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/scope_guard.h"
 
 namespace paddle {
 namespace framework {

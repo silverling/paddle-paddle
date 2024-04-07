@@ -13,7 +13,12 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/verify.h"
+
 #include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/region.h"
+
 namespace pir {
 void Verify(Operation *op, bool verify_recursively) {
   op->Verify();

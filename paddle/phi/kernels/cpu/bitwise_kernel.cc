@@ -14,13 +14,17 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/bitwise_kernel.h"
 
+#include <stddef.h>
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/bitwise_functors.h"
 #include "paddle/phi/kernels/funcs/elementwise_base.h"
-
 // See Note [ Why still include the fluid headers? ]
 #include "paddle/phi/common/transform.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

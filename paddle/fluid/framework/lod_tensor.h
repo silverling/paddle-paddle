@@ -15,11 +15,14 @@ limitations under the License. */
 #pragma once
 
 #include <glog/logging.h>
-
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <iosfwd>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/tensor_util.h"
@@ -28,6 +31,12 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/mixed_vector.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {

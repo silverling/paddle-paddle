@@ -13,8 +13,8 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/impl/inverse_kernel_impl.h"
-
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 PD_REGISTER_KERNEL(
     inverse, CPU, ALL_LAYOUT, phi::InverseKernel, float, double) {}

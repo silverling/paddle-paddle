@@ -12,16 +12,26 @@ limitations under the License. */
 #include "paddle/fluid/operators/memcpy_h2d_op.h"
 
 #include <string>
+#include <algorithm>
+#include <vector>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 class OpDesc;
-class InferShapeContext;
 template <typename T>
 class EmptyGradOpMaker;
 }  // namespace framework

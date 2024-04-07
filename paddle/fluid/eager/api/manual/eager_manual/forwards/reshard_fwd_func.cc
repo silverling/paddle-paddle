@@ -12,11 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/eager/accumulation/accumulation_node.h"
+#include <memory>
+#include <ostream>
+
 #include "paddle/fluid/eager/api/manual/eager_manual/dygraph_forward_api.h"
 #include "paddle/fluid/eager/api/manual/eager_manual/nodes/nodes.h"
 #include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor_utils.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+
+namespace egr {
+class AutogradMeta;
+}  // namespace egr
 
 paddle::Tensor reshard_ad_function(
     const paddle::Tensor& input,

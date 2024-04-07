@@ -14,9 +14,15 @@
 
 #pragma once
 
+#include <cstddef>
+#include <functional>
+#include <iosfwd>
+#include <typeindex>
+
 #include "paddle/pir/include/core/cast_utils.h"
 #include "paddle/pir/include/core/storage_manager_support.h"
 #include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 constexpr char kAttrStopGradients[] = "stop_gradient";
 constexpr char kAttrIsPersistable[] = "persistable";

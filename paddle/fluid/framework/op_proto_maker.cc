@@ -12,9 +12,19 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/op_proto_maker.h"
-#include "paddle/fluid/operators/ops_extra_info.h"
 
-#include "paddle/fluid/platform/enforce.h"
+#include <iosfwd>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#include "paddle/fluid/operators/ops_extra_info.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

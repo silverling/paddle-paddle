@@ -12,10 +12,18 @@ limitations under the License. */
 #include "paddle/fluid/framework/operator.h"
 
 #include <glog/logging.h>
-
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <sstream>
 #include <string>
 #include <unordered_set>
+#include <atomic>
+#include <cstdint>
+#include <exception>
+#include <iostream>
+#include <type_traits>
+#include <typeindex>
+#include <typeinfo>
 
 #include "paddle/common/ddim.h"
 #include "paddle/common/flags.h"
@@ -31,8 +39,6 @@ limitations under the License. */
 #include "paddle/fluid/framework/var_type.h"
 #include "paddle/fluid/operators/isfinite_op.h"
 #include "paddle/fluid/operators/ops_extra_info.h"
-#include "paddle/fluid/operators/ops_signature/signatures.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/profiler.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
@@ -42,9 +48,41 @@ limitations under the License. */
 #include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
 #include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/kernel_factory.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/event.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/compat/op_utils.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
-class DenseTensor;
+class TensorBase;
 }  // namespace phi
 
 #ifdef PADDLE_WITH_XPU
@@ -55,10 +93,6 @@ class DenseTensor;
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #include "paddle/fluid/platform/mkldnn_op_list.h"
-#endif
-
-#if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
-#include "paddle/fluid/platform/device/gpu/gpu_dnn.h"
 #endif
 
 PD_DECLARE_bool(benchmark);

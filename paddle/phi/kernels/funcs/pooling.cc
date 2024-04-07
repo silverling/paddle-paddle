@@ -13,9 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/pooling.h"
+
 #include <algorithm>
 #include <vector>
+#include <memory>
+#include <random>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/generator.h"
 
 namespace phi {
 namespace funcs {

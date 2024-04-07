@@ -13,9 +13,21 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/region.h"
+
+#include <stdint.h>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/block_argument.h"
+#include "paddle/pir/include/core/ir_mapping.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
 Region::~Region() { clear(); }

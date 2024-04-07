@@ -14,7 +14,13 @@ limitations under the License. */
 
 #include "paddle/phi/core/sparse_csr_tensor.h"
 
+#include <utility>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
 namespace phi {
+class Allocator;
 
 SparseCsrTensor::SparseCsrTensor() {
   DenseTensor crows, cols, values;

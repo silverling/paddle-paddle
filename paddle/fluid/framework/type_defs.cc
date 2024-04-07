@@ -15,8 +15,15 @@ limitations under the License. */
 #include "paddle/fluid/framework/type_defs.h"
 
 #include "paddle/common/enforce.h"
+#include "paddle/common/dim.h"
+
+namespace pir {
+class Block;
+class Value;
+}  // namespace pir
 
 namespace paddle {
+struct blank;
 
 using namespace framework;  // NOLINT
 template class variant<paddle::blank,

@@ -17,6 +17,8 @@ limitations under the License. */
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <cstdint>
+#include <string>
 
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 #include "paddle/phi/core/distributed/type_defs.h"

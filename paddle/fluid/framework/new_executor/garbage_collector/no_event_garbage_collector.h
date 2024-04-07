@@ -14,12 +14,19 @@
 #pragma once
 
 #include <queue>
+#include <memory>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/new_executor/garbage_collector/garbage_collector.h"
 #include "paddle/fluid/framework/new_executor/workqueue/workqueue.h"
+#include "paddle/fluid/platform/device_context.h"
 
 namespace paddle {
 namespace framework {
+class Instruction;
+class InstructionBase;
+class Variable;
+class WorkQueue;
 
 class InterpreterCoreNoEventGarbageCollector
     : public InterpreterCoreGarbageCollector {

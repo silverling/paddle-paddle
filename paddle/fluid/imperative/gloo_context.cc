@@ -14,6 +14,15 @@
 
 #include "paddle/fluid/imperative/gloo_context.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <numeric>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/fleet/gloo_wrapper.h"
 #include "paddle/fluid/framework/tensor_util.h"
@@ -21,12 +30,18 @@
 #include "paddle/fluid/platform/place.h"
 #include "paddle/utils/string/split.h"
 #include "paddle/utils/string/string_helper.h"
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace paddle {
 namespace imperative {

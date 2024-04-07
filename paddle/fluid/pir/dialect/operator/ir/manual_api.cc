@@ -13,13 +13,32 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/manual_api.h"
-#include "paddle/fluid/pir/dialect/distributed/ir/dist_type.h"
+
+#include <stddef.h>
+#include <memory>
+#include <utility>
+
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_api.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/parameter.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
+#include "paddle/fluid/pir/dialect/distributed/ir/dist_interface.h"
+#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
+#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+
 namespace paddle {
 namespace dialect {
 

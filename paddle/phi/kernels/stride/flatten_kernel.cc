@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/phi/kernels/flatten_kernel.h"
-#include "paddle/phi/backends/all_context.h"
+
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/reshape_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/int_array.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void FlattenInferStridedKernel(const Context& dev_ctx,

@@ -28,6 +28,12 @@
 #include "paddle/utils/test_macros.h"
 #include "paddle/utils/variant.h"
 
+namespace paddle {
+namespace flags {
+class FlagRegisterer;
+}  // namespace flags
+}  // namespace paddle
+
 #if defined(_WIN32)
 #define COMMON_IMPORT_FLAG __declspec(dllimport)
 #else

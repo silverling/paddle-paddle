@@ -14,10 +14,20 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

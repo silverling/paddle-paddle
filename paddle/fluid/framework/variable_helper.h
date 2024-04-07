@@ -16,6 +16,8 @@ limitations under the License. */
 #include <vector>
 
 #include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

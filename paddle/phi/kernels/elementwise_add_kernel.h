@@ -16,6 +16,8 @@
 
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/infermeta/binary.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
 template <typename T, typename Context>

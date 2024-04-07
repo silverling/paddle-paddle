@@ -14,11 +14,16 @@
 
 #include "paddle/phi/kernels/bce_loss_kernel.h"
 
+#include <stdint.h>
 #include <algorithm>  // for max
+#include <string>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/math.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

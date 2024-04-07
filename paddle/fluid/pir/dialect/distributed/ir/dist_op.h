@@ -13,12 +13,20 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class Builder;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

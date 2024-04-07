@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <ext/alloc_traits.h>
 #include <atomic>
 #include <cstddef>
 #include <cstdint>
@@ -22,9 +23,13 @@ limitations under the License. */
 #include <map>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace distributed {

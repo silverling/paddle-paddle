@@ -13,8 +13,15 @@
 // limitations under the License.
 
 #include <atomic>
-#include "gtest/gtest.h"
+#include <cstdint>
+#include <string>
+#include <variant>
+
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_util.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
 
 namespace symbol::test {
 

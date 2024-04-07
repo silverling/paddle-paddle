@@ -14,8 +14,16 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <numeric>
+#include <cstdint>
+#include <memory>
+#include <mutex>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/kernels/autotune/cache_base.h"
@@ -23,7 +31,12 @@
 #include "paddle/phi/kernels/autotune/cache_cudnn_frontend.h"
 #endif
 namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+
 namespace autotune {
+class AutoTuneCache;
 
 struct ConvAutoTuneResult {
   ConvAutoTuneResult() {}

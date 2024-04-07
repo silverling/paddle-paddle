@@ -13,10 +13,16 @@
 // limitations under the License.
 
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
+
 #include <cstdint>
+#include <map>
+#include <mutex>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/macros.h"
-#include "paddle/fluid/memory/allocation/aligned_allocator.h"
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/allocation/allocator_strategy.h"
 #include "paddle/fluid/memory/allocation/auto_growth_best_fit_allocator.h"
@@ -28,6 +34,16 @@
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/place.h"
+#include "cuda.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/stream.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include <shared_mutex>

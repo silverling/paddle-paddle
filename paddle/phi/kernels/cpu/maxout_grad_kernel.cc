@@ -14,6 +14,7 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/maxout_grad_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 PD_REGISTER_KERNEL(
     maxout_grad, CPU, ALL_LAYOUT, phi::MaxOutGradKernel, float, double) {}

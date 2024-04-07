@@ -14,8 +14,21 @@
 
 #include "paddle/fluid/operators/math/tree2col.h"
 
+#include <ext/alloc_traits.h>
+#include <stdint.h>
 #include <deque>
 #include <stack>
+#include <algorithm>
+#include <memory>
+#include <unordered_map>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/math_function.h"
 
 namespace paddle {
 namespace operators {

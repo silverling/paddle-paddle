@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <functional>
 #include <initializer_list>
 #include <memory>
@@ -23,6 +24,7 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <utility>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/builder.h"
@@ -35,6 +37,9 @@
 #include "paddle/pir/include/core/value.h"
 
 namespace pir {
+class IrContext;
+class OpOperand;
+class Operation;
 
 // This class reprensents the benefit of a pattern. The most common
 // unit to use is the `number of operations` in the pattern.

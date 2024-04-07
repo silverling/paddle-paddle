@@ -14,12 +14,37 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/attention_lstm_op.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <functional>
+#include <memory>
+#include <vector>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/cpu_vec.h"
 #include "paddle/phi/kernels/funcs/fc_functor.h"
+#include "mkl_cblas.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

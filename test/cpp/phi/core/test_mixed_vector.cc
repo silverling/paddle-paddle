@@ -12,12 +12,14 @@
    See the License for the specific language governing permissions and
    limitations under the License. */
 
-#include "paddle/phi/core/mixed_vector.h"
+#include <algorithm>
+#include <ostream>
+#include <vector>
 
+#include "paddle/phi/core/mixed_vector.h"
 #include "glog/logging.h"
 #include "gtest/gtest-message.h"
 #include "gtest/gtest-test-part.h"
-#include "gtest/gtest.h"
 #include "gtest/gtest_pred_impl.h"
 
 template <typename T>

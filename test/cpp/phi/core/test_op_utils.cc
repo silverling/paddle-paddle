@@ -13,10 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <iostream>
+#include <memory>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/operators/ops_signature/signatures.h"
 #include "paddle/phi/core/compat/op_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace phi {
 namespace tests {

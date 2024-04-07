@@ -14,22 +14,34 @@
 
 #include "paddle/fluid/memory/allocation/naive_best_fit_allocator.h"
 
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
+#include <string.h>
 #include <mutex>
+#include <algorithm>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
-#include "glog/logging.h"
 #include "paddle/fluid/memory/allocation/buddy_allocator.h"
 #include "paddle/fluid/memory/allocation/system_allocator.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/profiler.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/utils/string/printf.h"
-#include "paddle/utils/string/split.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/phi/backends/cpu/cpu_info.h"
+#include "paddle/phi/core/allocator.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/cuda_device_guard.h"
 #endif
 #include "paddle/fluid/platform/flags.h"
+
 PADDLE_DEFINE_EXPORTED_bool(
     init_allocated_mem,
     false,

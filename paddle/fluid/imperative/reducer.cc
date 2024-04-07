@@ -14,18 +14,48 @@
 
 #include "paddle/fluid/imperative/reducer.h"
 
+#include <ext/alloc_traits.h>
 #include <iostream>
+#include <algorithm>
+#include <functional>
+#include <map>
+#include <queue>
+#include <string>
+#include <utility>
 
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/imperative/parallel_context.h"
 #include "paddle/fluid/operators/math/concat_and_split.h"
 #include "paddle/phi/kernels/funcs/strided_memcpy.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/imperative/op_base.h"
+#include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/utils/string/printf.h"
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/platform/device/xpu/enforce_xpu.h"
 #endif
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/utils/string/string_helper.h"
+
 namespace paddle {
 namespace imperative {
 

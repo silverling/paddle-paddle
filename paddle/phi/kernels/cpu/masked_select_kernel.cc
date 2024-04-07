@@ -13,10 +13,24 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/masked_select_kernel.h"
+
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/expand_kernel.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

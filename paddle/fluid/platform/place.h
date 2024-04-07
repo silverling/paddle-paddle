@@ -17,11 +17,16 @@ limitations under the License. */
 // #include <iostream>
 // #include <vector>
 
+#include <vector>
+
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 //
 
 #include "paddle/phi/common/place.h"
 #include "paddle/utils/test_macros.h"
+
 namespace paddle {
 namespace platform {
 

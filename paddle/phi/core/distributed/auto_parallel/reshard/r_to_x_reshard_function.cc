@@ -14,18 +14,31 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/r_to_x_reshard_function.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
-#include "paddle/phi/kernels/add_n_kernel.h"
-#include "paddle/phi/kernels/concat_kernel.h"
-#include "paddle/phi/kernels/elementwise_add_kernel.h"
 #include "paddle/phi/kernels/full_kernel.h"
 #include "paddle/phi/kernels/p_recv_kernel.h"
 #include "paddle/phi/kernels/p_send_kernel.h"
 #include "paddle/phi/kernels/split_kernel.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/reduce_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace phi {
 namespace distributed {

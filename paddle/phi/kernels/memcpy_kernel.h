@@ -20,6 +20,8 @@
 #include "paddle/phi/core/tensor_array.h"
 
 namespace phi {
+class DenseTensor;
+class TensorArray;
 
 // used in new executor, for memory copy from host to device
 template <typename Context>

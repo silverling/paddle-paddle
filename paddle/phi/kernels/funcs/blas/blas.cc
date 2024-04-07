@@ -14,6 +14,14 @@
 
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 
+#include <stddef.h>
+#include <utility>
+#include <vector>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
 namespace phi {
 namespace funcs {
 MatDescriptor CreateMatrixDescriptor(const DDim &tensor_dim,

@@ -12,17 +12,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <glog/logging.h>
-#include <gtest/gtest.h>
-#include <cstddef>
 #include <cstdint>
-#include <cstdio>
-
 #include <string>
-#include <vector>
 
 #include "paddle/common/flags.h"
-#include "paddle/fluid/inference/capi_exp/pd_inference_api.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/inference/capi_exp/pd_common.h"
+#include "paddle/fluid/inference/capi_exp/pd_config.h"
+#include "paddle/fluid/inference/capi_exp/pd_predictor.h"
 
 PD_DEFINE_string(infer_model, "", "model path");
 

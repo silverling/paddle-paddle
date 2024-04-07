@@ -21,6 +21,8 @@
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/erfinv_grad_kernel_impl.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(
     erfinv_grad, CPU, ALL_LAYOUT, phi::ErfinvGradKernel, float, double) {}

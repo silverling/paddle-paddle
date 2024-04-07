@@ -16,6 +16,7 @@ limitations under the License. */
 #include "paddle/phi/core/kernel_context.h"
 
 namespace phi {
+class KernelContext;
 
 bool ReduceCheckIfOneDNNSupport(const KernelContext* ctx);
 

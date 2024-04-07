@@ -13,12 +13,22 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+#include <initializer_list>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/pass_desc.pb.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 // Generate a substitute pass from protobuf.
 class GeneratePass : public Pass {

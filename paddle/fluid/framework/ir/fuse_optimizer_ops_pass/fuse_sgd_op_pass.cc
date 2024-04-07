@@ -11,20 +11,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#include <stddef.h>
 #include <string>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/ir/fuse_optimizer_ops_pass/fuse_optimizer_op_pass.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 class FuseSgdOpPass : public FuseOptimizerOpPass {
  private:

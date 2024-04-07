@@ -17,6 +17,8 @@ limitations under the License. */
 #include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
+class MetaTensor;
+
 namespace sparse {
 
 void FusedAttentionInferMeta(const MetaTensor& query,

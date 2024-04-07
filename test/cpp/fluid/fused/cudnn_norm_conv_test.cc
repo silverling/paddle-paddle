@@ -12,18 +12,45 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <bits/std_abs.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include <random>
 #include <vector>
+#include <memory>
+#include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/operators/fused/cudnn_norm_conv.cu.h"
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
 
 namespace framework = paddle::framework;
 namespace platform = paddle::platform;

@@ -14,8 +14,21 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/pir_interpreter.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace pir {
+class Block;
+class Operation;
+}  // namespace pir
 
 namespace ir {
 class Operation;
@@ -27,6 +40,10 @@ class Scope;
 class Value;
 class PirInterpreter;
 class ValueExecutionInfo;
+class Variable;
+namespace interpreter {
+struct ExecutionConfig;
+}  // namespace interpreter
 
 /// The execute semantics of while op ['output' = while_op('cond', 'intput')]
 /// is:

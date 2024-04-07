@@ -14,7 +14,6 @@ limitations under the License. */
 #pragma once
 
 #include <curand.h>
-
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/curand.h"

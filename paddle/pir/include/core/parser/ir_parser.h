@@ -14,13 +14,32 @@
 
 #pragma once
 
+#include <iosfwd>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/src/core/parser/lexer.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/src/core/parser/token.h"
 
 namespace pir {
+class Block;
+class IrContext;
+class Operation;
+class Program;
+class Region;
+
 class IR_API IrParser {
   using ValueMap = std::map<std::string, pir::Value>;
   using AttributeMap = std::unordered_map<std::string, pir::Attribute>;

@@ -27,6 +27,9 @@
 #include "paddle/fluid/operators/utils.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/kernels/funcs/slice_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace paddle {
 namespace operators {

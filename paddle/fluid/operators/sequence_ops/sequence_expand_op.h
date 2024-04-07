@@ -13,12 +13,33 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <numeric>  // std::iota
+#include <algorithm>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/memory/memcpy.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

@@ -15,6 +15,8 @@ limitations under the License. */
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace distributed {

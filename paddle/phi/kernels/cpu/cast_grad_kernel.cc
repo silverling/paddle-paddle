@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/cast_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/cpu/cast_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

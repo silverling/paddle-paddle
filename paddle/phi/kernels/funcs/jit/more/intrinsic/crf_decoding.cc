@@ -14,10 +14,15 @@
 
 #include "paddle/phi/kernels/funcs/jit/more/intrinsic/crf_decoding.h"
 
+#include <emmintrin.h>
+#include <immintrin.h>
 #include <limits>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 namespace phi {
 namespace jit {

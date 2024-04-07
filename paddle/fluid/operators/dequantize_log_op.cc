@@ -14,11 +14,24 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/dequantize_log_op.h"
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
+#include <vector>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
 
 namespace paddle {
 namespace framework {
-class InferShapeContext;
 class OpDesc;
 template <typename T>
 class EmptyGradOpMaker;

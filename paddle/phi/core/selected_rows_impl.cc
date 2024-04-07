@@ -14,12 +14,16 @@ limitations under the License. */
 
 #include "paddle/phi/core/selected_rows_impl.h"
 
-#include "glog/logging.h"
+#include <cstring>
+#include <ostream>
 
-#include "paddle/phi/common/memory_utils.h"
+#include "glog/logging.h"
 #include "paddle/phi/core/utils/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+class Allocator;
 
 struct ReAllocateVisitor {
   ReAllocateVisitor(const phi::DDim& dims, phi::DenseTensor* tensor)

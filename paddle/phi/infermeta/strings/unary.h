@@ -21,6 +21,9 @@ limitations under the License. */
 #include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class MetaTensor;
+struct StringTensorMeta;
+
 namespace strings {
 // Common InferMeta Functions of StringTensor for unary operators:
 void UnchangedInferMeta(const StringTensorMeta& x_meta, MetaTensor* out);

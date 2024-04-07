@@ -13,10 +13,13 @@
 // limitations under the License.
 
 #include <algorithm>
+#include <memory>
+#include <utility>
 
 #include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_applicator.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace pir {
 

@@ -14,17 +14,32 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <iterator>
+#include <ostream>
+#include <string>
+#include <typeinfo>
+
 #include "glog/logging.h"
 #include "paddle/phi/backends/context_pool.h"
-#include "paddle/phi/core/device_context.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/custom/custom_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_info.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 
 namespace phi {
+class TensorBase;
+
 namespace distributed {
+class CommContext;
 
 namespace {
 std::string GenUniqueCommKey(const std::vector<int64_t>& process_ids) {

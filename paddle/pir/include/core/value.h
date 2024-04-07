@@ -14,13 +14,26 @@
 
 #pragma once
 
+#include <cstddef>
+#include <functional>
+#include <iosfwd>
+#include <string>
+#include <typeindex>
+#include <utility>
+
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/iterator.h"
 #include "paddle/pir/include/core/op_operand.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/dll_decl.h"
+
+namespace std {
+template <typename _Tp> struct hash;
+}  // namespace std
 
 namespace pir {
 class Operation;
+
 using PropertiesDeleter = void (*)(void *);
 using Property = std::pair<void *, PropertiesDeleter>;
 

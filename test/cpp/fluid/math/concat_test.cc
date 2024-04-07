@@ -12,12 +12,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
+#include <algorithm>
+#include <memory>
+#include <vector>
 
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/operators/math/concat_and_split.h"
-#include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/place.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 /**
  * case 1:

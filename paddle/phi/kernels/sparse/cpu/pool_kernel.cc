@@ -14,12 +14,19 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/pool_kernel.h"
 
+#include <string.h>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_meta.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/funcs/pooling.h"
 #include "paddle/phi/kernels/funcs/sparse/convolution.h"
 #include "paddle/phi/kernels/sparse/cpu/conv.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 namespace sparse {

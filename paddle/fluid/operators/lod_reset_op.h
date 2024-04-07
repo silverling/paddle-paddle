@@ -14,8 +14,11 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <vector>
+#include <string>
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/framework/convert_utils.h"
@@ -25,6 +28,24 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/framework/string_array.h"

@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 #include <vector>
 
@@ -21,6 +22,7 @@
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
@@ -32,6 +34,8 @@ class Node;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 struct FetchOpHandle : public OpHandleBase {

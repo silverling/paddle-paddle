@@ -14,6 +14,8 @@
 
 #include "paddle/fluid/platform/denormal.h"
 
+#include <emmintrin.h>
+#include <xmmintrin.h>
 #include <tuple>
 #include <utility>
 
@@ -32,10 +34,6 @@
     !defined(PADDLE_WITH_SW) && !defined(PADDLE_WITH_MIPS) &&        \
     !defined(_WIN32) && !defined(PADDLE_WITH_LOONGARCH)
 #define DENORM_USE_INTRINSICS
-#endif
-
-#ifdef DENORM_USE_INTRINSICS
-#include <pmmintrin.h>
 #endif
 
 namespace paddle {

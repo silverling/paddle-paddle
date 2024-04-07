@@ -14,16 +14,25 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <ostream>
 
 #include "paddle/fluid/framework/details/build_strategy.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
@@ -50,6 +59,7 @@ class BKCLCommunicator;
 
 namespace framework {
 class Scope;
+class VarDesc;
 
 namespace ir {
 

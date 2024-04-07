@@ -12,11 +12,33 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <bits/std_abs.h>
+#include <ext/alloc_traits.h>
+#include <stdlib.h>
 #include <fstream>
-#include <iostream>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <iomanip>
+#include <iterator>
+#include <memory>
+#include <numeric>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/inference/api/paddle_analysis_config.h"
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/platform/enforce.h"
 
 // setting iterations to 0 means processing the whole dataset
 namespace paddle {

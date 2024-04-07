@@ -21,6 +21,9 @@
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/var_type.h"
 #include "paddle/fluid/operators/controlflow/op_variant.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/common/place.h"
 
 namespace phi {
 class DenseTensor;
@@ -29,11 +32,14 @@ class DenseTensor;
 namespace paddle {
 namespace framework {
 class ProgramDesc;
+class OperatorBase;
+class Scope;
 }  // namespace framework
 }  // namespace paddle
 
 namespace paddle {
 namespace operators {
+class OpVariant;
 
 static constexpr char kStepBlock[] = "sub_block";
 static constexpr char kCondition[] = "Condition";

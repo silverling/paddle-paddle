@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
 #include <unordered_map>
+#include <cstddef>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
@@ -25,8 +28,18 @@
 #include "paddle/pir/include/core/type_base.h"
 #include "paddle/pir/include/core/type_name.h"
 #include "paddle/pir/include/core/type_utils.h"
-#include "paddle/pir/include/core/utils.h"
 #include "test/cpp/pir/tools/macros_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/pir/dialect/operator/ir/type_storage.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/interface_value.h"
+#include "paddle/pir/include/core/storage_manager_support.h"
+#include "paddle/pir/include/core/type_id.h"
 
 class TypeA {};
 IR_DECLARE_EXPLICIT_TEST_TYPE_ID(TypeA)

@@ -13,6 +13,11 @@ limitations under the License. */
 
 #include "paddle/common/enforce.h"
 
+#include <cuda_runtime.h>
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+
 #ifdef PADDLE_WITH_CUDA
 #include <cublas_v2.h>
 #include <cudnn.h>
@@ -39,7 +44,18 @@ limitations under the License. */
 #include <string>
 #include <type_traits>
 #include <utility>
+#include <typeinfo>
+
 #include "paddle/common/macros.h"
+#include "cuda.h"
+#include "cudnn_ops_infer.h"
+#include "cusolver_common.h"
+#include "driver_types.h"
+#include "nccl.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/test_macros.h"
+#include "paddle/utils/variant.h"
 #if !defined(_WIN32) && !defined(PADDLE_WITH_MUSL)
 #include <execinfo.h>
 #endif
@@ -51,6 +67,7 @@ limitations under the License. */
 #include "paddle/phi/backends/dynload/cusolver.h"
 #if !defined(__APPLE__) && defined(PADDLE_WITH_NCCL)
 #include <error.h>
+
 #include "paddle/phi/backends/dynload/nccl.h"
 #endif  // __APPLE__
 #endif  // PADDLE_WITH_CUDA
@@ -62,6 +79,7 @@ limitations under the License. */
 #include "paddle/phi/backends/dynload/rocblas.h"
 #if !defined(__APPLE__) && defined(PADDLE_WITH_RCCL)
 #include <error.h>  // NOLINT
+
 #include "paddle/phi/backends/dynload/rccl.h"
 #endif  // __APPLE__
 #endif  // PADDLE_WITH_HIP
@@ -78,6 +96,9 @@ limitations under the License. */
 
 namespace phi {
 namespace enforce {
+namespace details {
+template <typename T> struct ExternalApiType;
+}  // namespace details
 
 template <typename StrType>
 std::string GetCompleteTraceBackString(StrType&& what,

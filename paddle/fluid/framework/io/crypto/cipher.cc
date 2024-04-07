@@ -14,9 +14,12 @@
 
 #include "paddle/fluid/framework/io/crypto/cipher.h"
 
+#include <unordered_map>
+
 #include "paddle/fluid/framework/io/crypto/aes_cipher.h"
 #include "paddle/fluid/framework/io/crypto/cipher_utils.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

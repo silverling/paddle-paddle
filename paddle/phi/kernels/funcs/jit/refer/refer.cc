@@ -15,6 +15,8 @@
 #include "paddle/phi/kernels/funcs/jit/refer/refer.h"
 
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
 
 namespace refer = phi::jit::refer;
 

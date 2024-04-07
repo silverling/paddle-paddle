@@ -14,8 +14,10 @@
 
 #include "paddle/utils/variant.h"
 
-#include "gtest/gtest.h"
-#include "paddle/phi/core/enforce.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
 
 TEST(interface_test, type) {
   using common::demangle;

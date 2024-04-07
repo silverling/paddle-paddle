@@ -16,12 +16,15 @@
 
 #include <algorithm>
 #include <vector>
+#include <cstdint>
 
 #include "paddle/common/ddim.h"
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/cast_utils.h"
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 

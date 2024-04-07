@@ -14,10 +14,13 @@
 
 #pragma once
 
+#include <string>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void Pad3dKernel(const Context& dev_ctx,

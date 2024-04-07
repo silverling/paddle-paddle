@@ -14,9 +14,18 @@
 
 #include "paddle/fluid/distributed/fleet_executor/start_interceptor.h"
 
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/common/errors.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
-#include "paddle/fluid/framework/operator.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace distributed {

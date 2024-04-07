@@ -12,6 +12,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stdint.h>
+#include <stdio.h>
+#include <algorithm>
+#include <list>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/common/errors.h"
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/helper.h"
@@ -20,8 +30,28 @@ limitations under the License. */
 #include "paddle/fluid/inference/tensorrt/plugin_arg_mapping_context.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/phi/core/enforce.h"
+#include "NvInfer.h"
+#include "NvInferRuntimeCommon.h"
+#include "NvInferRuntimePlugin.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/tensorrt/plugin/trt_plugin.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/compat/op_utils.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/small_vector.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 

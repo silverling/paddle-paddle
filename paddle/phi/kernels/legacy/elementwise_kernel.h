@@ -18,6 +18,7 @@
 #include "paddle/phi/infermeta/binary.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void MaximumRawKernel(const Context& dev_ctx,

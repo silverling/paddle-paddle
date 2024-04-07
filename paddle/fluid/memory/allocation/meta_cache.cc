@@ -12,9 +12,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
 #include "glog/logging.h"
 #include "paddle/fluid/memory/allocation/memory_block.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace memory {

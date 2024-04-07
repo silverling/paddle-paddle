@@ -12,7 +12,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stddef.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/operators/gru_op.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/kernels/funcs/detail/activation_functions.h"
+#include "paddle/phi/kernels/funcs/gru_compute.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/phi/kernels/funcs/sequence2batch.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

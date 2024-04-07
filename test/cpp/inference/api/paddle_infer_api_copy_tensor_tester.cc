@@ -13,17 +13,31 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <cuda_runtime.h>
-#include <gtest/gtest.h>
-
 #include <array>
 #include <cstring>
 #include <numeric>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "glog/logging.h"
-#include "paddle/common/flags.h"
 #include "paddle/fluid/inference/api/paddle_infer_contrib.h"
 #include "paddle/fluid/platform/float16.h"
-#include "test/cpp/inference/api/trt_test_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/api/paddle_inference_api.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "test/cpp/inference/api/tester_helper.h"
 
 namespace paddle_infer {
 

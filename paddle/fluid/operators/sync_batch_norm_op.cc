@@ -12,10 +12,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/fluid/operators/batch_norm_op.h"
+#include <memory>
+
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
+class BatchNormGradOp;
+class BatchNormOp;
+class BatchNormOpInferVarType;
+class BatchNormOpMaker;
+
 template <typename T>
 class SyncBatchNormGradMaker : public framework::SingleGradOpMaker<T> {
  public:

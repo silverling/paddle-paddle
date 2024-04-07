@@ -12,9 +12,17 @@ limitations under the License. */
 #pragma once
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+#include <string>
+#include <utility>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

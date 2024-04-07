@@ -13,10 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <memory>
-#include "gtest/gtest.h"
+#include <string>
+
 #include "paddle/phi/core/utils/type_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/utils/type_info.h"
 
 namespace phi {
+namespace tests {
+template <typename T> class Base;
+template <typename T> class DerivedA;
+template <typename T> class DerivedB;
+}  // namespace tests
 
 template <typename BaseT, typename DerivedT>
 const TypeInfo<BaseT> TypeInfoTraits<BaseT, DerivedT>::kType =

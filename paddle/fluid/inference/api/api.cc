@@ -12,15 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <assert.h>
+#include <stdint.h>
+#include <string.h>
 #include <sstream>
+#include <memory>
+#include <string>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/commit.h"
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/inference/api/paddle_inference_api.h"
-#include "paddle/fluid/inference/api/paddle_pass_builder.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "crypto/cipher.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
 
 namespace paddle {
 

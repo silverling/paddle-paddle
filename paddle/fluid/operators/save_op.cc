@@ -14,14 +14,37 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/save_op.h"
 
-#include <cstdint>
-
-#include <fstream>
-#include <numeric>
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <algorithm>
+
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 class SaveOp : public framework::OperatorWithKernel {
  public:

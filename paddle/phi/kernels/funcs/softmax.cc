@@ -14,10 +14,11 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/softmax.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/kernels/funcs/softmax_impl.h"
 
 namespace phi {
+class CPUContext;
+
 namespace funcs {
 
 template class SoftmaxFunctor<phi::CPUContext, float>;

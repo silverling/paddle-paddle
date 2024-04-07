@@ -26,6 +26,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class MultiGruSeqFusePass : public FusePassBase {
  public:

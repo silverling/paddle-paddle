@@ -15,12 +15,14 @@
 #include "paddle/fluid/ir_adaptor/translator/translate.h"
 
 #include <memory>
+#include <ostream>
 
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/ir_adaptor/translator/program_translator.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/pir/include/core/ir_context.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/pir/dialect/operator/ir/op_onednn_dialect.h"

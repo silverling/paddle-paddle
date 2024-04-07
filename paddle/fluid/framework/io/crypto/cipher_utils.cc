@@ -15,10 +15,11 @@
 #include "paddle/fluid/framework/io/crypto/cipher_utils.h"
 
 #include <cryptopp/osrng.h>
-
 #include <sstream>
+#include <iterator>
 
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

@@ -14,8 +14,16 @@
 
 #include "paddle/phi/kernels/prior_box_kernel.h"
 
+#include <algorithm>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace phi {
 

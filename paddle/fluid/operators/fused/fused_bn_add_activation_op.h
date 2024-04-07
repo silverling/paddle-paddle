@@ -23,8 +23,14 @@ limitations under the License. */
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 
 class FusedBatchNormAddActOp : public framework::OperatorWithKernel {

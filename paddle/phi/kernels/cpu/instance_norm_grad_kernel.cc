@@ -14,17 +14,33 @@
 
 #include "paddle/phi/kernels/instance_norm_grad_kernel.h"
 
-#include <memory>
-#include <string>
-#include <unordered_map>
+#include <new>
 
 #include "paddle/common/layout.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/extensions.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/funcs/norm_utils.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/DenseCoeffsBase.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/Redux.h"
+#include "Eigen/src/Core/Transpose.h"
+#include "Eigen/src/Core/VectorwiseOp.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorIndexList.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

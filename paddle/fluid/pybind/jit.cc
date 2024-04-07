@@ -13,9 +13,14 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/pybind/jit.h"
+
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/fluid/framework/variable.h"
-#include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/jit/function.h"
 #include "paddle/fluid/jit/function_schema.h"
 #include "paddle/fluid/jit/layer.h"
@@ -23,7 +28,11 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/pybind/eval_frame.h"
 #include "paddle/fluid/pybind/eval_frame_tools.h"
-#include "paddle/utils/pybind.h"
+#include "object.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 

@@ -18,6 +18,7 @@
 #include "paddle/phi/common/type_traits.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/as_complex_impl.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 PD_REGISTER_KERNEL(
     as_complex, CPU, ALL_LAYOUT, phi::AsComplexKernel, float, double) {

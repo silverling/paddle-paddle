@@ -14,11 +14,21 @@
 
 #include "paddle/phi/kernels/argsort_grad_kernel.h"
 
+#include <stddef.h>
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
 #include "paddle/phi/kernels/transpose_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace phi {
 

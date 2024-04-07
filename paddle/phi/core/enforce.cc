@@ -14,17 +14,24 @@ limitations under the License. */
 
 #include "paddle/phi/core/enforce.h"
 
-#include <array>
-#include <map>
+#include <dlfcn.h>
+#include <stddef.h>
 #include <memory>
-#include <unordered_map>
-#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/common/enforce.h"
 #include "paddle/common/flags.h"
-#include "paddle/phi/common/scalar.h"
-#include "paddle/utils/blank.h"
+#include "cufft.h"
+#include "curand.h"
+#include "cusparse.h"
+
+namespace phi {
+namespace enforce {
+namespace details {
+template <typename T> struct ExternalApiProtoType;
+}  // namespace details
+}  // namespace enforce
+}  // namespace phi
 
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/core/external_error.pb.h"

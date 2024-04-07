@@ -14,6 +14,11 @@
 
 #include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
 
+#include <algorithm>
+
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+
 namespace paddle {
 namespace framework {
 namespace ir {

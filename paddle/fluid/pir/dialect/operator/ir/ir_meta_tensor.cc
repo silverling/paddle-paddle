@@ -13,8 +13,12 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/ir_meta_tensor.h"
+
 #include "paddle/fluid/pir/dialect/operator/ir/ir_selected_rows.h"
 #include "paddle/fluid/pir/dialect/operator/ir/ir_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/tensor_base.h"
 
 namespace paddle {
 namespace dialect {

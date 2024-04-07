@@ -14,8 +14,18 @@
 
 #include "paddle/fluid/memory/allocation/pinned_allocator.h"
 
+#include <cuda_runtime.h>
+#include <ostream>
+
 #include "paddle/fluid/memory/stats.h"
 #include "paddle/fluid/platform/profiler/mem_tracing.h"
+#include "driver_types.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/enforce.h"
+
 namespace paddle {
 namespace memory {
 namespace allocation {

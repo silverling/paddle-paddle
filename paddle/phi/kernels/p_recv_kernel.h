@@ -14,11 +14,16 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/tensor_array.h"
 #include "paddle/phi/infermeta/nullary.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
+class TensorArray;
 
 template <typename T, typename Context>
 void PRecvKernel(const Context& dev_ctx,

@@ -17,11 +17,28 @@
 #include <vector>
 
 #include "paddle/fluid/framework/infershape_utils.h"
-#include "paddle/fluid/operators/reduce_ops/reduce_op_function.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class LogsumexpOp : public framework::OperatorWithKernel {

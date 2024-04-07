@@ -14,7 +14,7 @@ limitations under the License. */
 #pragma once
 
 #include <nccl.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"

@@ -9,16 +9,49 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stddef.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/raw_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class ExtendedTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
 class OpDesc;
-class Scope;
 template <typename T>
 class EmptyGradOpMaker;
 }  // namespace framework

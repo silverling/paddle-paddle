@@ -14,10 +14,22 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/flash_attention.h"
 
-#include "glog/logging.h"
+#include <algorithm>
+#include <cstdint>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
-#include "paddle/phi/core/enforce.h"
+#include "glog/logging.h"
 #include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {

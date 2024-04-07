@@ -12,14 +12,58 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stdint.h>
 #include <string>
-#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
-#include "paddle/fluid/framework/data_layout.h"
-#include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/ArrayBase.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/DenseBase.h"
+#include "Eigen/src/Core/DenseCoeffsBase.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/Redux.h"
+#include "Eigen/src/Core/Transpose.h"
+#include "Eigen/src/Core/VectorwiseOp.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/inplace_op_inference.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class AffineChannelOpMaker : public framework::OpProtoAndCheckerMaker {

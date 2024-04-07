@@ -14,8 +14,19 @@
 
 #include "paddle/fluid/inference/tensorrt/trt_int8_calibrator.h"
 
-#include "glog/logging.h"
+#include <stdint.h>
+#include <exception>
+#include <ostream>
+
 #include "paddle/fluid/platform/enforce.h"
+#include "cuda_runtime_api.h"
+#include "driver_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace inference {

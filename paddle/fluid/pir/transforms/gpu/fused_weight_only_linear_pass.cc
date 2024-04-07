@@ -14,14 +14,30 @@
 
 #include "paddle/fluid/pir/transforms/gpu/fused_weight_only_linear_pass.h"
 
+#include <stdint.h>
+#include <string>
+#include <variant>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/drr/include/drr_pattern_base.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
-#include "paddle/fluid/platform/place.h"
-
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "paddle/fluid/pir/drr/include/drr_match_context.h"
+#include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
+#include "paddle/fluid/pir/drr/include/drr_rewrite_pattern.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_rewrite_driver.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

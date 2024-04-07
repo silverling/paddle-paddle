@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
 
+#include <stdint.h>
 #include <map>
 #include <vector>
 
@@ -22,6 +23,10 @@ limitations under the License. */
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 #define INLINE_FOR2(sizei, sizej)     \
   for (int64_t i = 0; i < sizei; i++) \

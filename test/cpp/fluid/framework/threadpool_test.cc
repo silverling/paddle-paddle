@@ -14,9 +14,20 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/threadpool.h"
 
-#include <gtest/gtest.h>
-
+#include <cxxabi.h>
 #include <atomic>
+#include <exception>
+#include <future>
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <utility>
+#include <vector>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
 
 namespace framework = paddle::framework;
 

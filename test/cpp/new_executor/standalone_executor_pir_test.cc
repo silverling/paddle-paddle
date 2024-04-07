@@ -12,17 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/framework/new_executor/standalone_executor.h"
-
-#include <gtest/gtest.h>
-
-#include <chrono>
-#include <iostream>
+#include <bits/std_abs.h>
+#include <stdlib.h>
 #include <string>
+#include <cstdint>
+#include <list>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "paddle/phi/core/kernel_registry.h"
-
-#include "paddle/fluid/framework/new_executor/pir_interpreter.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
@@ -30,12 +29,37 @@
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/program.h"
-
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
-
 #include "paddle/common/macros.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 DECLARE_FILE_SYMBOLS(kernel_dialect);
 

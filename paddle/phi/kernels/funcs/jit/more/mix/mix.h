@@ -22,6 +22,14 @@ namespace phi {
 namespace jit {
 namespace more {
 namespace mix {
+class GRUH1Kernel;
+class GRUHtPart1Kernel;
+class GRUHtPart2Kernel;
+class LSTMC1H1Kernel;
+class LSTMCtHtKernel;
+class VSigmoidKernel;
+class VTanhKernel;
+
 using T = float;
 
 void VSigmoid(const T* x, T* y, int n);

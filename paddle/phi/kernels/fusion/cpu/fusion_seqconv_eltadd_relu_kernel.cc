@@ -12,16 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
 #include <algorithm>  // for min, max
-#include <string>
+#include <cstdint>
+#include <cstring>
+#include <memory>
+#include <vector>
 
 #include "paddle/common/errors.h"
-#include "paddle/phi/common/float16.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/fc_functor.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 namespace fusion {

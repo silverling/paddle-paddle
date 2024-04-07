@@ -17,6 +17,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 // In order to be compatible with `mean` op in fluid,
 // it is no longer used in 2.x API. It can not implement by call

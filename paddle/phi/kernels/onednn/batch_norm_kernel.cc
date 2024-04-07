@@ -14,10 +14,29 @@
 
 #include "paddle/phi/kernels/batch_norm_kernel.h"
 
-#include "glog/logging.h"
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
+#include "src/Core/ArrayBase.h"
+
+namespace dnnl {
+struct memory;
+}  // namespace dnnl
 
 namespace phi {
 

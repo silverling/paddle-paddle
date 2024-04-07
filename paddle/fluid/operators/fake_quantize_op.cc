@@ -14,15 +14,46 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/fake_quantize_op.h"
 
+#include <bits/std_abs.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include <algorithm>
 #include <string>
+#include <complex>
+#include <vector>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/phi/common/transform.h"
 #include "paddle/phi/kernels/impl/clip_kernel_impl.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 template <typename T>

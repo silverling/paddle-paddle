@@ -14,10 +14,22 @@
 
 #include "paddle/fluid/framework/new_executor/interpreter/plan.h"
 
-#include "paddle/fluid/framework/program_desc.h"
+#include <stddef.h>
+#include <algorithm>
+#include <utility>
+
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/new_executor/interpreter/job.h"
+#include "paddle/phi/core/enforce.h"
+
+namespace pir {
+class Program;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {
+class ProgramDesc;
+
 namespace interpreter {
 
 Plan::Plan(const std::vector<std::shared_ptr<Job>>& job_list,

@@ -14,11 +14,16 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 #include <vector>
 
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/platform/device_context.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

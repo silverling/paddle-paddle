@@ -13,15 +13,21 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <math.h>
 #include <limits>
+#include <type_traits>
 
 #include "paddle/common/hostdevice.h"
 #include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/common/float16.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 template <typename T>

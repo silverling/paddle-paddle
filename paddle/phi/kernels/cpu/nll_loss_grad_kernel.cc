@@ -14,12 +14,13 @@
 
 #include "paddle/phi/kernels/nll_loss_grad_kernel.h"
 
-#include <memory>
+#include <string.h>
 #include <string>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/math.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 template <typename T>

@@ -15,6 +15,7 @@
 #pragma once
 #include <cstddef>
 #include <vector>
+#include <algorithm>
 
 #include "paddle/utils/test_macros.h"
 

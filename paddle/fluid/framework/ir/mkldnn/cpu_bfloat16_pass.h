@@ -21,6 +21,7 @@ limitations under the License. */
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class CPUBFloat16Pass : public Pass {
  protected:

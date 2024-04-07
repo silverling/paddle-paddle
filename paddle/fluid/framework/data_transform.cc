@@ -14,16 +14,35 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/data_transform.h"
 
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/data_device_transform.h"
 #include "paddle/fluid/framework/data_layout_transform.h"
 #include "paddle/fluid/framework/data_type_transform.h"
 #include "paddle/phi/api/lib/data_transform.h"
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
+#include "paddle/utils/variant.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"

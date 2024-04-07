@@ -15,6 +15,7 @@ limitations under the License. */
 #pragma once
 
 #include <string>
+#include <cmath>
 
 #include "paddle/common/hostdevice.h"
 #include "paddle/fluid/framework/eigen.h"
@@ -23,6 +24,16 @@ limitations under the License. */
 #include "paddle/fluid/memory/malloc.h"
 #include "paddle/phi/common/transform.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace paddle {
 namespace operators {

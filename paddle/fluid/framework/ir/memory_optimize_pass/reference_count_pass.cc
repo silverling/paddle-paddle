@@ -12,8 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
 #include <type_traits>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/details/computation_op_handle.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
@@ -22,12 +32,25 @@
 #include "paddle/fluid/framework/ir/memory_optimize_pass/op_graph_view.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
 #include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 class ReferenceCountPass : public ir::Pass {
  protected:

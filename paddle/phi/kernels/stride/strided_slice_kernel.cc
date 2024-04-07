@@ -14,12 +14,22 @@
 
 #include "paddle/phi/kernels/strided_slice_kernel.h"
 
-#include "glog/logging.h"
+#include <bits/std_abs.h>
+#include <stdlib.h>
+#include <algorithm>
+#include <cstdint>
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void StridedSliceRawStridedKernel(const Context& dev_ctx,

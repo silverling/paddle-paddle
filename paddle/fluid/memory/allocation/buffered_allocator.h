@@ -14,13 +14,16 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <cstdint>
 #include <map>
 #include <memory>
 #include <vector>
+#include <mutex>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/lock_guard_ptr.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace memory {

@@ -14,13 +14,19 @@
 
 #include "paddle/phi/kernels/logical_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/elementwise_base.h"
 #include "paddle/phi/kernels/funcs/logical_functor.h"
-
 // See Note [ Why still include the fluid headers? ]
 #include "paddle/phi/common/transform.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

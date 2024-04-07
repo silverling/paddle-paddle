@@ -14,9 +14,17 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/arange_kernel.h"
 
+#include <bits/std_abs.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/range_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

@@ -11,7 +11,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include <fcntl.h>
 
 #ifdef _POSIX_C_SOURCE
 #undef _POSIX_C_SOURCE
@@ -21,14 +20,19 @@ limitations under the License. */
 #undef _XOPEN_SOURCE
 #endif
 
+#include <features.h>
 #include <memory>
-#include <string>
-#include <vector>
 
-#include "paddle/fluid/framework/data_feed.h"
-#include "paddle/fluid/framework/data_feed.pb.h"
 #include "paddle/fluid/framework/fleet/box_wrapper.h"
 #include "paddle/fluid/pybind/box_helper_py.h"
+#include "pybind11/attr.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/pytypes.h"
+
+namespace pybind11 {
+class gil_scoped_release;
+}  // namespace pybind11
 #ifdef PADDLE_WITH_BOX_PS
 #include <boxps_public.h>
 #endif
@@ -36,6 +40,10 @@ limitations under the License. */
 namespace py = pybind11;
 
 namespace paddle {
+namespace framework {
+class Dataset;
+}  // namespace framework
+
 namespace pybind {
 void BindBoxHelper(py::module* m) {
   py::class_<framework::BoxHelper, std::shared_ptr<framework::BoxHelper>>(

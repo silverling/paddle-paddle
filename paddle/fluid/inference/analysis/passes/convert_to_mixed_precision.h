@@ -16,6 +16,8 @@
 
 #include <string>
 #include <unordered_set>
+#include <memory>
+#include <unordered_map>
 
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/ir/graph.h"
@@ -23,8 +25,16 @@
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+namespace ir {
+class Node;
+}  // namespace ir
+}  // namespace framework
+
 namespace inference {
 namespace analysis {
 

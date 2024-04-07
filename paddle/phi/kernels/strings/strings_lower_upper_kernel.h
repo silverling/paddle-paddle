@@ -13,13 +13,19 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <vector>
+#include <cstdint>
 
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/core/string_tensor.h"
 #include "paddle/phi/infermeta/strings/unary.h"
 #include "paddle/phi/kernels/strings/case_utils.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/pstring.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/kernels/strings/unicode.h"
 
 using pstring = ::phi::dtype::pstring;
 

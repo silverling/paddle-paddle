@@ -15,6 +15,8 @@
 #pragma once
 
 #include <pybind11/pybind11.h>
+#include <string>
+
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/ddim.h"
 #include "paddle/pir/include/core/value.h"

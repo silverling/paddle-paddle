@@ -16,6 +16,11 @@
 
 #include <functional>
 #include <ostream>
+#include <initializer_list>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/attribute.h"
@@ -24,6 +29,10 @@
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/type_base.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 
@@ -31,6 +40,7 @@ class Operation;
 class IrPrinter;
 class IrParser;
 class DialectInterface;
+class OpInfoImpl;
 
 using OpPrintFn =
     std::function<void(Operation *op, IrPrinter &printer)>;  // NOLINT

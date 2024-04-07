@@ -15,15 +15,59 @@ limitations under the License. */
 #include "paddle/fluid/operators/split_op.h"
 
 #include <string>
+#include <algorithm>
+#include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/phi_utils.h"
 #include "paddle/fluid/prim/api/composite_backward/composite_backward_api.h"
 #include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
-#include "paddle/fluid/prim/utils/static/desc_tensor.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class MetaTensor;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+namespace prim {
+class DescTensor;
+}  // namespace prim
+
 namespace operators {
 
 using framework::Variable;

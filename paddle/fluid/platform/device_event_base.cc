@@ -14,8 +14,12 @@
 
 #include "paddle/fluid/platform/device_event_base.h"
 
+#include <atomic>
+#include <condition_variable>
+#include <mutex>
+
 #include "paddle/fluid/platform/device_event_cpu.h"
-#include "paddle/fluid/platform/event.h"
+#include "driver_types.h"
 
 namespace paddle {
 namespace platform {

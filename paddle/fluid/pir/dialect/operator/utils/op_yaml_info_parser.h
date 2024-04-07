@@ -14,7 +14,17 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <map>
+#include <string>
+#include <tuple>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace dialect {

@@ -14,12 +14,23 @@
 
 #include "paddle/phi/kernels/reduce_max_kernel.h"
 
+#include <complex>
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/reduce.h"
-#include "paddle/phi/kernels/funcs/reduce_functor.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_utils.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+namespace funcs {
+struct MaxFunctor;
+}  // namespace funcs
 
 template <typename T, typename Context>
 void MaxKernel(const Context& dev_ctx,

@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <stddef.h>
 #include <cstdint>
 #include <iostream>
 #include <memory>
 #include <numeric>
-#include <sstream>
 #include <vector>
+#include <string>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/enforce.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
@@ -32,29 +33,42 @@
 #include "paddle/fluid/pir/transforms/gpu/conv2d_add_fuse_pass.h"
 #include "paddle/fluid/pir/transforms/gpu/conv2d_bn_fuse_pass.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/cast_utils.h"
 #include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/op_info.h"
-#include "paddle/pir/include/core/parameter.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/value.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_manager.h"
 #include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
-#include "paddle/pir/include/pattern_rewrite/pattern_applicator.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_match.h"
-#include "paddle/pir/include/pattern_rewrite/pattern_rewrite_driver.h"
-
-#include "paddle/common/ddim.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "test/cpp/pir/tools/macros_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(add, CPU, ALL_LAYOUT);

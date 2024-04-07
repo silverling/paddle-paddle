@@ -12,15 +12,54 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 #include <paddle/fluid/operators/math/concat_and_split.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <algorithm>
+#include <memory>
+#include <numeric>
+#include <ostream>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/core/lod_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/lod_rank_table.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_array.h"
+
+namespace phi {
+class CPUContext;
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
 class OpDesc;
-class Scope;
 }  // namespace framework
 namespace imperative {
 class OpBase;

@@ -22,6 +22,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 // This pass fuses two concatenated fusion_gru ops into a single multi_gru op.
 // It turns

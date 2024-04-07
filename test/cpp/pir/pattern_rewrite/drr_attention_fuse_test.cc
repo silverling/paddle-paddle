@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-
 #include <cstdint>
 #include <vector>
+#include <memory>
+#include <utility>
 
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
@@ -23,12 +23,20 @@
 #include "paddle/fluid/pir/transforms/general/constant_folding_pass.h"
 #include "paddle/fluid/pir/transforms/general/dead_code_elimination_pass.h"
 #include "paddle/fluid/pir/transforms/gpu/multihead_matmul_fuse_pass.h"
-
 #include "paddle/phi/common/place.h"
 #include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/pass/pass_manager.h"
-
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/pass/pass.h"
 
 PD_DECLARE_KERNEL(multihead_matmul, GPU, ALL_LAYOUT);
 

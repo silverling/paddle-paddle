@@ -16,8 +16,10 @@
 
 #include <functional>
 #include <unordered_map>
+#include <cstddef>
 
 #include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
 class OpInfoImpl;

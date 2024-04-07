@@ -12,7 +12,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <algorithm>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/operators/controlflow/conditional_block_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/executor.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/variant.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
@@ -23,7 +42,6 @@ COMMON_DECLARE_bool(use_mkldnn);
 namespace paddle {
 namespace framework {
 class OpDesc;
-class Scope;
 template <typename T>
 class EmptyGradOpMaker;
 }  // namespace framework

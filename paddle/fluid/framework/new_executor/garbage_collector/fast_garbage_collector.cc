@@ -14,8 +14,43 @@
 
 #include "paddle/fluid/framework/new_executor/garbage_collector/fast_garbage_collector.h"
 
+#include <stdint.h>
+#include <deque>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+
 namespace paddle {
+namespace memory {
+class SpinLock;
+}  // namespace memory
+namespace operators {
+namespace reader {
+class OrderedMultiDeviceLoDTensorBlockingQueueHolder;
+}  // namespace reader
+}  // namespace operators
+
 namespace framework {
+class Instruction;
+class InstructionBase;
+class LoDRankTable;
+class Scope;
 
 void InterpreterCoreFastGarbageCollector::Add(Variable* var,
                                               const Instruction&) {

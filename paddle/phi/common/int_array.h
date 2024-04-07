@@ -14,11 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
 
 #include "paddle/common/exception.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/tensor_ref.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/test_macros.h"
+
+namespace phi {
+class TensorRef;
+}  // namespace phi
 
 namespace common {
 class DDim;
@@ -26,6 +36,7 @@ class DDim;
 
 namespace paddle {
 class Tensor;
+
 namespace experimental {
 
 template <typename T>
@@ -125,6 +136,7 @@ using IntArray = paddle::experimental::IntArrayBase<paddle::Tensor>;
 namespace phi {
 
 class DenseTensor;
+
 using IntArray = paddle::experimental::IntArrayBase<DenseTensor>;
 
 }  // namespace phi

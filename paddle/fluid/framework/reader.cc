@@ -15,6 +15,7 @@
 #include "paddle/fluid/framework/reader.h"
 
 #include <deque>
+#include <algorithm>
 
 namespace paddle {
 namespace framework {

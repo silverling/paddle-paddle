@@ -18,10 +18,19 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <mutex>
+#include <ostream>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/lod_tensor_array.h"
 #include "paddle/fluid/platform/place.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

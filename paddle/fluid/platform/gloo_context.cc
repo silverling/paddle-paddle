@@ -14,6 +14,12 @@
 
 #include "paddle/fluid/platform/gloo_context.h"
 
+#include <memory>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
+
 namespace paddle {
 namespace platform {
 #if defined(PADDLE_WITH_GLOO)

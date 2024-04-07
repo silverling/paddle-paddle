@@ -19,6 +19,11 @@ limitations under the License. */
 #include "paddle/fluid/operators/elementwise/elementwise_op.h"
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/elementwise_kernel.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
 namespace operators {

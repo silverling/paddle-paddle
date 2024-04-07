@@ -13,13 +13,22 @@
 // limitations under the License.
 #pragma once
 
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <typeindex>
 #include <typeinfo>
+#include <ostream>
 
 #include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+
 namespace paddle {
 namespace framework {
 

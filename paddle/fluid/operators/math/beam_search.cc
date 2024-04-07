@@ -13,9 +13,31 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/operators/math/beam_search.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
+
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <numeric>
+#include <ostream>
+#include <string>
+#include <vector>
+
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
 namespace phi {
-class DenseTensor;
+class CPUContext;
 }  // namespace phi
 
 namespace paddle {

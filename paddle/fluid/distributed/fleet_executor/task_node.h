@@ -20,14 +20,18 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <map>
 
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/platform/macros.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/operator.h"
 
 namespace paddle {
 namespace framework {
 class OperatorBase;
 class OpDesc;
+class ProgramDesc;
 }  // namespace framework
 namespace distributed {
 

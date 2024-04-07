@@ -12,13 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
+#include <algorithm>
+#include <functional>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/executor_gc_helper.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/memory_reuse_pass.h"
 #include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/details/computation_op_handle.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

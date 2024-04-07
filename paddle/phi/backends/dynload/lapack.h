@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <dlfcn.h>
 #include <complex>
 #include <mutex>
 

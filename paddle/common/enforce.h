@@ -17,8 +17,15 @@
 #ifdef __GNUC__
 #include <cxxabi.h>  // for __cxa_demangle
 #endif               // __GNUC__
+#include <stdint.h>
 #include <exception>
 #include <iostream>
+#include <cstdlib>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <typeinfo>
+#include <utility>
 #if !defined(_WIN32)
 #include <dlfcn.h>   // dladdr
 #include <unistd.h>  // sleep, usleep

@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <deque>
 #include <memory>
 #include <string>
@@ -22,11 +23,20 @@
 
 #include "paddle/fluid/framework/details/op_handle_base.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class Allocation;
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
 class GarbageCollector;
 class Scope;
+class Variable;
 
 namespace ir {
 class Node;

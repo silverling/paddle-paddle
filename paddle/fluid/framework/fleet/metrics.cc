@@ -13,13 +13,6 @@
 // limitations under the License.
 #include "paddle/fluid/framework/fleet/metrics.h"
 
-#include <algorithm>
-#include <ctime>
-#include <memory>
-#include <numeric>
-
-#include "paddle/fluid/framework/lod_tensor.h"
-
 #if defined(PADDLE_WITH_PSLIB) || defined(PADDLE_WITH_PSCORE)
 namespace paddle {
 namespace framework {

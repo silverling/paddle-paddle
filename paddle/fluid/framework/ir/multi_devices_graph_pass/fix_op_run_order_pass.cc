@@ -12,7 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
 #include <algorithm>
+#include <map>
+#include <ostream>
+#include <queue>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/details/eager_deletion_op_handle.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
@@ -23,6 +32,15 @@
 #include "paddle/fluid/framework/ir/memory_optimize_pass/op_graph_view.h"
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

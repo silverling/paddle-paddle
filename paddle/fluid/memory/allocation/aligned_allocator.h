@@ -13,10 +13,15 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <memory>
 #include <utility>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace memory {

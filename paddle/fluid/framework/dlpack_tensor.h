@@ -15,8 +15,16 @@
 #pragma once
 
 #include <dlpack/dlpack.h>
+#include <stdint.h>
+#include <type_traits>
 
 #include "paddle/fluid/framework/tensor.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/utils/test_macros.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

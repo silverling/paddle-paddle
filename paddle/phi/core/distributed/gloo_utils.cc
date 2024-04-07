@@ -23,13 +23,23 @@
 #include <array>
 #endif
 
+#include <bits/local_lim.h>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/distributed/gloo_utils.h"
 #include "paddle/phi/core/distributed/store/tcp_utils.h"
-#include "paddle/phi/core/enforce.h"
+#include "gloo/transport/tcp/attr.h"
+#include "gloo/transport/tcp/device.h"
+#include "gloo/types.h"
+
+namespace gloo {
+namespace transport {
+class Device;
+}  // namespace transport
+}  // namespace gloo
 
 namespace phi {
 namespace distributed {

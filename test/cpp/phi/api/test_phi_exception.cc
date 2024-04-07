@@ -9,11 +9,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <iostream>
+#include <stddef.h>
 #include <string>
+#include <exception>
 
-#include "gtest/gtest.h"
 #include "paddle/common/exception.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace tests {

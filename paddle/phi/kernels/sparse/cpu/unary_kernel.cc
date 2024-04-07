@@ -14,14 +14,23 @@
 
 #include "paddle/phi/kernels/sparse/unary_kernel.h"
 
+#include <stdint.h>
+#include <type_traits>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
-#include "paddle/phi/kernels/sparse/impl/unary_grad_kernel_impl.h"
 #include "paddle/phi/kernels/sparse/impl/unary_kernel_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/kernels/sparse/empty_kernel.h"
 
 namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+
 namespace sparse {
 
 template <typename T, typename Context>

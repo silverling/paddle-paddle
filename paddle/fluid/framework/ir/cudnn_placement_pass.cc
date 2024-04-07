@@ -13,7 +13,19 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/ir/cudnn_placement_pass.h"
+
+#include <map>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace paddle {
 namespace framework {

@@ -12,7 +12,7 @@ limitations under the License. */
 
 #ifdef PADDLE_WITH_CUDA
 #include <nvjpeg.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"

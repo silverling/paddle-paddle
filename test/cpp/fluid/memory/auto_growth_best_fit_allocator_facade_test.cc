@@ -12,16 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-
+#include <stddef.h>
 #include <condition_variable>  // NOLINT
 #include <mutex>               // NOLINT
 #include <random>
 #include <thread>  // NOLINT
+#include <algorithm>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/allocator.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 COMMON_DECLARE_double(fraction_of_gpu_memory_to_use);

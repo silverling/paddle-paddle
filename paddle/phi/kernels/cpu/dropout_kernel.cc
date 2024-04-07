@@ -14,11 +14,24 @@
 
 #include "paddle/phi/kernels/dropout_kernel.h"
 
+#include <cstdint>
+#include <cstring>
+#include <memory>
+#include <random>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/expand_kernel.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

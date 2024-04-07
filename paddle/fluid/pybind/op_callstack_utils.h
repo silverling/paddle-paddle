@@ -13,8 +13,11 @@
 // limitations under the License.
 
 #pragma once
+#include <string>
+
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/attribute.h"
 
 class CallStackRecorder {
  public:

@@ -13,12 +13,14 @@
 // limitations under the License.
 
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <unordered_map>
+#include <utility>
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/imperative/basic_engine.h"
@@ -26,6 +28,19 @@
 #include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/memory/memcpy.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 PD_DECLARE_KERNEL(add, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(add_grad, CPU, ALL_LAYOUT);

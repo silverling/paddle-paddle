@@ -14,13 +14,16 @@ limitations under the License. */
 
 #include "test/cpp/phi/ops/test_op_signature.h"
 
-#include <gtest/gtest.h>
-
 #include <memory>
-#include <unordered_set>
+#include <cstdint>
+#include <vector>
 
-#include "paddle/fluid/operators/ops_signature/signatures.h"
 #include "paddle/phi/core/compat/op_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/small_vector.h"
 
 namespace phi {
 namespace tests {

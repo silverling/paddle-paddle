@@ -14,7 +14,14 @@
 
 #include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
 
-#include <algorithm>
+#include <ext/alloc_traits.h>
+#include <deque>
+#include <exception>
+#include <iostream>
+#include <tuple>
+#include <type_traits>
+#include <typeinfo>
+#include <utility>
 
 #include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
 #include "paddle/fluid/framework/details/nan_inf_utils.h"
@@ -25,7 +32,6 @@
 #include "paddle/fluid/framework/new_executor/interpreter/data_transfer.h"
 #include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
 #include "paddle/fluid/framework/new_executor/interpreter/static_build.h"
-#include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
 #include "paddle/fluid/memory/stats.h"
 #include "paddle/fluid/operators/controlflow/conditional_block_op_helper.h"
 #include "paddle/fluid/operators/controlflow/pylayer_op_helper.h"
@@ -33,13 +39,69 @@
 #include "paddle/fluid/operators/controlflow/while_op_helper.h"
 #include "paddle/fluid/operators/ops_extra_info.h"
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
-#include "paddle/fluid/platform/flags.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/kernel_factory.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/op_call_stack.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/phi_utils.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/framework/variable_helper.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/core/utils/type_registry.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/string/string_helper.h"
+#include "paddle/utils/variant.h"
+
+namespace paddle {
+namespace framework {
+class EventsWaiter;
+class ProgramDesc;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"

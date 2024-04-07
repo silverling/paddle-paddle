@@ -12,7 +12,6 @@ limitations under the License. */
 
 #pragma once
 #include <glog/logging.h>
-
 #include <algorithm>
 #include <cmath>
 #include <memory>
@@ -20,6 +19,8 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <ostream>
+#include <typeinfo>
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif
@@ -32,8 +33,17 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
-
 #include "paddle/phi/kernels/funcs/activation_functor.h"
+#include "Eigen/src/Core/NumTraits.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace operators {

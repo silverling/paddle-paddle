@@ -14,9 +14,13 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/eigen.h"
@@ -24,12 +28,31 @@
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/fluid/platform/for_range.h"
 #include "paddle/phi/common/amp_type_traits.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/hostdevice.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
 
 #ifdef __NVCC__
 #include "cub/cub.cuh"
 #endif
 #ifdef __HIPCC__
 #include <hipcub/hipcub.hpp>
+
 namespace cub = hipcub;
 #endif
 

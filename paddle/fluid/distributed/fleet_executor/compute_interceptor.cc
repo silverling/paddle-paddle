@@ -14,12 +14,32 @@
 
 #include "paddle/fluid/distributed/fleet_executor/compute_interceptor.h"
 
+#include <ext/alloc_traits.h>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/common/errors.h"
-#include "paddle/fluid/distributed/fleet_executor/carrier.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
 #include "paddle/fluid/framework/executor_gc_helper.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/jit/serializer.h"
+#include "glog/logging.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_array.h"
 
 namespace paddle {
 namespace distributed {

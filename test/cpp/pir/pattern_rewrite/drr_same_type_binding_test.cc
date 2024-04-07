@@ -13,8 +13,11 @@
 // limitations under the License.
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
 #include <memory>
+#include <cstdint>
+#include <string>
+#include <variant>
+#include <vector>
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
@@ -23,7 +26,18 @@
 #include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_manager.h"
-#include "paddle/pir/include/pattern_rewrite/pattern_rewrite_driver.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
+#include "paddle/fluid/pir/drr/include/drr_rewrite_pattern.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
 
 /* Source pattern:
                                        input1

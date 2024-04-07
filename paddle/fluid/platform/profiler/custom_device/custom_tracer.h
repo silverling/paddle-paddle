@@ -17,9 +17,13 @@
 #include <cstdint>
 #include <memory>
 #include <vector>
+#include <string>
+#include <unordered_map>
 
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/profiler/tracer_base.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/profiler/trace_event_collector.h"
 
 namespace paddle {
 namespace platform {

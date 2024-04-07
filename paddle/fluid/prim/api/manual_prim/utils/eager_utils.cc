@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
-#include "paddle/fluid/eager/api/utils/global_utils.h"
-#include "paddle/fluid/prim/api/manual_prim/utils/utils.h"
-#include "paddle/phi/api/include/tensor.h"
+#include "paddle/fluid/prim/api/generated_prim/prim_generated_api.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace prim {

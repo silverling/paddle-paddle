@@ -14,12 +14,24 @@
 
 #include "paddle/phi/kernels/reduce_sum_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/reduce.h"
-#include "paddle/phi/kernels/funcs/reduce_functor.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+namespace funcs {
+struct SumFunctor;
+}  // namespace funcs
 
 template <typename T, typename Context>
 void SumRawKernel(const Context& dev_ctx,

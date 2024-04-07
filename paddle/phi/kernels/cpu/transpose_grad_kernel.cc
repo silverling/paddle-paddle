@@ -14,10 +14,19 @@
 
 #include "paddle/phi/kernels/transpose_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/transpose_grad_kernel_impl.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(transpose_grad,
                    CPU,

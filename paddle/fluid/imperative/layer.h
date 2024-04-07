@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <cstdint>
 #include <list>
@@ -24,6 +25,9 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <functional>
+#include <mutex>
+#include <ostream>
 
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/operator.h"
@@ -38,6 +42,13 @@
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/place.h"
+
 namespace paddle {
 namespace framework {
 class Variable;
@@ -50,6 +61,7 @@ namespace imperative {
 class GradOpNode;
 class OpBase;
 class VariableWrapper;
+class VariableWrapperHook;
 
 class TEST_API ThreadSafeNameSet {
  public:

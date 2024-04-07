@@ -14,16 +14,21 @@
 
 #include "paddle/fluid/eager/nan_inf_utils.h"
 
-#include <iostream>
 #include <limits>
 #include <tuple>
+#include <memory>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/api/include/api.h"
 #include "paddle/phi/api/include/strings_api.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(strings_empty, CPU, ALL_LAYOUT);

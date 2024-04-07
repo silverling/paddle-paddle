@@ -13,8 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <chrono>  // NOLINT
 #include <string>
+#include <map>
 
 #include "paddle/phi/api/profiler/event.h"
 #include "paddle/phi/api/profiler/profiler.pb.h"

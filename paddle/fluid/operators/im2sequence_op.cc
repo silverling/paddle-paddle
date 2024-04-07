@@ -14,11 +14,32 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/im2sequence_op.h"
 
-#include <memory>
 #include <string>
 #include <vector>
 
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/small_vector.h"
+
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class Im2SequenceOp : public framework::OperatorWithKernel {

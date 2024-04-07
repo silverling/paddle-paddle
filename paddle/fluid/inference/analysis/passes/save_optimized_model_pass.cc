@@ -14,11 +14,26 @@ limitations under the License. */
 
 #include "paddle/fluid/inference/analysis/passes/save_optimized_model_pass.h"
 
+#include <stddef.h>
 #include <unordered_set>
+#include <algorithm>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/executor.h"
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/scope.h"
+#include "glog/logging.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/analysis/argument.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace inference {

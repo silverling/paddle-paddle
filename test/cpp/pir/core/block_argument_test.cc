@@ -12,14 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <stdint.h>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/program.h"
 #include "test/cpp/pir/tools/test_dialect.h"
-#include "test/cpp/pir/tools/test_op.h"
+#include "gtest/gtest-death-test.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/block_argument.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 TEST(block_argument_test, base) {
   pir::IrContext ctx;

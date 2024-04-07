@@ -22,6 +22,13 @@
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/imperative/parallel_context.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+
+namespace phi {
+class DenseTensor;
+class SelectedRows;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

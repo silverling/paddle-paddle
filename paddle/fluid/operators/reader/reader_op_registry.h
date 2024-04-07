@@ -18,9 +18,14 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <functional>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/reader.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace paddle {
 namespace framework {

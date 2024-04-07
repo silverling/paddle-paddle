@@ -13,17 +13,26 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stdint.h>
 #include <cstring>
 #include <string>
 #include <unordered_set>
+#include <array>
+#include <type_traits>
 
 #include "paddle/common/ddim.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+class CPUContext;
+
 namespace funcs {
 
 /**

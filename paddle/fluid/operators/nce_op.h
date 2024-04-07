@@ -15,18 +15,49 @@ limitations under the License. */
 #pragma once
 
 #include <math.h>
-
 #include <iterator>
 #include <random>
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <new>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/operators/math/sampler.h"
 #include "unsupported/Eigen/CXX11/Tensor"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/Tensor.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorChipping.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensionList.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorFunctors.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

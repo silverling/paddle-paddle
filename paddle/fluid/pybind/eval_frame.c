@@ -13,15 +13,24 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/pybind/eval_frame.h"
-#include "paddle/fluid/pybind/cpython_internals.h"
-#include "paddle/fluid/pybind/eval_frame_tools.h"
 
-#include <Python.h>
 #include <frameobject.h>
+#include <stddef.h>
+
+#include "paddle/fluid/pybind/eval_frame_tools.h"
+#include "abstract.h"
+#include "boolobject.h"
+#include "ceval.h"
+#include "modsupport.h"
+#include "patchlevel.h"
+#include "pyerrors.h"
+#include "pythread.h"
+#include "tupleobject.h"
 
 #if PY_VERSION_HEX >= 0x03080000 && PY_VERSION_HEX < 0x3090000
 #define Py_BUILD_CORE  // internal/pycore_pymem.h need this macro
 #include <internal/pycore_pystate.h>
+
 #undef Py_BUILD_CORE
 #endif
 #if PY_VERSION_HEX < 0x030b0000

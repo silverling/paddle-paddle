@@ -19,22 +19,51 @@ paddle::dialect::IfOp, paddle::dialect::WhileOp, paddle::dialect::HasElementsOp,
 #else
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <optional>
+#include <ostream>
+#include <string>
+#include <tuple>
+#include <unordered_map>
+#include <utility>
+#include <variant>
+
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/pir/transforms/shape_optimization_pass.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/ir_printer.h"
-#include "paddle/pir/include/core/op_trait.h"
 #include "paddle/pir/include/core/operation_utils.h"
 #include "paddle/pir/include/core/utils.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_type.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr_builder.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
 
 using pir::TuplePopOp;
 using pir::TuplePushOp;

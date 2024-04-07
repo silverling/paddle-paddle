@@ -14,15 +14,25 @@
 
 #include "paddle/fluid/framework/details/gather_op_handle.h"
 
+#include <stddef.h>
+#include <cstdint>
+#include <map>
+
 #include "paddle/common/macros.h"
 #include "paddle/fluid/framework/details/container_cast.h"
 #include "paddle/fluid/framework/details/variable_visitor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
 
 REGISTER_FILE_SYMBOLS(gather_op_handle);
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
 
 namespace paddle {
 namespace framework {

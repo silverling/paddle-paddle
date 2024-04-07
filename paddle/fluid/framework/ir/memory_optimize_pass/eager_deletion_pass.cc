@@ -12,19 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <bits/std_abs.h>
+#include <math.h>
+#include <stddef.h>
 #include <algorithm>
 #include <functional>
-#include <queue>
 #include <string>
-#include <tuple>
 #include <vector>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
 #include "paddle/fluid/framework/details/computation_op_handle.h"
 #include "paddle/fluid/framework/details/eager_deletion_op_handle.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/garbage_collector.h"
-#include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/memory_optimization_var_info.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

@@ -15,11 +15,14 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/device_context.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void PadKernel(const Context& dev_ctx,

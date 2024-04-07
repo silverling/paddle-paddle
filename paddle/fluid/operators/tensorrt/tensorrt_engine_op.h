@@ -15,6 +15,7 @@
 #pragma once
 
 #ifdef PADDLE_WITH_CUDA
+#include <stddef.h>
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -22,6 +23,9 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <map>
+#include <ostream>
+#include <thread>
 
 #include "paddle/common/errors.h"
 #include "paddle/fluid/framework/data_device_transform.h"
@@ -43,6 +47,27 @@
 #include "paddle/phi/kernels/cast_kernel.h"
 #include "paddle/phi/kernels/funcs/data_type_transform.h"
 #include "paddle/utils/string/string_helper.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace inference {

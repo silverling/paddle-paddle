@@ -13,7 +13,35 @@
 // limitations under the License.
 #pragma once
 
+#include <functional>
+#include <memory>
+#include <set>
+#include <string>
+#include <tuple>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/interpreter_base_impl.h"
+#include "paddle/common/flags.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/test_macros.h"
+
+namespace paddle {
+namespace framework {
+class BlockDesc;
+class OperatorBase;
+class ProgramDesc;
+class Scope;
+class Variable;
+class VariableScope;
+struct OpFuncNode;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 PD_DECLARE_bool(new_executor_use_local_scope);
 

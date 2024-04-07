@@ -12,8 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
+#include <istream>
+#include <memory>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/operators/reader/buffered_reader.h"
 #include "paddle/fluid/operators/reader/reader_op_registry.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/reader.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

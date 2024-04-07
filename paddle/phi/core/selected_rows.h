@@ -14,6 +14,8 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <memory>
 #include <mutex>  // NOLINT
@@ -22,8 +24,18 @@ limitations under the License. */
 #include <vector>
 
 #include "paddle/phi/core/selected_rows_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
+class Allocator;
+class DenseTensor;
+class Place;
+
 class SelectedRows : public TensorBase,
                      public TypeInfoTraits<TensorBase, SelectedRows> {
   /*

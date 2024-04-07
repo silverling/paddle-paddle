@@ -12,21 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include <sys/types.h>
-
+#include <ext/alloc_traits.h>
 #include <string>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/ir/fuse_optimizer_ops_pass/fuse_optimizer_op_pass.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 class FuseAdamOpPass : public FuseOptimizerOpPass {
  private:

@@ -14,12 +14,17 @@
 
 #include "paddle/fluid/memory/allocation/buffered_allocator.h"
 
-#include <gtest/gtest.h>
-
 #include <utility>
+#include <cstdint>
 
 #include "paddle/fluid/memory/allocation/best_fit_allocator.h"
 #include "paddle/fluid/memory/allocation/cpu_allocator.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace memory {

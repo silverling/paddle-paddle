@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/fc_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 PD_REGISTER_KERNEL(fc, CPU, ALL_LAYOUT, phi::fusion::FCKernel, float, double) {}

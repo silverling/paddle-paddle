@@ -13,13 +13,18 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
-
 #include <exception>
 #include <string>
+#include <memory>
+#include <ostream>
+#include <vector>
 
 #include "paddle/fluid/inference/api/paddle_analysis_config.h"
 #include "paddle/fluid/inference/api/paddle_api.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
 
 namespace paddle {
 

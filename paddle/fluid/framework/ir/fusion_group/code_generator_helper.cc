@@ -14,10 +14,14 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/fusion_group/code_generator_helper.h"
 
+#include <stdint.h>
 #include <sstream>
 #include <string>
 
 #include "paddle/fluid/framework/ir/fusion_group/operation.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

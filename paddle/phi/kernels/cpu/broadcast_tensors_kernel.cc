@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/broadcast_tensors_kernel.h"
 
-#include "paddle/phi/common/float16.h"
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/broadcast_tensors_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(broadcast_tensors,
                    CPU,

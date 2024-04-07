@@ -15,15 +15,17 @@ limitations under the License. */
 #include "paddle/fluid/platform/profiler/chrometracing_logger.h"
 
 #include <cstdio>
-#include <ctime>
 #include <limits>
 #include <regex>
+#include <sstream>
+#include <vector>
 
 #include "glog/logging.h"
-#include "paddle/fluid/platform/device/gpu/gpu_info.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/profiler/event_node.h"
 #include "paddle/fluid/platform/profiler/utils.h"
+#include "paddle/fluid/platform/os_info.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/os_info.h"
 
 namespace paddle {
 namespace platform {

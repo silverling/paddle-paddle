@@ -14,18 +14,27 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <codecvt>
 #include <iostream>
 #include <locale>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+
 #include "paddle/fluid/framework/phi_tensor_base_vector.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/extended_tensor.h"
+#include "paddle/phi/core/utils/type_info.h"
+
+namespace phi {
+class TensorBase;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
+template <typename T> struct PhiVectorType;
 
 // Note(YuanRisheng): Vocab is mainly used for faster_tokenizer_op and we don't
 // recommend widely use it. Because faster_tokenizer_op may be deleted in the

@@ -15,14 +15,17 @@ limitations under the License. */
 #include "paddle/phi/core/generator.h"
 
 #include <glog/logging.h>
-
+#include <ext/alloc_traits.h>
 #include <cstdint>
 #include <memory>
 #include <utility>
+#include <deque>
+#include <ostream>
+#include <unordered_map>
 
 #include "paddle/phi/backends/gpu/gpu_info.h"
-#include "paddle/phi/backends/xpu/xpu_info.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 static uint64_t GetRandomSeed() {
   std::random_device rd;

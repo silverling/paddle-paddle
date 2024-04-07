@@ -12,19 +12,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 #include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/var_type_traits.h"
-#include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/gen_comm_id_helper.h"
 #include "paddle/fluid/platform/place.h"
-#include "paddle/phi/backends/device_manager.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace operators {
 
 #ifdef PADDLE_WITH_CUSTOM_DEVICE

@@ -13,16 +13,25 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/inference/tensorrt/engine.h"
+
 #include <NvInfer.h>
-#include <glog/logging.h>
 #include <string>
 
-#include "NvInferRuntimeCommon.h"
 #include "cuda_runtime_api.h"  // NOLINT
-
 #include "paddle/fluid/inference/tensorrt/helper.h"
 #include "paddle/fluid/inference/tensorrt/trt_int8_calibrator.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/stream.h"
 
 namespace paddle {
 namespace inference {

@@ -12,16 +12,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <sstream>
 #include <string>
-#include <utility>
+#include <algorithm>
+#include <memory>
+#include <vector>
 
-#include "gtest/gtest.h"
-#include "paddle/common/errors.h"
-#include "paddle/phi/backends/all_context.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/tensor_array.h"
 #include "test/cpp/phi/core/allocator.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 namespace tests {

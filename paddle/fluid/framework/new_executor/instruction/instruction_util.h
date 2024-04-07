@@ -25,10 +25,22 @@
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+namespace pir {
+class Block;
+class Operation;
+}  // namespace pir
+
 namespace paddle {
 namespace framework {
 
 class ValueExecutionInfo;
+class Scope;
+class Variable;
 
 std::vector<int> GetValueIds(pir::Value value,
                              const ValueExecutionInfo& value_exec_info);

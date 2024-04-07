@@ -13,7 +13,11 @@
 // limitations under the License.
 
 #include "paddle/fluid/inference/api/helper.h"
+
 #include <cstdint>
+#include <map>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/enforce.h"
 #include "paddle/common/errors.h"
@@ -27,12 +31,28 @@
 #include "paddle/fluid/pir/drr/src/ir_operation_factory.h"
 #include "paddle/fluid/platform/init.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/ir_context.h"
-#include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/flat_hash_map.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 namespace paddle {
 namespace inference {

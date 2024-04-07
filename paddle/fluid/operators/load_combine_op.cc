@@ -14,10 +14,29 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/load_combine_op.h"
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <algorithm>
+
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 
 class LoadCombineOp : public framework::OperatorWithKernel {

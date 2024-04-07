@@ -13,9 +13,6 @@
 // limitations under the License.
 
 #include "paddle/fluid/inference/api/paddle_pass_builder.h"
-#ifdef PADDLE_WITH_CUDA
-#include <cudnn.h>
-#endif
 #ifdef PADDLE_WITH_HIP
 #include <miopen/miopen.h>
 #endif
@@ -24,9 +21,11 @@
 #endif
 
 #include <glog/logging.h>
-
 #include <algorithm>
 #include <sstream>
+#include <iterator>
+
+#include "cudnn_version.h"
 
 namespace paddle {
 

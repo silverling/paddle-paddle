@@ -25,10 +25,23 @@
  * with no grad **/
 
 #pragma once
+#include <stdint.h>
+#include <memory>
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 #ifndef PADDLE_NO_PYTHON
 #include "paddle/fluid/eager/hooks.h"
 #endif

@@ -18,12 +18,22 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <future>
 
 #include "ThreadPool.h"
 #include "paddle/fluid/framework/details/threaded_ssa_graph_executor.h"
+#include "paddle/fluid/framework/details/exception_holder.h"
+#include "paddle/fluid/framework/details/execution_strategy.h"
+#include "paddle/fluid/framework/details/ssa_graph_executor.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 struct VarInfo {

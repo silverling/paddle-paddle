@@ -14,12 +14,23 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/selected_rows/scale_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/backends/gpu/gpu_context.h"
-#include "paddle/phi/common/bfloat16.h"
+#include <stdint.h>
+#include <memory>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/scale_kernel.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+
 namespace phi {
+class CPUContext;
+class GPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+
 namespace sr {
 
 template <typename T, typename Context>

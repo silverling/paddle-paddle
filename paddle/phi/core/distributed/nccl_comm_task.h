@@ -13,11 +13,19 @@
 // limitations under the License.
 #pragma once
 
+#include <bits/chrono.h>
+#include <stdint.h>
+#include <mutex>
+#include <string>
+
 #include "paddle/common/macros.h"
 #include "paddle/phi/backends/gpu/gpu_decls.h"
 #include "paddle/phi/core/distributed/comm_context.h"
 #include "paddle/phi/core/distributed/comm_task.h"
 #include "paddle/phi/core/distributed/utils.h"
+#include "driver_types.h"
+#include "nccl.h"
+#include "paddle/phi/common/place.h"
 
 #if defined(PADDLE_WITH_RCCL)
 #include "paddle/phi/backends/dynload/rccl.h"
@@ -27,6 +35,7 @@
 
 namespace phi {
 class DenseTensor;
+
 namespace distributed {
 
 static int64_t DefaultTimeout = 30 * 60 * 1000;

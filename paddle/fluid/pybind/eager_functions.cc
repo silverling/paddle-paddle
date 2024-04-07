@@ -12,34 +12,36 @@ limitations under the License. */
 
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
+
 typedef SSIZE_T ssize_t;
 #endif
 
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <utility>
 
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/backward.h"
 #include "paddle/fluid/eager/custom_operator/custom_operator_node.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/custom_operator.h"
 #include "paddle/fluid/framework/custom_operator_utils.h"
-#include "paddle/fluid/framework/phi_utils.h"
-#include "paddle/fluid/framework/python_headers.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
-#include "paddle/fluid/platform/dynload/dynamic_loader.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
@@ -48,15 +50,40 @@ typedef SSIZE_T ssize_t;
 #include "paddle/fluid/pybind/tensor_py.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/phi/api/include/api.h"
-#include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
-#include "paddle/utils/string/string_helper.h"
 #include "pybind11/numpy.h"
-#include "pybind11/pybind11.h"
+#include "driver_types.h"
+#include "methodobject.h"
+#include "modsupport.h"
+#include "object.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/generated/eager_generated/forwards/scale.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/hooks.h"
+#include "paddle/fluid/eager/tensor_wrapper.h"
+#include "paddle/fluid/jit/function.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/cuda_stream.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/pybind.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/gil.h"
+#include "pybind11/pytypes.h"
+#include "pyport.h"
+#include "tupleobject.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/pybind/cuda_streams_py.h"
@@ -66,12 +93,12 @@ typedef SSIZE_T ssize_t;
 #include "paddle/fluid/eager/custom_operator/custom_operator_utils.h"
 #include "paddle/phi/api/include/operants_manager.h"
 #include "paddle/phi/api/include/tensor_operants.h"
-#include "paddle/phi/api/lib/data_transform.h"
-#ifdef PADDLE_WITH_DISTRIBUTE
-#include "paddle/phi/api/lib/api_gen_utils.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/infermeta/spmd_rules/rules.h"
-#endif
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 COMMON_DECLARE_string(tensor_operants_mode);
 

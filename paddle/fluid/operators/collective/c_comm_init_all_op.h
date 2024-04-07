@@ -15,11 +15,14 @@ limitations under the License. */
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/threadpool.h"
 #include "paddle/fluid/platform/collective_helper.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"

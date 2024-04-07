@@ -14,6 +14,9 @@
 
 #pragma once
 
+#include <bits/chrono.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <atomic>              // NOLINT
 #include <chrono>              // NOLINT
 #include <condition_variable>  // NOLINT
@@ -23,6 +26,13 @@
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace memory {

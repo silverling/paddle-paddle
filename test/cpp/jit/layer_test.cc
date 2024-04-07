@@ -15,22 +15,29 @@
 #include <cmath>
 #include <string>
 #include <vector>
-
-#include "gtest/gtest.h"
+#include <iostream>
+#include <memory>
 
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/timer.h"
 #include "paddle/phi/api/include/api.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
-
 #include "paddle/fluid/jit/function.h"
 #include "paddle/fluid/jit/function_utils.h"
 #include "paddle/fluid/jit/layer.h"
 #include "paddle/fluid/jit/serializer.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 USE_OP_ITSELF(elementwise_add);
 USE_OP_ITSELF(matmul_v2);

@@ -18,6 +18,14 @@
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/slice_kernel_impl.h"
 
+namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+}  // namespace phi
+
 PD_REGISTER_KERNEL(slice,
                    CPU,
                    ALL_LAYOUT,

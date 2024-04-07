@@ -13,8 +13,21 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_tools.h"
+
+#include <string>
+
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/operation.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/pir/dialect/distributed/ir/dist_interface.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace paddle {
 namespace dialect {

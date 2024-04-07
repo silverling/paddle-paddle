@@ -14,14 +14,33 @@
 
 #include "paddle/phi/kernels/array_kernel.h"
 
-#include "paddle/common/layout.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/concat_kernel.h"
 #include "paddle/phi/kernels/full_kernel.h"
 #include "paddle/phi/kernels/stack_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_utils.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 template <typename T, typename Context>
 void CreateArrayKernel(const Context& dev_ctx,
                        DataType dtype,

@@ -23,6 +23,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 // Fusing of path merge and layer_norm
 // op: ss=stride_slice

@@ -12,10 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <list>
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/platform/profiler/chrometracing_logger.h"
 #include "paddle/fluid/platform/profiler/event_node.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/profiler/trace_event.h"
 
 using paddle::framework::AttributeMap;
 using paddle::platform::ChromeTracingLogger;

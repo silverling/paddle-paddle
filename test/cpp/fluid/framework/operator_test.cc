@@ -13,11 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #include "paddle/fluid/framework/operator.h"
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/op_info.h"
+#include <initializer_list>
+#include <iostream>
+
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/platform/init.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/lod_rank_table.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 PD_DECLARE_bool(enable_unused_var_check);
 

@@ -13,7 +13,17 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/im2col.h"
+
+#include <initializer_list>
+
 #include "paddle/phi/kernels/funcs/im2col_cfo_cpu.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 class CPUContext;

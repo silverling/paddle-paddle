@@ -14,12 +14,29 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <list>
+#include <iterator>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/phi/common/complex.h"
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/operation.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation_utils.h"
+
+namespace phi {
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+}  // namespace phi
 
 namespace pir {
 class Type;
@@ -47,6 +64,8 @@ class PointerAttribute;
 class TensorNameAttribute;
 class Complex64Attribute;
 class Complex128Attribute;
+class Attribute;
+class Value;
 
 using InsertionPoint = std::pair<Block *, Block::Iterator>;
 ///

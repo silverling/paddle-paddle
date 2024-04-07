@@ -13,7 +13,15 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/ir_selected_rows.h"
+
+#include <utility>
+
 #include "paddle/common/enforce.h"
+#include "paddle/common/ddim.h"
+
+namespace phi {
+class Allocator;
+}  // namespace phi
 
 namespace paddle {
 namespace dialect {

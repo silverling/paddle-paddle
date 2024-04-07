@@ -14,7 +14,18 @@
 
 #pragma once
 
+#include <iosfwd>
+
 #include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+class IrParser;
+class Operation;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

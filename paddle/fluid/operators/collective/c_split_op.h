@@ -21,6 +21,8 @@ limitations under the License. */
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/operator.h"
 
 namespace paddle {
 namespace operators {

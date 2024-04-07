@@ -17,6 +17,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief Performs sorting on the input tensor along the given axis and outputs

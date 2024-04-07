@@ -14,11 +14,18 @@
 
 #include "paddle/fluid/jit/function_utils.h"
 
+#include <stddef.h>
+#include <ostream>
+#include <utility>
+
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/framework/variable.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace jit {

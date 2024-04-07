@@ -15,15 +15,17 @@ limitations under the License. */
 #include "paddle/fluid/framework/data_feed_factory.h"
 
 #include <cstdlib>
-
 #include <memory>
 #include <string>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
-#include "glog/logging.h"
+#include "paddle/fluid/framework/data_feed.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
 
 namespace paddle {
 namespace framework {
-class DataFeed;
 
 typedef std::shared_ptr<DataFeed> (*Createdata_feedFunction)();
 typedef std::unordered_map<std::string, Createdata_feedFunction> data_feedMap;

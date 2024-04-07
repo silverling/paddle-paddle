@@ -12,19 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <fstream>
 #include <string>
 #include <vector>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/nullary.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class ReadFileOp : public framework::OperatorWithKernel {

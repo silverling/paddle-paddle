@@ -14,15 +14,46 @@
 
 #pragma once
 
+#include <bits/chrono.h>
 #include <future>
 #include <memory>
 #include <mutex>
+#include <cstdint>
+#include <ostream>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/distributed/collective/process_group.h"
 #include "paddle/fluid/distributed/collective/process_group_without_stream.h"
 #include "paddle/phi/core/distributed/gloo_comm_context.h"
 #include "paddle/phi/core/distributed/store/store.h"
 #include "paddle/phi/core/distributed/store/tcp_store.h"
+#include "gloo/rendezvous/store.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/collective/common.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/distributed/types.h"
+#include "paddle/phi/core/distributed/utils.h"
+
+namespace gloo {
+class Context;
+namespace rendezvous {
+class Context;
+}  // namespace rendezvous
+namespace transport {
+class Device;
+}  // namespace transport
+}  // namespace gloo
+namespace phi {
+class DenseTensor;
+namespace distributed {
+class GlooCommContext;
+}  // namespace distributed
+}  // namespace phi
 
 #ifdef PADDLE_WITH_GLOO
 #include "paddle/fluid/framework/fleet/gloo_wrapper.h"

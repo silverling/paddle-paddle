@@ -14,10 +14,23 @@
 
 #include "paddle/fluid/ir_adaptor/translator/type_translator.h"
 
+#include <stddef.h>
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/framework/framework.pb.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/type_storage.h"
 #include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace paddle {
 namespace translator {

@@ -12,19 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
 #include <algorithm>
-#include <cstdlib>
 #include <memory>
 #include <random>
+#include <string>
+#include <vector>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 template <typename DataType>
 void AddVarToScope(const std::string var_name,

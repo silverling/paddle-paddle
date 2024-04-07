@@ -14,21 +14,38 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/transfer_layout_kernel.h"
 
+#include <stddef.h>
 #include <sstream>
 #include <string>
+#include <cstdint>
+#include <type_traits>
+#include <vector>
 
 #include "glog/logging.h"
-
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/funcs/data_layout_transform.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
-#include "paddle/phi/kernels/memcpy_kernel.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_utils.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/phi/backends/onednn/onednn_helper.h"
 #endif
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 std::vector<int> GetAxis(const DataLayout& from, const DataLayout& to) {
   PADDLE_ENFORCE_NE(

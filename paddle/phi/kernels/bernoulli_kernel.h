@@ -18,6 +18,7 @@
 #include "paddle/phi/core/device_context.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief This Kernel returns a Tensor filled with random binary(0 or 1) number

@@ -14,7 +14,15 @@
 
 #pragma once
 
+#include <memory>
+
 #include "paddle/phi/api/include/tensor.h"
+#include "object.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
+#include "pyport.h"
 #ifdef PADDLE_WITH_DISTRIBUTE
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #endif
@@ -25,6 +33,8 @@
 namespace py = pybind11;
 
 namespace paddle {
+template <class T> class optional;
+
 namespace pybind {
 
 typedef struct {

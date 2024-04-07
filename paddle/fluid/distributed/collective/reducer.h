@@ -14,8 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <map>
 #include <vector>
+#include <cstdint>
+#include <iosfwd>
+#include <memory>
 
 #include "paddle/fluid/distributed/collective/process_group.h"
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
@@ -30,6 +34,17 @@
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/dense_tensor.h"
+
+namespace egr {
+class GradNodeBase;
+}  // namespace egr
 
 namespace paddle {
 namespace distributed {

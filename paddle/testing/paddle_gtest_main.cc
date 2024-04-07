@@ -12,11 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "gtest/gtest.h"
+#include <stdlib.h>
+#include <string.h>
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/init_default_kernel_signature_map.h"
 #include "paddle/fluid/memory/allocation/allocator_strategy.h"
 #include "paddle/fluid/platform/init.h"
+#include "glog/logging.h"
+#include "gtest/gtest_pred_impl.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 COMMON_DECLARE_bool(enable_gpu_memory_usage_log);

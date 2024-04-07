@@ -14,13 +14,28 @@
 
 #pragma once
 
+#include <algorithm>
+#include <iosfwd>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+class IrParser;
+}  // namespace pir
 
 namespace paddle {
+class OpMetaInfo;
+
 namespace dialect {
 
 class TEST_API OperatorDialect : public pir::Dialect {

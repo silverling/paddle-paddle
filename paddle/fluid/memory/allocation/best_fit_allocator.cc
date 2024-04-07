@@ -16,9 +16,12 @@
 
 #include <cmath>
 #include <mutex>
+#include <utility>
 
 #include "paddle/common/macros.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 REGISTER_FILE_SYMBOLS(best_fit_allocator);
 

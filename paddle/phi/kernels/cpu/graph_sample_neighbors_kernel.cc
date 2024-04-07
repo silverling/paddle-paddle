@@ -15,9 +15,19 @@
 #include "paddle/phi/kernels/graph_sample_neighbors_kernel.h"
 
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <limits>
+#include <random>
+#include <utility>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

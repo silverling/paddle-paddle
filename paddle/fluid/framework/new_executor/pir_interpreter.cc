@@ -14,24 +14,66 @@
 
 #include "paddle/fluid/framework/new_executor/pir_interpreter.h"
 
-#include <chrono>
+#include <bits/chrono.h>
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
 #include <unordered_set>
+#include <algorithm>
+#include <exception>
+#include <future>
+#include <iostream>
+#include <iterator>
+#include <system_error>
+#include <thread>
+#include <type_traits>
+#include <typeinfo>
+#include <utility>
 
 #include "paddle/common/flags.h"
-
-#include "paddle/fluid/framework/details/nan_inf_utils.h"
-#include "paddle/fluid/framework/details/share_tensor_buffer_functor.h"
 #include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
-#include "paddle/fluid/framework/new_executor/interpreter/static_build.h"
-#include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/os_info.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
-#include "paddle/fluid/platform/profiler/supplement_tracing.h"
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/new_executor/garbage_collector/garbage_collector.h"
+#include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/fluid/framework/op_call_stack.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/collective_helper.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph_with_memory_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/os_info.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/kernels/autotune/gpu_timer.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/ir_printer.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/framework/new_executor/instruction/onednn/onednn_instruction.h"
@@ -41,8 +83,6 @@
 #endif
 
 #include "paddle/fluid/platform/cuda_graph_with_memory_pool.h"
-#include "paddle/fluid/platform/flags.h"
-#include "paddle/phi/backends/device_manager.h"
 
 #ifdef PADDLE_WITH_CINN
 #include "paddle/fluid/framework/new_executor/instruction/cinn_jit_instruction.h"
@@ -63,19 +103,26 @@
 #include "paddle/fluid/framework/new_executor/instruction/phi_kernel_instruction.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
-#include "paddle/fluid/pir/dialect/kernel/ir/kernel_dialect.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_op.h"
-#include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
-#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
 
+namespace paddle {
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
+namespace operators {
+namespace reader {
+class OrderedMultiDeviceLoDTensorBlockingQueueHolder;
+}  // namespace reader
+}  // namespace operators
+}  // namespace paddle
+
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
-#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

@@ -18,6 +18,7 @@
 #include "paddle/phi/core/device_context.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief This kernel calculate gradient of Modified Bessel function of order 1.

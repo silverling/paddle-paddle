@@ -17,23 +17,34 @@ limitations under the License. */
 #if defined(PADDLE_WITH_RCCL)
 #include <rccl.h>
 #endif
-#include <stdint.h>
-
-#include <ostream>
 #include <string>
+#include <vector>
 
-#include "paddle/fluid/framework/executor.h"
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/threadpool.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/variant.h"
 // #include "paddle/fluid/operators/distributed/distributed.h"
 // #include "paddle/fluid/operators/distributed/request_handler_impl.h"
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/platform/collective_helper.h"
-#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
 #endif
 
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 
 class CCommInitMultiTrainerInferShape : public framework::InferShapeBase {

@@ -12,26 +12,51 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <stddef.h>
 #include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "paddle/common/enforce.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/phi/core/tensor_meta.h"
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
-#include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/region.h"
 #include "test/cpp/pir/tools/test_dialect.h"
 #include "test/cpp/pir/tools/test_op.h"
-
 #include "test/cpp/pir/tools/test_pir_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace pir {
+class Dialect;
+class IrNotMetException;
+class SameOperandsAndResultElementTypeTrait;
+class SameOperandsAndResultShapeTrait;
+class SameOperandsAndResultTypeTrait;
+class SameOperandsElementTypeTrait;
+class SameOperandsShapeTrait;
+class SameTypeOperandsTrait;
+}  // namespace pir
+namespace test {
+class InferShapeInterface;
+class ReadOnlyTrait;
+}  // namespace test
 
 TEST(op_test, region_test) {
   // (1) Register Dialect, Operation1, Operation2 into IrContext.

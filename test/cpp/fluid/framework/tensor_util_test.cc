@@ -12,12 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <string.h>
 #include <array>
 #include <cmath>
+#include <iosfwd>
+#include <memory>
+#include <vector>
 
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/operators/isfinite_op.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/dlpack_tensor.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
 namespace paddle {
 namespace framework {
 

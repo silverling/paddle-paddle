@@ -15,6 +15,7 @@
 #pragma once
 
 #include "paddle/fluid/operators/reduce_ops/reduce_op.h"
+#include "paddle/fluid/platform/float16.h"
 
 namespace paddle {
 namespace operators {

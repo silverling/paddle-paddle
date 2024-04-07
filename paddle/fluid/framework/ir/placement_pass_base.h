@@ -27,6 +27,7 @@ namespace ir {
  * Specifies which operators should use cuDNN.
  */
 class Graph;
+class Node;
 
 class PlacementPassBase : public Pass {
  protected:

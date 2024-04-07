@@ -13,9 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/core/extended_tensor.h"
-#include "paddle/phi/core/enforce.h"
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
+class Allocator;
+class Place;
 
 int64_t ExtendedTensor::numel() const {
   PADDLE_THROW(phi::errors::Unavailable(

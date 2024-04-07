@@ -13,12 +13,31 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/ir/transfer_layout_elim_pass.h"
+
 #include <string>
 #include <vector>
-#include "glog/logging.h"
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <set>
+#include <unordered_set>
+
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/op_version_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

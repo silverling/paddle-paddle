@@ -11,10 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include <string>
+#include <utility>
 
 #include "paddle/phi/core/compat/op_utils.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/type_defs.h"
 
 namespace phi {
 

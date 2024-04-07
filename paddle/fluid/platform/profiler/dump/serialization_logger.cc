@@ -11,10 +11,18 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/profiler/dump/serialization_logger.h"
 
+#include <cstdint>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/fluid/platform/profiler/event_node.h"
-#include "paddle/fluid/platform/profiler/extra_info.h"
 #include "paddle/fluid/platform/profiler/utils.h"
+#include "paddle/fluid/platform/os_info.h"
+#include "paddle/fluid/platform/profiler/dump/nodetree.pb.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/os_info.h"
 
 namespace paddle {
 namespace platform {

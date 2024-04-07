@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <vector>
@@ -20,8 +21,18 @@
 #include "paddle/fluid/framework/fleet/fleet_wrapper.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace operators {
 
 template <typename T>

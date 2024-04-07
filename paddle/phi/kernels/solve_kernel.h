@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief This kernrel is used to computes the solution of a square system of

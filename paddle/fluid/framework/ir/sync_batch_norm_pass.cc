@@ -12,14 +12,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <map>
+#include <ostream>
+#include <string>
+#include <unordered_set>
+
 #include "glog/logging.h"
 #include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 class SyncBatchNormPass : public Pass {
  protected:

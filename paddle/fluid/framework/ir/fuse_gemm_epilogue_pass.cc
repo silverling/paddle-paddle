@@ -16,9 +16,19 @@
 #include "paddle/fluid/framework/ir/fuse_gemm_epilogue_pass.h"
 
 #include <string>
+#include <map>
+#include <ostream>
+
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

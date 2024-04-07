@@ -17,6 +17,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <cstdint>
 
 #include "paddle/fluid/distributed/fleet_executor/dist_model_tensor_wrapper.h"
 #include "paddle/fluid/distributed/fleet_executor/fleet_executor_desc.pb.h"
@@ -24,6 +25,8 @@
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 
@@ -31,6 +34,7 @@ namespace framework {
 class ProgramDesc;
 class Scope;
 class BlockDesc;
+class OpDesc;
 }  // namespace framework
 
 namespace distributed {

@@ -18,6 +18,7 @@
 #include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 static constexpr int kROISize = 4;
 

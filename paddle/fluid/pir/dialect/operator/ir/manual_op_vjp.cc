@@ -12,14 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/pd_api.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/primitive/rule/vjp/vjp.h"
 #include "paddle/fluid/primitive/type/lazy_tensor.h"
 #include "paddle/phi/common/int_array.h"
-#include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/op_base.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/pir/dialect/operator/ir/manual_api.h"
+#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
+#include "paddle/fluid/primitive/rule/vjp/generated/generated_vjp.h"
+#include "paddle/fluid/primitive/rule/vjp/manual/manual_vjp.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
 
 // TODO(wanghao107)
 // this file will be generated in pd_op.cc

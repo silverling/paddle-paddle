@@ -15,13 +15,33 @@
 #include <memory>
 #include <type_traits>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
+#include <initializer_list>
+#include <random>
+#include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/imperative/gradient_accumulator.h"
 #include "paddle/fluid/memory/memcpy.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace paddle {
 namespace imperative {

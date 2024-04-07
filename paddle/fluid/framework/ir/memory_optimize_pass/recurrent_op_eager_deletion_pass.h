@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <unordered_map>
 
 #include "paddle/fluid/framework/details/computation_op_handle.h"
@@ -21,10 +22,12 @@
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/operators/controlflow/op_variant.h"
 #include "paddle/fluid/operators/controlflow/recurrent_op_helper.h"
+#include "paddle/fluid/framework/ir/pass.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 // Pass class set skip eager deletion vars for recurrent ops
 class RecurrentOpEagerDeletionPass : public Pass {

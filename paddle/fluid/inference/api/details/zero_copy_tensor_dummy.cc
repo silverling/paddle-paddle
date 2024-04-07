@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/inference/api/paddle_api.h"
+#include <stddef.h>
+#include <vector>
+
 #include "paddle/fluid/inference/api/paddle_infer_declare.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
 
 namespace paddle_infer {
 

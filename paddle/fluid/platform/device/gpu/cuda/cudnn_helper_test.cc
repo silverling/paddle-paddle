@@ -12,12 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stddef.h>
+#include <vector>
+
+#include "cudnn_cnn_infer.h"
+#include "cudnn_ops_infer.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/backends/dynload/cudnn.h"
+#include "paddle/phi/backends/gpu/cuda/cudnn_helper.h"
+
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #define GOOGLE_GLOG_DLL_DECL
 
-#include <gtest/gtest.h>
 
-#include "paddle/fluid/platform/device/gpu/gpu_dnn.h"
 
 TEST(CudnnHelper, ScopedTensorDescriptor) {
   using phi::backends::gpu::DataLayout;

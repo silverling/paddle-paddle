@@ -14,6 +14,8 @@ limitations under the License. */
 
 #include "paddle/phi/backends/dynload/cuda_driver.h"
 
+#include "cuda.h"
+
 namespace phi {
 namespace dynload {
 

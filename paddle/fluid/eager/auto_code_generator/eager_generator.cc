@@ -12,24 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
+#include <stdlib.h>
 #include <algorithm>
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <unordered_set>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <map>
+#include <memory>
+#include <set>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/variable.h"
-#include "paddle/fluid/operators/custom_device_common_op_registry.h"
 #include "paddle/fluid/pybind/eager_generator.h"
-#include "paddle/fluid/pybind/pybind.h"
-#include "paddle/utils/string/string_helper.h"
-
-// phi
-#include "paddle/phi/kernels/declarations.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/imperative/op_base.h"
+#include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/variant.h"
 
 #define NUM_CREATED_DUP_INPUTS 4
 

@@ -14,6 +14,8 @@
 
 #include "paddle/pir/include/core/builtin_type.h"
 
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+
 namespace pir {
 std::vector<Type> VectorType::data() const { return storage()->GetAsKey(); }
 

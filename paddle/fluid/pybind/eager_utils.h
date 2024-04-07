@@ -12,10 +12,20 @@ limitations under the License. */
 
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
+
 typedef SSIZE_T ssize_t;
 #endif
 
 #include <Python.h>
+#include <stdint.h>
+#include <sys/types.h>
+#include <map>
+#include <memory>
+#include <string>
+#include <typeinfo>
+#include <unordered_map>
+#include <variant>
+#include <vector>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
@@ -44,9 +54,42 @@ typedef SSIZE_T ssize_t;
 #include "paddle/utils/pybind.h"
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
+#include "ceval.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
+#include "paddle/utils/optional.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/gil.h"
+#include "pybind11/pytypes.h"
+#include "pyport.h"
+#include "pystate.h"
+#include "tupleobject.h"
+
+namespace egr {
+class GradNodeBase;
+}  // namespace egr
+namespace phi {
+class SelectedRows;
+namespace distributed {
+class DistTensor;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 class CustomOpKernelContext;
+namespace imperative {
+class VarBase;
+}  // namespace imperative
+namespace jit {
+class Function;
+}  // namespace jit
+
 namespace framework {
 class Scope;
 }

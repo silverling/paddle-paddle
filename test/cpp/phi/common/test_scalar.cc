@@ -15,9 +15,15 @@
 #include <complex>
 #include <sstream>
 #include <string>
+#include <cstdint>
+#include <memory>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/phi/common/scalar.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
 namespace tests {

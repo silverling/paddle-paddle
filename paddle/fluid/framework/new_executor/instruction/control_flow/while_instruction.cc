@@ -14,28 +14,29 @@
 
 #include "paddle/fluid/framework/new_executor/instruction/control_flow/while_instruction.h"
 
-#include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
-#include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
+#include <bits/chrono.h>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
 #include "paddle/fluid/framework/new_executor/pir_interpreter.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
-#include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
-#include "paddle/fluid/platform/collective_helper.h"
-#include "paddle/fluid/platform/device_context.h"
-#include "paddle/phi/core/infermeta_utils.h"
-#include "paddle/phi/core/meta_tensor.h"
-#include "paddle/phi/core/type_defs.h"
-
-#include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
-
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/type.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"

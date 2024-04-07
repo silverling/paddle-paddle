@@ -14,17 +14,24 @@
 
 // Eager Dygraph
 
-#include <chrono>
+#include <memory>
+#include <ostream>
+#include <vector>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/api/generated/fluid_generated/dygraph_forward_api.h"
-#include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/backward.h"
-#include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/imperative/tracer.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "test/cpp/eager/test_utils.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/eager/api/utils/hook_utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(matmul, CPU, ALL_LAYOUT);

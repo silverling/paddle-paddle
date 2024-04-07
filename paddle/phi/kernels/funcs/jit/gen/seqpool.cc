@@ -14,9 +14,15 @@
 
 #include "paddle/phi/kernels/funcs/jit/gen/seqpool.h"
 
+#include <memory>
+
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/jit/gen/act.h"  // for exp_float_consts ones
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/gen_base.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 namespace phi {
 namespace jit {

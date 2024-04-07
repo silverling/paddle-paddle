@@ -14,6 +14,12 @@ limitations under the License. */
 
 #include "paddle/phi/core/infermeta_utils.h"
 
+#include <algorithm>
+#include <iterator>
+#include <typeindex>
+
+#include "paddle/utils/none.h"
+
 namespace phi {
 
 void InferMetaContext::SetMetaConfig(MetaConfig config) { config_ = config; }

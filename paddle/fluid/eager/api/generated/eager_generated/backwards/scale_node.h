@@ -14,8 +14,19 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/tensor_wrapper.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/test_macros.h"
 
 /*
     Each Operation has a specific GradNode inheritted from GradNodeBase

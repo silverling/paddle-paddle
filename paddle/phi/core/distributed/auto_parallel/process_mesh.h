@@ -14,15 +14,19 @@ limitations under the License. */
 
 #pragma once
 
+#include <ext/alloc_traits.h>
 #include <atomic>
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <iosfwd>
 
 #include "paddle/phi/core/distributed/auto_parallel/device_mesh.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace distributed {

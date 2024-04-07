@@ -12,8 +12,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include <array>
 #include <ctime>
+#include <algorithm>
+#include <atomic>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/barrier.h"
@@ -22,23 +38,51 @@ limitations under the License. */
 #include "paddle/fluid/framework/device_worker.h"
 #include "paddle/fluid/framework/new_executor/interpreter/dependency_builder.h"
 #include "paddle/fluid/operators/controlflow/conditional_block_op_helper.h"
-#include "paddle/fluid/operators/isfinite_op.h"
 #include "paddle/fluid/platform/cpu_helper.h"
 #include "paddle/fluid/platform/lodtensor_printer.h"
-#include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/data_feed.h"
+#include "paddle/fluid/framework/executor_gc_helper.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/framework/variable_helper.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/cuda_device_guard.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/timer.h"
+#include "paddle/phi/backends/gpu/gpu_decls.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/variant.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
-#include "paddle/phi/core/distributed/nccl_comm_context.h"
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 
 #if defined PADDLE_WITH_PSCORE
 #include "paddle/fluid/distributed/ps/service/communicator/communicator.h"
-#endif
-
-#if defined(PADDLE_WITH_GLOO)
-#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
 #endif
 #if defined(PADDLE_WITH_CUDA) && defined(PADDLE_WITH_GPU_GRAPH)
 #include "paddle/fluid/framework/fleet/ps_gpu_wrapper.h"

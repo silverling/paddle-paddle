@@ -12,12 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
-#include "paddle/pir/include/dialect/shape/utils/dim_expr_builder.h"
+#include <cstdint>
+#include <utility>
+#include <variant>
+#include <vector>
 
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr_builder.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
 
 namespace symbol::test {
 

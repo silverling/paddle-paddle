@@ -15,18 +15,21 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/yolo_box_fuse_pass.h"
 
 #include <string>
+#include <map>
+#include <ostream>
 
-#include "glog/logging.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 namespace patterns {
 struct YoloBoxPattern : public PatternBase {

@@ -14,13 +14,41 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/selected_rows_functor.h"
 
+#include <stddef.h>
 #include <algorithm>
 #include <map>
 #include <set>
 #include <vector>
+#include <cstdint>
+#include <ostream>
+#include <type_traits>
+#include <typeinfo>
+#include <unordered_map>
 
 #include "paddle/common/ddim.h"
 #include "paddle/phi/core/mixed_vector.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/memory_utils.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/kernels/funcs/blas/blas.h"
+#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/phi/backends/xpu/enforce_xpu.h"

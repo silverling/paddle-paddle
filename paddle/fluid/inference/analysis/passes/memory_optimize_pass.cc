@@ -18,20 +18,25 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <memory>
+#include <numeric>
+#include <ostream>
+#include <set>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/inference/analysis/pass_result_info.h"
-#include "paddle/fluid/platform/enforce.h"
-
-namespace paddle {
-namespace framework {
-namespace ir {
-class Graph;
-class Node;
-}  // namespace ir
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/analysis/argument.h"
 
 namespace paddle {
 namespace inference {

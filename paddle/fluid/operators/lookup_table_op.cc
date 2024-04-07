@@ -14,14 +14,34 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/lookup_table_op.h"
 
-#include <memory>
+#include <ostream>
 
 #include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/framework/var_type_inference.h"
 #include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class LookupTableOp : public framework::OperatorWithKernel {

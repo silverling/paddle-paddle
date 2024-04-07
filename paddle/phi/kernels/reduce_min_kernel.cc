@@ -14,11 +14,25 @@
 
 #include "paddle/phi/kernels/reduce_min_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+#include <functional>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/reduce_kernel_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_utils.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+class OneDNNContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void MinKernel(const Context& dev_ctx,

@@ -14,10 +14,24 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/op_proto_maker.h"
 
+#include <type_traits>
+#include <utility>
+#include <vector>
+
 #include "gtest/gtest-message.h"
 #include "gtest/gtest-test-part.h"
-#include "gtest/gtest.h"
 #include "paddle/phi/common/scalar.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/variant.h"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
 
 class TestAttrProtoMaker : public paddle::framework::OpProtoAndCheckerMaker {
  public:

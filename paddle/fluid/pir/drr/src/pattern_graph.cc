@@ -14,11 +14,16 @@
 
 #include "paddle/fluid/pir/drr/src/pattern_graph.h"
 
+#include <ext/alloc_traits.h>
 #include <queue>
+#include <algorithm>
+#include <ostream>
+#include <type_traits>
+#include <utility>
 
 #include "paddle/common/errors.h"
 #include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
 
 namespace paddle {
 namespace drr {

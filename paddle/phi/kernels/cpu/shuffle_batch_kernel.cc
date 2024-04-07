@@ -13,8 +13,22 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/shuffle_batch_kernel.h"
+
+#include <string.h>
+#include <algorithm>
+#include <cstdint>
+#include <numeric>
+#include <random>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

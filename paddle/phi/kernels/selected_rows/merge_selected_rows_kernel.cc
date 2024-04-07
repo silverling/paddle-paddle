@@ -14,13 +14,14 @@
 
 #include "paddle/phi/kernels/selected_rows/merge_selected_rows_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/backends/gpu/gpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-
 #include "paddle/phi/kernels/funcs/selected_rows_functor.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+class SelectedRows;
+
 namespace sr {
 
 template <typename T, typename Context>

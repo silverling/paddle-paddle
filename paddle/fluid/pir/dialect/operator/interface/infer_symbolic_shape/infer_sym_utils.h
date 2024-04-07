@@ -14,9 +14,31 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <optional>
+#include <string>
+#include <unordered_map>
+#include <variant>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
+
+namespace pir {
+class ShapeConstraintIRAnalysis;
+class Value;
+}  // namespace pir
 
 inline bool GetBoolAttr(const pir::Operation *op, const std::string &str) {
   const auto &attr_map = op->attributes();

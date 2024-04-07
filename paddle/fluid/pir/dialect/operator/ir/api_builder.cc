@@ -13,8 +13,15 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
+
+#include <utility>
+
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/parameter.h"
+#include "paddle/pir/include/core/program.h"
 
 namespace paddle {
 namespace dialect {

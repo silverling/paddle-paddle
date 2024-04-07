@@ -14,13 +14,27 @@
 
 #include "paddle/fluid/eager/custom_operator/custom_operator_node.h"
 
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <utility>
+
 #include "paddle/fluid/eager/custom_operator/custom_operator_utils.h"
-#include "paddle/fluid/framework/custom_operator.h"
 #include "paddle/fluid/framework/custom_operator_utils.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace egr {
 

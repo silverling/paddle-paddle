@@ -14,9 +14,12 @@
 
 #include "paddle/phi/kernels/reshape_grad_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
 #ifdef PADDLE_WITH_XPU
 #include "paddle/phi/backends/xpu/enforce_xpu.h"
 #endif

@@ -13,6 +13,20 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
+
+#include <ext/alloc_traits.h>
+#include <stdio.h>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <optional>
+#include <ostream>
+#include <set>
+#include <tuple>
+#include <unordered_map>
+#include <utility>
+#include <variant>
+
 #include "paddle/fluid/framework/custom_operator_utils.h"
 #include "paddle/fluid/pir/dialect/operator/interface/vjp.h"
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
@@ -21,23 +35,52 @@
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/type_storage.h"
-#include "paddle/fluid/pir/dialect/operator/trait/inplace.h"
 #include "paddle/fluid/pir/dialect/operator/transforms/param_to_variable.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
-#include "paddle/pir/include/core/builtin_type_interfaces.h"
 #include "paddle/pir/include/core/interface_value.h"
 #include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/core/utils.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_attribute.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/infer_symbolic_shape.h"
+#include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
+#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/parser/ir_parser.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
+#include "paddle/pir/src/core/parser/token.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/string/string_helper.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/pir/dialect/operator/ir/manual_onednn_op.h"
 #endif
 
 namespace paddle {
 namespace dialect {
+class InplaceTrait;
 
 struct CombineOpInferSymbolicShapeInterfaceModel
     : public InferSymbolicShapeInterface::Concept {
@@ -342,32 +385,38 @@ void OperatorDialect::initialize() {
   RegisterOps<
 #define GET_OP_LIST1
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op_info.cc"  // NOLINT
+
       >();
 
   RegisterOps<
 #define GET_OP_LIST2
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op_info.cc"  // NOLINT
+
       >();
 #else
   RegisterOps<
 #define GET_OP_LIST
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op_info.cc"  // NOLINT
+
       >();
 #endif
   RegisterOps<
 #define GET_OP_LIST
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.cc"  // NOLINT
+
       >();
 
   RegisterOps<
 #define GET_OP_LIST
 #include "paddle/fluid/pir/dialect/operator/ir/manual_op.cc"  // NOLINT
+
       >();
 
 #ifdef PADDLE_WITH_DNNL
   RegisterOps<
 #define GET_OP_LIST
 #include "paddle/fluid/pir/dialect/operator/ir/manual_onednn_op.cc"  // NOLINT
+
       >();
 #endif
   RegisterInterfaces<ParameterConvertInterface>();

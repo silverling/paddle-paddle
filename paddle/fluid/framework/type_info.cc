@@ -12,6 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <memory>
+
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/raw_tensor.h"
@@ -20,6 +22,12 @@ limitations under the License. */
 #include "paddle/fluid/pir/dialect/operator/ir/ir_tensor.h"
 #include "paddle/fluid/prim/utils/static/desc_tensor.h"
 #include "paddle/fluid/primitive/type/lazy_tensor.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/tensor_ref_array.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/core/utils/type_registry.h"
 
 namespace phi {
 

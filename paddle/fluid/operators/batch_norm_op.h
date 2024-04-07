@@ -23,8 +23,26 @@ limitations under the License. */
 #include "paddle/fluid/operators/layout_utils.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/funcs/norm_utils.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/phi/core/kernel_factory.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 
 using DataLayout = phi::DataLayout;

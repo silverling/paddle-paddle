@@ -14,14 +14,14 @@ limitations under the License. */
 
 #include "paddle/phi/api/include/context_pool.h"
 
+#include <utility>
+
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/phi/core/allocator.h"
-#include "paddle/phi/core/enforce.h"
-
-#if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
-#include "paddle/phi/core/cuda_stream.h"
-#endif
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/device_context.h"
 
 namespace paddle {
 namespace experimental {

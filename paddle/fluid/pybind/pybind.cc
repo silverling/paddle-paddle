@@ -12,21 +12,92 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include <Python.h>
 #include "paddle/fluid/eager/grad_node_info.h"
+#include "dlpack/dlpack.h"
+#include "driver_types.h"
+#include "listobject.h"
+#include "nccl.h"
+#include "object.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/new_executor/profiler.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/op_version_proto.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/fluid/platform/event.h"
+#include "paddle/fluid/platform/os_info.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/profiler/profiler.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph_with_memory_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/os_info.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/string/string_helper.h"
+#include "paddle/utils/variant.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/gil.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
+#include "pycapsule.h"
+#include "shell.h"
 
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
+#include <ext/alloc_traits.h>
 #include <algorithm>
-#include <cctype>
 #include <cstdlib>
-#include <iterator>
 #include <map>
 #include <memory>
-#include <mutex>  // NOLINT // for call_once
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -35,11 +106,17 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <array>
+#include <cmath>
+#include <cstdint>
+#include <exception>
+#include <functional>
+#include <limits>
+#include <list>
+#include <set>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/custom_operator.h"
-#include "paddle/fluid/framework/data_layout.h"
-#include "paddle/fluid/framework/data_type_transform.h"
 #include "paddle/fluid/framework/details/nan_inf_utils_detail.h"
 #include "paddle/fluid/framework/executor.h"
 #include "paddle/fluid/framework/executor_cache.h"
@@ -47,11 +124,8 @@ limitations under the License. */
 #include "paddle/fluid/framework/feed_fetch_method.h"
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/garbage_collector.h"
-#include "paddle/fluid/framework/io/fs.h"
 #include "paddle/fluid/framework/ir/coalesce_grad_tensor_pass.h"
-#include "paddle/fluid/framework/ir/cost_model.h"
 #include "paddle/fluid/framework/ir/generate_pass.h"
-#include "paddle/fluid/framework/ir/pass_builder.h"
 #include "paddle/fluid/framework/lod_rank_table.h"
 #include "paddle/fluid/framework/lod_tensor_array.h"
 #include "paddle/fluid/framework/new_executor/executor_statistics.h"
@@ -59,15 +133,12 @@ limitations under the License. */
 #include "paddle/fluid/framework/new_executor/interpreter/plan.h"
 #include "paddle/fluid/framework/new_executor/standalone_executor.h"
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/op_version_registry.h"
-#include "paddle/fluid/framework/parallel_executor.h"
 #include "paddle/fluid/framework/phi_utils.h"
 #include "paddle/fluid/framework/prune.h"
 #include "paddle/fluid/framework/raw_tensor.h"
 #include "paddle/fluid/framework/reader.h"
 #include "paddle/fluid/framework/scope_pool.h"
-#include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/framework/trainer.h"
 #include "paddle/fluid/framework/type_defs.h"
@@ -80,19 +151,14 @@ limitations under the License. */
 #include "paddle/fluid/prim/utils/utils.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/memory/allocation/auto_growth_best_fit_allocator_v2.h"
-#include "paddle/fluid/memory/allocation/cuda_ipc_allocator.h"
 #endif
 #include "paddle/common/macros.h"
-#include "paddle/fluid/memory/allocation/mmap_allocator.h"
-#include "paddle/fluid/operators/activation_op.h"
 #include "paddle/fluid/operators/common_infer_shape_functions.h"
 #include "paddle/fluid/operators/ops_extra_info.h"
 #include "paddle/fluid/operators/py_func_op.h"
 #include "paddle/fluid/platform/cpu_helper.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/init.h"
 #include "paddle/fluid/platform/monitor.h"
 #include "paddle/fluid/platform/place.h"
@@ -119,21 +185,14 @@ limitations under the License. */
 #include "paddle/fluid/pybind/gloo_context_py.h"
 #include "paddle/fluid/pybind/gloo_wrapper_py.h"
 #include "paddle/fluid/pybind/graph.h"
-#include "paddle/fluid/pybind/heter_wrapper_py.h"
 #include "paddle/fluid/pybind/imperative.h"
 #include "paddle/fluid/pybind/inference_api.h"
 #include "paddle/fluid/pybind/io.h"
 #include "paddle/fluid/pybind/jit.h"
-#include "paddle/fluid/pybind/metrics_py.h"
 #include "paddle/fluid/pybind/pir.h"
-#include "paddle/fluid/pybind/ps_gpu_wrapper_py.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
 #include "paddle/fluid/pybind/xpu_streams_py.h"
 #include "paddle/phi/backends/cpu/cpu_info.h"
-#include "paddle/phi/backends/device_manager.h"
 #include "paddle/phi/core/compat/convert_utils.h"
-#include "paddle/phi/core/lod_utils.h"
-#include "paddle/utils/none.h"
 
 #ifdef PADDLE_WITH_DISTRIBUTE
 #include "paddle/fluid/pybind/dist_api.h"
@@ -146,11 +205,8 @@ limitations under the License. */
 #include "paddle/fluid/pybind/parallel_executor.h"
 #include "paddle/fluid/pybind/place.h"
 #include "paddle/fluid/pybind/protobuf.h"
-#include "paddle/fluid/pybind/pybind.h"  // NOLINT
 #include "paddle/fluid/pybind/reader_py.h"
 #include "paddle/fluid/pybind/tensor.h"
-#include "paddle/fluid/pybind/tensor_py.h"
-#include "paddle/utils/string/to_string.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/operators/nccl/nccl_gpu_common.h"
@@ -201,22 +257,31 @@ limitations under the License. */
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/eager/nan_inf_utils.h"
-#include "paddle/fluid/imperative/layout_autotune.h"
-#include "paddle/fluid/pir/dialect/operator/interface/decomp.h"
 #include "paddle/fluid/pir/dialect/operator/interface/vjp.h"
-#include "paddle/fluid/pir/dialect/operator/trait/custom_vjp.h"
 #include "paddle/fluid/prim/utils/eager/eager_tensor_operants.h"
 #include "paddle/fluid/prim/utils/static/static_tensor_operants.h"
 #include "paddle/fluid/primitive/base/decomp_trans.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/phi/api/include/operants_manager.h"
 #include "paddle/phi/api/include/tensor_operants.h"
 #include "paddle/phi/common/type_promotion.h"
 #include "paddle/phi/kernels/autotune/cache.h"
 #include "paddle/phi/kernels/autotune/switch_autotune.h"
-#include "paddle/pir/include/core/program.h"
-#include "pybind11/stl.h"
+
+namespace paddle {
+namespace dialect {
+class CustomVjpTrait;
+}  // namespace dialect
+namespace framework {
+class Dataset;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class RecordEvent;
+}  // namespace phi
+namespace pir {
+class Program;
+}  // namespace pir
 
 COMMON_DECLARE_bool(use_mkldnn);
 

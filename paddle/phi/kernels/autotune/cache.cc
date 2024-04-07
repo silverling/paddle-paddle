@@ -14,7 +14,10 @@
 
 #include "paddle/phi/kernels/autotune/cache.h"
 
+#include <stdint.h>
 #include <iomanip>
+#include <iostream>
+#include <string>
 
 #include "glog/logging.h"
 

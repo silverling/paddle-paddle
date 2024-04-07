@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "test/cpp/pir/tools/test_trait.h"
-#include "glog/logging.h"
 
+#include <sstream>
+
+#include "glog/logging.h"
 #include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace test {
 void OneRegionTrait::Verify(pir::Operation *op) {

@@ -14,6 +14,8 @@ limitations under the License. */
 
 #include "paddle/phi/backends/dynload/nccl.h"
 
+#include "nccl.h"
+
 ncclResult_t ncclCommInitRank2(ncclComm_t* newcomm,
                                int nranks,
                                ncclUniqueId commId,

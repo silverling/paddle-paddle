@@ -14,11 +14,14 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <iostream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <memory>
 
 #include "paddle/common/exception.h"
 #include "paddle/common/macros.h"
@@ -27,6 +30,15 @@ limitations under the License. */
 #include "paddle/utils/any.h"
 #include "paddle/utils/none.h"
 #include "paddle/utils/optional.h"
+#include "NvInferRuntime.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace distributed {
+class DistMetaTensor;
+}  // namespace distributed
+}  // namespace phi
 
 #ifdef PADDLE_WITH_TENSORRT
 #include "NvInfer.h"
@@ -42,6 +54,7 @@ limitations under the License. */
 namespace paddle {
 
 class PADDLE_API OpMetaInfoHelper;
+
 using Tensor = paddle::Tensor;
 
 ///////////////// Util Marco Define ////////////////

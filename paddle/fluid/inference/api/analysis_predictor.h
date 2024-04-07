@@ -14,11 +14,16 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
+#include <functional>
+#include <future>
+#include <mutex>
 
 #include "paddle/fluid/framework/naive_executor.h"
 #include "paddle/fluid/framework/op_compatible_info.h"
@@ -30,6 +35,12 @@
 #include "paddle/fluid/inference/api/resource_manager.h"
 #include "paddle/fluid/platform/device/gpu/gpu_types.h"
 #include "paddle/utils/string/printf.h"
+#include "paddle/fluid/inference/analysis/argument.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
 
 #if defined(PADDLE_WITH_DISTRIBUTE) && defined(PADDLE_WITH_PSCORE)
 #include "paddle/fluid/distributed/fleet_executor/fleet_executor.h"
@@ -43,6 +54,13 @@
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/pir/include/core/program.h"
+
+namespace phi {
+class DeviceContext;
+}  // namespace phi
+namespace pir {
+class Program;
+}  // namespace pir
 
 namespace paddle_infer {
 namespace experimental {
@@ -61,6 +79,21 @@ class InternalUtils;
 ///
 
 namespace paddle {
+class Tensor;
+namespace framework {
+class NaiveExecutor;
+class OpDesc;
+class ProgramDesc;
+class Scope;
+namespace proto {
+class ProgramDesc;
+}  // namespace proto
+}  // namespace framework
+namespace inference {
+namespace analysis {
+class Analyzer;
+}  // namespace analysis
+}  // namespace inference
 
 using framework::NaiveExecutor;
 using framework::proto::ProgramDesc;
@@ -568,6 +601,7 @@ class AnalysisPredictor : public PaddlePredictor {
 #if PADDLE_WITH_DNNL
   // Helper class to perform quantization
   class MkldnnQuantizer;
+
   MkldnnQuantizer *mkldnn_quantizer_{nullptr};
 
 #if PADDLE_WITH_TESTING

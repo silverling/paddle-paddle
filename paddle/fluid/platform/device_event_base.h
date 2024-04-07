@@ -13,12 +13,18 @@
 // limitations under the License.
 #pragma once
 #include <memory>
+#include <ostream>
+#include <type_traits>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace platform {

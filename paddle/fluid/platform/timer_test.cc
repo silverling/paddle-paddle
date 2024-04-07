@@ -13,7 +13,10 @@
 // limitations under the License.
 #include "paddle/fluid/platform/timer.h"
 
-#include "gtest/gtest.h"
+#include <unistd.h>
+#include <memory>
+
+#include "gtest/gtest_pred_impl.h"
 
 TEST(Timer, Reset) {
   paddle::platform::Timer timeline;

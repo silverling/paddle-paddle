@@ -14,12 +14,38 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/fake_dequantize_op.h"
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "paddle/fluid/framework/op_version_registry.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/eigen.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 template <typename T>

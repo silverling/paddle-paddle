@@ -13,14 +13,24 @@
  * limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/jit/gen/act.h"
-#include <array>
+
+#include <memory>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/gen_base.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
 
 namespace phi {
 namespace jit {
 namespace gen {
+class VExpCreator;
+class VIdentityCreator;
+class VReluCreator;
+class VSigmoidCreator;
+class VSquareCreator;
+class VTanhCreator;
 
 const float ALIGN32_BEG exp_float_consts[] ALIGN32_END = {  // NOLINT
     REPEAT_8TIMES(1.f),

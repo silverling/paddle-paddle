@@ -14,9 +14,15 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <atomic>
 #include <map>
 #include <string>
+#include <algorithm>
+#include <ostream>
+#include <typeinfo>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/errors.h"
@@ -24,9 +30,29 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/common/thread_data_registry.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/macros.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace memory {
+struct DeviceMemoryStatReserved0;
+struct DeviceMemoryStatReserved10;
+struct DeviceMemoryStatReserved11;
+struct DeviceMemoryStatReserved12;
+struct DeviceMemoryStatReserved13;
+struct DeviceMemoryStatReserved14;
+struct DeviceMemoryStatReserved15;
+struct DeviceMemoryStatReserved1;
+struct DeviceMemoryStatReserved2;
+struct DeviceMemoryStatReserved3;
+struct DeviceMemoryStatReserved4;
+struct DeviceMemoryStatReserved5;
+struct DeviceMemoryStatReserved6;
+struct DeviceMemoryStatReserved7;
+struct DeviceMemoryStatReserved8;
+struct DeviceMemoryStatReserved9;
+struct HostMemoryStatAllocated0;
 
 using phi::ThreadDataRegistry;
 

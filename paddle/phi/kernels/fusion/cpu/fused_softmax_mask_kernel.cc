@@ -12,11 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/elementwise_add_kernel.h"
 #include "paddle/phi/kernels/softmax_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
+
 namespace fusion {
 
 template <typename T, typename Context>

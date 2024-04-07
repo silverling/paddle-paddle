@@ -14,13 +14,16 @@
 
 #include "paddle/phi/kernels/split_kernel.h"
 
-#include "glog/logging.h"
+#include <cstdint>
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/slice_kernel.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void SplitStridedKernel(const Context& dev_ctx,

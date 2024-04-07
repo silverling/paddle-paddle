@@ -14,7 +14,33 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <atomic>
+#include <functional>
+#include <map>
+#include <memory>
+#include <queue>
+#include <set>
+#include <string>
+#include <tuple>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/interpreter_base_impl.h"
+#include "paddle/fluid/framework/details/exception_holder.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/new_executor/interpreter/dependency_builder.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/framework/new_executor/workqueue/events_waiter.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class CalculateStreamTimer;
+class DenseTensor;
+}  // namespace phi
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/phi/kernels/autotune/gpu_timer.h"
@@ -22,6 +48,14 @@
 
 namespace paddle {
 namespace framework {
+class BlockDesc;
+class InterpreterCoreGarbageCollector;
+class ProgramDesc;
+class Scope;
+class Variable;
+namespace interpreter {
+class AsyncWorkQueue;
+}  // namespace interpreter
 
 ///
 /// \brief Derived Class to interpret the instructions transformed

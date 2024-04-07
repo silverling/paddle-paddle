@@ -14,10 +14,27 @@
 
 #include "paddle/phi/kernels/shape_kernel.h"
 
-#include "paddle/phi/backends/onednn/onednn_reuse.h"
+#include <stdint.h>
+#include <algorithm>
+#include <vector>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void ShapeKernel(const Context& dev_ctx,

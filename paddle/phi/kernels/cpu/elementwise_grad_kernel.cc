@@ -14,14 +14,19 @@
 
 #include "paddle/phi/kernels/elementwise_grad_kernel.h"
 
+#include <stdint.h>
+#include <cmath>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/cpu/elementwise_grad.h"
-#include "paddle/phi/kernels/funcs/elementwise_functor.h"
 #include "paddle/phi/kernels/impl/elementwise_grad_kernel_impl.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/kernels/funcs/elementwise_base.h"
+#include "paddle/phi/kernels/funcs/elementwise_grad_base.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void MaximumGradKernel(const Context& dev_ctx,

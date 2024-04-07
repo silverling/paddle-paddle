@@ -14,10 +14,21 @@
 
 #include "paddle/phi/kernels/affine_grid_grad_kernel.h"
 
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/affine_grid_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/blas/blas.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

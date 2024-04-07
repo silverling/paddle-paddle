@@ -13,9 +13,11 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/op_operand.h"
-#include "paddle/pir/src/core/op_operand_impl.h"
 
+#include "paddle/pir/src/core/op_operand_impl.h"
 #include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 #define CHECK_NULL_IMPL(class_name, func_name)                  \
   IR_ENFORCE(impl_,                                             \

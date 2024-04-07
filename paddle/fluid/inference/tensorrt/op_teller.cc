@@ -14,21 +14,37 @@
 
 #include "paddle/fluid/inference/tensorrt/op_teller.h"
 
+#include <stddef.h>
 #include <bitset>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <numeric>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
 #include "paddle/fluid/framework/block_desc.h"
-#include "paddle/fluid/framework/data_layout.h"
-#include "paddle/fluid/framework/phi_utils.h"
 #include "paddle/fluid/inference/tensorrt/dynamic_shape_infermeta_factory.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/phi/core/compat/op_utils.h"
 #include "paddle/phi/core/kernel_factory.h"
-
-namespace paddle {
-namespace framework {
-class OpDesc;
-}  // namespace framework
-}  // namespace paddle
+#include "NvInferRuntimeBase.h"
+#include "NvInferRuntimeCommon.h"
+#include "NvInferRuntimePlugin.h"
+#include "cuda.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace inference {

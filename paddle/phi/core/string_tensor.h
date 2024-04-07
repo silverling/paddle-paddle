@@ -14,9 +14,18 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/utils/type_info.h"
 
 namespace phi {
 

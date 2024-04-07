@@ -22,6 +22,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 /*
  * \brief   Fuse the softplus and another activation operators into

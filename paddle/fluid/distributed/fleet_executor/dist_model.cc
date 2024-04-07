@@ -15,8 +15,11 @@
 #include "paddle/fluid/distributed/fleet_executor/dist_model.h"
 
 #include <glog/logging.h>
-
-#include <chrono>  // NOLINT
+#include <bits/chrono.h>
+#include <algorithm>
+#include <cstring>
+#include <istream>
+#include <unordered_map>
 
 #include "paddle/fluid/distributed/fleet_executor/fleet_executor.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
@@ -26,7 +29,25 @@
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/tensor.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace paddle {
 namespace distributed {

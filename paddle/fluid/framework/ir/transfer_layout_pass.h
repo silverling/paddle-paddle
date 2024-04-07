@@ -19,6 +19,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class TransferLayoutPass : public FusePassBase {
  public:

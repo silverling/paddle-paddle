@@ -16,12 +16,14 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 #include "paddle/fluid/framework/details/all_reduce_op_handle.h"
 #include "paddle/fluid/framework/details/dgc_const_values.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
@@ -36,6 +38,8 @@ class NCCLCommunicator;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 class SparseAllReduceOpHandle : public AllReduceOpHandle {

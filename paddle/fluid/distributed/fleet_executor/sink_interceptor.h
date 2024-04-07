@@ -13,10 +13,15 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
+#include <map>
+
 #include "paddle/fluid/distributed/fleet_executor/interceptor.h"
 
 namespace paddle {
 namespace distributed {
+class InterceptorMessage;
+class TaskNode;
 
 /*
  * Sink interceptor

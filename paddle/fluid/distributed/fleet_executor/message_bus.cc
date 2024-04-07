@@ -14,14 +14,22 @@
 
 #include "paddle/fluid/distributed/fleet_executor/message_bus.h"
 
-#include <chrono>
-#include <memory>
-#include <set>
+#include <bits/chrono.h>
+#include <stddef.h>
 #include <thread>
+#include <cstdint>
+#include <ostream>
 
 #include "paddle/fluid/distributed/fleet_executor/carrier.h"
 #include "paddle/fluid/distributed/fleet_executor/global.h"
 #include "paddle/fluid/platform/gen_comm_id_helper.h"
+#include "brpc/adaptive_protocol_type.h"
+#include "brpc/channel.h"
+#include "brpc/controller.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
 
 namespace paddle {
 namespace distributed {

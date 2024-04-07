@@ -13,9 +13,12 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/decayed_adagrad_kernel.h"
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/decayed_adagrad_kernel_impl.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(
     decayed_adagrad, CPU, ALL_LAYOUT, phi::DecayedAdagradDenseKernel, float) {}

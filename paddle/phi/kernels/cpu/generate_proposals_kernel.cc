@@ -13,10 +13,27 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/generate_proposals_kernel.h"
+
+#include <stdint.h>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/detection/nms_util.h"
 #include "paddle/phi/kernels/funcs/gather.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
 
 namespace phi {
 

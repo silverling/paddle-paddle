@@ -14,11 +14,26 @@
 
 #include "paddle/fluid/pybind/cuda_streams_py.h"
 
-#include <string>
-#include <vector>
+#include <cuda_runtime.h>
+#include <cstdint>
+#include <new>
 
 #include "paddle/fluid/platform/device_event_base.h"
 #include "paddle/fluid/platform/event.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/cuda_stream.h"
+#include "paddle/phi/core/enforce.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/descr.h"
 
 namespace py = pybind11;
 

@@ -12,10 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <sstream>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/eager/accumulation/accumulation_node.h"
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/utils.h"
@@ -23,6 +28,28 @@
 #include "paddle/phi/core/kernel_registry.h"
 #include "test/cpp/eager/data_structure_tests/grad_node_test.h"
 #include "test/cpp/eager/test_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/small_vector.h"
+
+namespace egr {
+class GradNodeAccumulation;
+}  // namespace egr
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 

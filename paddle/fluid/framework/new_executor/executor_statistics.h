@@ -19,6 +19,10 @@
 #include "paddle/fluid/platform/profiler/event_node.h"
 
 namespace paddle {
+namespace platform {
+class NodeTrees;
+}  // namespace platform
+
 namespace framework {
 
 void StaticGraphExecutorPerfStatistics(

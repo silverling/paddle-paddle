@@ -13,7 +13,15 @@
 // limitations under the License.
 #pragma once
 
+#include <vector>
+
 #include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class Operation;
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

@@ -12,17 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
 #include <sstream>
+#include <string>
 
-#include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/ir_printer.h"
-#include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/program.h"
 #include "test/cpp/pir/tools/test_dialect.h"
 #include "test/cpp/pir/tools/test_op.h"
 #include "test/cpp/pir/tools/test_pir_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace pir {
+class Dialect;
+}  // namespace pir
 
 TEST(printer_test, custom_hooks) {
   pir::IrContext* ctx = pir::IrContext::Instance();

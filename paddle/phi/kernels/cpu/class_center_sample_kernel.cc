@@ -12,13 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
 #include <map>
 #include <set>
 #include <vector>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <random>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

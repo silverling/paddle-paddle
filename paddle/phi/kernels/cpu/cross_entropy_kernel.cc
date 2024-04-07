@@ -19,8 +19,11 @@ limitations under the License. */
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/axis_utils.h"
 #include "paddle/phi/kernels/funcs/cross_entropy.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/softmax_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

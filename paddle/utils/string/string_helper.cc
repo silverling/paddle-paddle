@@ -14,9 +14,6 @@
 
 #include "paddle/utils/string/string_helper.h"
 
-#include <cctype>
-#include <cstdio>
-
 #include <cstring>
 #include <string>
 

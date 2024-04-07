@@ -15,7 +15,6 @@ limitations under the License. */
 #pragma once
 
 #include <nvrtc.h>
-
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/nvrtc.h"

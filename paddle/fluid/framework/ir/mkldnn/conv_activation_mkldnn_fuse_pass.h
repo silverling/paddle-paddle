@@ -22,6 +22,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class ConvActivationMkldnnFusePass : public FusePassBase {
  public:

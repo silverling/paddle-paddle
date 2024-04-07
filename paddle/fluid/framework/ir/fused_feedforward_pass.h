@@ -17,6 +17,7 @@
 #include <mutex>
 #include <string>
 #include <unordered_set>
+#include <unordered_map>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"

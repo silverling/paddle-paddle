@@ -29,6 +29,9 @@
 #include <mutex>
 #include <thread>
 #include <unordered_map>
+#include <cstdint>
+#include <string>
+#include <vector>
 
 #include "paddle/phi/core/distributed/store/socket.h"
 #include "paddle/phi/core/distributed/store/store.h"

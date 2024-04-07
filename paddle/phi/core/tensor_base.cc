@@ -14,6 +14,4 @@ limitations under the License. */
 
 #include "paddle/phi/core/tensor_base.h"
 
-#include "paddle/phi/core/utils/type_registry.h"
-
 namespace phi {}

@@ -14,19 +14,26 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <initializer_list>
 #include <set>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/interface_value.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 class Dialect;
 class InterfaceValue;
+class IrContext;
 
 ///
 /// \brief OpInfoImpl class.

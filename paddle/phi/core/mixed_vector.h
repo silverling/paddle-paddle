@@ -14,12 +14,14 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <initializer_list>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <utility>
 #include <vector>
+#include <iterator>
 
 #include "glog/logging.h"
 #include "paddle/common/errors.h"
@@ -28,6 +30,7 @@ limitations under the License. */
 #include "paddle/phi/core/enforce.h"
 #include "paddle/utils/none.h"
 #include "paddle/utils/optional.h"
+#include "paddle/common/enforce.h"
 
 namespace phi {
 

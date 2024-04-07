@@ -13,7 +13,13 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+
 #include "paddle/fluid/memory/allocation/allocator.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 #ifdef _WIN32
 #define posix_memalign_free _aligned_free

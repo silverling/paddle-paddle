@@ -14,11 +14,20 @@
 
 #include "paddle/phi/kernels/kthvalue_grad_kernel.h"
 
+#include <string.h>
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace phi {
 template <typename T, typename Type>

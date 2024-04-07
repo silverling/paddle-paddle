@@ -17,7 +17,6 @@ limitations under the License. */
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/backends/custom/custom_context.h"
 #include "paddle/phi/backends/gpu/gpu_context.h"
-#include "paddle/phi/backends/xpu/xpu_context.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
@@ -26,6 +25,10 @@ limitations under the License. */
 #include "paddle/phi/core/string_tensor.h"
 #include "paddle/phi/core/tensor_array.h"
 #include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_registry.h"
 
 namespace phi {
 

@@ -12,13 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "glog/logging.h"
-#include "paddle/fluid/eager/api/manual/eager_manual/dygraph_forward_api.h"
 #include "paddle/fluid/eager/api/manual/eager_manual/nodes/nodes.h"
-#include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/eager/utils.h"
-#include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/api/include/tensor_utils.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
 
 paddle::small_vector<std::vector<paddle::Tensor>,
                      egr::kSlotSmallVectorSize>  // NOLINT

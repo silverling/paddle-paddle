@@ -14,7 +14,22 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/collective/c_comm_init_all_op.h"
 
+#include <string>
+
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
+
 namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+
 namespace operators {
 
 class CCommInitAllOp : public framework::OperatorWithKernel {

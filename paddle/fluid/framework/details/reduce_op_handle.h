@@ -18,12 +18,22 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <mutex>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/framework/details/op_handle_base.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
@@ -47,6 +57,8 @@ class NCCLContextMap;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 struct CollectiveContext {
   std::vector<std::string> endpoints_;

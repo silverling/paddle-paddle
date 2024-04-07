@@ -22,6 +22,13 @@
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/same_operands_result.h"
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/unary_infer_sym.h"
 #include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class Operation;
+class ShapeConstraintIRAnalysis;
+}  // namespace pir
 
 // Type inference is currently modelled executionally for operation creation
 // using the `InferMetaInterface`. While `InferSymbolicShapeInterface` is used

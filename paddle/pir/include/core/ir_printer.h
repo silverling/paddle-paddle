@@ -14,9 +14,11 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <ostream>
 #include <string>
 #include <unordered_map>
+#include <functional>
 
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/block.h"
@@ -25,8 +27,13 @@
 #include "paddle/pir/include/core/region.h"
 #include "paddle/pir/include/core/type.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
+class Block;
+class Operation;
+class Program;
+class Region;
 
 class BasicIrPrinter {
  public:

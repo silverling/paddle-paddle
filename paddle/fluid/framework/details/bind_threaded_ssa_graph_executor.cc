@@ -13,20 +13,6 @@
 // limitations under the License.
 #include "paddle/fluid/framework/details/bind_threaded_ssa_graph_executor.h"
 
-#include <deque>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-
-#include "paddle/fluid/framework/details/computation_op_handle.h"
-#include "paddle/fluid/framework/details/fetch_op_handle.h"
-#include "paddle/fluid/framework/details/multi_devices_helper.h"
-#include "paddle/fluid/framework/ir/graph_helper.h"
-#include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/profiler/event_tracing.h"
-
 #if defined(PADDLE_WITH_XPU)
 namespace paddle {
 namespace framework {

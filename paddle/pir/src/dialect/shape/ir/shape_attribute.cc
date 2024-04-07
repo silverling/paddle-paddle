@@ -13,8 +13,14 @@
 // limitations under the License.
 
 #include "paddle/pir/include/dialect/shape/ir/shape_attribute.h"
+
+#include <iosfwd>
+#include <memory>
+#include <variant>
+
 #include "paddle/pir/include/core/builtin_attribute.h"
-#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace pir::shape {
 

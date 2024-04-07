@@ -14,11 +14,17 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
+class SelectedRows;
+
 namespace sr {
 
 template <typename T, typename Context>

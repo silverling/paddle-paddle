@@ -12,9 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/eager/api/all.h"
+#include <cstdint>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
 #include "paddle/fluid/prim/api/manual_prim/prim_manual_api.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace prim {

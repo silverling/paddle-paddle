@@ -14,9 +14,14 @@
 
 #include "paddle/fluid/distributed/fleet_executor/interceptor.h"
 
+#include <ostream>
+#include <utility>
+
 #include "paddle/fluid/distributed/fleet_executor/carrier.h"
 #include "paddle/fluid/distributed/fleet_executor/task_loop.h"
-#include "paddle/fluid/distributed/fleet_executor/task_node.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace distributed {

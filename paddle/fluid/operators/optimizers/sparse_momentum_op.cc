@@ -14,9 +14,24 @@
 
 #include "paddle/fluid/operators/optimizers/sparse_momentum_op.h"
 
-#include "paddle/fluid/framework/op_version_registry.h"
+#include <memory>
+
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/kernel_registry.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 class SparseMomentumOpInferVarType : public framework::VarTypeInference {

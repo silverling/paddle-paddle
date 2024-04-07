@@ -13,15 +13,24 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/flatten.h"
-#include <numeric>
+
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
-#include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
 #include "paddle/phi/infermeta/spmd_rules/dim_trans.h"
 #include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {

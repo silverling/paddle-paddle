@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <memory>
+#include <unordered_map>
 
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/builder.h"
@@ -22,6 +23,11 @@
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/verify.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
 
 TEST(ir_op_info_test, op_op_info_test) {
   pir::IrContext* context = pir::IrContext::Instance();

@@ -17,15 +17,21 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
 
 namespace paddle {
 namespace framework {
+class BlockDesc;
+
 namespace ir {
+class Graph;
+class Node;
 
 class AutoMixedPrecisionPass : public FusePassBase {
  public:

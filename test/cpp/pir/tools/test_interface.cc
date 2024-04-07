@@ -12,4 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "test/cpp/pir/tools/test_interface.h"
+
+#include "paddle/pir/include/core/type_id.h"
+
 IR_DEFINE_EXPLICIT_TYPE_ID(test::InferShapeInterface)

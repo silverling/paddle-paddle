@@ -18,12 +18,23 @@
 #include "dnnl.hpp"  // NOLINT
 #endif
 
+#include <cstddef>
+#include <string>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/common/layout.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 #ifdef PADDLE_WITH_DNNL

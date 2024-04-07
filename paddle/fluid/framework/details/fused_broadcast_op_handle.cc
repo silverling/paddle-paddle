@@ -14,8 +14,14 @@
 
 #include "paddle/fluid/framework/details/fused_broadcast_op_handle.h"
 
+#include <stddef.h>
+
 #include "paddle/fluid/framework/details/container_cast.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
 
 namespace paddle {
 namespace framework {

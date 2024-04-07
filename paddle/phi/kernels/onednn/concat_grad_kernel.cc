@@ -14,11 +14,26 @@
 
 #include "paddle/phi/kernels/concat_grad_kernel.h"
 
+#include <stddef.h>
+#include <cstdint>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/concat_funcs.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void ConcatGradKernel(const Context& dev_ctx,

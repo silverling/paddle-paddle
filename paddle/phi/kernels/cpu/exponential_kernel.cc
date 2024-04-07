@@ -14,13 +14,15 @@
 
 #include "paddle/phi/kernels/exponential_kernel.h"
 
+#include <stdint.h>
 #include <random>
+#include <cmath>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/amp_type_traits.h"
-#include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/distribution_helper.h"
+#include "paddle/phi/core/dense_tensor.h"
+
 namespace phi {
 
 template <typename T, typename Context>

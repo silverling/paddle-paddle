@@ -14,9 +14,15 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <memory>
+
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class Allocation;
+class DenseTensor;
 
 template <typename T, typename Context>
 std::shared_ptr<phi::Allocation> FillHashTable(const Context& dev_ctx,

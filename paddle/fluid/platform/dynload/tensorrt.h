@@ -23,6 +23,12 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "NvInferVersion.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/dynload/dynamic_loader.h"
 
 namespace paddle {
 namespace platform {

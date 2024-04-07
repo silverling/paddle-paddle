@@ -15,7 +15,7 @@ limitations under the License. */
 
 #include <cuda.h>
 #include <cusparse.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"

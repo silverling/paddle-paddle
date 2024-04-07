@@ -14,13 +14,27 @@
 
 #include "paddle/fluid/operators/controlflow/conditional_block_op_helper.h"
 
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
-namespace paddle {
-namespace framework {
-class ProgramDesc;
-}  // namespace framework
-}  // namespace paddle
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/operators/controlflow/conditional_block_op.h"
+#include "paddle/fluid/operators/controlflow/op_variant.h"
+#include "paddle/utils/string/string_helper.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

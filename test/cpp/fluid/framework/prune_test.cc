@@ -14,13 +14,20 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/prune.h"
 
-#include <gtest/gtest.h>
-
 #include <string>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/program_desc.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
 
 namespace f = paddle::framework;
 

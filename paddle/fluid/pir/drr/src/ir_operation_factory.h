@@ -15,13 +15,28 @@
 #pragma once
 
 #include <unordered_map>
+#include <functional>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
 #include "paddle/fluid/pir/drr/src/match_context_impl.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/operation_utils.h"
+
+namespace pir {
+class Operation;
+class PatternRewriter;
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace drr {
+class MatchContextImpl;
+class OpCall;
 
 class OperationFactory {
  public:

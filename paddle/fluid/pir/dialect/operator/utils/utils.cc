@@ -13,13 +13,17 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <stddef.h>
 #include <sstream>
 #include <unordered_set>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <set>
+#include <utility>
 
 #include "paddle/common/errors.h"
-#include "paddle/fluid/framework/phi_utils.h"
-#include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
-#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
@@ -27,6 +31,13 @@
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/utils/flat_hash_map.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op.h"

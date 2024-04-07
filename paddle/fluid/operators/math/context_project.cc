@@ -13,7 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/operators/math/context_project.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
 
 namespace paddle {
 namespace operators {

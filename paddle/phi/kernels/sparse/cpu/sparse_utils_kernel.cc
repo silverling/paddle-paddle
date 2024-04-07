@@ -14,11 +14,18 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/sparse_utils_kernel.h"
 
-#include "paddle/phi/api/lib/utils/allocator.h"
+#include <string.h>
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_meta.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/funcs/sparse/common_shape.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 namespace sparse {

@@ -14,8 +14,21 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/runtime_context_cache_pass.h"
 
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {

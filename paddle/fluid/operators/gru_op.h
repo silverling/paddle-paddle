@@ -13,7 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <vector>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
@@ -21,6 +24,14 @@ limitations under the License. */
 #include "paddle/phi/kernels/funcs/gru_compute.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/funcs/sequence2batch.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

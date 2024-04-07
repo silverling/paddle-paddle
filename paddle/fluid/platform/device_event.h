@@ -14,6 +14,7 @@
 
 #pragma once
 #include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/device_context.h"
 
 /*
  * NOTE: Now we generate this file manually and will consider

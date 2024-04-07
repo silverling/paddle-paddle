@@ -6,10 +6,15 @@
 
 #include "paddle/fluid/framework/new_executor/workqueue/workqueue.h"
 
+#include <assert.h>
+#include <stdlib.h>
+#include <new>
+
 #include "paddle/fluid/framework/new_executor/workqueue/nonblocking_threadpool.h"
 #include "paddle/fluid/framework/new_executor/workqueue/workqueue_utils.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/framework/new_executor/workqueue/events_waiter.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
 
 namespace paddle {
 namespace framework {

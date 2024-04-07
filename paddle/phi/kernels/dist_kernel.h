@@ -17,6 +17,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief Given two tensors x and y, compute Lp-norm of (x-y).

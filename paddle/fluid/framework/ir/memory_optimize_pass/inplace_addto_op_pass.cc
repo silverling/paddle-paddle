@@ -12,28 +12,41 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
 #include <unordered_map>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <queue>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/memory_reuse_pass.h"
 #include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/platform/enforce.h"
-
-namespace paddle {
-namespace framework {
-namespace details {
-class ComputationOpHandle;
-struct VarHandle;
-}  // namespace details
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/computation_op_handle.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_helper.h"
+#include "paddle/fluid/framework/ir/memory_optimize_pass/memory_optimization_var_info.h"
+#include "paddle/fluid/framework/ir/memory_optimize_pass/reference_count_pass_helper.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 class InplaceAddToOpPass : public MemoryReusePass {
  protected:

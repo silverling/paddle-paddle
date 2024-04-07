@@ -24,9 +24,13 @@
  **/
 
 #include "paddle/phi/kernels/funcs/gpc.h"
+
+#include <float.h>
+#include <math.h>
 #include <array>
 
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace funcs {

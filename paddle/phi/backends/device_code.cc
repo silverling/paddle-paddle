@@ -16,14 +16,17 @@ limitations under the License. */
 
 #include <glog/logging.h>
 #include <sys/stat.h>
-
 #include <algorithm>
 #include <set>
 #include <utility>
+#include <initializer_list>
+#include <ostream>
 
 #include "paddle/common/flags.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/dynload/cuda_driver.h"
+#include "paddle/phi/backends/dynload/nvrtc.h"
 
 PHI_DECLARE_string(cuda_dir);
 

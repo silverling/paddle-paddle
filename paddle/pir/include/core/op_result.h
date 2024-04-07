@@ -14,9 +14,21 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <cstddef>
+#include <string>
+#include <typeindex>
+
 #include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/dll_decl.h"
+
+namespace std {
+template <typename _Tp> struct hash;
+}  // namespace std
 
 namespace pir {
+class Operation;
 
 namespace detail {
 class OpResultImpl;

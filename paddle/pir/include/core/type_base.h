@@ -14,10 +14,16 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <set>
+#include <type_traits>
+#include <utility>
+
 #include "paddle/pir/include/core/interface_value.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/storage_manager.h"
 #include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
 class Dialect;

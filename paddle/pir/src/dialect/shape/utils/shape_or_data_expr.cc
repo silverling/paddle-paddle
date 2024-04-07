@@ -14,6 +14,9 @@
 
 #include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
 
+#include <memory>
+#include <ostream>
+
 namespace symbol {
 
 std::ostream& operator<<(std::ostream& stream,

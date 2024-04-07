@@ -15,11 +15,15 @@ limitations under the License. */
 #pragma once
 
 #include <mkl.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"
 #include "paddle/phi/common/port.h"
+#include "mkl_cblas.h"
+#include "mkl_service.h"
+#include "mkl_spblas.h"
+#include "mkl_vml_functions.h"
 
 namespace phi {
 namespace dynload {

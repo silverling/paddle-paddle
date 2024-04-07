@@ -14,13 +14,16 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <functional>
 #include <memory>
 #include <set>
 #include <unordered_map>
 #include <vector>
+#include <string>
 
 #include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/op_info.h"
 
 namespace pir {
 class IrContextImpl;

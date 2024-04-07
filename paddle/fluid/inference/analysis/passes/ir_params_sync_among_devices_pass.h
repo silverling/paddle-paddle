@@ -22,6 +22,7 @@
 namespace paddle {
 namespace inference {
 namespace analysis {
+struct Argument;
 
 /*
  * Sync parameter from CPU to GPU.

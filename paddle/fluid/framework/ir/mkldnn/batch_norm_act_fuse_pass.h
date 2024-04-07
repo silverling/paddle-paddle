@@ -22,6 +22,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 /*
  * \brief   Fuse the BatchNorm and activation operators into single OneDNN's

@@ -21,10 +21,17 @@
 #include "paddle/fluid/framework/details/fetch_op_handle.h"
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {
+namespace ir {
+class Graph;
+}  // namespace ir
+
 namespace details {
+class OpHandleBase;
+
 class SSAGraphExecutor {
   DISABLE_COPY_AND_ASSIGN(SSAGraphExecutor);
 

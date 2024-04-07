@@ -14,9 +14,13 @@
 
 #include "paddle/fluid/inference/analysis/passes/ir_graph_to_program_pass.h"
 
-#include "paddle/fluid/framework/ir/graph_to_program_pass.h"
+#include <memory>
+
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph_helper.h"
+#include "paddle/fluid/inference/analysis/argument.h"
 
 namespace paddle {
 namespace inference {

@@ -14,8 +14,33 @@
 
 #pragma once
 
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+
+namespace paddle {
+namespace framework {
+class BlockDesc;
+class ExecutionContext;
+class OpKernelType;
+class OperatorBase;
+class RuntimeContext;
+class Scope;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class Kernel;
+struct KernelSignature;
+}  // namespace phi
 
 extern std::set<std::string> OperatorBasesMustRunInStaticBuild;
 

@@ -14,9 +14,32 @@
 
 #include "paddle/fluid/framework/ir/fuse_optimizer_ops_pass/fuse_optimizer_op_pass.h"
 
+#include <algorithm>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <set>
+#include <unordered_set>
+
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/phi/core/kernel_factory.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/details/multi_devices_helper.h"
+#include "paddle/fluid/framework/details/scope_buffered_ssa_graph_executor.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace paddle {
 namespace framework {

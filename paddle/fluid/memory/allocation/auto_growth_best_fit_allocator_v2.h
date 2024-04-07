@@ -14,6 +14,7 @@
 
 #pragma once
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
+#include <stddef.h>
 #include <list>
 #include <map>
 #include <memory>
@@ -23,10 +24,16 @@
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/allocation/auto_growth_best_fit_allocator.h"
 #include "paddle/fluid/memory/allocation/spin_lock.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace memory {
 namespace allocation {
+class Allocator;
 
 class AutoGrowthBestFitAllocatorV2 : public AutoGrowthBestFitAllocator {
  public:

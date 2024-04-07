@@ -14,10 +14,33 @@
 
 #include "paddle/phi/kernels/cum_kernel.h"
 
+#include <sys/select.h>
+#include <array>
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
+#include "Eigen/src/Core/GenericPacketMath.h"
+#include "Eigen/src/Core/NumTraits.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/functors/UnaryFunctors.h"
+#include "Eigen/src/Core/products/GeneralBlockPanelKernel.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Macros.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorFunctors.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

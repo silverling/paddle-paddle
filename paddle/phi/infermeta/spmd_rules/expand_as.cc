@@ -11,9 +11,16 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/expand_as.h"
 
+#include <bits/utility.h>
+#include <algorithm>
+#include <cstdint>
+#include <tuple>
+
 #include "glog/logging.h"
 #include "paddle/phi/infermeta/spmd_rules/spmd_rule_macro_define.h"
 #include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {

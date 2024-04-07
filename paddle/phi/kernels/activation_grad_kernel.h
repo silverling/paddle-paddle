@@ -20,6 +20,7 @@ limitations under the License. */
 #include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 #define DECLARE_ACTIVATION_GRAD_KERNEL_DEPX(name) \
   template <typename T, typename Context>         \

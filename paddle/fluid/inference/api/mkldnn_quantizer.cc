@@ -14,24 +14,65 @@
 
 #include "paddle/fluid/inference/api/mkldnn_quantizer.h"
 
+#include <bits/std_abs.h>
+#include <stdint.h>
 #include <algorithm>
 #include <limits>
 #include <map>
 #include <numeric>
 #include <unordered_map>
 #include <utility>
+#include <cmath>
+#include <memory>
+#include <new>
+#include <ostream>
+#include <stdexcept>
+#include <tuple>
+#include <type_traits>
 
-#include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
-#include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/inference/analysis/analyzer.h"
 #include "paddle/fluid/inference/api/analysis_predictor.h"
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/ArrayBase.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/CwiseUnaryOp.h"
+#include "Eigen/src/Core/DenseCoeffsBase.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/PlainObjectBase.h"
+#include "Eigen/src/Core/Stride.h"
+#include "Eigen/src/Core/VectorwiseOp.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/XprHelper.h"
+#include "Eigen/src/plugins/ArrayCwiseUnaryOps.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/naive_executor.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/analysis/argument.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
 
 namespace paddle {
 

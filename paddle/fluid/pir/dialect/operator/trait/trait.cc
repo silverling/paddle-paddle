@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/pir/dialect/operator/trait/custom_vjp.h"
-#include "paddle/fluid/pir/dialect/operator/trait/inplace.h"
-#ifdef PADDLE_WITH_DNNL
-#include "paddle/fluid/pir/dialect/operator/trait/onednn.h"
-#endif
+#include "paddle/pir/include/core/type_id.h"
+
+namespace paddle {
+namespace dialect {
+class CustomVjpTrait;
+class InplaceTrait;
+class OneDNNDynamicFallbackTrait;
+class OneDNNOnlyTrait;
+class OneDNNTrait;
+}  // namespace dialect
+}  // namespace paddle
+
 IR_DEFINE_EXPLICIT_TYPE_ID(paddle::dialect::InplaceTrait)
 IR_DEFINE_EXPLICIT_TYPE_ID(paddle::dialect::CustomVjpTrait)
 

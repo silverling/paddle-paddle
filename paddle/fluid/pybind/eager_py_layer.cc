@@ -9,34 +9,56 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 // disable numpy compile error
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <set>
 #include <string>
 #include <vector>
+#include <memory>
+#include <new>
+#include <ostream>
 
 #pragma GCC diagnostic ignored "-Wattributes"
-#include "paddle/fluid/eager/accumulation/accumulation_node.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/pylayer/py_layer_node.h"
 #include "paddle/fluid/eager/utils.h"
-#include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
 #include "paddle/fluid/pybind/exception.h"
-#include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
-#include "paddle/phi/core/dense_tensor.h"
-#include "pybind11/detail/internals.h"
 #include "pybind11/pytypes.h"
+#include "abstract.h"
+#include "descrobject.h"
+#include "dictobject.h"
+#include "listobject.h"
+#include "methodobject.h"
+#include "modsupport.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/hooks.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/utils/pybind.h"
+#include "patchlevel.h"
+#include "pyport.h"
+#include "tupleobject.h"
+
+namespace phi {
+class TensorBase;
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
+
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 

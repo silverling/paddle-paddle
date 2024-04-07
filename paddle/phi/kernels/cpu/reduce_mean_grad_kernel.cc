@@ -14,11 +14,21 @@
 
 #include "paddle/phi/kernels/reduce_mean_grad_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/reduce_functor.h"
 #include "paddle/phi/kernels/impl/reduce_grad.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/kernel_utils.h"
+#include "paddle/utils/none.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+
 namespace phi {
+class DenseTensor;
+namespace funcs {
+struct MeanGradFunctor;
+}  // namespace funcs
 
 template <typename T, typename Context>
 void ReduceMeanGradKernel(const Context& dev_ctx,

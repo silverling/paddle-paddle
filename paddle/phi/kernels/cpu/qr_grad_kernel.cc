@@ -14,8 +14,9 @@
 
 #include "paddle/phi/kernels/qr_grad_kernel.h"
 
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/qr_grad_kernel_impl.h"
 

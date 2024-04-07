@@ -14,18 +14,17 @@
 
 #include "paddle/fluid/platform/profiler/profiler.h"
 
-#include "glog/logging.h"
-#ifdef PADDLE_WITH_CUDA
-#include <cuda.h>
-#endif
+#include <cuda_runtime.h>
+#include <bitset>
+#include <map>
+#include <unordered_map>
+#include <utility>
 #ifdef PADDLE_WITH_HIP
 #include <hip/hip_runtime.h>
 #endif
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #endif
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/flags.h"
 #include "paddle/fluid/platform/profiler/cuda_tracer.h"
 #include "paddle/fluid/platform/profiler/custom_device/custom_tracer.h"
 #include "paddle/fluid/platform/profiler/extra_info.h"
@@ -33,6 +32,10 @@
 #include "paddle/fluid/platform/profiler/trace_event_collector.h"
 #include "paddle/fluid/platform/profiler/utils.h"
 #include "paddle/fluid/platform/profiler/xpu_tracer.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/profiler/event_node.h"
+#include "paddle/fluid/platform/profiler/event_python.h"
+#include "paddle/phi/core/enforce.h"
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/phi/backends/device_manager.h"
 #endif
@@ -54,10 +57,6 @@ void SynchronizeDevice() {
     auto place = paddle::platform::CustomPlace(dev_type, i);
     phi::DeviceManager::SynchronizeDevice(place);
   }
-#endif
-#ifdef PADDLE_WITH_XPU
-  // TODO(zhangxiaoci) xpu do not support device sync yet
-  // KL3 might do
 #endif
 }
 

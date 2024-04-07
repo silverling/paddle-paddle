@@ -15,8 +15,11 @@ limitations under the License. */
 #include "paddle/fluid/framework/string_array.h"
 
 #include <utf8proc.h>
-
-#include <exception>
+#include <stdlib.h>
+#include <codecvt>
+#include <locale>
+#include <stdexcept>
+#include <utility>
 
 #include "glog/logging.h"
 

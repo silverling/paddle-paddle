@@ -14,12 +14,18 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class MetaTensor;
+
 namespace sparse {
 
 void Conv3dInferMeta(const MetaTensor& x,

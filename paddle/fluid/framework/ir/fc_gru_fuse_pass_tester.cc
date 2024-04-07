@@ -14,6 +14,14 @@
 
 #include "paddle/fluid/framework/ir/fc_gru_fuse_pass_tester.h"
 
+#include <unordered_set>
+
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/platform/enforce.h"
+
 namespace paddle {
 namespace framework {
 namespace ir {

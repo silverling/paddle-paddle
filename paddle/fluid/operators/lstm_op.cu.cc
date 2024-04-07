@@ -12,7 +12,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <string>
+
 #include "paddle/fluid/operators/lstm_op.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
 
 namespace ops = paddle::operators;
 PD_REGISTER_STRUCT_KERNEL(

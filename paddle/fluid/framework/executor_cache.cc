@@ -14,6 +14,11 @@
 
 #include "paddle/fluid/framework/executor_cache.h"
 
+#include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <unordered_set>
+
 #include "paddle/common/flags.h"
 #include "paddle/common/macros.h"
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
@@ -22,20 +27,28 @@
 #include "paddle/fluid/pir/transforms/general/inplace_pass.h"
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
 #include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/core/value.h"
-#include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_manager.h"
+#include "glog/logging.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/details/execution_strategy.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/pir/include/core/ir_context.h"
 
 DECLARE_FILE_SYMBOLS(print_statistics);
 
 COMMON_DECLARE_bool(pir_apply_inplace_pass);
 COMMON_DECLARE_bool(print_ir);
-
-namespace paddle {
-namespace framework {
-class ProgramDesc;
-}  // namespace framework
-}  // namespace paddle
 
 namespace paddle {
 namespace framework {

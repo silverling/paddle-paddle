@@ -14,7 +14,21 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace pir {
 class Operation;

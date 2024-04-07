@@ -26,6 +26,7 @@ namespace framework {
 namespace ir {
 
 class Graph;
+class Node;
 
 class DeleteDropoutOpPass : public FusePassBase {
  public:

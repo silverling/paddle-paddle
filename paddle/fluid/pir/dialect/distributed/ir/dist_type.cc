@@ -13,8 +13,11 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_type.h"
+
 #include "paddle/fluid/pir/dialect/distributed/ir/type_storage.h"
 #include "paddle/pir/include/core/ir_context.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace dialect {

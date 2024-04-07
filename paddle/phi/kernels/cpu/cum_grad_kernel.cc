@@ -13,13 +13,15 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/cum_grad_kernel.h"
-#include "paddle/phi/kernels/cum_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include <stdint.h>
+
+#include "paddle/phi/kernels/cum_kernel.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
+#include "paddle/phi/core/dense_tensor.h"
+
 namespace phi {
+class CPUContext;
 
 template <typename T, typename Context>
 void CumsumGradKernel(const Context& dev_ctx,

@@ -13,11 +13,23 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/batch_norm_kernel.h"
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/batch_norm_kernel.h"
 #include "paddle/phi/kernels/sparse/empty_kernel.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class GPUContext;
+namespace dtype {
+struct float16;
+}  // namespace dtype
+
 namespace sparse {
 
 template <typename T, typename Context>

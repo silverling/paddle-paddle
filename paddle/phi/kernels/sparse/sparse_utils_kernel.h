@@ -14,12 +14,23 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
 #include "paddle/phi/infermeta/unary.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 namespace sparse {

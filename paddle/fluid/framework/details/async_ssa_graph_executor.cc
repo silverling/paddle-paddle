@@ -14,7 +14,25 @@
 
 #include "paddle/fluid/framework/details/async_ssa_graph_executor.h"
 
+#include <cxxabi.h>
+#include <stddef.h>
+#include <exception>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/framework/variable_helper.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_array.h"
 
 #if defined PADDLE_WITH_PSCORE
 #include "paddle/fluid/distributed/ps/service/communicator/communicator.h"

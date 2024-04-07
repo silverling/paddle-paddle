@@ -14,9 +14,23 @@
 
 #include "paddle/phi/kernels/sgd_kernel.h"
 
+#include <stdint.h>
+#include <cstring>
+#include <functional>
+#include <vector>
+
 #include "paddle/phi/backends/onednn/axpy_handler.h"
-#include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
 

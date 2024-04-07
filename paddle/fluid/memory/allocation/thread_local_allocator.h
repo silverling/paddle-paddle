@@ -14,13 +14,18 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 #include <vector>
+#include <mutex>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/allocation/buddy_allocator.h"
 #include "paddle/fluid/memory/allocation/system_allocator.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace memory {

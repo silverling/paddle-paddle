@@ -14,7 +14,14 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/same_status_reshard_function.h"
 
+#include <stddef.h>
 #include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <set>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
@@ -23,6 +30,11 @@
 #include "paddle/phi/core/distributed/store/store_utils.h"
 #include "paddle/phi/kernels/p_recv_kernel.h"
 #include "paddle/phi/kernels/p_send_kernel.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 
 namespace phi {
 namespace distributed {

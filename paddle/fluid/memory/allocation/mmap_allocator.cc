@@ -18,15 +18,19 @@
 
 #include <fcntl.h>
 #include <sys/mman.h>
-#include <cstdlib>
-
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
 #include <atomic>
 #include <random>
 #include <string>
+#include <new>
+#include <ostream>
 
-#include "glog/logging.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 COMMON_DECLARE_bool(use_shm_cache);
 

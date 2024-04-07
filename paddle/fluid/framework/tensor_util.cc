@@ -18,18 +18,32 @@ limitations under the License. */
 #include <limits>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
+#include <cstdint>
+#include <istream>
+#include <iterator>
+#include <typeinfo>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/platform/complex.h"
-#include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/core/dense_tensor.h"
-
-#ifdef PADDLE_WITH_DNNL
-#include "dnnl_debug.h"  // NOLINT
-#endif
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/string/to_string.h"
 
 namespace paddle {
 namespace framework {

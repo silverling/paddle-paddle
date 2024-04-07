@@ -14,7 +14,12 @@
 
 #include "paddle/phi/kernels/where_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

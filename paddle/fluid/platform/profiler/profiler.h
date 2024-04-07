@@ -20,12 +20,22 @@
 #include <functional>
 #include <list>
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/profiler/cpu_utilization.h"
 #include "paddle/fluid/platform/profiler/event_node.h"
 #include "paddle/fluid/platform/profiler/event_python.h"
 #include "paddle/fluid/platform/profiler/tracer_base.h"
+#include "paddle/common/flags.h"
+#include "paddle/common/macros.h"
+
+namespace paddle {
+namespace platform {
+class ProfilerResult;
+}  // namespace platform
+}  // namespace paddle
 
 COMMON_DECLARE_int64(host_trace_level);
 

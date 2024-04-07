@@ -13,12 +13,24 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <memory>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

@@ -14,6 +14,11 @@
 
 #include "paddle/phi/kernels/triangular_solve_kernel.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <tuple>
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
@@ -21,6 +26,10 @@
 #include "paddle/phi/kernels/expand_kernel.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
+#include "mkl_cblas.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 

@@ -14,18 +14,14 @@ limitations under the License. */
 
 #include "paddle/phi/core/mixed_vector.h"
 
-#include <algorithm>
-#include <initializer_list>
+#include <stdint.h>
 #include <memory>
-#include <mutex>  // NOLINT
-#include <utility>
 #include <vector>
 
-#include "glog/logging.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/utils/none.h"
 #include "paddle/utils/optional.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
 
 namespace phi {
 

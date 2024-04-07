@@ -15,11 +15,16 @@ limitations under the License. */
 #include "paddle/fluid/framework/var_type_inference.h"
 
 #include <string>
+#include <cstdint>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {

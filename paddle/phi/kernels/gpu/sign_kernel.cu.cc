@@ -12,14 +12,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/phi/kernels/sign_kernel.h"
+#include <cstdint>
 
 #include "paddle/phi/backends/gpu/gpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/sign_kernel_impl.h"
 
-// See Note [ Why still include the fluid headers? ]
-#include "paddle/phi/common/amp_type_traits.h"
+namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(sign,
                    GPU,

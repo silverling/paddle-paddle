@@ -12,11 +12,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/fluid/operators/fill_zeros_like_op.h"
+#include <stdint.h>
 
+#include "paddle/fluid/operators/fill_zeros_like_op.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/platform/complex.h"
 #include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
 
 namespace ops = paddle::operators;
 namespace plat = paddle::platform;

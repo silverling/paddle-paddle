@@ -13,12 +13,15 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <codecvt>
 #include <locale>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <iosfwd>
 
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/dlpack_tensor.h"
@@ -26,9 +29,17 @@ limitations under the License. */
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
 #include "paddle/fluid/platform/device_context.h"
-
 #include "paddle/fluid/memory/memory.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "dlpack/dlpack.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

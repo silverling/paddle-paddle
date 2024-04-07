@@ -14,11 +14,17 @@
 
 #include "paddle/phi/kernels/margin_cross_entropy_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/complex.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void MarginCrossEntropyKernel(const Context& dev_ctx UNUSED,

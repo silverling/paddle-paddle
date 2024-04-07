@@ -13,9 +13,12 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/funcs/strided_reshape_utils.h"
+
 #include <array>
-#include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/reshape_kernel.h"
+#include <algorithm>
+#include <cstdint>
+
+#include "paddle/common/ddim.h"
 
 namespace phi {
 

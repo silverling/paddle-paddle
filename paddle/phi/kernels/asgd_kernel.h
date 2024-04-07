@@ -16,8 +16,10 @@
 
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ASGDKernel(const Context& dev_ctx,

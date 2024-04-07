@@ -18,6 +18,9 @@ limitations under the License. */
 #include "paddle/phi/common/complex.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/eigvalsh_grad_kernel_impl.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(eigvalsh_grad,
                    CPU,

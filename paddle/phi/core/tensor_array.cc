@@ -13,9 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/core/tensor_array.h"
-#include "paddle/phi/core/enforce.h"
+
+#include <memory>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+class Allocator;
 
 TensorArray::TensorArray(const std::vector<DenseTensor>& vec) {
   tensors_ = vec;

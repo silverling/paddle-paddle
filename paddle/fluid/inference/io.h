@@ -24,6 +24,12 @@ limitations under the License. */
 #include "paddle/fluid/platform/init.h"
 
 namespace paddle {
+namespace framework {
+class Executor;
+class ProgramDesc;
+class Scope;
+}  // namespace framework
+
 namespace inference {
 
 void Init(const std::vector<std::string> argv);

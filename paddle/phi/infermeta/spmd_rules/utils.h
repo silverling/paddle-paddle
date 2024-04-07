@@ -14,19 +14,24 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <set>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <memory>
 
 #include "paddle/phi/core/attribute.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 #include "paddle/phi/core/distributed/type_defs.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {
 class TensorDistAttr;
+class PlacementStatus;
+class ProcessMesh;
 
 inline bool IsEmpty(const std::vector<int64_t>& shape) {
   return shape.empty() || shape.at(0) == 0;

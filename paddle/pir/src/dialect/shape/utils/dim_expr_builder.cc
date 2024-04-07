@@ -13,6 +13,10 @@
 // limitations under the License.
 
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_builder.h"
+
+#include <cstddef>
+#include <variant>
+
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_util.h"
 

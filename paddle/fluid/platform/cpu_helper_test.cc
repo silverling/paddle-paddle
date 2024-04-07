@@ -14,7 +14,9 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/cpu_helper.h"
 
-#include "gtest/gtest.h"
+#include <memory>
+
+#include "gtest/gtest_pred_impl.h"
 
 TEST(CpuHelper, SetNumThread) {
   paddle::platform::SetNumThreads(1);

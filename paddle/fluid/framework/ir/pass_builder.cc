@@ -15,15 +15,17 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/pass_builder.h"
 
 #include <memory>
+#include <ostream>
+#include <utility>
 
-#include "glog/logging.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/pass.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Pass;
 
 std::shared_ptr<Pass> PassBuilder::AppendPass(const std::string& pass_type) {
   VLOG(1) << "Append " << pass_type;

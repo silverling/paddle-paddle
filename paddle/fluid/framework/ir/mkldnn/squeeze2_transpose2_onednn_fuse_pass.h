@@ -20,6 +20,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class FuseSqueeze2Transpose2OneDNNPass : public FusePassBase {
  public:

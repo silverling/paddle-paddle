@@ -11,19 +11,41 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
+#include <ext/alloc_traits.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <ctime>
+#include <algorithm>
+#include <cstdint>
+#include <future>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <ostream>
+#include <string>
+#include <thread>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/device_worker.h"
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/fleet/fleet_wrapper.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/framework/variable_helper.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {
-
-class Scope;
-class Variable;
 
 std::shared_ptr<PullDenseWorker> PullDenseWorker::s_instance_ = NULL;
 std::mutex PullDenseWorker::mutex_for_version_;

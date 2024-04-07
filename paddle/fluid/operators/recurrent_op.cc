@@ -14,13 +14,32 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/recurrent_op.h"
 
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include <algorithm>
+#include <iterator>
+#include <memory>
+#include <mutex>
+#include <unordered_map>
+
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/executor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
-class InferShapeContext;
 class OpDesc;
 }  // namespace framework
 }  // namespace paddle

@@ -14,7 +14,7 @@
 
 #pragma once
 #include <ThreadPool.h>
-
+#include <stddef.h>
 #include <algorithm>
 #include <iostream>
 #include <map>
@@ -25,6 +25,8 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <mutex>
 
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/tensor.h"
@@ -32,6 +34,12 @@
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/for_range.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/hostdevice.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace imperative {
@@ -43,6 +51,7 @@ class VariableWrapper;
 
 namespace paddle {
 namespace imperative {
+class GradOpNode;
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL) ||     \
     defined(PADDLE_WITH_XPU_BKCL) || defined(PADDLE_WITH_GLOO) || \

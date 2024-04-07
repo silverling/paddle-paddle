@@ -16,14 +16,25 @@
 #include <gloo/rendezvous/context.h>
 #include <gloo/rendezvous/store.h>
 #include <gloo/transport/tcp/device.h>
-
+#include <stdint.h>
 #include <memory>
 
 #include "paddle/common/macros.h"
 #include "paddle/phi/core/distributed/comm_context.h"
 
+namespace gloo {
+namespace rendezvous {
+class Context;
+class Store;
+}  // namespace rendezvous
+namespace transport {
+class Device;
+}  // namespace transport
+}  // namespace gloo
+
 namespace phi {
 class DenseTensor;
+
 namespace distributed {
 
 class GlooCommContext final : public CommContext {

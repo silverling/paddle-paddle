@@ -14,10 +14,15 @@
 
 #include "paddle/phi/kernels/funcs/jit/more/intrinsic/layer_norm.h"
 
-#include <limits>
+#include <immintrin.h>
+#include <stddef.h>
+#include <xmmintrin.h>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 namespace phi {
 namespace jit {

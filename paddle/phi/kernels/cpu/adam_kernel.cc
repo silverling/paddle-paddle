@@ -14,15 +14,34 @@
 
 #include "paddle/phi/kernels/adam_kernel.h"
 
+#include <stddef.h>
 #include <vector>
+#include <complex>
+#include <ostream>
+#include <string>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/adam_functors.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "Eigen/src/plugins/ArrayCwiseUnaryOps.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
+#include "src/Core/ArrayBase.h"
+
+namespace phi {
+class CPUPlace;
+namespace funcs {
+struct CPUAdam;
+}  // namespace funcs
+}  // namespace phi
 
 PD_DECLARE_int32(inner_op_parallelism);
 

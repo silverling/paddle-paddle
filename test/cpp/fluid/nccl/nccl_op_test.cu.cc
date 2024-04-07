@@ -13,22 +13,42 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
-
+#include <stdint.h>
+#include <stdlib.h>
 #include <memory>
 #include <mutex>   // NOLINT
 #include <thread>  // NOLINT
 #include <vector>
+#include <algorithm>
+#include <ostream>
+#include <string>
+#include <utility>
 
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/operators/nccl/nccl_gpu_common.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/init.h"
 #include "paddle/fluid/platform/place.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
 
 USE_NO_KERNEL_OP(ncclInit);
 USE_OP_ITSELF(ncclAllReduce);

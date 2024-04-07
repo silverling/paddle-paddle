@@ -16,14 +16,18 @@
 
 #ifndef _WIN32
 
+#include <stddef.h>
+#include <stdint.h>
 #include <atomic>
 #include <memory>
 #include <mutex>
 #include <string>
 #include <unordered_set>
 #include <utility>
+#include <vector>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace memory {

@@ -18,9 +18,14 @@ limitations under the License. */
 
 #include "paddle/phi/backends/cpu/forwards.h"
 #include "paddle/phi/core/device_context.h"
-
 // TODO(wilber): Do we need to use place in phi kernel?
 #include "paddle/phi/common/place.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/utils/type_info.h"
+
+namespace Eigen {
+struct DefaultDevice;
+}  // namespace Eigen
 
 namespace phi {
 
@@ -45,6 +50,7 @@ class PADDLE_API CPUContext : public DeviceContext,
 
  private:
   struct Impl;
+
   std::unique_ptr<Impl> impl_;
 };
 

@@ -12,13 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cuda_runtime.h>
 #include <functional>
+#include <algorithm>
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/cuda_device_guard.h"
 #endif
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/garbage_collector.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/stream_callback_manager.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
 
 COMMON_DECLARE_double(eager_delete_tensor_gb);
 COMMON_DECLARE_double(memory_fraction_of_eager_deletion);

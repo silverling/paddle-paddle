@@ -12,15 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <vector>
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/generator.h"
-
-#ifdef PADDLE_WITH_CUDA
-#include "paddle/phi/backends/gpu/gpu_context.h"
-#endif
-
-#include "gtest/gtest.h"
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
+#include <memory>
+#include <ostream>
+#include <random>
+#include <type_traits>
 
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/amp_type_traits.h"
@@ -35,8 +36,22 @@
 #include "paddle/phi/kernels/fused_adam_kernel.h"
 #include "paddle/phi/kernels/gaussian_kernel.h"
 #include "paddle/phi/kernels/legacy/reduce_max_kernel.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/utils/none.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 auto GenerateRandomTensorVectors(

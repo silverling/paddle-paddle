@@ -14,7 +14,14 @@
 
 #include "paddle/fluid/distributed/fleet_executor/sink_interceptor.h"
 
+#include <cstdint>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
+#include "glog/logging.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
 
 namespace paddle {
 namespace distributed {

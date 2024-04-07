@@ -14,14 +14,20 @@
 
 #include "paddle/fluid/framework/attribute.h"
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <complex>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/utils/any.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/phi/common/data_type.h"
 
 TEST(Attribute, GetAttrValueToAny) {
   paddle::framework::Attribute x_int(100);

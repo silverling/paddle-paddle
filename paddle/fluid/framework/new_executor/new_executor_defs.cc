@@ -16,15 +16,34 @@
 
 #include <map>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/new_executor/garbage_collector/garbage_collector.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/platform/collective_helper.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/distributed/comm_context_manager.h"
+#include "paddle/phi/core/distributed/nccl_comm_context.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class Kernel;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
+class VarDesc;
+class Variable;
 
 VariableScope::VariableScope(Scope* scope) {
   // for @EMPTY@ variable

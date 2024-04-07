@@ -14,9 +14,17 @@
 
 #include "paddle/phi/kernels/einsum_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include <algorithm>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/einsum_impl.h"
+
+namespace phi {
+class CPUContext;
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(einsum,
                    CPU,

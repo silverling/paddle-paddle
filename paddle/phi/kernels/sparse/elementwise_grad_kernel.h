@@ -14,16 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/kernels/elementwise_add_grad_kernel.h"
 #include "paddle/phi/kernels/sparse/empty_kernel.h"
-
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
 #include "paddle/phi/infermeta/sparse/unary.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/infermeta/unary.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace sparse {
 
 #define DEFINE_ELEMENTWISE_GRAD_KERNEL_HEAD(name)          \

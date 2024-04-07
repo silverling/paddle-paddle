@@ -13,7 +13,9 @@
    limitations under the License. */
 
 #pragma once
+#include <stdint.h>
 #include <string>
+#include <iosfwd>
 
 #include "paddle/phi/core/dense_tensor.h"
 

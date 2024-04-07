@@ -14,14 +14,30 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <utility>
 #include <vector>
+#include <ostream>
+#include <string>
 
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/imperative/hooks.h"
 #include "paddle/fluid/imperative/layer.h"
 #include "paddle/phi/api/include/tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+
+namespace phi {
+class DenseTensor;
+class SelectedRows;
+}  // namespace phi
 
 namespace paddle {
 namespace imperative {

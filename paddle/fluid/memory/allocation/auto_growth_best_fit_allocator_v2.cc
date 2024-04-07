@@ -14,15 +14,30 @@
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/memory/allocation/auto_growth_best_fit_allocator_v2.h"
 
+#include <cuda_runtime.h>
+#include <stdint.h>
 #include <algorithm>
 #include <mutex>  // NOLINT
+#include <list>
+#include <map>
+#include <ostream>
+#include <type_traits>
+#include <utility>
 
-#include "paddle/fluid/memory/allocation/aligned_allocator.h"
 #include "paddle/fluid/platform/cuda_device_guard.h"
-#include "paddle/fluid/platform/device/gpu/gpu_info.h"
-#include "paddle/fluid/platform/flags.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
-#include "paddle/phi/backends/device_manager.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/allocator.h"
+
+namespace paddle {
+namespace memory {
+class SpinLock;
+}  // namespace memory
+}  // namespace paddle
 
 PD_DECLARE_bool(free_idle_chunk);
 PD_DECLARE_bool(free_when_no_cache_hit);

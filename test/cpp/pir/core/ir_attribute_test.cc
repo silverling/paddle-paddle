@@ -12,17 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-#include <map>
+#include <string>
 
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/attribute_base.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "test/cpp/pir/tools/macros_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
 
 class AttributeA {};
 IR_DECLARE_EXPLICIT_TEST_TYPE_ID(AttributeA)

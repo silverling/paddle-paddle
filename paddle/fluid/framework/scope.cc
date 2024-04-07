@@ -14,9 +14,22 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/scope.h"
 
-#include "glog/logging.h"
+#include <cxxabi.h>
+#include <stdint.h>
+#include <algorithm>
+#include <exception>
+#include <ostream>
+#include <queue>
+#include <set>
+#include <utility>
+
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/threadpool.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/threadpool.h"
+#include "paddle/utils/string/printf.h"
+
 PD_DECLARE_bool(benchmark);
 
 COMMON_DECLARE_bool(eager_delete_scope);

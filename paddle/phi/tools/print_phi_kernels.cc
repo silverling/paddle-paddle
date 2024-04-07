@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include <iostream>
-#include <string>
 
 #include "paddle/phi/core/kernel_factory.h"
-#include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/declarations.h"
+#include "paddle/common/macros.h"
 
 int main(int argc UNUSED, char** argv UNUSED) {
   std::cout << phi::KernelFactory::Instance() << std::endl;

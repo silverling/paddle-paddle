@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/pad3d_grad_kernel.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

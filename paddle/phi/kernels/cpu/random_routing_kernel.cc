@@ -13,10 +13,15 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/random_routing_kernel.h"
+
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+
 namespace fusion {
 
 template <typename T, typename Context>

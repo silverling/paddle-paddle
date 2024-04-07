@@ -18,6 +18,7 @@
 
 #include <functional>
 #include <unordered_map>
+#include <vector>
 
 #include "paddle/pir/include/core/op_info.h"
 #include "paddle/pir/include/core/operation.h"
@@ -28,6 +29,7 @@ namespace pir {
 class FrozenRewritePatternSet;
 class RewritePattern;
 class Pattern;
+class Operation;
 
 class PatternApplicator {
  public:

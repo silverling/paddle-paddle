@@ -25,14 +25,17 @@
 #include "paddle/fluid/framework/details/computation_op_handle.h"
 #include "paddle/fluid/framework/details/var_handle.h"
 #include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
 
 class VarDesc;
+class GarbageCollector;
 
 namespace details {
 struct VarHandle;
+class ComputationOpHandle;
 }  // namespace details
 
 namespace ir {

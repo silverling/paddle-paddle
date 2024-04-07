@@ -12,13 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/fluid/eager/api/manual/fluid_manual/nodes/nodes.h"
 #include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/eager/utils.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/imperative/tracer.h"
-#include "paddle/phi/api/all.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/utils/small_vector.h"
 
 paddle::small_vector<std::vector<paddle::Tensor>, egr::kSlotSmallVectorSize>
 fused_bias_dropout_residual_layer_normGradNodeCompat::operator()(

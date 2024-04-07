@@ -19,8 +19,16 @@
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class Program;
+}  // namespace pir
 
 namespace paddle {
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
 
 TEST_API std::unique_ptr<::pir::Program> TranslateLegacyProgramToProgram(
     const ::paddle::framework::ProgramDesc& legacy_program);

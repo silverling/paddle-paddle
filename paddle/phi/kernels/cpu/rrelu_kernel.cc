@@ -14,9 +14,12 @@
 
 #include "paddle/phi/kernels/rrelu_kernel.h"
 
+#include <random>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

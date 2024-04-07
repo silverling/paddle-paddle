@@ -19,8 +19,11 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
 #include "paddle/phi/core/enforce.h"
 #include "paddle/utils/variant.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace inference {

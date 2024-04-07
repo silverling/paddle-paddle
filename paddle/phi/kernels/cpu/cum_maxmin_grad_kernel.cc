@@ -14,11 +14,14 @@
 
 #include "paddle/phi/kernels/cum_maxmin_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/place.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/gather_scatter_functor.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

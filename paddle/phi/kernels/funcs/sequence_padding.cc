@@ -14,7 +14,11 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/sequence_padding.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include <string.h>
+
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/lod_utils.h"
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/phi/backends/xpu/enforce_xpu.h"
@@ -22,6 +26,8 @@ limitations under the License. */
 #endif
 
 namespace phi {
+class CPUContext;
+
 namespace funcs {
 
 template <typename T>

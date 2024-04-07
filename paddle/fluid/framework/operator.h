@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <algorithm>
 #include <atomic>
 #include <memory>
@@ -23,6 +24,10 @@ limitations under the License. */
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <cstddef>
+#include <functional>
+#include <iterator>
+#include <map>
 
 #include "glog/logging.h"  // For VLOG
 #include "paddle/fluid/framework/attribute.h"
@@ -39,7 +44,6 @@ limitations under the License. */
 #include "paddle/fluid/framework/unused_var_check.h"
 #include "paddle/fluid/memory/malloc.h"
 #include "paddle/fluid/platform/device_context.h"
-
 #include "paddle/common/flags.h"
 #include "paddle/common/macros.h"
 #include "paddle/phi/core/compat/arg_map_context.h"
@@ -48,6 +52,22 @@ limitations under the License. */
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/utils/flat_hash_map.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/small_vector.h"
 
 namespace paddle {
 namespace framework {
@@ -59,6 +79,10 @@ class Variable;
 
 namespace phi {
 class KernelContext;
+class GPUContext;
+class SelectedRows;
+class SparseCooTensor;
+class SparseCsrTensor;
 }
 
 COMMON_DECLARE_int32(inner_op_parallelism);
@@ -935,6 +959,7 @@ class OperatorWithKernel : public OperatorBase {
 
  private:
   struct CacheImpl;
+
   mutable std::unique_ptr<CacheImpl> impl_;
 };
 

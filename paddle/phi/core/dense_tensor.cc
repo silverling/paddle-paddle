@@ -14,12 +14,17 @@ limitations under the License. */
 
 #include "paddle/phi/core/dense_tensor.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <string>
+#include <utility>
 
-#include "paddle/phi/common/bfloat16.h"
-#include "paddle/phi/common/complex.h"
-#include "paddle/phi/common/float16.h"
-#include "paddle/phi/core/compat/convert_utils.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/type_registry.h"
 
 /**
  * [ Why still include the fluid headers? ]

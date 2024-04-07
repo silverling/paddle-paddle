@@ -13,7 +13,15 @@
 // limitations under the License.
 #pragma once
 
+#include <memory>
+
 #include "paddle/pir/include/core/program.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class Block;
+class Program;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

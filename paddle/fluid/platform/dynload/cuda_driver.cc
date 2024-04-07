@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/cuda_driver.h"
 
 #include "paddle/phi/backends/dynload/cuda_driver.h"
+#include "cuda.h"
 
 namespace paddle {
 namespace platform {

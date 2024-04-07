@@ -17,6 +17,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/new_executor/interpreter/plan.h"
@@ -25,11 +26,15 @@
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
 
 namespace paddle {
 namespace framework {
 
 class InterpreterCore;
+class ProgramDesc;
+class Scope;
+struct EventInter;
 
 class StandaloneExecutor {
  public:

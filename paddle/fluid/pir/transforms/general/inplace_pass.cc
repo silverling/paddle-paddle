@@ -12,28 +12,48 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <numeric>
+#include <stddef.h>
+#include <stdint.h>
 #include <regex>
 #include <string>
 #include <unordered_set>
+#include <algorithm>
+#include <iostream>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_dialect.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
-#include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/trait/inplace.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/pir/transforms/general/inplace_pass.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
-#include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/block_argument.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 COMMON_DECLARE_string(ir_inplace_kernel_blacklist);
 

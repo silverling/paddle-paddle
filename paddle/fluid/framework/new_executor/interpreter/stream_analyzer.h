@@ -13,18 +13,36 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <future>
 #include <memory>
 #include <vector>
+#include <map>
+#include <mutex>
+#include <ostream>
+#include <set>
+#include <string>
+#include <unordered_map>
 
 #include "paddle/fluid/framework/new_executor/interpreter/dependency_builder.h"
 #include "paddle/fluid/framework/new_executor/new_executor_defs.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/device_event.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace framework {
+class Instruction;
+class InstructionBase;
+struct EventInter;
+struct OpFuncNode;
+
 namespace interpreter {
+class DependencyBuilder;
+class PirDependencyBuilder;
 
 enum DownstreamRunType { kDirectRun, kEventRun };
 

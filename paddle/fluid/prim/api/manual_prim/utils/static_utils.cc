@@ -12,17 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/common/macros.h"
+#include <memory>
+#include <string>
+
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/program_desc.h"
-#include "paddle/fluid/prim/api/manual_prim/utils/utils.h"
 #include "paddle/fluid/prim/utils/static/desc_tensor.h"
 #include "paddle/fluid/prim/utils/static/static_global_utils.h"
 #include "paddle/phi/api/include/tensor.h"
-#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/test_macros.h"
+
 namespace paddle {
 namespace prim {
 using Tensor = paddle::Tensor;

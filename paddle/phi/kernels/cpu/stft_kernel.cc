@@ -13,9 +13,14 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/stft_kernel.h"
+
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/stft_kernel_impl.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 PD_REGISTER_KERNEL(stft, CPU, ALL_LAYOUT, phi::StftKernel, float, double) {
   kernel->OutputAt(0).SetDataType(phi::dtype::ToComplex(kernel_key.dtype()));

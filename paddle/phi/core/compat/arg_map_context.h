@@ -14,9 +14,11 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <ostream>
 #include <string>
 #include <tuple>
+#include <utility>
 
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/type_defs.h"

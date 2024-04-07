@@ -12,18 +12,52 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
+#include <algorithm>
+#include <cstring>
+#include <functional>
+#include <future>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/data_layout_transform.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/string_array.h"
-#include "paddle/fluid/inference/api/paddle_inference_api.h"
 #include "paddle/fluid/inference/api/paddle_tensor.h"
 #include "paddle/fluid/memory/memcpy.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/phi/common/bfloat16.h"
-#include "paddle/phi/core/allocator.h"
+#include "cuda_runtime_api.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_infer_declare.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
+
+namespace phi {
+class Allocation;
+class DeviceContext;
+class Place;
+}  // namespace phi
 #ifdef PADDLE_WITH_ONNXRUNTIME
 #include "onnxruntime_c_api.h"    // NOLINT
 #include "onnxruntime_cxx_api.h"  // NOLINT

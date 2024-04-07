@@ -14,17 +14,24 @@ limitations under the License. */
 
 #include "paddle/phi/core/tensor_utils.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <string>
 
+#include "glog/logging.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/backends/gpu/gpu_context.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/phi/core/compat/convert_utils.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/utils/data_type.h"
 
 namespace phi {
+class TensorArray;
 
 template <typename Context>
 void Copy(const Context& dev_ctx,

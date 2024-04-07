@@ -14,9 +14,18 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/pir/src/core/value_impl.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/test_macros.h"
 
 namespace pir {
+class Operation;
+
 namespace detail {
 ///
 /// \brief OpResultImpl is the implementation of an operation result.

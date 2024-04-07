@@ -14,6 +14,8 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -23,6 +25,14 @@ limitations under the License. */
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/phi/core/type_defs.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/utils/test_macros.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+struct KernelSignature;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
@@ -55,6 +65,8 @@ namespace paddle {
 namespace framework {
 
 class OperatorBase;
+class VarDesc;
+class Variable;
 
 using InferShapeVarPtr = paddle::variant<VarDesc *, Variable *>;
 

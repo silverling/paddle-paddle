@@ -14,11 +14,15 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/infermeta/multiary.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ConcatGradKernel(const Context& dev_ctx,

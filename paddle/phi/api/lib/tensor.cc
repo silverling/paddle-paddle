@@ -17,9 +17,9 @@ limitations under the License. */
 #include <memory>
 #include <utility>
 #include <vector>
+#include <ostream>
 
 #include "glog/logging.h"
-
 #include "paddle/common/ddim.h"
 #include "paddle/phi/api/include/context_pool.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
@@ -27,7 +27,6 @@ limitations under the License. */
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
@@ -35,6 +34,10 @@ limitations under the License. */
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/tensor_meta.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 

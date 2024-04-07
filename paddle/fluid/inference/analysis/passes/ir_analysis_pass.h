@@ -21,6 +21,7 @@
 namespace paddle {
 namespace inference {
 namespace analysis {
+struct Argument;
 
 /*
  * Perform IR analysis passes.

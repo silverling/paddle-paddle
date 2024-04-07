@@ -14,11 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <vector>
+#include <utility>
 
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/infermeta/unary.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
 

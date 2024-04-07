@@ -14,10 +14,16 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/detection/mask_util.h"
 
+#include <ext/alloc_traits.h>
 #include <cmath>
 #include <cstdlib>
+#include <algorithm>
+#include <limits>
+#include <memory>
 
-#include "paddle/fluid/memory/memory.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace operators {

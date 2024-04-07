@@ -13,11 +13,12 @@
 // limitations under the License.
 #include "paddle/phi/backends/cpu/cpu_info.h"
 
-#include <sstream>
+#include <iostream>
+#include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/utils/string/printf.h"
+#include "gtest/gtest_pred_impl.h"
 
 COMMON_DECLARE_double(fraction_of_cpu_memory_to_use);
 

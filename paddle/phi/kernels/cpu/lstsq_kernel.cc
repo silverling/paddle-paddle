@@ -13,17 +13,26 @@
 // limitations under the License.
 
 #include <algorithm>
-#include <cmath>
-#include <complex>
+#include <string>
+#include <unordered_map>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/complex_functors.h"
 #include "paddle/phi/kernels/funcs/lapack/lapack_function.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/impl/lstsq_kernel_impl.h"
 #include "paddle/phi/kernels/lstsq_kernel.h"
 #include "paddle/phi/kernels/transpose_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

@@ -16,6 +16,7 @@
 
 #include <string>
 #include <vector>
+#include <iosfwd>
 
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/program_desc.h"
@@ -23,8 +24,27 @@
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/utils/test_macros.h"
+
+namespace pir {
+class Block;
+class IrContext;
+class Operation;
+}  // namespace pir
 
 namespace paddle {
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
+namespace translator {
+class TranslationContext;
+struct VariableDefiningInfo;
+}  // namespace translator
+
 namespace dialect {
 struct PdOpSig {
   std::string name;

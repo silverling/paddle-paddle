@@ -14,15 +14,26 @@
 
 #include "paddle/phi/kernels/broadcast_tensors_grad_kernel.h"
 
+#include <stddef.h>
 #include <vector>
+#include <array>
+#include <cstdint>
 
 #include "paddle/phi/common/float16.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 #define SWITCH_RESHAPE_DIMS(n)                                                \
   case n: {                                                                   \

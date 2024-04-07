@@ -13,7 +13,10 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/interpolate_grad_kernel.h"
+
 #include <array>
+#include <algorithm>
+#include <cmath>
 
 #include "paddle/common/layout.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
@@ -21,6 +24,18 @@
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/interpolate_function.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace phi {
 

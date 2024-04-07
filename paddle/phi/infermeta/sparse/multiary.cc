@@ -15,6 +15,8 @@ limitations under the License. */
 #include "paddle/phi/infermeta/sparse/multiary.h"
 
 namespace phi {
+class MetaTensor;
+
 namespace sparse {
 
 void FusedAttentionInferMeta(const MetaTensor& query,

@@ -14,10 +14,18 @@
 
 #include "paddle/phi/kernels/reduce_scatter_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
+class CPUContext;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void ReduceScatterKernel(const Context& dev_ctx UNUSED,

@@ -14,14 +14,23 @@
 
 #include "paddle/fluid/eager/nan_inf_utils.h"
 
+#include <istream>
+#include <memory>
+#include <unordered_set>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/details/nan_inf_utils_detail.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/backends/gpu/gpu_context.h"
 #include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class CPUContext;
+class GPUContext;
+}  // namespace phi
 
 COMMON_DECLARE_int32(check_nan_inf_level);
 namespace egr {

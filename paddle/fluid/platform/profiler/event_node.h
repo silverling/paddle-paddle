@@ -19,11 +19,16 @@ limitations under the License. */
 #include <map>
 #include <string>
 #include <vector>
+#include <cstdint>
 
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler/output_logger.h"
 #include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/api/profiler/trace_event.h"
 
 namespace paddle {
 namespace platform {

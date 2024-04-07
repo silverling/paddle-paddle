@@ -11,8 +11,38 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/detection/density_prior_box_op.h"
 
+#include <cstdint>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
+
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
+template <typename T> class PriorBoxOpKernel;
 
 class DensityPriorBoxOp : public framework::OperatorWithKernel {
  public:

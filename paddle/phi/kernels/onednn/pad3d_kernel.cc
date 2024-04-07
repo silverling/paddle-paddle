@@ -14,9 +14,26 @@
 
 #include "paddle/phi/kernels/pad3d_kernel.h"
 
-#include "paddle/phi/backends/onednn/onednn_reuse.h"
+#include <algorithm>
+#include <functional>
+#include <utility>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/onednn/pad_kernel_impl.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace phi {
 

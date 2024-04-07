@@ -14,9 +14,14 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/dataset_factory.h"
 
+#include <stdlib.h>
 #include <string>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
-#include "glog/logging.h"
+#include "paddle/fluid/framework/data_set.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
 
 namespace paddle {
 namespace framework {

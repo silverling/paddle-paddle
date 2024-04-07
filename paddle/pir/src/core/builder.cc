@@ -12,15 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <glog/logging.h>
-
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_type.h"
-#include "paddle/pir/include/core/region.h"
-#include "paddle/pir/include/core/value.h"
 
 namespace pir {
+class Attribute;
+class Value;
+
 /// Create an operation given the fields represented as an OperationState.
 Operation *Builder::Build(OperationArgument &&argument) {
   return Insert(Operation::Create(std::move(argument)));

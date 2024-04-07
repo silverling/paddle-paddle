@@ -18,6 +18,9 @@ limitations under the License. */
 #include "paddle/phi/core/distributed/auto_parallel/device_mesh.h"
 #include "paddle/phi/core/distributed/auto_parallel/proto_helper.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
+
 namespace phi {
 namespace distributed {
 namespace auto_parallel {

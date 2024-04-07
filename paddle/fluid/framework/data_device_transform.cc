@@ -13,6 +13,18 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/data_device_transform.h"
 
+#include <ostream>
+
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+
 namespace paddle {
 namespace framework {
 

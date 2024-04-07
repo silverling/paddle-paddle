@@ -16,9 +16,12 @@ limitations under the License. */
 
 #include <map>
 #include <unordered_map>
+#include <iterator>
+#include <vector>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
 namespace funcs {

@@ -12,16 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
-#include "paddle/pir/include/core/builtin_type.h"
-#include "paddle/pir/include/core/dialect.h"
-#include "paddle/pir/include/core/type.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
 
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "test/cpp/pir/tools/test_dialect.h"
-#include "test/cpp/pir/tools/test_op.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+#include "paddle/pir/include/core/ir_context.h"
+
+namespace pir {
+class Dialect;
+}  // namespace pir
 
 TEST(shape_dtype_test, shape_dtype_test) {
   pir::IrContext *ctx = pir::IrContext::Instance();

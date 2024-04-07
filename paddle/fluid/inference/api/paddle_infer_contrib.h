@@ -14,7 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <exception>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <utility>
+
 #include "paddle_inference_api.h"  // NOLINT
+#include "paddle/fluid/inference/api/paddle_tensor.h"
 
 namespace paddle_infer {
 namespace contrib {

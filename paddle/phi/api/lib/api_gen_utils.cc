@@ -13,18 +13,44 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/api/lib/api_gen_utils.h"
+
+#include <cstdint>
+#include <ostream>
+
 #include "paddle/common/flags.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/strided_copy_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/string_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
 
 PHI_DECLARE_bool(use_stride_kernel);
 
 #include "glog/logging.h"
-
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
-#include "paddle/phi/core/kernel_factory.h"
+
+namespace phi {
+class TensorBase;
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 namespace experimental {

@@ -17,9 +17,13 @@
 #include <memory>
 #include <type_traits>
 #include <unordered_map>
+#include <cstddef>
+#include <functional>
+#include <utility>
 
 #include "paddle/pir/include/core/spin_lock.h"
 #include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
 ///

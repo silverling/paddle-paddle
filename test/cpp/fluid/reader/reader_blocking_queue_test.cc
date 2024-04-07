@@ -12,10 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <bits/chrono.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <thread>  // NOLINT
+#include <algorithm>
+#include <memory>
+#include <mutex>
+#include <set>
+#include <string>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/operators/reader/blocking_queue.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 using paddle::operators::reader::BlockingQueue;
 

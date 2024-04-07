@@ -14,12 +14,15 @@
 
 #pragma once
 
+#include <string>
+
 #include "paddle/phi/core/attribute.h"
 
 namespace phi {
 
 class KernelKey;
 class DenseTensor;
+
 /**
  * Note: GetKernelTypeForVarContext is currently designed for oneDNN kernel when
  * the related member function 'GetKernelTypeForVar' is special. It is

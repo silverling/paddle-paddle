@@ -18,9 +18,12 @@
 #include "gperftools/profiler.h"
 #endif
 #include <glog/logging.h>
-
 #include <mutex>  // NOLINT
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/platform/flags.h"
+#include "paddle/common/flags.h"
 
 PADDLE_DEFINE_EXPORTED_string(
     tracer_profile_fname,

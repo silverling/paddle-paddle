@@ -14,12 +14,23 @@
 
 #include "paddle/phi/kernels/unsqueeze_grad_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/funcs/unsqueeze.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 template <typename T, typename Context>
 void UnsqueezeGradKernel(const Context& dev_ctx,
                          const DenseTensor& x_shape,

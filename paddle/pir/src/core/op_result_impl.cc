@@ -12,12 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <glog/logging.h>
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <vector>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/src/core/op_result_impl.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/cast_utils.h"
 
 namespace pir {
 namespace detail {

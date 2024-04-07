@@ -16,9 +16,13 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <iterator>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_operand.h"
 
 namespace pir {
 

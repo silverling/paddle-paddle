@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <map>
 #include <memory>
@@ -29,12 +30,17 @@
 #include "paddle/fluid/inference/api/paddle_inference_api.h"
 #include "paddle/utils/string/printf.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/core/dense_tensor.h"
 #ifdef PADDLE_WITH_TESTING
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
 #endif
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+struct MkldnnQuantizerConfig;
 
 /*
  * Map variable name to tensor of scaling factors scaling it to MAX=1.0.

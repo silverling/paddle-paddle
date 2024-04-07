@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stdint.h>
 #include <functional>
 #include <map>
 #include <memory>
@@ -23,7 +24,6 @@ limitations under the License. */
 #include <vector>
 
 #include "paddle/fluid/imperative/type_defs.h"
-
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/pir/include/core/block.h"
@@ -32,7 +32,20 @@ limitations under the License. */
 #include "paddle/utils/small_vector.h"
 #include "paddle/utils/variant.h"
 
+namespace phi {
+class InferMetaContext;
+}  // namespace phi
+namespace pir {
+class Block;
+class Value;
+}  // namespace pir
+
 namespace paddle {
+namespace imperative {
+class GradOpNode;
+}  // namespace imperative
+struct blank;
+
 namespace framework {
 class OperatorBase;
 class OpDesc;

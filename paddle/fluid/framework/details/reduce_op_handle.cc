@@ -14,6 +14,9 @@
 
 #include "paddle/fluid/framework/details/reduce_op_handle.h"
 
+#include <stddef.h>
+#include <functional>
+
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/details/container_cast.h"
 #include "paddle/fluid/framework/details/reduce_and_gather.h"
@@ -21,6 +24,29 @@
 #include "paddle/fluid/platform/flags.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "nccl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/string/printf.h"
+
 PADDLE_DEFINE_EXPORTED_bool(
     cpu_deterministic,
     false,

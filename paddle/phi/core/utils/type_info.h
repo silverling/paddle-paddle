@@ -14,13 +14,18 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
+
 #include "paddle/utils/test_macros.h"
 
 namespace phi {
 
 template <typename BaseT>
 class TypeRegistry;
+class DeviceContext;
+class TensorBase;
+struct StorageProperties;
 
 template <typename BaseT>
 class TypeInfo {

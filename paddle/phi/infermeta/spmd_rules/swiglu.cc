@@ -13,13 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/elementwise.h"
-
-#include "glog/logging.h"
-
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
-#include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
-#include "paddle/phi/core/distributed/auto_parallel/utils.h"
-#include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/type_defs.h"
 
 namespace phi {
 namespace distributed {

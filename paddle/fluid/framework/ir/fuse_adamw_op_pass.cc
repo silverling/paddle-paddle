@@ -13,10 +13,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/fluid/framework/ir/fuse_adamw_op_pass.h"
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
-#include "paddle/fluid/framework/details/multi_devices_helper.h"
-#include "paddle/fluid/framework/operator.h"
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

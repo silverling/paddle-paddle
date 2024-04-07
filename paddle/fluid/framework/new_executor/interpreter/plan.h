@@ -13,20 +13,27 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
 #include "paddle/fluid/framework/new_executor/interpreter/job.h"
-
 #include "paddle/common/macros.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/pir/include/core/program.h"
 
+namespace pir {
+class Program;
+}  // namespace pir
+
 namespace paddle {
 namespace framework {
+class ProgramDesc;
+
 namespace interpreter {
+class Job;
 
 class Plan final {
  public:

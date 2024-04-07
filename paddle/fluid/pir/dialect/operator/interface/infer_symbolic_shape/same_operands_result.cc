@@ -14,6 +14,19 @@
 
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/same_operands_result.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <optional>
+#include <variant>
+#include <vector>
+
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
+
 #define OP_SAME_OPERANDS_AND_RESULT(name)                                   \
   bool name##OpInferSymbolicShape(                                          \
       pir::Operation *op, pir::ShapeConstraintIRAnalysis *shape_analysis) { \

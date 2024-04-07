@@ -14,8 +14,25 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/fusion_group/code_generator.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/framework/ir/fusion_group/code_generator_helper.h"
 #include "paddle/fluid/framework/ir/fusion_group/cuda_resources.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/fusion_group/operation.h"
+#include "paddle/fluid/framework/ir/fusion_group/subgraph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {

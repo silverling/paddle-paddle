@@ -12,22 +12,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <ctype.h>
 #include <algorithm>
 #include <memory>
 #include <string>
+#include <ostream>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/backends/context_pool.h"
-#include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/pstring.h"
-#include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/string_tensor.h"
-#include "paddle/phi/kernels/strings/strings_empty_kernel.h"
 #include "paddle/phi/kernels/strings/strings_lower_upper_kernel.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_meta.h"
+
 namespace phi {
 namespace tests {
 

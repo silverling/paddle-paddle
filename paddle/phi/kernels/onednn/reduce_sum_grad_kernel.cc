@@ -13,11 +13,25 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/reduce_sum_grad_kernel.h"
+
+#include <functional>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/onednn/reduce_kernel_impl.h"
 #include "paddle/phi/kernels/reduce_kernel_impl.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_utils.h"
 
 namespace phi {
+class DenseTensor;
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+
 template <typename T, typename Context>
 void SumGradKernel(const Context& dev_ctx,
                    const DenseTensor& x,

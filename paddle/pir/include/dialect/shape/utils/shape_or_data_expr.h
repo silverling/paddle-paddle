@@ -14,8 +14,18 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <iosfwd>
+#include <optional>
+#include <variant>
+#include <vector>
+
 #include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_util.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace symbol {
 

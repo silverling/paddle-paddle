@@ -13,9 +13,21 @@
 // limitations under the License.
 
 #include "paddle/pir/include/dialect/shape/ir/shape_op.h"
+
+#include <algorithm>
+#include <vector>
+
 #include "paddle/pir/include/core/builtin_attribute.h"
-#include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+
+namespace pir {
+class Builder;
+}  // namespace pir
 
 namespace pir::shape {
 

@@ -14,7 +14,11 @@
 
 #pragma once
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
+#include <vector>
 
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/phi/core/dense_tensor.h"
@@ -22,8 +26,17 @@
 #include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
 
 namespace phi {
+class Allocator;
+class DenseTensor;
+class Place;
+
 namespace distributed {
 class ReshardFunction;
 class Shard;

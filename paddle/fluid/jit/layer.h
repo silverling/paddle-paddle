@@ -21,8 +21,9 @@
 
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/place.h"
-
 #include "function.h"  //NOLINT
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 
@@ -33,6 +34,7 @@ class Variable;
 namespace jit {
 class CompilationUnit;
 class FunctionInfo;
+class BaseEngine;
 
 using DenseTensor = phi::DenseTensor;
 using Tensor = paddle::Tensor;

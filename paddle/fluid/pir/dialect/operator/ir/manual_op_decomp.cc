@@ -12,15 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
+#include <bits/utility.h>
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <tuple>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/primitive/composite/composite.h"
 #include "paddle/fluid/primitive/type/lazy_tensor.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/int_array.h"
-#include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/op_base.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/optional.h"
 
 // TODO(chenzhuo)
 // this file will be generated in pd_op_decomp.cc

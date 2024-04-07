@@ -15,10 +15,15 @@
 
 #include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/place.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/data_type.h"
 
 TEST(DataType, float16) {
   using paddle::platform::CPUPlace;

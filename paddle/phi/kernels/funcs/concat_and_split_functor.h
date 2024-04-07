@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
@@ -25,6 +26,13 @@ limitations under the License. */
 #include "paddle/phi/core/utils/data_type.h"
 
 namespace phi {
+class DenseTensor;
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 namespace funcs {
 
 /*

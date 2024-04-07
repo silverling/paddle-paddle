@@ -14,9 +14,24 @@
 
 #include "paddle/phi/kernels/roi_pool_kernel.h"
 
+#include <stddef.h>
+#include <stdint.h>
+#include <algorithm>
+#include <cmath>
+#include <limits>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 

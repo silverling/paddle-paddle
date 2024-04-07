@@ -14,23 +14,29 @@
 
 #include "paddle/fluid/inference/analysis/ir_pass_manager.h"
 
+#include <stddef.h>
 #include <map>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <type_traits>
 
 #include "paddle/common/errors.h"
-#include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
-#include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/inference/analysis/argument.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/inference/analysis/helper.h"
 
 namespace paddle {
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
+
 namespace inference {
 namespace analysis {
 using string::PrettyLogEndl;

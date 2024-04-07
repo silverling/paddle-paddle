@@ -19,11 +19,19 @@ extern "C" {
 }
 
 #include <algorithm>
+#include <iterator>
+#include <ostream>
+
 #include "paddle/fluid/framework/feed_fetch_type.h"
-#include "paddle/fluid/framework/op_version_proto.h"
-#include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/framework/program_converter.h"
 #include "paddle/fluid/framework/version.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

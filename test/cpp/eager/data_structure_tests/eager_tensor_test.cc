@@ -14,12 +14,19 @@
 
 #include "paddle/fluid/eager/eager_tensor.h"
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
+#include <cstdint>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/layout.h"
 #include "paddle/fluid/imperative/var_helper.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace eager_test {
 using AbstractAutogradMeta = paddle::AbstractAutogradMeta;

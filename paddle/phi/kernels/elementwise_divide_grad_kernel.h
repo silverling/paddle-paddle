@@ -18,6 +18,7 @@ limitations under the License. */
 #include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void DivideGradKernel(const Context& dev_ctx,

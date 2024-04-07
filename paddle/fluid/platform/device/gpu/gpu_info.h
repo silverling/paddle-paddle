@@ -14,7 +14,7 @@ limitations under the License. */
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 
 #include <stddef.h>
-
+#include <stdint.h>
 #include <array>
 #include <string>
 #include <vector>
@@ -22,6 +22,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/device/gpu/gpu_types.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/utils/test_macros.h"
+#include "cuda.h"
 
 namespace paddle {
 namespace platform {

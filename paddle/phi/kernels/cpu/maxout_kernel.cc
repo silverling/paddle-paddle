@@ -15,4 +15,8 @@
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/maxout_kernel_impl.h"
 
+namespace phi {
+class CPUContext;
+}  // namespace phi
+
 PD_REGISTER_KERNEL(maxout, CPU, ALL_LAYOUT, phi::MaxOutKernel, float, double) {}

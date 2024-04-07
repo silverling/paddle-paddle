@@ -16,18 +16,22 @@
 
 #include <cmath>
 #include <fstream>
-#include <set>
 #include <string>
-#include <utility>
 #include <vector>
+#include <cstdint>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+
 namespace phi {
 template <typename T, typename Context, typename IndexT = int>
 void IndexSampleInner(const Context &context,

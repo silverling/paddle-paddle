@@ -30,6 +30,9 @@ limitations under the License. */
 namespace paddle {
 namespace framework {
 class BlockDesc;
+namespace ir {
+class Node;
+}  // namespace ir
 }  // namespace framework
 }  // namespace paddle
 

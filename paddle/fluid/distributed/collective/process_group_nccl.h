@@ -14,11 +14,17 @@
 
 #pragma once
 
+#include <bits/chrono.h>
 #include <chrono>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+#include <functional>
+#include <mutex>
+#include <ostream>
+#include <utility>
 
 #include "paddle/fluid/distributed/collective/process_group.h"
 #include "paddle/fluid/distributed/collective/process_group_with_stream.h"
@@ -28,6 +34,21 @@
 #include "paddle/phi/core/device_context.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
 #include "paddle/phi/core/distributed/store/store.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/distributed/types.h"
+#include "paddle/phi/core/distributed/utils.h"
+
+namespace phi {
+class Allocation;
+class DenseTensor;
+namespace distributed {
+class NCCLCommContext;
+class Store;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 namespace distributed {

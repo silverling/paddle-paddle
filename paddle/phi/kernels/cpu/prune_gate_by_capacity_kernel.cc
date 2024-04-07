@@ -13,10 +13,14 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/prune_gate_by_capacity_kernel.h"
+
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
 
 template <typename T, typename Context>
 void PruneGateByCapacityKernel(const Context& dev_ctx,

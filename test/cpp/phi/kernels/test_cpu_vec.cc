@@ -12,14 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <sys/time.h>
 #include <cmath>
 #include <cstring>
 #include <random>
+#include <functional>
+#include <initializer_list>
+#include <ostream>
+#include <vector>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
-#include "paddle/phi/common/port.h"
 #include "paddle/phi/kernels/funcs/cpu_vec.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/backends/cpu/cpu_info.h"
 
 namespace phi {
 namespace tests {

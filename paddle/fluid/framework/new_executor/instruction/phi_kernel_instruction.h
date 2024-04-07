@@ -14,7 +14,19 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <string>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/pir/include/core/operation.h"
+
+namespace phi {
+class Kernel;
+}  // namespace phi
 
 namespace pir {
 class Operation;

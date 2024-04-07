@@ -14,10 +14,15 @@
 
 #include "paddle/phi/kernels/reduce_any_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_utils.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class GPUContext;
 
 template <typename T, typename Context>
 void AnyKernel(const Context& dev_ctx,

@@ -14,6 +14,10 @@
 
 #include "paddle/fluid/operators/reader/py_reader.h"
 
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/operators/reader/lod_tensor_blocking_queue.h"
+
 namespace paddle {
 namespace operators {
 namespace reader {

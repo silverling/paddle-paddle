@@ -14,6 +14,8 @@ limitations under the License. */
 
 #ifdef __AVX__
 
+#include <immintrin.h>
+
 #include "paddle/phi/kernels/funcs/detail/activation_functions.h"
 #include "paddle/phi/kernels/funcs/detail/avx_mathfun.h"
 

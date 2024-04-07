@@ -20,12 +20,22 @@ limitations under the License. */
 #include <map>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <atomic>
 
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+
+namespace phi {
+namespace distributed {
+namespace auto_parallel {
+class OperatorDistAttrProto;
+}  // namespace auto_parallel
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 

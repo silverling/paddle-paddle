@@ -13,14 +13,30 @@
 // limitations under the License.
 
 #include "paddle/fluid/distributed/fleet_executor/cond_interceptor.h"
-#include <algorithm>
+
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/errors.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
 #include "paddle/fluid/framework/executor_gc_helper.h"
-#include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace distributed {

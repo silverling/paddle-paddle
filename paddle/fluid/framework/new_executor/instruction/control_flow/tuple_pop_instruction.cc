@@ -12,12 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
 #include <stack>
+#include <initializer_list>
+#include <ostream>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/new_executor/instruction/control_flow/tuple_pop_instruction.h"
-
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace paddle {
 namespace framework {

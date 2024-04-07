@@ -12,11 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/phi/kernels/squeeze_grad_kernel.h"
-#include "paddle/phi/backends/all_context.h"
+
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/reshape_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void SqueezeGradStridedKernel(const Context& dev_ctx,

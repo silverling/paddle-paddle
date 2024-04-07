@@ -10,17 +10,27 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/common/macros.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/kernels/funcs/detail/strided_memcpy.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/memory_utils.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 class CPUContext;
 }  // namespace phi
 
 namespace phi {
+class DeviceContext;
+
 namespace funcs {
 
 // Strided memory copy from src to dst.

@@ -14,15 +14,23 @@
 
 #include "paddle/fluid/jit/engine/interpreter_engine.h"
 
+#include <stdint.h>
+#include <set>
+#include <string>
+#include <unordered_set>
+
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
 #include "paddle/fluid/framework/program_desc.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/core/value.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/jit/function_schema.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace jit {

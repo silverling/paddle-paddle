@@ -14,13 +14,25 @@
 
 #include "paddle/phi/kernels/check_memory_continue_kernel.h"
 
+#include <stddef.h>
+#include <stdint.h>
 #include <sstream>
 #include <vector>
+#include <string>
+
 #include "glog/logging.h"
-
 #include "paddle/phi/core/kernel_registry.h"
-
 #include "paddle/phi/backends/device_memory_aligment.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/string/printf.h"
 
 namespace phi {
 

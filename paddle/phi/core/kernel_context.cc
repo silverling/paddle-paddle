@@ -14,7 +14,14 @@
 
 #include "paddle/phi/core/kernel_context.h"
 
+#include <iterator>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/variant.h"
+
 namespace phi {
+class TensorBase;
 
 void KernelContext::EmplaceBackInput(const TensorBase* input) {
   int index = static_cast<int>(inputs_.size());

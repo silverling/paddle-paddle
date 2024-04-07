@@ -14,6 +14,7 @@
 
 #pragma once
 #include <string>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/pass.h"
 
@@ -30,6 +31,7 @@ class Scope;
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class DeleteCastOpPass : public FusePassBase {
  protected:

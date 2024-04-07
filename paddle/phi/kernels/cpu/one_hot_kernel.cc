@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/one_hot_kernel.h"
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

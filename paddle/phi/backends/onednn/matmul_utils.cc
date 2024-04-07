@@ -14,6 +14,13 @@
 
 #include "paddle/phi/backends/onednn/matmul_utils.h"
 
+#include <stddef.h>
+#include <set>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/kernels/funcs/blas/blas.h"
+
 namespace phi {
 namespace funcs {
 

@@ -14,15 +14,21 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/scale_kernel.h"
 
+#include <cstdint>
+#include <type_traits>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-
 // See Note [ Why still include the fluid headers? ]
 #include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
 namespace phi {
 
 template <typename T, typename Context>

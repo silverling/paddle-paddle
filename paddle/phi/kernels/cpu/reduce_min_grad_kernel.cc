@@ -14,9 +14,12 @@
 
 #include "paddle/phi/kernels/reduce_min_grad_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/reduce_min_grad_kernel_impl.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(min_grad,
                    CPU,

@@ -12,13 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <Python.h>
-#include <frameobject.h>
+#include <stddef.h>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/pybind/op_callstack_utils.h"
+#include "abstract.h"
+#include "import.h"
+#include "listobject.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
+#include "pyport.h"
+#include "unicodeobject.h"
 
 pir::Attribute CallStackRecorder::GetOpCallstackInfo() {
   PyObject* traceback_str = PyUnicode_FromString("traceback");

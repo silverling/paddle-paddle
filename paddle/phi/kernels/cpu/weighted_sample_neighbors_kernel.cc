@@ -14,12 +14,20 @@
 
 #include "paddle/phi/kernels/weighted_sample_neighbors_kernel.h"
 
+#include <stddef.h>
 #include <cmath>
 #include <queue>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <random>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

@@ -12,15 +12,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/phi/kernels/funcs/selected_rows_functor.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <vector>
 
-#include "gtest/gtest.h"
+#include "paddle/phi/kernels/funcs/selected_rows_functor.h"
 #include "paddle/common/errors.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "cuda_runtime_api.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+
+namespace phi {
+class GPUContext;
+}  // namespace phi
 
 TEST(selected_rows_functor, gpu_add) {
   phi::GPUPlace gpu_place(0);

@@ -15,17 +15,23 @@
 #pragma once
 
 #include <ostream>
+#include <cstddef>
+#include <functional>
+#include <type_traits>
+#include <typeindex>
 
 #include "paddle/pir/include/core/cast_utils.h"
 #include "paddle/pir/include/core/storage_manager_support.h"
 #include "paddle/pir/include/core/type_base.h"
 #include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
 class TypeStorage;
 class AbstractType;
 class IrContext;
 class Dialect;
+
 ///
 /// \brief Unified interface of the Type class. Derivation of all Type classes
 /// only derives interfaces, not members. For example, DenseTensorType,

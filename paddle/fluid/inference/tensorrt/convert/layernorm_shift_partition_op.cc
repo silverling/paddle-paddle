@@ -13,9 +13,30 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/inference/tensorrt/plugin/layernorm_shift_partition_op.h"
+
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
+#include "NvInfer.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace framework {
+namespace proto {
+class OpDesc;
+}  // namespace proto
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 

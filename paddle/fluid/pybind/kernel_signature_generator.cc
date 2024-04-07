@@ -11,16 +11,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#include <stddef.h>
 #include <iostream>
 #include <string>
+#include <utility>
 
-#include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/phi_utils.h"
-#include "paddle/fluid/pybind/pybind.h"  // NOLINT
 #include "paddle/phi/core/compat/op_utils.h"
 #include "paddle/phi/core/kernel_factory.h"
-#include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/declarations.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/small_vector.h"
 
 // print names of kernel function params with json format:
 // {

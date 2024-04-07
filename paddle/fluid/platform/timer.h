@@ -14,6 +14,8 @@ limitations under the License. */
 
 #pragma once
 #include <stdlib.h>
+#include <stdint.h>
+#include <sys/time.h>
 
 #include "paddle/phi/common/port.h"
 #include "paddle/utils/test_macros.h"

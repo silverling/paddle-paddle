@@ -17,6 +17,8 @@
 #include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+class SelectedRows;
+
 namespace sr {
 
 template <typename T, typename Context>

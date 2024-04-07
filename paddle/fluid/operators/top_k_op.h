@@ -13,13 +13,24 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stdint.h>
+#include <string.h>
 #include <algorithm>
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <iterator>
+#include <string>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
 
 namespace paddle {
 namespace operators {

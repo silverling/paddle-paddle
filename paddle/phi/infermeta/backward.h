@@ -14,12 +14,18 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <tuple>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/infermeta/binary.h"
 #include "paddle/phi/infermeta/multiary.h"
 #include "paddle/phi/infermeta/ternary.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/scalar.h"
 
 namespace phi {
 

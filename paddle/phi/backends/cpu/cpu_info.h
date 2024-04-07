@@ -44,6 +44,7 @@
     !defined(PADDLE_WITH_SW) && !defined(PADDLE_WITH_MIPS) && \
     !defined(PADDLE_WITH_LOONGARCH)
 #include <cpuid.h>
+
 inline void cpuid(int reg[4], int x) {
   __cpuid_count(x, 0, reg[0], reg[1], reg[2], reg[3]);
 }

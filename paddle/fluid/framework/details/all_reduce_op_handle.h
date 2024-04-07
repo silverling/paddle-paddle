@@ -14,12 +14,16 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <functional>
 
 #include "paddle/fluid/framework/details/op_handle_base.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
@@ -41,7 +45,10 @@ class NCCLCommunicator;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
+struct VarHandle;
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 class AllReduceOpHandle : public NCCLOpHandleBase {

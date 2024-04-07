@@ -13,7 +13,11 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/nop_kernel.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
+
 #include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 PD_REGISTER_KERNEL(nop, CPU, ALL_LAYOUT, phi::NopKernel, float) {}

@@ -13,9 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/fused_linear_param_grad_add.h"
+
+#include <algorithm>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/infermeta/spmd_rules/matmul.h"
 #include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {

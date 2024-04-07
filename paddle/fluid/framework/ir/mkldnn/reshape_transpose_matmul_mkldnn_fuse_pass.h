@@ -13,11 +13,14 @@
 // limitations under the License.
 
 #pragma once
+#include <string>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class ReshapeTransposeMatmulMkldnnFusePass : public FusePassBase {
  public:

@@ -11,12 +11,24 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include <gtest/gtest.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <vector>
 
 #include "paddle/phi/kernels/funcs/sequence_padding.h"
-
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/lod_utils.h"
 
 template <typename DeviceContext, typename T>
 void TestSequencePadding(const DeviceContext &context,

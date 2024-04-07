@@ -14,9 +14,32 @@
 
 #include "paddle/phi/kernels/batch_norm_kernel.h"
 
+#include <new>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/ArrayWrapper.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/CwiseNullaryOp.h"
+#include "Eigen/src/Core/DenseCoeffsBase.h"
+#include "Eigen/src/Core/Dot.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/Redux.h"
+#include "Eigen/src/Core/SelfCwiseBinaryOp.h"
+#include "Eigen/src/Core/VectorwiseOp.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "Eigen/src/plugins/ArrayCwiseUnaryOps.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
 
 namespace phi {
 

@@ -15,10 +15,11 @@ limitations under the License. */
 #include "paddle/phi/common/scalar.h"
 
 #include "paddle/phi/backends/context_pool.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
 namespace paddle {
 namespace experimental {
 

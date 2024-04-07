@@ -30,6 +30,8 @@ class Node;
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
+
 namespace fusion_group {
 
 class GroupDetector {

@@ -15,18 +15,19 @@
 #include "paddle/fluid/framework/io/crypto/aes_cipher.h"
 
 #include <cryptopp/aes.h>
-#include <cryptopp/ccm.h>
 #include <cryptopp/cryptlib.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/gcm.h>
 #include <cryptopp/modes.h>
 #include <cryptopp/smartptr.h>
-
 #include <set>
 #include <string>
+#include <istream>
+#include <iterator>
 
 #include "paddle/fluid/framework/io/crypto/cipher_utils.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

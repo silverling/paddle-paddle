@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
 #include <forward_list>
 #include <list>
 #include <map>
@@ -23,10 +24,12 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <iterator>
 
 #include "paddle/common/flags.h"
 #include "paddle/phi/api/profiler/event_tracing.h"
 #include "paddle/phi/api/profiler/supplement_tracing.h"
+#include "paddle/phi/api/profiler/event.h"
 
 PHI_DECLARE_bool(enable_host_event_recorder_hook);
 

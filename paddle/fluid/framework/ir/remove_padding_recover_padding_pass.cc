@@ -14,9 +14,31 @@
 
 #include "paddle/fluid/framework/ir/remove_padding_recover_padding_pass.h"
 
+#include <stddef.h>
 #include <string>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+#include <vector>
 
-#include "paddle/fluid/framework/op_version_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

@@ -14,7 +14,13 @@
 
 #include "paddle/fluid/framework/variable.h"
 
-#include "gtest/gtest.h"
+#include <exception>
+#include <vector>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/string_array.h"
 
 namespace paddle {
 namespace framework {

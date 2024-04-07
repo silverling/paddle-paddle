@@ -14,7 +14,7 @@
 
 #pragma once
 #include <stdint.h>
-
+#include <stddef.h>
 #include <algorithm>
 #include <mutex>  // NOLINT
 #include <unordered_map>
@@ -23,6 +23,10 @@
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace memory {

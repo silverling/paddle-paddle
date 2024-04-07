@@ -12,23 +12,41 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "paddle/common/macros.h"
-#include "paddle/fluid/framework/new_executor/pir_interpreter.h"
-#include "paddle/fluid/framework/new_executor/standalone_executor.h"
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
 #include "paddle/pir/include/core/block.h"
-#include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/core/utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/pir/dialect/operator/interface/vjp.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
 
 DECLARE_FILE_SYMBOLS(kernel_dialect);
 

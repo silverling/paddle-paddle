@@ -14,7 +14,10 @@ limitations under the License. */
 
 #include "paddle/fluid/memory/allocation/memory_block.h"
 
-#include "paddle/fluid/platform/enforce.h"
+#include <cstdint>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace memory {

@@ -14,12 +14,16 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <iosfwd>
+#include <map>
 
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/inference/api/paddle_api.h"
 #include "paddle/fluid/inference/utils/shape_range_info.pb.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 struct PaddleTensor;

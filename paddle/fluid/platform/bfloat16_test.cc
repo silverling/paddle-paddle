@@ -11,12 +11,23 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/bfloat16.h"
 
-#include "paddle/phi/kernels/funcs/eigen/extensions.h"
+#include <math.h>
+#include <stddef.h>
+#include <iostream>
+#include <memory>
+#include <type_traits>
+#include <vector>
 
 #define GLOG_NO_ABBREVIATED_SEVERITIES  // msvc conflict logging with windows.h
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace platform {

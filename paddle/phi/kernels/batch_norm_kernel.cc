@@ -14,11 +14,20 @@
 
 #include "paddle/phi/kernels/batch_norm_kernel.h"
 
-#include "paddle/phi/backends/gpu/gpu_dnn.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/phi/backends/gpu/cuda/cudnn_helper.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class GPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void BatchNormInferKernel(const Context& dev_ctx,

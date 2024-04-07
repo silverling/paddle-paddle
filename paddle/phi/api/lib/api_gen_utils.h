@@ -14,6 +14,10 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/compat/convert_utils.h"
@@ -27,8 +31,25 @@ limitations under the License. */
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
 #include "paddle/phi/core/string_tensor.h"
+#include "paddle/utils/optional.h"
+
+namespace phi {
+class DenseTensor;
+class DeviceContext;
+class SelectedRows;
+class SparseCooTensor;
+class SparseCsrTensor;
+class StringTensor;
+class TensorBase;
+namespace distributed {
+class DistTensor;
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
+class Tensor;
+
 namespace experimental {
 
 enum class TensorType { DENSE_TENSOR, SPARSE_CSR, SPARSE_COO, STRING_TENSOR };

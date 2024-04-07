@@ -13,14 +13,36 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
-
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <thread>  // NOLINT
+#include <algorithm>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/inference/api/api_impl.h"
 #include "test/cpp/inference/test_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 #ifdef __clang__
 #define ACC_DIFF 4e-3

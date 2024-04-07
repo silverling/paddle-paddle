@@ -14,8 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/meta_tensor.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace paddle {
 namespace dialect {

@@ -14,17 +14,37 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/utils/any.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace pir {
 class Operation;
 }  // namespace pir
 
 namespace paddle {
+namespace dialect {
+class OpYamlInfoParser;
+}  // namespace dialect
+
 namespace framework {
 class Scope;
+class ValueExecutionInfo;
+
 class CustomKernelInstruction : public InstructionBase {
  public:
   CustomKernelInstruction(size_t id,

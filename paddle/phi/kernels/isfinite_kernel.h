@@ -15,8 +15,10 @@ limitations under the License. */
 #pragma once
 
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
+class DenseTensor;
 
 #define DEFINE_ISFINITE_KERNEL(isfinite_kernel) \
   template <typename T, typename Context>       \

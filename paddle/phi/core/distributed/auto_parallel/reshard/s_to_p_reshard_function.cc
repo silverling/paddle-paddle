@@ -13,18 +13,25 @@
 // limitations under the License.
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_p_reshard_function.h"
+
+#include <stdint.h>
+#include <ostream>
+
 #include "paddle/phi/core/distributed/auto_parallel/reshard/r_to_p_reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_r_reshard_function.h"
-
 #include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
-#include "paddle/phi/kernels/reduce_scatter_kernel.h"
-#include "paddle/phi/kernels/transpose_kernel.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/same_status_reshard_function.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace phi {
+class DeviceContext;
+
 namespace distributed {
 
 bool SToPReshardFunction::IsSuitable(const DistTensor& in,

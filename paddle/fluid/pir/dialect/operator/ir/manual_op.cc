@@ -28,19 +28,27 @@ paddle::dialect::AddNOp, paddle::dialect::AddN_Op, paddle::dialect::AddNArrayOp,
 #else
 
 #include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <functional>
+#include <iterator>
+#include <memory>
+#include <optional>
+#include <ostream>
+#include <tuple>
+#include <unordered_map>
+#include <utility>
+#include <variant>
+
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/ir_meta_tensor.h"
-#include "paddle/fluid/pir/dialect/operator/ir/ir_selected_rows.h"
 #include "paddle/fluid/pir/dialect/operator/ir/ir_tensor.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/primitive/rule/vjp/vjp.h"
-#include "paddle/phi/api/lib/data_type_set.h"
-#include "paddle/phi/api/lib/utils/allocator.h"
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/enforce.h"
-#include "paddle/phi/infermeta/backward.h"
 #include "paddle/phi/infermeta/binary.h"
 #include "paddle/phi/infermeta/fusion.h"
 #include "paddle/phi/infermeta/multiary.h"
@@ -50,6 +58,26 @@ paddle::dialect::AddNOp, paddle::dialect::AddN_Op, paddle::dialect::AddNArrayOp,
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/ir_context.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
 
 namespace paddle {
 namespace dialect {

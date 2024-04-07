@@ -13,10 +13,15 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/transpose_kernel.h"
-#include "paddle/phi/backends/all_context.h"
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void TransposeStridedKernel(const Context& ctx,

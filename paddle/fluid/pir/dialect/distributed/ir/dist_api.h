@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
@@ -22,8 +23,15 @@
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/pir/include/core/value.h"
 
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
+
 namespace paddle {
 namespace dialect {
+class TensorDistAttribute;
 
 pir::Value shard_tensor(const pir::Value& x,
                         const phi::distributed::ProcessMesh& process_mesh,

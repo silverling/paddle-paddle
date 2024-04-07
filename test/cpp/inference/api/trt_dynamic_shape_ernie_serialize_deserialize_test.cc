@@ -12,19 +12,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <dirent.h>
 #ifndef _WIN32
-#include <unistd.h>
 #else  // headers below are substitute of unistd.h in windows
 #include <io.h>
 #include <process.h>
 #endif
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #include <glog/logging.h>
-#include <gtest/gtest.h>
+#include <vector>
 
-#include "paddle/common/flags.h"
 #include "test/cpp/inference/api/trt_dynamic_shape_ernie_serialize_deserialize_test.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace inference {

@@ -12,13 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/framework/data_type.h"
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/framework/op_registry.h"
+#include <algorithm>
+#include <string>
+#include <vector>
 
-#if defined(PADDLE_WITH_GLOO)
-#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
-#endif
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

@@ -14,10 +14,14 @@
 
 #include "paddle/phi/core/distributed/nccl_tools.h"
 
+#include <stdint.h>
 #include <unordered_map>
+#include <ostream>
+#include <utility>
 
 #include "paddle/common/errors.h"
-#include "paddle/phi/core/enforce.h"
+#include "cuda.h"
+#include "paddle/common/enforce.h"
 
 #if NCCL_VERSION_CODE >= 21300
 #define ENABLE_NCCL_GET_LAST_ERROR

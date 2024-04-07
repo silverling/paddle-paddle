@@ -12,11 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <algorithm>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/operators/elementwise/elementwise_op.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+template <typename T> class EmptyGradOpMaker;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
+class ElementwiseOp;
+class ElementwiseOpInferVarType;
 
 class FusedElementwiseOpMaker : public framework::OpProtoAndCheckerMaker {
  public:

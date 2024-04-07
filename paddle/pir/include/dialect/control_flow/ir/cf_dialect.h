@@ -14,9 +14,18 @@
 
 #pragma once
 
+#include <iosfwd>
+#include <string>
+
 #include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/utils/test_macros.h"
 
 namespace pir {
+class IrContext;
+class Operation;
+
 class ControlFlowDialect : public Dialect {
  public:
   explicit ControlFlowDialect(IrContext *context)

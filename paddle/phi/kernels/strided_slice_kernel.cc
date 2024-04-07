@@ -14,9 +14,19 @@
 
 #include "paddle/phi/kernels/strided_slice_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class GPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void StridedSliceKernel(const Context& dev_ctx,

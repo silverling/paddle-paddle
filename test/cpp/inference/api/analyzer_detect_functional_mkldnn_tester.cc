@@ -12,13 +12,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <string.h>
 #include <fstream>
-#include <iostream>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <vector>
 
 #include "paddle/phi/common/place.h"
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/inference/api/helper.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/device_context.h"
 
 PD_DEFINE_string(infer_shape, "", "data shape file");
 PD_DEFINE_int32(sample, 20, "number of sample");

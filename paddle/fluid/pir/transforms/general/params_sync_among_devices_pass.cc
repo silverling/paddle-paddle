@@ -13,21 +13,35 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/transforms/general/params_sync_among_devices_pass.h"
+
+#include <stdint.h>
+#include <any>
+#include <exception>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/tensor_util.h"
-#include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
-#include "paddle/fluid/pir/dialect/kernel/ir/kernel_dialect.h"
-#include "paddle/fluid/pir/utils/general_functions.h"
 #include "paddle/fluid/platform/place.h"
-
 #include "paddle/common/errors.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/enforce.h"
-
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/pass/pass.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

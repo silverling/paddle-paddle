@@ -14,7 +14,12 @@
 
 #include "paddle/fluid/memory/allocation/retry_allocator.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <ratio>
+
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace memory {

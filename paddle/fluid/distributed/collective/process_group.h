@@ -14,11 +14,15 @@
 
 #pragma once
 
+#include <bits/chrono.h>
+#include <stdint.h>
 #include <chrono>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <mutex>
+#include <utility>
 
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/dense_tensor.h"
@@ -26,6 +30,14 @@
 #include "paddle/phi/core/distributed/types.h"
 #include "paddle/phi/core/distributed/utils.h"
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/place.h"
+
+namespace phi {
+class DenseTensor;
+class DeviceContext;
+}  // namespace phi
 
 constexpr auto kWaitTimeout = std::chrono::milliseconds(0);
 

@@ -12,32 +12,35 @@ limitations under the License. */
 
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
+
 typedef SSIZE_T ssize_t;
 #endif
 
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
+#include <limits.h>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
+#include <memory>
+#include <new>
+#include <ostream>
+#include <type_traits>
+#include <utility>
 
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
-#include "paddle/fluid/eager/api/all.h"
-#include "paddle/fluid/eager/api/generated/fluid_generated/dygraph_forward_api.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/grad_node_info.h"
-#include "paddle/fluid/eager/hooks.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/string_array.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
 #include "paddle/fluid/pybind/exception.h"
 #include "paddle/fluid/pybind/slice_utils.h"
@@ -45,19 +48,65 @@ typedef SSIZE_T ssize_t;
 #include "paddle/phi/api/include/api.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
-#include "pybind11/detail/internals.h"
 #include "pybind11/numpy.h"
-#include "pybind11/pybind11.h"
+#include "driver_types.h"
+#include "methodobject.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/api/utils/hook_utils.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/imperative/amp_auto_cast.h"
+#include "paddle/fluid/imperative/tracer.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/common/pstring.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/scope_guard.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/string_tensor.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/kernels/strings/unicode.h"
+#include "paddle/utils/small_vector.h"
+#include "pybind11/gil.h"
+#include "pybind11/pytypes.h"
+#include "pymacro.h"
+#include "pyport.h"
+#include "tupleobject.h"
+
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #include "paddle/common/ddim.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/api/generated/eager_generated/backwards/nodes.h"
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
-#include "paddle/fluid/framework/python_headers.h"
 #include "paddle/fluid/imperative/amp_utils.h"
 #include "paddle/fluid/memory/allocation/mmap_allocator.h"
 #include "paddle/fluid/pybind/tensor_py.h"
@@ -68,6 +117,12 @@ typedef SSIZE_T ssize_t;
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/utils/pybind.h"
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 COMMON_DECLARE_bool(set_to_1d);
 COMMON_DECLARE_bool(use_stride_kernel);

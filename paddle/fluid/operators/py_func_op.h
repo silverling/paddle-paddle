@@ -13,7 +13,13 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+
 #include "paddle/fluid/framework/python_headers.h"
+
+namespace pybind11 {
+class object;
+}  // namespace pybind11
 
 namespace paddle {
 namespace operators {

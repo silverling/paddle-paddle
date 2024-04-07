@@ -14,15 +14,30 @@
 
 #include "paddle/fluid/pir/transforms/general/identity_op_clean_pass.h"
 
+#include <algorithm>
+#include <string>
+#include <variant>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/drr/include/drr_pattern_base.h"
-
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "paddle/fluid/pir/drr/include/drr_match_context.h"
+#include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
+#include "paddle/fluid/pir/drr/include/drr_rewrite_pattern.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

@@ -14,10 +14,12 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/io/crypto/cipher_utils.h"
 
-#include <gtest/gtest.h>
-
-#include <fstream>
 #include <string>
+#include <vector>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace framework {

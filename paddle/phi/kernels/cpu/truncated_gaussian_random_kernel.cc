@@ -14,13 +14,16 @@
 
 #include "paddle/phi/kernels/truncated_gaussian_random_kernel.h"
 
+#include <stdint.h>
 #include <limits>
 #include <random>
 #include <vector>
+#include <memory>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/truncated_normal.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

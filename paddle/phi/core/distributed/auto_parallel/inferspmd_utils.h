@@ -14,10 +14,14 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 #include <typeindex>
 #include <typeinfo>
 #include <utility>
+#include <iterator>
+#include <vector>
 
 #include "paddle/common/macros.h"
 #include "paddle/phi/common/int_array.h"
@@ -31,6 +35,9 @@ limitations under the License. */
 #include "paddle/utils/any.h"
 #include "paddle/utils/flat_hash_map.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {

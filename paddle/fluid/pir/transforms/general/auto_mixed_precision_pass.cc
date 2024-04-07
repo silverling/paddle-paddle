@@ -14,42 +14,56 @@
 
 #include "paddle/fluid/pir/transforms/general/auto_mixed_precision_pass.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <any>
+#include <exception>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/enforce.h"
 #include "paddle/common/errors.h"
-
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
-#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
-
 #include "paddle/phi/common/backend.h"
-#include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/common/float16.h"
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/dense_tensor.h"
-
 #include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/operation.h"
-#include "paddle/pir/include/core/parameter.h"
-#include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/pass/pass.h"
-#include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
-#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
-#include "paddle/pir/include/pattern_rewrite/pattern_rewrite_driver.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/small_vector.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

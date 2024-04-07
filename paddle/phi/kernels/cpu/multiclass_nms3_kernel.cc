@@ -14,9 +14,28 @@
 
 #include "paddle/phi/kernels/multiclass_nms3_kernel.h"
 
+#include <math.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <algorithm>
+#include <cstring>
+#include <iterator>
+#include <map>
+#include <memory>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/gpc.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 

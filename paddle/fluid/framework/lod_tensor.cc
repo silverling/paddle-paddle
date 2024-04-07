@@ -14,10 +14,18 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/lod_tensor.h"
 
+#include <ext/alloc_traits.h>
 #include <cstdint>
+#include <istream>
+#include <memory>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/version.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/data_type.h"
 
 namespace paddle {
 namespace framework {

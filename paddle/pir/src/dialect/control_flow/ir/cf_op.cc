@@ -13,12 +13,23 @@
 // limitations under the License.
 
 #include <glog/logging.h>
-#include "paddle/phi/core/enforce.h"
+#include <iterator>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <utility>
 
-#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace pir {
 

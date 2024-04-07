@@ -13,22 +13,25 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/elementwise_grad_kernel.h"
+
+#include <string.h>
+#include <cstdint>
+#include <ostream>
+
 #include "paddle/phi/kernels/sparse/elementwise_kernel.h"
-
 #include "glog/logging.h"
-
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_meta.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/activation_kernel.h"
-#include "paddle/phi/kernels/elementwise_kernel.h"
 #include "paddle/phi/kernels/empty_kernel.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/funcs/sparse/flatten_indices.h"
-#include "paddle/phi/kernels/sparse/empty_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 namespace sparse {

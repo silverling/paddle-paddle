@@ -15,6 +15,13 @@
 #include "paddle/fluid/framework/details/ssa_graph_executor.h"
 
 #include "paddle/fluid/framework/details/fetch_async_op_handle.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/fetch_op_handle.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
 
 namespace paddle {
 namespace framework {

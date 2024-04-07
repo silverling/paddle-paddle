@@ -14,7 +14,11 @@
 
 #include "paddle/phi/core/lod_utils.h"
 
-#include "paddle/phi/core/enforce.h"
+#include <ext/alloc_traits.h>
+#include <memory>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 

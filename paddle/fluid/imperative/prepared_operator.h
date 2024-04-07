@@ -13,10 +13,16 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <ostream>
+#include <type_traits>
+#include <typeindex>
+#include <unordered_map>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/eager_tensor.h"
@@ -34,6 +40,42 @@
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/small_vector.h"
+
+namespace paddle {
+namespace framework {
+class Variable;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class DefaultKernelSignatureMap;
+class OpUtilsMap;
+class SelectedRows;
+class TensorBase;
+}  // namespace phi
 
 COMMON_DECLARE_bool(use_mkldnn);
 

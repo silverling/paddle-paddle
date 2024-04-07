@@ -14,12 +14,19 @@
 
 #pragma once
 
+#include <string>
+#include <utility>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 using GraphWithStats = std::pair<ir::Graph*, int>;
 

@@ -14,29 +14,45 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/custom_operator.h"
 
+#include <stddef.h>
 #include <algorithm>
-#include <functional>
 #include <iostream>
 #include <map>
 #include <string>
-#include <tuple>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <exception>
+#include <iterator>
+#include <memory>
 
-#include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/phi_utils.h"
-#include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
-#include "paddle/phi/api/all.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/utils/any.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/utils/flat_hash_map.h"
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/phi/backends/device_manager.h"
@@ -48,8 +64,16 @@ limitations under the License. */
 #include "paddle/common/flags.h"
 #include "paddle/phi/api/include/operants_manager.h"
 #include "paddle/phi/api/include/tensor_operants.h"
-
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
+
+namespace paddle {
+namespace framework {
+class BlockDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+}  // namespace paddle
 
 COMMON_DECLARE_string(tensor_operants_mode);
 COMMON_DECLARE_bool(enable_pir_in_executor);

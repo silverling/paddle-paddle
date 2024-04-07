@@ -12,7 +12,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stdint.h>
+
 #include "paddle/fluid/operators/collective/c_reduce_op.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

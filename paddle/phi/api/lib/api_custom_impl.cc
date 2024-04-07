@@ -14,26 +14,47 @@ limitations under the License. */
 
 #include "paddle/phi/api/lib/api_custom_impl.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <utility>
+
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
 #include "paddle/phi/api/lib/api_gen_utils.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/api/lib/kernel_dispatch.h"
 #include "paddle/phi/api/lib/tensor_copy.h"
-#include "paddle/phi/common/type_traits.h"
-#include "paddle/phi/core/compat/convert_utils.h"
-#include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/infermeta/backward.h"
-#include "paddle/phi/infermeta/binary.h"
 #include "paddle/phi/infermeta/fusion.h"
 #include "paddle/phi/infermeta/multiary.h"
-#include "paddle/phi/infermeta/nullary.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/infermeta/spmd_rules/embedding.h"
+#include "paddle/phi/infermeta/spmd_rules/replicated.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class DeviceContext;
+class TensorBase;
+}  // namespace phi
 
 #ifdef PADDLE_WITH_DISTRIBUTE
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/infermeta/spmd_rules/rules.h"
 #endif
 
 COMMON_DECLARE_int32(low_precision_op_list);

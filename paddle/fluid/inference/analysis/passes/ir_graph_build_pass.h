@@ -15,14 +15,21 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/inference/analysis/analysis_pass.h"
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace framework {
+class ProgramDesc;
+class Scope;
+}  // namespace framework
+
 namespace inference {
 namespace analysis {
+struct Argument;
 
 /*
  * Load program and parameter to memory from the disk or directly from memory.

@@ -13,7 +13,9 @@
 // limitations under the License.
 
 #include "paddle/phi/core/distributed/store/store.h"
-#include "paddle/phi/core/enforce.h"
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace distributed {

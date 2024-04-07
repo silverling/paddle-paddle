@@ -14,6 +14,10 @@ limitations under the License. */
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/detail/gru_cpu_kernel.h"
 #include "paddle/phi/kernels/funcs/detail/gru_kernel.h"
+#include "mkl_cblas.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 namespace funcs {

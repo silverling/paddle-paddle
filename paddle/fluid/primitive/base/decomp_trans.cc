@@ -13,16 +13,40 @@
 // limitations under the License.
 
 #include "paddle/fluid/primitive/base/decomp_trans.h"
-#include <regex>
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <iostream>
+#include <memory>
+#include <unordered_set>
+
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/prim/utils/utils.h"
 #include "paddle/fluid/primitive/base/primitive_ops.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/pir/dialect/operator/interface/decomp.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
 
 COMMON_DECLARE_bool(prim_skip_dynamic);
 COMMON_DECLARE_bool(prim_check_ops);

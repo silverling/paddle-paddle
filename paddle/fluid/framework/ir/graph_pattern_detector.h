@@ -18,6 +18,7 @@
 #include <gtest/gtest_prod.h>
 #endif
 
+#include <stddef.h>
 #include <map>
 #include <memory>
 #include <numeric>
@@ -27,10 +28,18 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <functional>
 
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/inference/analysis/dot.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/string/printf.h"
 
 namespace paddle {
 namespace framework {
@@ -45,6 +54,106 @@ namespace paddle {
 namespace framework {
 namespace ir {
 class PDPattern;
+namespace patterns {
+struct ActElewiseAdd;
+struct ActElewiseAddInplaceGrad;
+struct AddSupportInt8;
+struct BNActConvGrad;
+struct BNAddActConvGrad;
+struct BatchNormAct;
+struct BatchNormActGrad;
+struct BatchNormActOneDNN;
+struct BatchNormAddAct;
+struct BatchNormAddActGrad;
+struct Bfloat16Placement;
+struct Bloat16Ops;
+struct Concat;
+struct Conv;
+struct ConvAffineChannel;
+struct ConvBN;
+struct ConvBNActConvBNStats;
+struct ConvBNAddAct;
+struct ConvBias;
+struct ConvElementwiseAdd2Act;
+struct ConvElementwiseadd;
+struct ConvElementwiseaddAct;
+struct ConvResidual;
+struct DeleteDropoutOpPattern;
+struct DeleteQuantDequantFilterOpPattern;
+struct DeleteQuantDequantLinearOpPattern;
+struct DeleteQuantDequantOpPattern;
+struct DeleteWeightDequantLinearOpDecoderPattern;
+struct DeleteWeightDequantLinearOpEncoderPattern;
+struct DeleteWeightQuantDequantLinearOpPattern;
+struct DequantAny;
+struct DequantQuantAny;
+struct DequantScale;
+struct DotProductAttention;
+struct DotProductAttentionGrad;
+struct Elementwise;
+struct ElementwiseOp;
+struct ElewiseAddAct;
+struct ElewiseAddActInplaceGrad;
+struct ElewiseAddMatmulAct;
+struct Embedding;
+struct FC;
+struct FCMKLDNN;
+struct Flatten2Matmul;
+struct FusedFeedForwardBwd;
+struct FusedFeedForwardFwd;
+struct FusedMatmul;
+struct FusionGru;
+struct FusionLSTM;
+struct GRU;
+struct Immutable;
+struct LSTM;
+struct LayerNorm;
+struct LayernormShiftPartitionPattern;
+struct LinearAct;
+struct MKLDNNInPlace;
+struct Matmul;
+struct MatmulElementwiseAdd;
+struct MatmulScale;
+struct MatmulTransposeReshapePattern;
+struct MatmulV2;
+struct MatmulV2Scale;
+struct MatmulV2Weight;
+struct MergeLayernormPattern;
+struct MulMatmulMatmulV2;
+struct MultiGru;
+struct MultiGruSeq;
+struct MultipleQuantize;
+struct OpDequant;
+struct OpRequant;
+struct OperatorActivation;
+struct OperatorReshape2;
+struct OperatorUnsqueeze2;
+struct OrphanedBfloat16;
+struct Pool;
+struct PriorBox;
+struct QuantConv;
+struct QuantLinearFusePattern;
+struct QuantTranspose;
+struct QuantizePlacement;
+struct RequantOp;
+struct Reshape2Matmul;
+struct ReshapeTransposeMatmulPattern;
+struct ResidualElementwise;
+struct ReverseRollPattern;
+struct ScaleMatmul;
+struct ScaleQuant;
+struct SelfAttention;
+struct SeqConvEltAddRelu;
+struct ShuffleChannelPattern;
+struct SplitLayerNorm;
+struct Squeeze2Matmul;
+struct Squeeze2Transpose2;
+struct SubgraphEdgePattern;
+struct TransposeDequant;
+struct TwoFusionGruConcat;
+struct UnsupportedBfloat16;
+struct VitAttention;
+}  // namespace patterns
 
 // Some basic terminologies:
 //   - PDPattern: a pattern defined as a data flow graph.

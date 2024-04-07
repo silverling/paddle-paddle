@@ -14,9 +14,31 @@
 
 #include "paddle/fluid/framework/ir/mkldnn/params_quantization_mkldnn_pass.h"
 
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

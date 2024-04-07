@@ -12,12 +12,36 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <assert.h>
+#include <stddef.h>
+#include <array>
+#include <cstdint>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/custom_kernel.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/flat_hash_map.h"
 #if defined _WIN32 || defined __APPLE__
 #else
 #define _LINUX
 #endif
-
-#include <gtest/gtest.h>
 
 #ifdef _LINUX
 #include "paddle/phi/api/lib/utils/allocator.h"

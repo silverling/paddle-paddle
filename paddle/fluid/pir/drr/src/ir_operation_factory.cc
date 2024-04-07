@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
 #include <any>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <type_traits>
+#include <typeinfo>
+#include <variant>
 
 #include "paddle/common/layout.h"
 #include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
@@ -20,11 +27,18 @@
 #include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
 #include "paddle/fluid/pir/drr/src/attr_type_uilts.h"
 #include "paddle/fluid/pir/drr/src/ir_operation_factory.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/pir/drr/include/drr_match_context.h"
+#include "paddle/fluid/pir/drr/src/match_context_impl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op.h"
 #endif

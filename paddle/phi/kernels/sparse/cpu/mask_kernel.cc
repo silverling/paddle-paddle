@@ -14,15 +14,25 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/mask_kernel.h"
 
+#include <string.h>
+#include <cstdint>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/common/ddim.h"
-#include "paddle/phi/api/ext/dispatch.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/empty_kernel.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/funcs/sparse/flatten_indices.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
 
 namespace phi {
 namespace sparse {

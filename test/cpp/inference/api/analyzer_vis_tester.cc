@@ -12,12 +12,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <string.h>
 #include <fstream>
-#include <iostream>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/helper.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace inference {

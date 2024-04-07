@@ -21,12 +21,21 @@ limitations under the License. */
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <ostream>
+#include <typeindex>
+#include <typeinfo>
+#include <utility>
+#include <type_traits>
 
 #include "paddle/common/macros.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/utils/any.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {
@@ -38,7 +47,6 @@ constexpr char kStartupProgramDescs[] = "startup_program_descs";
 
 namespace ir {
 class Graph;
-
 template <typename PassType>
 struct PassRegistrar;
 

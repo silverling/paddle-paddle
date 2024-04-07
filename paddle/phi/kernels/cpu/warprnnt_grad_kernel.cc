@@ -17,6 +17,7 @@
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/warprnnt_grad_kernel_impl.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(
     warprnnt_grad, CPU, ALL_LAYOUT, phi::WarprnntGradKernel, float, double) {}

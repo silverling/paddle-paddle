@@ -20,6 +20,9 @@
 
 #include "paddle/fluid/framework/reader.h"
 #include "paddle/fluid/operators/reader/lod_tensor_blocking_queue.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace paddle {
 namespace operators {

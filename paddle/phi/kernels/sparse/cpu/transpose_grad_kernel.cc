@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/kernels/sparse/unary_grad_kernel.h"
 #include "paddle/phi/kernels/sparse/unary_kernel.h"
-
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/sparse/empty_kernel.h"
-#include "paddle/phi/kernels/sparse/impl/unary_grad_kernel_impl.h"
 
 namespace phi {
+class CPUContext;
+class SparseCooTensor;
+class SparseCsrTensor;
+
 namespace sparse {
 
 std::vector<int> get_cpu_grad_perm(std::vector<int> perm) {

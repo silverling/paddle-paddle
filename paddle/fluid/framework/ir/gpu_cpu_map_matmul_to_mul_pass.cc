@@ -14,19 +14,32 @@
 
 #include "paddle/fluid/framework/ir/gpu_cpu_map_matmul_to_mul_pass.h"
 
+#include <bits/std_abs.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <cmath>
 #include <string>
+#include <map>
+#include <ostream>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
-#include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 GpuCpuMapMatmul2MulPass::GpuCpuMapMatmul2MulPass() {
   AddOpCompat(OpCompat("matmul"))

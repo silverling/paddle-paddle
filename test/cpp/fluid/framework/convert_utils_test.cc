@@ -14,7 +14,10 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/convert_utils.h"
 
-#include "gtest/gtest.h"
+#include <memory>
+
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace phi {
 namespace tests {

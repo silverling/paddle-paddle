@@ -12,21 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <sstream>
+#include <string>
 
-#include "paddle/fluid/framework/framework.pb.h"
-#include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/program_desc.h"
-#include "paddle/fluid/ir_adaptor/translator/translate.h"
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/attribute_base.h"
-#include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_attribute_storage.h"
 #include "paddle/pir/include/core/builtin_dialect.h"
 #include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/parser/ir_parser.h"
-#include "paddle/pir/include/core/utils.h"
 #include "test/cpp/pir/tools/macros_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/src/core/parser/token.h"
 
 using OperatorDialect = paddle::dialect::OperatorDialect;
 using AttributeStorage = pir::AttributeStorage;

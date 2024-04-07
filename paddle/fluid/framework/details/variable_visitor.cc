@@ -14,18 +14,17 @@
 
 #include "paddle/fluid/framework/details/variable_visitor.h"
 
-#include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/selected_rows_utils.h"
+#include <string>
+#include <typeinfo>
 
-namespace phi {
-class DenseTensor;
-}  // namespace phi
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace paddle {
 namespace framework {

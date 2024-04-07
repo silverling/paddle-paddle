@@ -17,6 +17,7 @@
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
 

@@ -13,17 +13,29 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
 #include <fstream>
-#include <iostream>
 #include <unordered_map>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/ir/pass_tester_helper.h"
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/program_desc.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 using std::pair;
 using std::string;

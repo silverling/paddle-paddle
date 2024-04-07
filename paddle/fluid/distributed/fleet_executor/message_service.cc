@@ -14,9 +14,19 @@
 #if defined(PADDLE_WITH_DISTRIBUTE) && !defined(PADDLE_WITH_PSLIB)
 #include "paddle/fluid/distributed/fleet_executor/message_service.h"
 
-#include "brpc/server.h"
+#include <ostream>
+
 #include "paddle/fluid/distributed/fleet_executor/global.h"
 #include "paddle/fluid/distributed/fleet_executor/message_bus.h"
+#include "brpc/closure_guard.h"
+#include "glog/logging.h"
+
+namespace google {
+namespace protobuf {
+class Closure;
+class RpcController;
+}  // namespace protobuf
+}  // namespace google
 
 namespace paddle {
 namespace distributed {

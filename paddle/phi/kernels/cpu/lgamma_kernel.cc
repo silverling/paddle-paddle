@@ -14,11 +14,14 @@
 
 #include "paddle/phi/kernels/lgamma_kernel.h"
 
-#include <unsupported/Eigen/SpecialFunctions>
+#include <stdint.h>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/for_range.h"
+#include "paddle/common/hostdevice.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "unsupported/Eigen/src/SpecialFunctions/SpecialFunctionsImpl.h"
 
 namespace phi {
 template <typename T>

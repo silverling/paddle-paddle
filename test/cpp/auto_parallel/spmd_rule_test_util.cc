@@ -14,6 +14,12 @@ limitations under the License. */
 
 #include "test/cpp/auto_parallel/spmd_rule_test_util.h"
 
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/utils/variant.h"
+
 namespace paddle {
 namespace distributed {
 namespace auto_parallel {

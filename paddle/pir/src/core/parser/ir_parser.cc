@@ -13,8 +13,23 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/parser/ir_parser.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
+
+#include <stdint.h>
+#include <stdlib.h>
+#include <limits>
+
 #include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/region.h"
 
 namespace pir {
 IrParser::IrParser(IrContext* ctx, std::istream& is) {

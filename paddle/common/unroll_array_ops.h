@@ -15,6 +15,7 @@
 #pragma once
 #include <cstddef>
 #include <type_traits>
+
 #include "paddle/common/hostdevice.h"
 #include "paddle/common/macros.h"
 

@@ -14,6 +14,40 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/rules.h"
 
+#include <memory>
+
+#include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
+#include "paddle/phi/infermeta/spmd_rules/argmax.h"
+#include "paddle/phi/infermeta/spmd_rules/concat.h"
+#include "paddle/phi/infermeta/spmd_rules/cross_entropy_with_softmax.h"
+#include "paddle/phi/infermeta/spmd_rules/cumsum.h"
+#include "paddle/phi/infermeta/spmd_rules/default_data_parallel.h"
+#include "paddle/phi/infermeta/spmd_rules/elementwise.h"
+#include "paddle/phi/infermeta/spmd_rules/embedding.h"
+#include "paddle/phi/infermeta/spmd_rules/expand_as.h"
+#include "paddle/phi/infermeta/spmd_rules/flash_attention.h"
+#include "paddle/phi/infermeta/spmd_rules/flatten.h"
+#include "paddle/phi/infermeta/spmd_rules/fused_linear_param_grad_add.h"
+#include "paddle/phi/infermeta/spmd_rules/fused_rope.h"
+#include "paddle/phi/infermeta/spmd_rules/gather.h"
+#include "paddle/phi/infermeta/spmd_rules/layer_norm.h"
+#include "paddle/phi/infermeta/spmd_rules/matmul.h"
+#include "paddle/phi/infermeta/spmd_rules/one_hot.h"
+#include "paddle/phi/infermeta/spmd_rules/reduction.h"
+#include "paddle/phi/infermeta/spmd_rules/replicated.h"
+#include "paddle/phi/infermeta/spmd_rules/reshape.h"
+#include "paddle/phi/infermeta/spmd_rules/scatter.h"
+#include "paddle/phi/infermeta/spmd_rules/slice.h"
+#include "paddle/phi/infermeta/spmd_rules/softmax.h"
+#include "paddle/phi/infermeta/spmd_rules/split.h"
+#include "paddle/phi/infermeta/spmd_rules/squeeze.h"
+#include "paddle/phi/infermeta/spmd_rules/tile.h"
+#include "paddle/phi/infermeta/spmd_rules/transpose.h"
+#include "paddle/phi/infermeta/spmd_rules/triu.h"
+#include "paddle/phi/infermeta/spmd_rules/unbind.h"
+#include "paddle/phi/infermeta/spmd_rules/unsqueeze.h"
+#include "paddle/phi/infermeta/spmd_rules/where.h"
+
 /**
  * Design Notes:
  *

@@ -14,11 +14,19 @@
 
 #include "paddle/fluid/memory/allocation/retry_allocator.h"
 
+#include <ext/alloc_traits.h>
 #include <thread>  // NOLINT
+#include <algorithm>
+#include <string>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/memory/allocation/best_fit_allocator.h"
 #include "paddle/fluid/memory/allocation/cpu_allocator.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/allocator.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/memory/allocation/cuda_allocator.h"
 #endif

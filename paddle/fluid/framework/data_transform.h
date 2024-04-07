@@ -27,6 +27,14 @@ limitations under the License. */
 #include "paddle/phi/common/transform.h"
 #include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/attribute.h"
+
+namespace phi {
+class DenseTensor;
+class KernelKey;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

@@ -18,6 +18,7 @@
 #include "paddle/phi/core/device_context.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void AbsKernel(const Context& ctx, const DenseTensor& x, DenseTensor* out);

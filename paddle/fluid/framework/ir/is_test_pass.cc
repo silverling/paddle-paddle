@@ -14,13 +14,23 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/is_test_pass.h"
 
-#include "glog/logging.h"
+#include <algorithm>
+#include <initializer_list>
+#include <map>
+#include <ostream>
+#include <string>
+#include <unordered_set>
+#include <utility>
+
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 void IsTestPass::ApplyImpl(ir::Graph* graph) const {
   VLOG(3) << "Sets is_test attribute to true and if it is missing, inserts it "

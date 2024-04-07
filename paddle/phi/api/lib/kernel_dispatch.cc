@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 #include "paddle/phi/api/lib/kernel_dispatch.h"
+
 #include <glog/logging.h>
 #ifdef _MSC_VER
 #include <intrin.h>
@@ -22,6 +23,15 @@ limitations under the License. */
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/string_tensor_utils.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/string_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+
+namespace phi {
+class DeviceContext;
+}  // namespace phi
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/phi/backends/device_manager.h"
 #endif

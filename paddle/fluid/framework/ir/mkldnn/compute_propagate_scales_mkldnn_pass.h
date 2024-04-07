@@ -15,13 +15,23 @@
 #pragma once
 
 #include <string>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/mkldnn/mkldnn_pass_util.h"
 
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace ir {
+class Graph;
+class Node;
 
 class ComputePropagateScalesMkldnnPass : public FusePassBase {
  public:

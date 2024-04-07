@@ -20,10 +20,15 @@ limitations under the License. */
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <iosfwd>
 
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/core/selected_rows.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

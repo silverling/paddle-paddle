@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/roll_grad_kernel.h"
 
+#include <stddef.h>
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/cpu/roll_kernel_impl.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

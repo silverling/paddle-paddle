@@ -14,10 +14,17 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/vol2col.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/enforce.h"
+#include <stdint.h>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
+
 namespace funcs {
 
 /*

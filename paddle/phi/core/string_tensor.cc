@@ -14,10 +14,17 @@ limitations under the License. */
 
 #include "paddle/phi/core/string_tensor.h"
 
-#include "glog/logging.h"
+#include <cstring>
+#include <ostream>
+#include <string>
+#include <utility>
 
+#include "glog/logging.h"
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/phi/common/pstring.h"
+#include "cuda_runtime_api.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 

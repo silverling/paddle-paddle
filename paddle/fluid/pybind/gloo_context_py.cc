@@ -13,27 +13,15 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/pybind/gloo_context_py.h"
-
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
-#include <pybind11/chrono.h>
-#include <pybind11/complex.h>
-#include <pybind11/functional.h>
-#include <pybind11/stl.h>
-
-#include <memory>
-#include <set>
 #include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <utility>
-#include <vector>
 
-#include "paddle/fluid/memory/allocation/mmap_allocator.h"
 #include "paddle/fluid/platform/gloo_context.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
 
 namespace paddle {
 namespace pybind {

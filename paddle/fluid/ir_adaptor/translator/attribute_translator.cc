@@ -14,11 +14,12 @@
 
 #include "paddle/fluid/ir_adaptor/translator/attribute_translator.h"
 
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <ostream>
 
 #include "paddle/common/enforce.h"
-#include "paddle/common/layout.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/int_array.h"
@@ -26,8 +27,14 @@
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/utils/data_type.h"
 #include "paddle/utils/variant.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
 
 namespace paddle {
+struct blank;
+
 namespace translator {
 
 class AttributeVisitor {

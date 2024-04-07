@@ -12,7 +12,6 @@ limitations under the License. */
 #pragma once
 
 #include <stdint.h>
-
 #include <fstream>
 #include <numeric>
 #include <string>
@@ -25,6 +24,18 @@ limitations under the License. */
 #include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/phi/kernels/cast_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/port.h"
+#include "paddle/phi/core/dense_tensor.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

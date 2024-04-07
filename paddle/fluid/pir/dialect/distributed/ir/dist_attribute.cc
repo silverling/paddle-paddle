@@ -13,8 +13,17 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
+
+#include <utility>
+
 #include "paddle/fluid/pir/dialect/distributed/ir/attribute_storage.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
+
 namespace paddle {
 namespace dialect {
 ///

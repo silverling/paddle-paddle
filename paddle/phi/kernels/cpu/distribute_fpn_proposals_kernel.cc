@@ -14,9 +14,23 @@
 
 #include "paddle/phi/kernels/distribute_fpn_proposals_kernel.h"
 
+#include <ext/alloc_traits.h>
+#include <string.h>
+#include <algorithm>
+#include <cmath>
+#include <memory>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/distribute_fpn_proposals_functor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 

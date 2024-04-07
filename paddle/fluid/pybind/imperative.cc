@@ -13,19 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/pybind/imperative.h"
-
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
-#include <pybind11/chrono.h>
-#include <pybind11/complex.h>
-#include <pybind11/functional.h>
 #include <pybind11/stl.h>
-
-#include <algorithm>
+#include <sys/types.h>
 #include <memory>
 #include <set>
 #include <string>
@@ -33,14 +27,19 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <array>
+#include <atomic>
+#include <cstdint>
+#include <cstring>
+#include <exception>
+#include <new>
+#include <ostream>
+#include <tuple>
+#include <type_traits>
 
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/scope_guard.h"
-#include "paddle/fluid/imperative/all_reduce.h"
 #include "paddle/fluid/imperative/amp_auto_cast.h"
 #include "paddle/fluid/imperative/basic_engine.h"
-#include "paddle/fluid/imperative/bkcl_context.h"
 #include "paddle/fluid/imperative/data_loader.h"
 #include "paddle/fluid/imperative/gloo_context.h"
 #include "paddle/fluid/imperative/heter_ccl_context.h"
@@ -52,17 +51,59 @@ limitations under the License. */
 #include "paddle/fluid/imperative/reducer.h"
 #include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/imperative/type_defs.h"
-#include "paddle/fluid/imperative/xccl_context.h"
 #include "paddle/fluid/memory/allocation/mmap_allocator.h"
-#include "paddle/fluid/operators/utils.h"
 #include "paddle/fluid/pybind/cuda_streams_py.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
 #include "paddle/fluid/pybind/slice_utils.h"
 #include "paddle/fluid/pybind/tensor_py.h"
-#include "paddle/fluid/pybind/uva_utils.h"
 #include "paddle/phi/core/compat/arg_map_context.h"
-#include "paddle/phi/core/type_defs.h"
+#include "abstract.h"
+#include "cuda_runtime_api.h"
+#include "driver_types.h"
+#include "listobject.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/flags.h"
+#include "paddle/fluid/imperative/parallel_context.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/cuda_stream.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/internals.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/gil.h"
+#include "pybind11/numpy.h"
+#include "pybind11/pytypes.h"
+#include "pyerrors.h"
+#include "pyport.h"
+#include "tupleobject.h"
 
 namespace paddle {
 namespace pybind {

@@ -14,12 +14,12 @@
 
 #include "paddle/pir/include/core/block.h"
 
-#include <glog/logging.h>
 #include <unordered_set>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/block_argument.h"
 
 namespace pir {
 Block::~Block() {

@@ -13,18 +13,30 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_onednn_dialect.h"
+
+#include <stdint.h>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/type_storage.h"
-#include "paddle/fluid/pir/dialect/operator/transforms/param_to_variable.h"
-#include "paddle/pir/include/core/builtin_type_interfaces.h"
-#include "paddle/pir/include/core/interface_value.h"
-#include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/core/utils.h"
-#include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
-#include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/parser/ir_parser.h"
+#include "paddle/pir/src/core/parser/token.h"
+
+namespace pir {
+class IrContext;
+class IrPrinter;
+}  // namespace pir
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op.h"
@@ -52,15 +64,18 @@ void OneDNNOperatorDialect::initialize() {
   RegisterOps<
 #define GET_OP_LIST1
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op_info.cc"  // NOLINT
+
       >();
   RegisterOps<
 #define GET_OP_LIST2
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op_info.cc"  // NOLINT
+
       >();
 #else
   RegisterOps<
 #define GET_OP_LIST
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op_info.cc"  // NOLINT
+
       >();
 #endif
 }

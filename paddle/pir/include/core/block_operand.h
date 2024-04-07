@@ -16,6 +16,7 @@
 
 #include "paddle/pir/include/core/cast_utils.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
 class Operation;

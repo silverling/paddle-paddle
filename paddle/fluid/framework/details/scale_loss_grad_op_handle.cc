@@ -15,13 +15,24 @@
 #include "paddle/fluid/framework/details/scale_loss_grad_op_handle.h"
 
 #include <string>
+#include <map>
+#include <ostream>
 
-#include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {

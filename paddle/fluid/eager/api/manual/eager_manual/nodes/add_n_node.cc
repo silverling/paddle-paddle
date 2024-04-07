@@ -12,18 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
 #include "paddle/fluid/eager/api/manual/eager_manual/nodes/nodes.h"
-#include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/eager/nan_inf_utils.h"
 #include "paddle/fluid/eager/utils.h"
-#include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
-#include "paddle/phi/api/all.h"
-#include "paddle/phi/api/lib/api_custom_impl.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
 
 COMMON_DECLARE_bool(check_nan_inf);
 

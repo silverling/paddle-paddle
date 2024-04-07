@@ -18,11 +18,30 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <algorithm>
+#include <ostream>
+#include <thread>
+#include <utility>
 
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/platform/denormal.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/utils/variant.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #endif

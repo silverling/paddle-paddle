@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <features.h>
 #include <cstdint>
 #include <string>
 #include <unordered_map>

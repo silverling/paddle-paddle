@@ -14,10 +14,23 @@
 
 #include "paddle/phi/kernels/matrix_nms_kernel.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <iterator>
+#include <numeric>
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

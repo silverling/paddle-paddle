@@ -14,18 +14,24 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/lodtensor_printer.h"
 
+#include <stdint.h>
+#include <ostream>
+
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/scope.h"
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/complex.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace platform {

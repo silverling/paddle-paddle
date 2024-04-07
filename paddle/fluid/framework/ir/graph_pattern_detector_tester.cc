@@ -12,15 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 void BuildGraph(Graph* g) {
   ir::Node* o1 = g->CreateEmptyNode("op1", Node::Type::kOperation);

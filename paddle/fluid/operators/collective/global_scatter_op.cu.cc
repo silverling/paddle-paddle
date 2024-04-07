@@ -12,10 +12,45 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <cuda_runtime.h>
+#include <stdint.h>
+#include <memory>
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/operators/collective/global_scatter_op.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
-
 #include "paddle/fluid/framework/convert_utils.h"
+#include "nccl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/collective/process_group.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/distributed/utils.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/common/flags.h"
@@ -23,6 +58,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/collective_helper.h"
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

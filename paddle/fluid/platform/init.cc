@@ -11,25 +11,30 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
+#include <string.h>
 #include <csignal>
-#include <fstream>
 #include <string>
-
-#include "paddle/fluid/platform/cpu_helper.h"
-#include "paddle/phi/backends/cpu/cpu_info.h"
-#include "paddle/utils/string/split.h"
+#include <exception>
+#include <iostream>
+#include <mutex>
+#include <utility>
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
-#include "paddle/fluid/platform/cuda_device_guard.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #endif
-#ifdef PADDLE_WITH_CUDA
-#include "paddle/fluid/platform/dynload/cupti.h"
-#endif
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/init.h"
 #include "paddle/fluid/platform/os_info.h"
 #include "paddle/fluid/platform/place.h"
+#include "glog/logging.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/phi/backends/gpu/gpu_decls.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/os_info.h"
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/platform/device/xpu/xpu_header.h"
@@ -53,10 +58,11 @@ limitations under the License. */
 
 #include "paddle/common/enforce.h"
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
-#include "paddle/fluid/memory/memory.h"
-#include "paddle/fluid/platform/flags.h"
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/phi/core/custom_kernel.h"
+
+namespace phi {
+class Allocator;
+}  // namespace phi
 
 #if (defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)) && \
     (defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL))

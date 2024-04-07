@@ -14,9 +14,13 @@
 
 #include "paddle/phi/kernels/searchsorted_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/searchsorted_kernel_impl.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 PD_REGISTER_KERNEL(searchsorted,
                    CPU,

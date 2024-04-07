@@ -15,7 +15,7 @@ limitations under the License. */
 #pragma once
 
 #include <stdint.h>
-
+#include <stddef.h>
 #include <functional>
 #include <map>
 #include <memory>
@@ -24,6 +24,7 @@ limitations under the License. */
 #include <tuple>
 #include <utility>
 #include <vector>
+#include <string>
 
 #include "paddle/fluid/memory/allocation/memory_block.h"
 #include "paddle/fluid/memory/allocation/system_allocator.h"
@@ -33,6 +34,7 @@ limitations under the License. */
 namespace paddle {
 namespace memory {
 namespace detail {
+class SystemAllocator;
 
 class BuddyAllocator {
  public:

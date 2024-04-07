@@ -13,8 +13,15 @@
 // limitations under the License.
 
 #include "paddle/pir/include/dialect/shape/ir/shape_dialect.h"
+
+#include <string>
+
 #include "paddle/pir/include/dialect/shape/ir/shape_attribute.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_op.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace pir::shape {
 ShapeDialect::ShapeDialect(IrContext *context)

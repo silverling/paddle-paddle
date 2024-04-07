@@ -15,10 +15,13 @@
 #include "paddle/fluid/framework/data_type.h"
 
 #include <string>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/platform/bfloat16.h"
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/phi/common/pstring.h"
+#include "paddle/fluid/platform/enforce.h"
 
 using float16 = paddle::platform::float16;
 using bfloat16 = paddle::platform::bfloat16;

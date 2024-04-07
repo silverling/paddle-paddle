@@ -12,7 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/kernels/selected_rows/impl/add_n_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(add_n_sr,
                    CPU,

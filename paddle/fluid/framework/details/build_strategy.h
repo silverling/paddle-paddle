@@ -15,17 +15,23 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <ostream>
 
 #include "paddle/fluid/framework/ir/pass_builder.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/none.h"
+#include "paddle/utils/optional.h"
 
 namespace paddle {
 namespace framework {
@@ -47,6 +53,8 @@ class NCCLCommunicator;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 using DeviceType = paddle::platform::DeviceType;
 namespace p = paddle::platform;

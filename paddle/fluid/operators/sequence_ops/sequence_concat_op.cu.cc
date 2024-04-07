@@ -12,9 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/operators/sequence_ops/sequence_concat_op.h"
+#include <stdint.h>
+#include <vector>
 
+#include "paddle/fluid/operators/sequence_ops/sequence_concat_op.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace phi {
+class GPUContext;
+}  // namespace phi
 
 PD_REGISTER_STRUCT_KERNEL(sequence_concat,
                           GPU,

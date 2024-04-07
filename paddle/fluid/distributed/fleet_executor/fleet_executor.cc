@@ -16,17 +16,27 @@
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+#include <ostream>
+#include <set>
+#include <utility>
 
 #include "paddle/fluid/distributed/fleet_executor/global.h"
 #include "paddle/fluid/distributed/fleet_executor/message_bus.h"
 #include "paddle/fluid/distributed/fleet_executor/runtime_graph.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
 #include "paddle/fluid/framework/executor_gc_helper.h"
-#include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
-#include "paddle/fluid/framework/variable.h"
+#include "glog/logging.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/fleet_executor/carrier.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace distributed {

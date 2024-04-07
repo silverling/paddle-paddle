@@ -19,11 +19,18 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <functional>
+#include <optional>
+#include <typeindex>
+#include <typeinfo>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/pass/analysis_manager.h"
 #include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_rewrite_driver.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
 
 namespace pir {
 

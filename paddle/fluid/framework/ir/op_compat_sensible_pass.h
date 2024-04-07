@@ -16,16 +16,28 @@ limitations under the License. */
 
 #include <map>
 #include <vector>
+#include <functional>
+#include <memory>
+#include <set>
+#include <string>
+#include <typeinfo>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
 
 class OpCompat;
+class Graph;
 
 class AttrCompat {
  public:

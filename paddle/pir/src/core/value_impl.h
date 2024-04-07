@@ -14,8 +14,12 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/pir/include/core/value.h"
 #include "paddle/pir/src/core/op_operand_impl.h"
+#include "paddle/pir/include/core/type.h"
 
 #define OUTLINE_RESULT_IDX 6u
 #define MAX_INLINE_RESULT_IDX (OUTLINE_RESULT_IDX - 1u)

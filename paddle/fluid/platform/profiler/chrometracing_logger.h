@@ -18,12 +18,20 @@ limitations under the License. */
 #include <set>
 #include <unordered_map>
 #include <utility>
+#include <iosfwd>
+#include <string>
 
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/profiler/output_logger.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
 
 namespace paddle {
 namespace platform {
+class CudaRuntimeTraceEventNode;
+class DeviceTraceEventNode;
+class HostTraceEventNode;
+class MemTraceEventNode;
+class NodeTrees;
 
 // Dump a NodeTrees into a chrome tracing file.
 // A ChromeTracingLogger object can only dump a NodeTrees object,

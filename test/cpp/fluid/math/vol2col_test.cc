@@ -14,12 +14,21 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/vol2col.h"
 
-#include <gtest/gtest.h>
+#include <string.h>
 #include <array>
+#include <memory>
 
 #include "paddle/fluid/framework/tensor_util.h"
-#include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/place.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 template <typename DeviceContext, typename Place>
 void testVol2col() {

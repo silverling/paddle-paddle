@@ -15,7 +15,7 @@
 #pragma once
 
 #include <ThreadPool.h>  // ThreadPool in thrird party
-
+#include <stddef.h>
 #include <deque>
 #include <functional>
 #include <list>
@@ -25,6 +25,8 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <future>
+#include <map>
 
 #include "paddle/fluid/framework/blocking_queue.h"
 #include "paddle/fluid/framework/details/exception_holder.h"
@@ -33,12 +35,19 @@
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/details/ssa_graph_executor.h"
 #include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace framework {
 class Scope;
+template <typename T> class BlockingQueue;
 
 namespace details {
+class OpHandleBase;
+struct VarHandleBase;
 
 struct OpDependentData {
   std::unordered_map<OpHandleBase *, size_t> pending_ops_;

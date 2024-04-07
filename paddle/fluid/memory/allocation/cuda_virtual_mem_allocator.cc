@@ -18,9 +18,17 @@
 #endif
 
 #include <string>
+#include <algorithm>
+#include <ostream>
 
 #include "paddle/fluid/memory/allocation/cuda_virtual_mem_allocator.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/string/printf.h"
 
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/fluid/platform/cuda_device_guard.h"

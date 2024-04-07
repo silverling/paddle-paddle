@@ -14,10 +14,22 @@
 
 #include "paddle/fluid/inference/capi_exp/pd_config.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <map>
+#include <string>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/inference/api/paddle_inference_api.h"
 #include "paddle/fluid/inference/capi_exp/pd_types.h"
 #include "paddle/fluid/inference/capi_exp/utils_internal.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/inference/capi_exp/pd_common.h"
 
 #define CHECK_NULL_POINTER_PARM(param)                                   \
   PADDLE_ENFORCE_NOT_NULL(                                               \

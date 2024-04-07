@@ -12,14 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <initializer_list>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
-#include "paddle/fluid/framework/ir/cudnn_placement_pass.h"
 #include "paddle/fluid/framework/ir/pass_tester_helper.h"
 #include "paddle/fluid/framework/operator.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/ir/placement_pass_base.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace paddle {
 namespace framework {
+class VarDesc;
+
 namespace ir {
 
 class PlacementPassTest {

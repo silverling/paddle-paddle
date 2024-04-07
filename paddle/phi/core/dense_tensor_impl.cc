@@ -12,14 +12,33 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/phi/common/bfloat16.h"
-#include "paddle/phi/common/complex.h"
-#include "paddle/phi/common/float16.h"
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <algorithm>
+#include <memory>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/storage_properties.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
+class Stream;
+
 /* --------------------------- */
 /*   From phi::DenseTensor     */
 /* --------------------------- */

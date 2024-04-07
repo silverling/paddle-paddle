@@ -13,10 +13,37 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/add_n_kernel.h"
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <string>
+#include <unordered_map>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
+class TensorBase;
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+
 bool AddNCheckIfOneDNNSupport(const KernelContext* ctx) {
   for (size_t i = 0; i < ctx->InputsSize(); i++) {
     if (!DenseTensor::classof(ctx->MutableIutputAt(i))) {

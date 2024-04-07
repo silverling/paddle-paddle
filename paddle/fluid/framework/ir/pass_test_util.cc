@@ -16,17 +16,27 @@
 
 #include <algorithm>
 #include <cstring>
-#include <exception>
-#include <functional>
 #include <iterator>
 #include <list>
 #include <map>
+#include <memory>
+#include <unordered_set>
 
-#include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/ir/graph_traits.h"
 #include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/ir/pass_tester_helper.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {

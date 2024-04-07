@@ -20,15 +20,19 @@
 #include "paddle/fluid/framework/lod_tensor_array.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/var_type_traits.h"
 
 namespace phi {
 class DenseTensor;
+class SelectedRows;
 }  // namespace phi
 
 namespace paddle {
 namespace framework {
 class Scope;
 class SelectedRows;
+class Variable;
 }  // namespace framework
 }  // namespace paddle
 

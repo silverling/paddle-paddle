@@ -14,7 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+#include <initializer_list>
+#include <ostream>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/pass.h"
@@ -22,6 +27,8 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
+class Node;
 
 void SaveQuantInfoInTheGraph(
     ir::Graph* graph,

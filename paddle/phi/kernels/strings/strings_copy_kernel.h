@@ -17,6 +17,8 @@ limitations under the License. */
 #include "paddle/phi/core/string_tensor.h"
 
 namespace phi {
+class StringTensor;
+
 namespace strings {
 
 template <typename Context>

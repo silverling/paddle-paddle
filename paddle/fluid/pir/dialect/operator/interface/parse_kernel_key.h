@@ -14,11 +14,18 @@
 
 #pragma once
 
+#include <tuple>
+
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 using KernelKeyTuple = std::tuple<phi::DataType, phi::Backend>;
 

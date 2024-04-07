@@ -12,13 +12,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <stdint.h>
 #include <memory>
 
 #include "paddle/phi/api/include/api.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 

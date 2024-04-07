@@ -14,12 +14,18 @@
 
 #pragma once
 
+#include <stddef.h>
+
 #include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
 
 class TuplePushOp;
 class TuplePopOp;
+class Operation;
+
 ///
 /// \brief This interface marks the op can create a container.
 ///

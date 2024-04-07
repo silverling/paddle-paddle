@@ -13,10 +13,14 @@
 // limitations under the License.
 
 #include "paddle/fluid/distributed/collective/process_group_nccl.h"
+
+#include <cuda_runtime.h>
+#include <stddef.h>
+#include <thread>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/distributed/collective/common.h"
 #include "paddle/fluid/platform/cuda_device_guard.h"
-#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
@@ -30,6 +34,27 @@
 #include "paddle/phi/core/distributed/utils.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/utils/data_type.h"
+#include "nccl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/dynload/nccl.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/distributed/nccl_comm_context.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/string/string_helper.h"
+
+namespace phi {
+namespace distributed {
+class Store;
+}  // namespace distributed
+}  // namespace phi
 
 COMMON_DECLARE_bool(benchmark);
 COMMON_DECLARE_bool(benchmark_nccl);

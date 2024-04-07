@@ -14,12 +14,21 @@
 
 #include "paddle/phi/kernels/diagonal_kernel.h"
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <vector>
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void DiagonalStridedKernel(const Context& dev_ctx,

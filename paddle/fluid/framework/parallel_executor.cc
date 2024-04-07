@@ -14,16 +14,18 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/parallel_executor.h"
 
-#include <algorithm>
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
 #include <memory>
 #include <string>
-#include <tuple>
 #include <utility>
 #include <vector>
+#include <mutex>
+#include <ostream>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/details/async_ssa_graph_executor.h"
-#include "paddle/fluid/framework/details/bind_threaded_ssa_graph_executor.h"
 #include "paddle/fluid/framework/details/fast_threaded_ssa_graph_executor.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/details/op_handle_base.h"
@@ -37,9 +39,47 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/multi_devices_graph_pass/set_reader_device_info_utils.h"
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/platform/cuda_graph_with_memory_pool.h"
-#include "paddle/fluid/platform/event.h"
 #include "paddle/fluid/platform/profiler.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "driver_types.h"
+#include "nccl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/build_strategy.h"
+#include "paddle/fluid/framework/details/execution_strategy.h"
+#include "paddle/fluid/framework/details/ssa_graph_executor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph_with_memory_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/string/printf.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/cuda_device_guard.h"

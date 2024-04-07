@@ -13,8 +13,11 @@
 // limitations under the License.
 
 #pragma once
+#include <ostream>
+
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/place.h"
+#include "glog/logging.h"
 
 namespace paddle {
 namespace platform {

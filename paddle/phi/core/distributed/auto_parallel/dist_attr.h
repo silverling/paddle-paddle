@@ -21,6 +21,7 @@ limitations under the License. */
 #include <set>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"

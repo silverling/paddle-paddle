@@ -13,12 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/attribute.h"
+
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+
 #include "paddle/phi/common/complex.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/utils/blank.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace paddle {
 namespace framework {
+class BlockDesc;
+class VarDesc;
 
 paddle::any GetAttrValue(const Attribute& attr) {
   switch (AttrTypeID(attr)) {

@@ -14,6 +14,8 @@
 
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 
+#include "paddle/fluid/pir/dialect/kernel/ir/type_storage.h"
+
 namespace paddle {
 namespace dialect {
 

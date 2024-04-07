@@ -14,6 +14,12 @@
 
 #include "paddle/fluid/platform/device/gpu/cuda/cuda_profiler.h"
 
+#include "cuda.h"
+#include "cuda_profiler_api.h"
+#include "nvToolsExt.h"
+#include "paddle/fluid/platform/dynload/nvtx.h"
+#include "paddle/phi/core/enforce.h"
+
 namespace paddle {
 namespace platform {
 

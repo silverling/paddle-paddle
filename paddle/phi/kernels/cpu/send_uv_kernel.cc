@@ -14,11 +14,18 @@
 
 #include "paddle/phi/kernels/send_uv_kernel.h"
 
-#include "paddle/common/hostdevice.h"
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/graph_send_ue_recv_funcs.h"
 #include "paddle/phi/kernels/impl/graph_message_passing_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

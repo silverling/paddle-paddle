@@ -20,6 +20,10 @@ limitations under the License. */
 #include <sys/types.h>
 #include <unistd.h>
 #endif
+#include <bits/chrono.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <sys/socket.h>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -38,9 +42,14 @@ limitations under the License. */
 #include <gloo/transport/tcp/device.h>
 #endif
 #include "paddle/fluid/framework/variable_helper.h"
+#include "gloo/math.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace gloo {
 class Context;
+
 namespace transport {
 class Device;
 }  // namespace transport

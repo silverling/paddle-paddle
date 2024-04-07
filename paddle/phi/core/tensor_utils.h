@@ -14,6 +14,11 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/device_context.h"
 #include "paddle/phi/core/selected_rows.h"
@@ -21,8 +26,18 @@ limitations under the License. */
 #include "paddle/phi/core/sparse_csr_tensor.h"
 #include "paddle/phi/core/tensor_array.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
+class Allocation;
+class DeviceContext;
+class SelectedRows;
+class TensorArray;
 
 class DenseTensorUtils {
  public:

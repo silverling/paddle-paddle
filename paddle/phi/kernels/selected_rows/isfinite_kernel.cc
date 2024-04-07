@@ -14,12 +14,20 @@
 
 #include "paddle/phi/kernels/selected_rows/isfinite_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/phi/backends/gpu/gpu_context.h"
 #endif
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/selected_rows/impl/isfinite_kernel_impl.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(isinf_sr,
                    CPU,

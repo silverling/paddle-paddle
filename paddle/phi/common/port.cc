@@ -13,18 +13,18 @@
 // limitations under the License.
 
 #include <paddle/phi/common/port.h>
-
+#include <errno.h>
+#include <stdio.h>
 #include <array>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <ostream>
 
 #include "glog/logging.h"
 
 #if !defined(_WIN32)
-#include <dlfcn.h>  // dladdr
 #include <sys/stat.h>
-#include <sys/time.h>
 
 #else
 #include <numeric>  // std::accumulate in msvc

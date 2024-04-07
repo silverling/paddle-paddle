@@ -15,9 +15,12 @@
 #include "paddle/fluid/framework/lod_tensor.h"
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
+#include <memory>
 
 #include "paddle/phi/core/lod_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace framework {

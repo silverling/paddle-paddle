@@ -24,6 +24,8 @@
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {
@@ -42,6 +44,8 @@ class NCCLContextMap;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 struct FusedBroadcastOpHandle : public BroadcastOpHandle {

@@ -13,17 +13,30 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/elementwise_kernel.h"
-#include "paddle/phi/core/enforce.h"
+
+#include <cstdint>
+#include <cstring>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_meta.h"
-#include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/elementwise_add_kernel.h"
-#include "paddle/phi/kernels/elementwise_kernel.h"
 #include "paddle/phi/kernels/funcs/elementwise_functor.h"
 #include "paddle/phi/kernels/funcs/sparse/flatten_indices.h"
 #include "paddle/phi/kernels/sparse/empty_kernel.h"
 #include "paddle/phi/kernels/sparse/sparse_utils_kernel.h"
+#include "paddle/common/array.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/hostdevice.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/kernels/empty_kernel.h"
 
 namespace phi {
 namespace sparse {

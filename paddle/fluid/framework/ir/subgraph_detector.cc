@@ -14,14 +14,21 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/subgraph_detector.h"
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
-class Node;
 
 std::pair<std::vector<Node *>, std::vector<Node *>>
 ExtractInputAndOutputOfSubGraph(std::vector<Node *> &graph) {  // NOLINT

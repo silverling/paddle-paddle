@@ -14,12 +14,17 @@
 
 #include "paddle/fluid/inference/capi_exp/pd_tensor.h"
 
-#include "paddle/fluid/inference/api/paddle_inference_api.h"
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/capi_exp/pd_types.h"
-#include "paddle/fluid/inference/capi_exp/pd_utils.h"
 #include "paddle/fluid/inference/capi_exp/types_internal.h"
 #include "paddle/fluid/inference/capi_exp/utils_internal.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
+#include "paddle/fluid/inference/capi_exp/pd_common.h"
 
 #define CHECK_AND_CONVERT_PD_TENSOR                              \
   PADDLE_ENFORCE_NOT_NULL(                                       \

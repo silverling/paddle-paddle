@@ -16,8 +16,11 @@ limitations under the License. */
 
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+class TensorBase;
+
 namespace distributed {
 
 class DistMetaTensor : public MetaTensor {

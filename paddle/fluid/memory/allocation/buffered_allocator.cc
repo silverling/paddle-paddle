@@ -14,7 +14,12 @@
 
 #include "paddle/fluid/memory/allocation/buffered_allocator.h"
 
+#include <utility>
+
 #include "paddle/common/macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/lock_guard_ptr.h"
 
 REGISTER_FILE_SYMBOLS(buffered_allocator);
 

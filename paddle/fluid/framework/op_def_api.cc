@@ -18,21 +18,15 @@
 #endif
 #include "paddle/fluid/framework/op_def_api.h"
 
+#include <google/protobuf/text_format.h>
 #include <fstream>
 #include <mutex>
 #include <string>
 #include <unordered_map>
-#ifdef _LINUX
-#include <stdio_ext.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#endif
-#include <google/protobuf/io/zero_copy_stream_impl.h>
-#include <google/protobuf/text_format.h>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/op_def.pb.h"
-
 /*
 // op_def.pbtxt
 namespace {

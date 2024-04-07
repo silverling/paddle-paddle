@@ -12,16 +12,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stdint.h>
 #include <fstream>
-#include <streambuf>
 #include <string>
+#include <algorithm>
+#include <iterator>
 
 #include "glog/logging.h"
-
 #include "paddle/common/errors.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/jit/property.h"
 #include "paddle/phi/core/enforce.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/string_array.h"
 
 namespace paddle {
 namespace jit {

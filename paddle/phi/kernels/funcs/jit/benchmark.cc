@@ -12,16 +12,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 
+#include <stddef.h>
 #include <iostream>
 #include <random>
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-#include "paddle/phi/api/profiler/device_tracer.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/os_info.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
+
+class BenchJITKernel_CRFDecoding_FP32_CPU_;
+class BenchJITKernel_EmbSeqPool_FP32_CPU_;
+class BenchJITKernel_GRUH1_FP32_CPU_;
+class BenchJITKernel_GRUHtPart1_FP32_CPU_;
+class BenchJITKernel_GRUHtPart2_FP32_CPU_;
+class BenchJITKernel_LSTMC1H1_FP32_CPU_;
+class BenchJITKernel_LSTMCtHt_FP32_CPU_;
+class BenchJITKernel_LayerNorm_FP32_CPU_;
+class BenchJITKernel_MatMul_FP32_CPU_;
+class BenchJITKernel_SeqPool_FP32_CPU_;
+class BenchJITKernel_Sgd_FP32_CPU_;
+class BenchJITKernel_VAddBias_FP32_CPU_;
+class BenchJITKernel_VAddRelu_FP32_CPU_;
+class BenchJITKernel_VAdd_FP32_CPU_;
+class BenchJITKernel_VBroadcast_FP32_CPU_;
+class BenchJITKernel_VCopy_FP32_CPU_;
+class BenchJITKernel_VExp_FP32_CPU_;
+class BenchJITKernel_VIdentity_FP32_CPU_;
+class BenchJITKernel_VMul_FP32_CPU_;
+class BenchJITKernel_VRelu_FP32_CPU_;
+class BenchJITKernel_VScal_FP32_CPU_;
+class BenchJITKernel_VSigmoid_FP32_CPU_;
+class BenchJITKernel_VSquare_FP32_CPU_;
+class BenchJITKernel_VSub_FP32_CPU_;
+class BenchJITKernel_VTanh_FP32_CPU_;
 
 PD_DEFINE_int32(burning, 10, "Burning times.");
 PD_DEFINE_int32(repeat, 3000, "Repeat times.");

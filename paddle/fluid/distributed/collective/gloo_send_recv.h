@@ -8,6 +8,11 @@
 
 #pragma once
 
+#include <bits/chrono.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+
 #include "gloo/context.h"
 #include "gloo/transport/unbound_buffer.h"
 

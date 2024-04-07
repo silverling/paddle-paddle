@@ -18,10 +18,13 @@
 #include <memory>
 #include <mutex>  // NOLINT
 #include <string>
+#include <ostream>
 
 #include "glog/logging.h"
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

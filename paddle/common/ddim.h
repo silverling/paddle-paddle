@@ -13,16 +13,22 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
 #include <initializer_list>
 #include <numeric>
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <cstddef>
+#include <iosfwd>
+#include <type_traits>
+#include <typeindex>
 
 #include "paddle/common/dim.h"
 #include "paddle/common/enforce.h"
 #include "paddle/common/exception.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/array.h"
 
 namespace common {
 

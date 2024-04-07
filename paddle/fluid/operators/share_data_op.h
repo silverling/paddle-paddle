@@ -13,7 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <string>
+
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

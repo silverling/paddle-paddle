@@ -10,10 +10,23 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <vector>
+#include <cmath>
+#include <string>
 
 #include "paddle/fluid/operators/detection/prior_box_op.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace paddle {
 namespace operators {

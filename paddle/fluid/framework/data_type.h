@@ -13,9 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <iostream>
 #include <string>
 #include <typeindex>
+#include <type_traits>
 
 #include "paddle/fluid/framework/framework.pb.h"
 #include "paddle/fluid/platform/bfloat16.h"
@@ -24,9 +27,12 @@ limitations under the License. */
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {
+template <typename T> struct DataTypeTrait;
 
 TEST_API std::string DataTypeToString(const proto::VarType::Type type);
 TEST_API extern size_t SizeOfType(proto::VarType::Type type);

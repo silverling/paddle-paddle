@@ -14,20 +14,28 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <unordered_map>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <vector>
 
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/utils/rw_lock.h"
-
 #include "paddle/phi/backends/c_comm_lib.h"
 #include "paddle/phi/backends/device_base.h"
 #include "paddle/phi/backends/device_ext.h"
 #include "paddle/phi/backends/event.h"
 #include "paddle/phi/backends/stream.h"
 #include "paddle/phi/common/port.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
+class TraceEventCollector;
+
 class Device final {
  public:
   Device(size_t dev_id, DeviceInterface* impl) : dev_id_(dev_id), impl_(impl) {}

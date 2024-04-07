@@ -14,6 +14,11 @@
 
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_dialect.h"
 
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/common/macros.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
@@ -21,6 +26,17 @@
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/pir/include/core/ir_printer.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 REGISTER_FILE_SYMBOLS(kernel_dialect);
 

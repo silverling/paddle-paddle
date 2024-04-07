@@ -14,14 +14,27 @@
 
 #include "paddle/fluid/operators/controlflow/recurrent_op_helper.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <iterator>
+#include <map>
+#include <ostream>
+#include <unordered_map>
 
-namespace paddle {
-namespace framework {
-class BlockDesc;
-class ProgramDesc;
-}  // namespace framework
-}  // namespace paddle
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/operators/recurrent_op.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/string/string_helper.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

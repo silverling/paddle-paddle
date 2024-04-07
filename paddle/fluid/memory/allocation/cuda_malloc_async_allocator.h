@@ -13,12 +13,23 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <mutex>  // NOLINT
 #include <unordered_set>
+#include <list>
+#include <map>
+#include <memory>
+#include <set>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/allocation/spin_lock.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace memory {

@@ -14,13 +14,18 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <cmath>
 #include <limits>
 #include <string>
+#include <cstring>
 
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/kernels/funcs/jit/helper.h"
 #include "paddle/phi/kernels/funcs/jit/kernel_base.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 namespace phi {
 namespace jit {

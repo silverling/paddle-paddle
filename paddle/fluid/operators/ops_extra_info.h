@@ -14,11 +14,15 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <functional>
+#include <utility>
 
 #include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/type_defs.h"
 
 namespace paddle {
 namespace operators {

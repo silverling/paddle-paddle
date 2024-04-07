@@ -15,17 +15,27 @@
 #pragma once
 
 #include <NvInfer.h>
-
+#include <stdint.h>
 #include <cstring>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <functional>
 
 #include "paddle/fluid/inference/tensorrt/helper.h"
 #include "paddle/fluid/inference/tensorrt/plugin/trt_plugin_utils.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "NvInferRuntimeCommon.h"
+#include "NvInferRuntimePlugin.h"
+#include "paddle/common/flags.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+
+struct cublasContext;
+struct cudnnContext;
 
 namespace nvinfer1 {
 class ITensor;

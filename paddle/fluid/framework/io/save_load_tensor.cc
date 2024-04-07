@@ -11,13 +11,17 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/io/save_load_tensor.h"
 
-#include <cstdint>
 #include <fstream>
-#include <numeric>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/phi/common/port.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

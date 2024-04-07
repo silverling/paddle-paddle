@@ -14,6 +14,11 @@
 
 #pragma once
 
+#include <cstdint>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type_interfaces.h"
@@ -22,8 +27,12 @@
 #include "paddle/pir/include/dialect/shape/ir/shape_op.h"
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_builder.h"
 #include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
+#include "paddle/pir/include/core/ir_printer.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
 
 namespace pir {
+class Program;
 
 // The implementation is based on shape constraint ir.
 class IR_API ShapeConstraintIRAnalysis {

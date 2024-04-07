@@ -16,15 +16,14 @@
 
 #include <list>
 #include <map>
+#include <algorithm>
+#include <deque>
+#include <set>
+#include <string>
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-//
-// NodesDFSIterator
-//
-class Node;
 
 bool IsReachable(ir::Graph *graph, Node *from, Node *to) {
   if (from == to) {

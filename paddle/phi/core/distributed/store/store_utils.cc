@@ -15,12 +15,14 @@
 #include "paddle/phi/core/distributed/store/store_utils.h"
 
 #include <cstdlib>
+#include <vector>
 
 // the <winsock2.h> needs to be included before <winsock.h>, otherwise
 // there will be symbol redefinition error on windows
 #include "paddle/phi/core/distributed/store/tcp_store.h"
-
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace distributed {

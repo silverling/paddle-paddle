@@ -19,15 +19,25 @@ limitations under the License. */
 #include <vector>
 
 #include "paddle/fluid/framework/block_desc.h"
-#include "paddle/fluid/framework/feed_fetch_type.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/version.h"
 #include "paddle/fluid/platform/cpu_helper.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/pybind/pybind.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/executor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/init.h"
+#include "paddle/fluid/platform/place.h"
 
-// phi
-#include "paddle/phi/kernels/declarations.h"
+namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+}  // namespace paddle
 
 PD_DEFINE_string(devices,  // NOLINT
                  "",

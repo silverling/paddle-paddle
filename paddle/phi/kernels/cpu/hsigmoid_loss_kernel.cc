@@ -14,14 +14,24 @@
 
 #include "paddle/phi/kernels/hsigmoid_loss_kernel.h"
 
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/transform.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
 #include "paddle/phi/kernels/funcs/math_function_impl.h"
 #include "paddle/phi/kernels/funcs/matrix_bit_code.h"
 #include "paddle/phi/kernels/impl/clip_kernel_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

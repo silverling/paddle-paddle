@@ -13,20 +13,21 @@
 // limitations under the License.
 
 #include "paddle/fluid/memory/allocation/cuda_malloc_async_allocator.h"
+
 #include <cstdint>
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/memory/allocation/stream_safe_cuda_allocator.h"
-
-#ifdef PADDLE_WITH_CUDA
-#include <cuda.h>
-#include <cuda_runtime.h>
-#endif
-
 #include <string>
+#include <ostream>
+#include <utility>
 
-#include "paddle/fluid/platform/cuda_device_guard.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/gpu/gpu_info.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/string/printf.h"
 #if defined(PADDLE_WITH_CUDA)
 #include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
 #elif defined(PADDLE_WITH_HIP)

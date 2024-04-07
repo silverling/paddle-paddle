@@ -17,8 +17,8 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {

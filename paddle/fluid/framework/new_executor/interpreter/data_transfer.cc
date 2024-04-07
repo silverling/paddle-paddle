@@ -14,12 +14,50 @@
 
 #include "paddle/fluid/framework/new_executor/interpreter/data_transfer.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_transform.h"
 #include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
 #include "paddle/fluid/framework/new_executor/interpreter/static_build.h"
 #include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/kernel_factory.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/phi_utils.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/framework/variable_helper.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/operators/ops_extra_info.h"

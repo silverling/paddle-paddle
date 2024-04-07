@@ -18,10 +18,13 @@
 #include <vector>
 
 #include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace jit {
 class BaseEngine;
+
 using DenseTensor = phi::DenseTensor;
 using Tensor = paddle::Tensor;
 

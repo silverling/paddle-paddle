@@ -12,10 +12,22 @@ limitations under the License. */
 #include "paddle/fluid/framework/selected_rows_utils.h"
 
 #include <ctime>
-
 #include <thread>  // NOLINT
+#include <algorithm>
+#include <cstdint>
+#include <iostream>
+#include <memory>
+#include <vector>
 
-#include "gtest/gtest.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace paddle {
 namespace framework {

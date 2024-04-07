@@ -14,6 +14,10 @@
 
 #include "paddle/phi/core/distributed/store/gloo_store.h"
 
+#include <cstdint>
+
+#include "paddle/phi/core/distributed/store/store.h"
+
 namespace phi {
 namespace distributed {
 

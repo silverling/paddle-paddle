@@ -14,9 +14,12 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/unstack_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/unstack_grad_kernel_impl.h"
+#include "paddle/phi/common/complex.h"
 
 PD_REGISTER_KERNEL(unstack_grad,
                    CPU,

@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 #define DECLARE_COMPARE_KERNEL(name)      \
   template <typename T, typename Context> \

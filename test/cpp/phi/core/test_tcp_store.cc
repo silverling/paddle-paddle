@@ -12,9 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <stdio.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <memory>
+#include <string>
+
 #include "paddle/phi/core/distributed/store/tcp_store.h"
 #include "paddle/phi/core/distributed/store/tcp_utils.h"
+#include "gtest/gtest_pred_impl.h"
 
 #ifdef _WIN32
 #include <windows.h>

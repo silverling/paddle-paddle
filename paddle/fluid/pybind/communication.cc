@@ -14,23 +14,27 @@ limitations under the License. */
 
 #include "paddle/fluid/pybind/communication.h"
 
-#include <Python.h>
+#include <stddef.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
-#include <pybind11/chrono.h>
-#include <pybind11/complex.h>
-#include <pybind11/functional.h>
-#include <pybind11/stl.h>
-
-#include <chrono>
 #include <memory>
 #include <string>
+#include <cstdint>
+#include <vector>
 
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
 #include "paddle/phi/core/distributed/store/tcp_store.h"
+#include "paddle/phi/core/distributed/store/store.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/gil.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 

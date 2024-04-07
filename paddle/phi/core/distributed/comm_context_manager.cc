@@ -16,21 +16,31 @@
 
 #include <memory>
 #include <string>
-#include "glog/logging.h"
+#include <cstdint>
+#include <cstring>
+#include <iostream>
+#include <utility>
 
+#include "glog/logging.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/core/distributed/store/store.h"
 #include "paddle/phi/core/enforce.h"
+#include "nccl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/dynload/nccl.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
 
 #if defined(PADDLE_WITH_GLOO)
 #include <gloo/rendezvous/prefix_store.h>
+
 #include "paddle/phi/core/distributed/gloo_comm_context.h"
 #include "paddle/phi/core/distributed/gloo_utils.h"
 #include "paddle/phi/core/distributed/store/gloo_store.h"
 #endif
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
-#include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/memory_utils.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
 #include "paddle/phi/core/distributed/nccl_tools.h"

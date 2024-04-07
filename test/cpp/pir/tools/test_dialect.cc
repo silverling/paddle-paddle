@@ -12,8 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "test/cpp/pir/tools/test_dialect.h"
+
+#include <ostream>
+#include <string>
+
 #include "paddle/pir/include/core/ir_printer.h"
 #include "test/cpp/pir/tools/test_op.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
+
 namespace test {
 
 TestDialect::TestDialect(pir::IrContext *context)

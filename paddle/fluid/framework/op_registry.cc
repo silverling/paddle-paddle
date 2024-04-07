@@ -13,9 +13,22 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/operators/ops_extra_info.h"
 
+#include <algorithm>
+#include <functional>
+#include <iterator>
+#include <ostream>
+#include <utility>
+#include <vector>
+
+#include "paddle/fluid/operators/ops_extra_info.h"
 #include "glog/logging.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

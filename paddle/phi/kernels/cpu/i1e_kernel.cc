@@ -14,10 +14,16 @@
 
 #include "paddle/phi/kernels/i1e_kernel.h"
 
+#include <bits/std_abs.h>
+#include <stdint.h>
+#include <cmath>
+#include <tuple>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/for_range.h"
 #include "paddle/phi/kernels/impl/bessel_kernel_impl.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

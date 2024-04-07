@@ -14,9 +14,16 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/strings/strings_copy_kernel.h"
 
+#include <stdint.h>
+#include <ostream>
+
 #include "glog/logging.h"
 #include "paddle/phi/common/pstring.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/string_tensor.h"
 
 namespace phi {
 namespace strings {

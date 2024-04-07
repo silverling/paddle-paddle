@@ -14,12 +14,17 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/fluid/primitive/primitive/primitive.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/primitive/primitive/generated_primitive.h"
 
 namespace paddle {
+class Tensor;
+
 namespace primitive {
 
 using IntArray = paddle::experimental::IntArray;

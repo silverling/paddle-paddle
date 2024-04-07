@@ -14,10 +14,15 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
 namespace sparse {

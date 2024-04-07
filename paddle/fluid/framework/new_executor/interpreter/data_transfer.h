@@ -14,13 +14,28 @@
 
 #pragma once
 #include <string>
+#include <memory>
+#include <vector>
 
 #include "paddle/fluid/framework/data_layout.h"
 #include "paddle/fluid/framework/new_executor/new_executor_defs.h"
 #include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
 namespace framework {
+class OperatorBase;
+class Scope;
+class VariableScope;
+struct OpFuncNode;
+
 namespace interpreter {
 
 /*

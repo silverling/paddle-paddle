@@ -13,13 +13,22 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/nms_kernel.h"
-#include <array>
-#include "paddle/phi/backends/cpu/cpu_context.h"
 
+#include <array>
+#include <cstdint>
+#include <vector>
+
+#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/funcs/diagonal.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

@@ -15,12 +15,28 @@ limitations under the License. */
 #pragma once
 
 #include <string>
+#include <algorithm>
+#include <complex>
+#include <cstdint>
+#include <new>
+#include <utility>
+#include <vector>
 
 #include "Eigen/Core"
 #include "Eigen/LU"
 #include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/enforce.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/Matrix.h"
+#include "Eigen/src/Core/NumTraits.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/LU/PartialPivLU.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 namespace funcs {

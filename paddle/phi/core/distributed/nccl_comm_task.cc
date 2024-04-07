@@ -14,12 +14,12 @@
 
 #include "paddle/phi/core/distributed/nccl_comm_task.h"
 
-#include "gflags/gflags.h"
+#include <cuda_runtime.h>
 
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/nccl_tools.h"
-#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/phi/backends/dynload/nccl.h"
 
 namespace phi {
 namespace distributed {

@@ -17,6 +17,14 @@
 
 #include <atomic>
 #include <memory>
+#include <algorithm>
+#include <functional>
+#include <ostream>
+#include <queue>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/eager/hooks.h"
 #include "paddle/fluid/eager/type_defs.h"
@@ -24,6 +32,11 @@
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/utils/small_vector.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/imperative/amp_auto_cast.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+
 namespace egr {
 class UniqueNameGenerator {
  public:

@@ -14,8 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/pir/include/core/operation_utils.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace pir {
 class Block;

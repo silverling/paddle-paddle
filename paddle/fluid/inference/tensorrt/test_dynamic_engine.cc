@@ -13,19 +13,42 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
+#include <assert.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
-#include "paddle/common/layout.h"
-#include "paddle/fluid/framework/tensor.h"
-#include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/engine.h"
 #include "paddle/phi/common/data_type.h"
+#include "NvInfer.h"
+#include "NvInferLegacyDims.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "cuda_runtime_api.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 #if PADDLE_WITH_CUSPARSELT && IS_TRT_VERSION_GE(8000)
 #include "paddle/fluid/inference/tensorrt/plugin/spmm_plugin.h"
 #endif
 #include "paddle/fluid/inference/tensorrt/plugin/fused_token_prune_op_plugin.h"
-#include "paddle/fluid/inference/tensorrt/plugin/group_norm_op_plugin.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/common/float16.h"
 
 using float16 = phi::dtype::float16;

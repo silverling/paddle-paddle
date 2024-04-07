@@ -14,9 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename Context>
 void ViewShapeKernel(const Context& dev_ctx,

@@ -14,6 +14,10 @@
 
 #include "paddle/fluid/framework/op_version_registry.h"
 
+#include <cstdint>
+#include <string>
+#include <vector>
+
 REGISTER_OP_VERSION(for_pybind_test__)
     .AddCheckpoint("Note 0", framework::compatible::OpVersionDesc()
                                  .BugfixWithBehaviorChanged(

@@ -13,14 +13,19 @@
 // limitations under the License.
 
 #pragma once
+#include <stdint.h>
 #include <memory>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/distributed/fleet_executor/carrier.h"
 #include "paddle/fluid/distributed/fleet_executor/fleet_executor_desc.pb.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {
@@ -32,6 +37,7 @@ namespace distributed {
 class RuntimeGraph;
 class MessageBus;
 class TaskNode;
+class Carrier;
 
 class FleetExecutor final {
  public:

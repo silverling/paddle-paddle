@@ -16,8 +16,12 @@ limitations under the License. */
 
 #include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 using namespace paddle::platform::errors;  // NOLINT
 

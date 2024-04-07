@@ -18,9 +18,12 @@ limitations under the License. */
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP) || \
     defined(PADDLE_WITH_XPU_KP)
 
+#include <stddef.h>
 #include <array>
 #include <functional>
 #include <mutex>
+#include <memory>
+#include <string>
 
 #include "paddle/phi/backends/gpu/forwards.h"
 #include "paddle/phi/backends/gpu/gpu_decls.h"
@@ -29,6 +32,16 @@ limitations under the License. */
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/attribute.h"
 #include "paddle/phi/core/device_context.h"
+#include "nccl.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/utils/test_macros.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+
+namespace Eigen {
+struct GpuDevice;
+}  // namespace Eigen
 
 namespace phi {
 
@@ -262,6 +275,7 @@ class PADDLE_API GPUContext : public DeviceContext,
 
  private:
   struct Impl;
+
   std::unique_ptr<Impl> impl_;
 };
 

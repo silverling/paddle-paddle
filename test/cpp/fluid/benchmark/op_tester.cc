@@ -14,9 +14,12 @@ limitations under the License. */
 
 #include "test/cpp/fluid/benchmark/op_tester.h"
 
+#include <stddef.h>
 #include <fstream>
+#include <cstdint>
+#include <random>
+#include <utility>
 
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/framework/op_registry.h"
@@ -24,9 +27,22 @@ limitations under the License. */
 #include "paddle/fluid/platform/init.h"
 #include "paddle/fluid/platform/profiler.h"
 #include "paddle/fluid/platform/timer.h"
-
-// phi
-#include "paddle/phi/kernels/declarations.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace operators {

@@ -13,10 +13,12 @@
 // limitations under the License.
 
 #include "paddle/phi/core/distributed/auto_parallel/proto_helper.h"
+
 #include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
 #include "paddle/phi/core/distributed/auto_parallel/device_mesh.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_mapper.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 
 #define TO_PROTO_HELPER(object, proto_type) \
   proto_type proto;                         \

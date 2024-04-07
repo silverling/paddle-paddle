@@ -15,14 +15,38 @@ limitations under the License. */
 #pragma once
 
 #include <string>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/framework/custom_operator_utils.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/imperative/dygraph_grad_maker.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace framework {
+class BlockDesc;
 
 class CustomOpMaker : public OpProtoAndCheckerMaker {
  public:

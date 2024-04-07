@@ -14,18 +14,17 @@
 
 #include "paddle/phi/kernels/instance_norm_kernel.h"
 
-#include <memory>
-#include <string>
-#include <unordered_map>
-
-#include "paddle/common/layout.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/full_kernel.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
-#include "paddle/phi/kernels/funcs/eigen/extensions.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorIndexList.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

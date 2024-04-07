@@ -14,7 +14,16 @@
 
 #include "paddle/common/ddim.h"
 
-#include <set>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <numeric>
+#include <ostream>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/unroll_array_ops.h"
 
 namespace common {
 

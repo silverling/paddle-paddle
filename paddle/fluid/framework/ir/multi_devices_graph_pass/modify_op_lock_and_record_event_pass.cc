@@ -12,15 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <map>
+#include <ostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/details/computation_op_handle.h"
-#include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/details/scale_loss_grad_op_handle.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/memory_optimize_pass/op_graph_view.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 template <typename T>
 static bool IsMatchedPlaceSingleDeviceOp(details::OpHandleBase *op_base,

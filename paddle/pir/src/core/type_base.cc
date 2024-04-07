@@ -13,8 +13,6 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/type_base.h"
-#include "glog/logging.h"
-#include "paddle/pir/include/core/ir_context.h"
 
 namespace pir {
 

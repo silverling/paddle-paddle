@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <exception>
+#include <string>
+
 #include "glog/logging.h"
-#include "gtest/gtest.h"
-#include "paddle/common/flags.h"
 #include "paddle/fluid/inference/api/paddle_infer_contrib.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/errors.h"
 
 namespace paddle_infer {
 namespace contrib {

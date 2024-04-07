@@ -13,14 +13,16 @@ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/n4820.pdf
 //    (See accompanying file ../../LICENSE_1_0.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
 
-#include <cassert>
 #include <deque>
-#include <initializer_list>
 #include <vector>
+#include <algorithm>
+#include <array>
+#include <iterator>
+#include <type_traits>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
 #include "paddle/utils/span.h"
+#include "gtest/gtest_pred_impl.h"
 
 using paddle::span;
 

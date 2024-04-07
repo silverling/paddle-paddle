@@ -13,21 +13,31 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <ext/alloc_traits.h>
 #include <cstdint>
 #include <ostream>
+#include <algorithm>
+#include <memory>
+#include <new>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/block.h"
-#include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/op_info.h"
 #include "paddle/pir/include/core/operation.h"
-#include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/region.h"
 #include "paddle/pir/include/core/utils.h"
 #include "paddle/pir/src/core/block_operand_impl.h"
 #include "paddle/pir/src/core/op_result_impl.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/ir_mapping.h"
+#include "paddle/pir/src/core/op_operand_impl.h"
+#include "paddle/pir/src/core/value_impl.h"
 
 namespace pir {
+class Dialect;
+class IrContext;
+
 using detail::OpInlineResultImpl;
 using detail::OpOperandImpl;
 using detail::OpOutlineResultImpl;

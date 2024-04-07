@@ -13,10 +13,21 @@
 // limitations under the License.
 
 #include "paddle/fluid/memory/allocation/stream_safe_cuda_allocator.h"
+
+#include <cuda_runtime.h>
 #include <thread>
+#include <algorithm>
+#include <ostream>
+#include <utility>
 
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
+#include "driver_types.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/enforce.h"
 
 #if defined(PADDLE_WITH_CUDA)
 #include "paddle/phi/backends/gpu/cuda/cuda_graph.h"

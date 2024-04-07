@@ -12,12 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <errno.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <syscall.h>
+#include <unistd.h>
 #include <array>
+#include <ostream>
+
 #define GLOG_NO_ABBREVIATED_SEVERITIES  // msvc conflict logging with windows.h
 #include "paddle/fluid/framework/io/shell.h"
-
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/timer.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/string/printf.h"
 
 namespace paddle {
 namespace framework {

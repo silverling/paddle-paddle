@@ -14,9 +14,14 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/detection/mask_util.h"
 
-#include <gtest/gtest.h>
+#include <memory>
 
-#include "paddle/fluid/memory/memory.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace operators {

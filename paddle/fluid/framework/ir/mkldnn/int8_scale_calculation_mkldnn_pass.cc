@@ -14,10 +14,25 @@
 
 #include "paddle/fluid/framework/ir/mkldnn/int8_scale_calculation_mkldnn_pass.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/mkldnn/mkldnn_pass_util.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/mkldnn_helper.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

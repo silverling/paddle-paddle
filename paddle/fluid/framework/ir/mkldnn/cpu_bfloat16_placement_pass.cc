@@ -16,14 +16,24 @@ limitations under the License. */
 
 #include <string>
 #include <unordered_set>
+#include <map>
+#include <memory>
+#include <ostream>
 
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 using string::PrettyLogDetail;
 

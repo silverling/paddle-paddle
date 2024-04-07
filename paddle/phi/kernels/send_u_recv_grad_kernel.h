@@ -20,6 +20,7 @@
 #include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void SendURecvGradKernel(const Context& ctx,

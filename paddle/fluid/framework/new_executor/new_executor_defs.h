@@ -13,10 +13,18 @@
 // limitations under the License.
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <atomic>
+#include <functional>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/operator.h"
@@ -26,11 +34,36 @@
 #include "paddle/fluid/platform/event.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/utils/rw_lock.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/kernel_context.h"
+
+namespace paddle {
+namespace framework {
+class ExecutionContext;
+class OperatorBase;
+class RuntimeContext;
+class RuntimeInferShapeContext;
+class Scope;
+class VarDesc;
+class Variable;
+}  // namespace framework
+namespace platform {
+class DeviceEvent;
+}  // namespace platform
+}  // namespace paddle
+namespace phi {
+class Kernel;
+}  // namespace phi
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

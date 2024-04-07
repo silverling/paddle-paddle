@@ -13,11 +13,19 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/strided_memcpy.h"
-#include <array>
 
-#include "gtest/gtest.h"
+#include <array>
+#include <memory>
+
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/memory_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/allocator.h"
+
 namespace phi {
 namespace tests {
 

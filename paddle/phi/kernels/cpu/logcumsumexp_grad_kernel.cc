@@ -14,11 +14,12 @@
 
 #include "paddle/phi/kernels/logcumsumexp_grad_kernel.h"
 
-#include <limits>
+#include <cmath>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/logcumsumexp_grad_impl.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(logcumsumexp_grad,
                    CPU,

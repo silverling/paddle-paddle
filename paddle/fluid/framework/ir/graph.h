@@ -14,18 +14,33 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <map>
 #include <memory>
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <functional>
+#include <ostream>
+#include <typeinfo>
+#include <utility>
 
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/platform/enforce.h"
-
 #include "paddle/common/flags.h"
 #include "paddle/utils/any.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/test_macros.h"
+
+namespace paddle {
+namespace framework {
+class BlockDesc;
+}  // namespace framework
+}  // namespace paddle
 
 PD_DECLARE_bool(convert_all_blocks);
 PD_DECLARE_bool(all_blocks_convert_trt);

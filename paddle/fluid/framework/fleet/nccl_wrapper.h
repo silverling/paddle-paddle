@@ -25,6 +25,10 @@ limitations under the License. */
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/variable_helper.h"
+#include "nccl.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/phi/backends/gpu/forwards.h"
 #ifdef PADDLE_WITH_NCCL
 #include "paddle/fluid/platform/dynload/nccl.h"
 #endif

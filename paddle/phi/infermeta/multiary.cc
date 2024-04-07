@@ -14,10 +14,15 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/multiary.h"
 
+#include <bits/std_abs.h>
+#include <stdlib.h>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
 
 #include "glog/logging.h"
-
 #include "paddle/common/layout.h"
 #include "paddle/phi/backends/device_memory_aligment.h"
 #include "paddle/phi/common/data_type.h"
@@ -26,9 +31,13 @@ limitations under the License. */
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/infermeta/binary.h"
-#include "paddle/phi/infermeta/nullary.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
 #include "paddle/phi/kernels/funcs/concat_funcs.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace phi {
 

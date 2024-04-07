@@ -14,27 +14,24 @@
 
 #include "paddle/fluid/framework/new_executor/instruction/control_flow/pylayer_instruction.h"
 
-#include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
-#include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
+#include <ostream>
+#include <set>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
 #include "paddle/fluid/framework/new_executor/pir_interpreter.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
-#include "paddle/fluid/platform/collective_helper.h"
-#include "paddle/fluid/platform/device_context.h"
-#include "paddle/phi/core/infermeta_utils.h"
-#include "paddle/phi/core/meta_tensor.h"
-#include "paddle/phi/core/type_defs.h"
-
-#include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
-
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/type.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
@@ -42,6 +39,7 @@
 
 namespace paddle {
 namespace framework {
+class Variable;
 
 PyLayerInstruction::PyLayerInstruction(
     size_t id,

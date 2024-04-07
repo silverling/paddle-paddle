@@ -15,12 +15,14 @@
 #pragma once
 
 #include <pybind11/pybind11.h>
-
 #include <memory>
 #include <mutex>
 #include <string>
 
 #include "paddle/fluid/platform/macros.h"
+#include "paddle/common/macros.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 

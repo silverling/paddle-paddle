@@ -16,6 +16,14 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/frobenius_norm_kernel_impl.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(
     frobenius_norm, CPU, ALL_LAYOUT, phi::FrobeniusNormKernel, float, double) {}

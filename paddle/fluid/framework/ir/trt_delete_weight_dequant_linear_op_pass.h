@@ -20,6 +20,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class TrtDeleteWeightQuantDequantLinearOpPass : public FusePassBase {
  public:

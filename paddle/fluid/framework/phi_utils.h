@@ -33,6 +33,10 @@ limitations under the License. */
 #include "paddle/utils/flat_hash_map.h"
 #include "paddle/utils/small_vector.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/scalar.h"
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/platform/device/xpu/xpu_op_list.h"
@@ -43,6 +47,8 @@ limitations under the License. */
 
 namespace paddle {
 namespace framework {
+class OperatorBase;
+class Variable;
 
 /* Kernel Key translate */
 

@@ -16,9 +16,11 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <memory>
+#include <vector>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
+#include "gtest/gtest_pred_impl.h"
 
 template <typename T, unsigned N>
 static std::vector<T> ToStdVector(const paddle::small_vector<T, N> &vec) {

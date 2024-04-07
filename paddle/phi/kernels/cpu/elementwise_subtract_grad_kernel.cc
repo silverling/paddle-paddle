@@ -14,13 +14,17 @@
 
 #include "paddle/phi/kernels/elementwise_subtract_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/elementwise_grad.h"
-#include "paddle/phi/kernels/funcs/elementwise_functor.h"
 #include "paddle/phi/kernels/impl/elementwise_grad_kernel_impl.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void SubtractGradKernel(const Context& dev_ctx,

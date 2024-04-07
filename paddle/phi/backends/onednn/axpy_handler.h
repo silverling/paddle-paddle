@@ -14,8 +14,12 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <memory>
+
 #include "dnnl.hpp"  // NOLINT
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "paddle/phi/common/bfloat16.h"
 
 namespace phi {
 namespace funcs {
@@ -52,6 +56,7 @@ class OneDNNAXPYHandler {
   OneDNNAXPYHandler() = delete;
   // Private implementation idiom to hide dependency on oneDNN headers.
   class Impl;
+
   // We need custom deleter, since the compiler is unable to parameterize
   // an allocator's default deleter due to incomple type.
   std::unique_ptr<Impl, void (*)(Impl*)> pimpl_;

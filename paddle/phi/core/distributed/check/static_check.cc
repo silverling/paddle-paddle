@@ -14,12 +14,11 @@
 
 #include "paddle/phi/core/distributed/check/static_check.h"
 
-#include <cstdlib>
-#include <cstring>
+#include <stdint.h>
 
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
 
 namespace phi {
 namespace distributed {

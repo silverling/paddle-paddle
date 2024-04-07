@@ -14,6 +14,12 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/reshard/r_to_s_reshard_function.h"
 
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
@@ -21,8 +27,17 @@
 #include "paddle/phi/core/distributed/auto_parallel/reshard/same_status_reshard_function.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
 #include "paddle/phi/kernels/split_kernel.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace phi {
+class DeviceContext;
+
 namespace distributed {
 
 bool RToSReshardFunction::IsSuitable(const DistTensor& in,

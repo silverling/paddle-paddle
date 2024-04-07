@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>  // for unique_ptr
 #include <string>
 #include <vector>

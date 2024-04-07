@@ -14,10 +14,16 @@
 
 #pragma once
 
+#include <string>
+
 #include "paddle/fluid/framework/op_def.pb.h"
 
 namespace paddle {
 namespace framework {
+namespace proto {
+class OpDef;
+}  // namespace proto
+
 const proto::OpDef& GetOpDef(const std::string& op_name);
 
 bool HasOpDef(const std::string& op_name);

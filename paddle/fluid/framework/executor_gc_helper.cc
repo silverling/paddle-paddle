@@ -14,13 +14,19 @@
 
 #include "paddle/fluid/framework/executor_gc_helper.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <cstdint>
+#include <deque>
+#include <ostream>
+#include <type_traits>
+#include <utility>
 
-#include "glog/logging.h"
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/operators/controlflow/conditional_block_op_helper.h"
@@ -28,6 +34,29 @@
 #include "paddle/fluid/operators/controlflow/recurrent_op_helper.h"
 #include "paddle/fluid/operators/controlflow/while_op_helper.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

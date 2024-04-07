@@ -10,12 +10,18 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/io/save_runtime_graph.h"
+
 #include <fstream>
-#include <iostream>
 #include <unordered_map>
-#include "paddle/fluid/framework/ir/graph_helper.h"
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/phi/common/port.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {

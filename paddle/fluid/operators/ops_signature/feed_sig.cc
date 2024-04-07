@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <memory>
+
 #include "paddle/phi/core/compat/op_utils.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/type_defs.h"
 
 namespace phi {
 

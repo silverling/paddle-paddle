@@ -14,6 +14,9 @@
 
 #include "paddle/phi/kernels/renorm_kernel.h"
 
+#include <bits/std_abs.h>
+#include <cmath>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/renorm_kernel_impl.h"

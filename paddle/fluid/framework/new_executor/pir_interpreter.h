@@ -13,10 +13,39 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
+#include <atomic>
+#include <functional>
+#include <map>
+#include <queue>
+#include <set>
+#include <string>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/framework/new_executor/interpreter_base_impl.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/framework/details/exception_holder.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/new_executor/interpreter/dependency_builder.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/framework/new_executor/workqueue/events_waiter.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class CalculateStreamTimer;
+class DenseTensor;
+}  // namespace phi
+namespace pir {
+class Block;
+}  // namespace pir
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/phi/kernels/autotune/gpu_timer.h"
@@ -29,6 +58,15 @@ class Block;
 namespace paddle {
 namespace framework {
 class ValueExecutionInfo;
+class InstructionBase;
+class InterpreterCoreGarbageCollector;
+class ProgramDesc;
+class Scope;
+class Variable;
+namespace interpreter {
+class AsyncWorkQueue;
+}  // namespace interpreter
+
 class PirInterpreter : public InterpreterBaseImpl {
   using ExecutionConfig = interpreter::ExecutionConfig;
   using InstructionSchedulingPriorityLess = std::function<bool(size_t, size_t)>;

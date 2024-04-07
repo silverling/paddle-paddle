@@ -23,6 +23,16 @@ limitations under the License. */
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/operators/collective/c_allreduce_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/operator.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

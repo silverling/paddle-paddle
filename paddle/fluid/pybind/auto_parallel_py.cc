@@ -12,29 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <Python.h>
 #include <pybind11/operators.h>
-#include <pybind11/stl.h>
+#include <sys/types.h>
 #include <utility>
+#include <array>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <optional>
+#include <ostream>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/distributed/auto_parallel/spmd_rules/dist_tensor_spec.h"
 #include "paddle/fluid/eager/api/manual/eager_manual/dygraph_forward_api.h"
-#include "paddle/fluid/framework/block_desc.h"
-#include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/pybind/auto_parallel_py.h"
-#include "paddle/fluid/pybind/eager_utils.h"
 #include "paddle/fluid/pybind/op_function_common.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
-#include "paddle/phi/api/lib/data_transform.h"
-#include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/reduce_type.h"
-#include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/device_context.h"
 #include "paddle/phi/core/distributed/auto_parallel/device_mesh.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_mapper.h"
-#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
 #include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
@@ -48,17 +47,54 @@
 #include "paddle/phi/core/distributed/auto_parallel/reshard/s_to_s_reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/same_status_reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/x_to_r_reshard_function.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/utils/optional.h"
 #include "paddle/utils/pybind.h"
+#include "boolobject.h"
+#include "floatobject.h"
+#include "listobject.h"
+#include "longobject.h"
+#include "object.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
+#include "paddle/phi/core/distributed/type_defs.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
+#include "patchlevel.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
+#include "pyport.h"
 
-#ifdef PADDLE_WITH_DISTRIBUTE
-#include "paddle/phi/infermeta/spmd_rules/rules.h"
-#endif
+namespace phi {
+class DeviceContext;
+namespace distributed {
+class DistTensor;
+}  // namespace distributed
+}  // namespace phi
+namespace pybind11 {
+class gil_scoped_release;
+}  // namespace pybind11
 
 namespace py = pybind11;  // NOLINT
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+class OpDesc;
+class VarDesc;
+}  // namespace framework
+
 namespace pybind {
 
 static bool PyCheckInteger(PyObject *obj) {

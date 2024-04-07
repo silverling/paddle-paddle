@@ -14,10 +14,15 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <atomic>
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <unordered_map>
 
 #include "glog/logging.h"
 #include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
@@ -25,6 +30,7 @@ limitations under the License. */
 #include "paddle/fluid/framework/framework.pb.h"
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 
 namespace paddle {
 namespace framework {

@@ -14,7 +14,16 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/dequantize_op.h"
 
+#include <algorithm>
+#include <vector>
+
 #include "paddle/fluid/framework/op_version_registry.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/utils/data_type.h"
 
 namespace paddle {
 namespace operators {

@@ -14,6 +14,9 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/op_info.h"
 
+#include <map>
+#include <set>
+
 namespace paddle {
 namespace framework {
 

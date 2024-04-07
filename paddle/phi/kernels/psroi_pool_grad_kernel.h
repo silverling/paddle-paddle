@@ -18,6 +18,7 @@
 #include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void PsroiPoolGradKernel(const Context& ctx,

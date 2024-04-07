@@ -15,12 +15,12 @@
 #include "paddle/phi/backends/cpu/cpu_context.h"
 
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
-
 // NOTE: The paddle framework should add WITH_EIGEN option to support compile
 // without eigen.
 #include "paddle/phi/core/device_context.h"
-#include "unsupported/Eigen/CXX11/Tensor"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
 
 namespace phi {
 

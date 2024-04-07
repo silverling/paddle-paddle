@@ -11,15 +11,31 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <map>
 #include <unordered_map>
+#include <iosfwd>
+#include <string>
 
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/profiler/dump/nodetree.pb.h"
 #include "paddle/fluid/platform/profiler/output_logger.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
 
 namespace paddle {
 namespace platform {
+class CudaRuntimeTraceEventNode;
+class CudaRuntimeTraceEventNodeProto;
+class DeviceTraceEventNode;
+class DeviceTraceEventNodeProto;
+class HostTraceEventNode;
+class HostTraceEventNodeProto;
+class MemTraceEventNode;
+class MemTraceEventNodeProto;
+class NodeTrees;
+class NodeTreesProto;
+class OperatorSupplementEventNodeProto;
+class ThreadNodeTreeProto;
 
 // Dump a NodeTrees into a protobuf file.
 // A SerializationLogger object can only dump a NodeTrees object,

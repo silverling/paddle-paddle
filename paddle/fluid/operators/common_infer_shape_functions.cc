@@ -14,11 +14,20 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/common_infer_shape_functions.h"
 
-namespace paddle {
-namespace framework {
-class InferShapeContext;
-}  // namespace framework
-}  // namespace paddle
+#include <bits/std_abs.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/utils/variant.h"
 
 // This file almostly contains all the infershape functions that are used in
 // operators.

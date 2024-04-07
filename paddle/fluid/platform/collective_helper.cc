@@ -16,10 +16,20 @@
 
 #include <utility>
 #include <vector>
+#include <cstdlib>
+#include <ostream>
 
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/device/gpu/gpu_resource_pool.h"
+#include "cuda_runtime_api.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace platform {

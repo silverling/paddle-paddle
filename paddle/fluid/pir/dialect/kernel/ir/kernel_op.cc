@@ -13,11 +13,15 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <ostream>
+#include <unordered_map>
 
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_op.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/operation_utils.h"
 
 namespace paddle {
 namespace dialect {

@@ -11,9 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "paddle/fluid/pir/dialect/operator/ir/pd_api.h"
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <vector>
+
 #include "paddle/fluid/primitive/type/lazy_tensor.h"
 #include "paddle/fluid/primitive/utils/utils.h"
+#include "paddle/fluid/pir/dialect/operator/ir/manual_api.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace paddle {
 namespace primitive {

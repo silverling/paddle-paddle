@@ -19,6 +19,7 @@
 #include "paddle/phi/kernels/cpu/hsigmoid_loss_grad.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void HSigmoidLossGradKernel(const Context& ctx,

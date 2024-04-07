@@ -14,9 +14,20 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/selected_rows_functor.h"
 
-#include "gtest/gtest.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 TEST(selected_rows_functor, cpu_add) {
   paddle::platform::CPUPlace cpu_place;

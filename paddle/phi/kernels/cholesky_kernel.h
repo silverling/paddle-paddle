@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief Computes the Cholesky decomposition of one symmetric positive-definite

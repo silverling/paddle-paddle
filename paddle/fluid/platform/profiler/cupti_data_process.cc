@@ -14,13 +14,6 @@
 
 #include "paddle/fluid/platform/profiler/cupti_data_process.h"
 
-#include <cstdio>
-
-#include "paddle/fluid/platform/device/gpu/gpu_info.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/os_info.h"
-#include "paddle/fluid/platform/profiler/utils.h"
-
 namespace paddle {
 namespace platform {
 namespace details {

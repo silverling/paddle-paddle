@@ -14,11 +14,15 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/tensor_array.h"
 
 namespace phi {
+class DenseTensor;
+class TensorArray;
 
 template <typename T, typename Context>
 void StridedSliceRawKernel(const Context& dev_ctx,

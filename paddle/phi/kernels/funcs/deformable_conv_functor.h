@@ -14,7 +14,12 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <cmath>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/hostdevice.h"
 
 namespace phi {
 namespace funcs {

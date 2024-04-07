@@ -12,12 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <array>
+#include <memory>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/platform/place.h"
-
 #include "paddle/common/ddim.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace paddle {
 namespace framework {

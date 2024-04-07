@@ -14,10 +14,17 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/phi_utils.h"
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/framework/selected_rows_utils.h"
-#include "paddle/fluid/framework/variable.h"
+#include <string>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
 
 TEST(PhiUtils, TransPhiKernelKeyToOpKernelType) {
   phi::KernelKey kernel_key(

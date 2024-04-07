@@ -14,31 +14,32 @@
 
 #include "paddle/fluid/inference/api/resource_manager.h"
 
+#include <cuda_runtime.h>
+#include <stddef.h>
 #include <functional>
 #include <memory>
 #include <mutex>
 #include <unordered_map>
 #include <utility>
+#include <ostream>
 
 #include "paddle/common/errors.h"
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
 #include "paddle/fluid/platform/device/gpu/gpu_types.h"
-#include "paddle/phi/backends/gpu/forwards.h"
 #include "paddle/phi/backends/gpu/gpu_decls.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/backends/gpu/gpu_resources.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/allocator.h"
-#include "paddle/phi/core/generator.h"
-#include "unsupported/Eigen/CXX11/Tensor"
-
-#include "paddle/fluid/platform/enforce.h"
+#include "cuda.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/memory/allocation/allocator.h"
+#include "paddle/phi/core/enforce.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceGpu.h"
 
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/backends/dynload/cublas.h"
-#include "paddle/phi/backends/dynload/cudnn.h"
-#include "paddle/phi/backends/dynload/cusolver.h"
-#include "paddle/phi/backends/dynload/cusparse.h"
 #endif  // PADDLE_WITH_CUDA
 
 namespace paddle {

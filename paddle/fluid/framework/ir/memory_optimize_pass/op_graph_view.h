@@ -14,12 +14,16 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <utility>
 
 #include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

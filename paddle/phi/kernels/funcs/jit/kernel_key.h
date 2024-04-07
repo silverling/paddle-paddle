@@ -13,6 +13,10 @@
  * limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
+#include <functional>
+
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 

@@ -14,9 +14,13 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <list>
 #include <ostream>
 #include <unordered_map>
+#include <memory>
+#include <string>
 
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/block.h"
@@ -25,10 +29,14 @@
 #include "paddle/pir/include/core/ir_mapping.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/parameter.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace pir {
 
 class IrContext;
+class IrMapping;
+class Parameter;
+
 ///
 /// \brief Program is an abstraction of model structure, divided into
 /// computational graphs and weights. At the current stage, a computational

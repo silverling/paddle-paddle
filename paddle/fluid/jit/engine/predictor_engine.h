@@ -14,9 +14,13 @@
 
 #pragma once
 
+#include <memory>
+#include <vector>
+
 #include "paddle/fluid/jit/engine/base_engine.h"
 #include "paddle/fluid/jit/function_schema.h"
 #include "paddle/fluid/jit/function_utils.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 class AnalysisPredictor;
@@ -27,6 +31,7 @@ class Scope;
 }
 
 namespace jit {
+class FunctionInfo;
 
 class PredictorEngine : public BaseEngine {
  public:

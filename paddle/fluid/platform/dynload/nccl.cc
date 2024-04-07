@@ -14,6 +14,8 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/dynload/nccl.h"
 
+#include "nccl.h"
+
 namespace paddle {
 namespace platform {
 namespace dynload {

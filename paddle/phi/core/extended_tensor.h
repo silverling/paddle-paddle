@@ -14,13 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/tensor_meta.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+class Allocator;
+class Place;
 
 /// \brief The ExtendedTensor is a interface for custom designed class.
 /// If you want to pass some self-designed data as input/output to kernels,

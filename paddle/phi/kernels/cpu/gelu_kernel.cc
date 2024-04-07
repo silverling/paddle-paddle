@@ -14,19 +14,22 @@
 
 #include "paddle/phi/kernels/gelu_kernel.h"
 
-#include <algorithm>
 #include <cmath>
+#include <ostream>
+#include <type_traits>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/blas/blas.h"
-#include "paddle/phi/kernels/funcs/blas/blas_impl.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/eigen_function.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T>
 struct GeluFunctor {

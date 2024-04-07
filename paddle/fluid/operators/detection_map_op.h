@@ -13,14 +13,32 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <bits/std_abs.h>
+#include <stdlib.h>
 #include <algorithm>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
+#include <cmath>
+#include <complex>
+#include <iterator>
+#include <memory>
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorMap.h"
+#include "unsupported/Eigen/CXX11/src/util/EmulateArray.h"
 
 namespace paddle {
 namespace operators {

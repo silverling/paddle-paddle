@@ -14,9 +14,15 @@
 
 #include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
 
-#include "gtest/gtest.h"
+#include <vector>
+
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/imperative/layer.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

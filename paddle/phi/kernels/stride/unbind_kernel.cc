@@ -13,11 +13,18 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/unbind_kernel.h"
-#include "paddle/phi/backends/all_context.h"
+
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/slice_kernel.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void UnbindStridedKernel(const Context& dev_ctx,

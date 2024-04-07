@@ -16,6 +16,11 @@
 
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
+#include "pybind11/detail/common.h"
+
+namespace phi {
+class CUDAStream;
+}  // namespace phi
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/phi/core/cuda_stream.h"

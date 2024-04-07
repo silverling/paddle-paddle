@@ -14,17 +14,21 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <map>
 #include <memory>  // for unique_ptr
 #include <string>
 #include <unordered_map>
 #include <utility>  // for move
 #include <vector>
+#include <typeinfo>
 
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/kernels/funcs/jit/gen_base.h"
 #include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 #include "paddle/phi/kernels/funcs/jit/kernel_key.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
 namespace jit {

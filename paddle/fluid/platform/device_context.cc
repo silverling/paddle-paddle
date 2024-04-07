@@ -14,22 +14,22 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/device_context.h"
 
-#include <functional>
+#include <cxxabi.h>
 #include <memory>
 #include <set>
+#include <system_error>
+#include <type_traits>
 
-#include "glog/logging.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/place.h"
-#include "paddle/fluid/platform/profiler.h"
-#include "paddle/fluid/platform/profiler/event_tracing.h"
-#include "paddle/phi/core/allocator.h"
-#include "paddle/phi/core/expect.h"
 #include "paddle/phi/core/generator.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/place.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
-#include "paddle/fluid/memory/allocation/cuda_device_context_allocator.h"
-#include "paddle/fluid/platform/cuda_device_guard.h"
 #include "paddle/phi/backends/gpu/gpu_context.h"
 #endif
 

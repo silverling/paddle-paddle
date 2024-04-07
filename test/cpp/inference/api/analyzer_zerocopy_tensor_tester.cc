@@ -12,12 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/framework/block_desc.h"
-#include "paddle/fluid/framework/op_desc.h"
-#include "paddle/fluid/framework/program_desc.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/inference/utils/singleton.h"
+#include <functional>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <vector>
+
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
 
 namespace paddle {
 namespace inference {

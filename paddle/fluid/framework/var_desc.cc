@@ -14,10 +14,19 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/var_desc.h"
 
+#include <ostream>
+#include <type_traits>
+#include <utility>
+
 #include "glog/logging.h"
 #include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/data_type.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

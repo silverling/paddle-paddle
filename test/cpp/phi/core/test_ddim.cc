@@ -13,9 +13,17 @@
 // limitations under the License.
 
 #include <sstream>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/phi/core/ddim.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/dim.h"
 
 namespace phi {
 namespace tests {

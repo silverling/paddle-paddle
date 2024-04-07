@@ -18,6 +18,9 @@ limitations under the License. */
 #include "paddle/phi/core/sparse_csr_tensor.h"
 
 namespace phi {
+class SparseCooTensor;
+class SparseCsrTensor;
+
 namespace sparse {
 
 template <typename T, typename Context>

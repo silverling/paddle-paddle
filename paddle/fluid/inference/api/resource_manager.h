@@ -18,6 +18,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <array>
 
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/phi/api/include/tensor.h"
@@ -25,6 +26,16 @@
 #include "paddle/phi/common/place.h"
 #include "paddle/utils/test_macros.h"
 #include "unsupported/Eigen/CXX11/Tensor"
+#include "cublasLt.h"
+#include "cublas_v2.h"
+#include "cudnn_ops_infer.h"
+#include "driver_types.h"
+#include "paddle/common/macros.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h"
+
+namespace Eigen {
+struct GpuDevice;
+}  // namespace Eigen
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/device/gpu/gpu_types.h"

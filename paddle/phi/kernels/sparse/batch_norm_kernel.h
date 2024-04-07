@@ -20,6 +20,9 @@ limitations under the License. */
 #include "paddle/phi/core/sparse_coo_tensor.h"
 
 namespace phi {
+class DenseTensor;
+class SparseCooTensor;
+
 namespace sparse {
 
 template <typename T, typename Context>

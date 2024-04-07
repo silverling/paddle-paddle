@@ -11,6 +11,10 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/empty_kernel.h"

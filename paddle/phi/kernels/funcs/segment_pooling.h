@@ -17,7 +17,13 @@ limitations under the License. */
 
 #include "paddle/phi/core/dense_tensor.h"
 
+namespace paddle {
+template <class T> class optional;
+}  // namespace paddle
+
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 template <typename Context, typename T, typename IndexT>

@@ -14,6 +14,8 @@
 
 #include "paddle/fluid/platform/monitor.h"
 
+#include <memory>
+
 namespace paddle {
 namespace platform {}  // namespace platform
 }  // namespace paddle

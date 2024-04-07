@@ -14,14 +14,12 @@
 
 #include "paddle/fluid/jit/function.h"
 
-#include <string>
 #include <vector>
-
-#include "paddle/phi/api/include/tensor.h"
-#include "paddle/phi/core/dense_tensor.h"
 
 #include "paddle/fluid/jit/engine/base_engine.h"
 #include "paddle/fluid/jit/function_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace jit {

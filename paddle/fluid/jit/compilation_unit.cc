@@ -14,9 +14,11 @@
 
 #include "paddle/fluid/jit/compilation_unit.h"
 
-#include "paddle/phi/core/enforce.h"
+#include <utility>
 
 #include "paddle/fluid/jit/engine/base_engine.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace jit {

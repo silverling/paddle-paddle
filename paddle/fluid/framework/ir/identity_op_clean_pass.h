@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 
 namespace paddle {

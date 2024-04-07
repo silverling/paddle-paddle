@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-
 #include <fstream>
+#include <memory>
 
 #include "paddle/fluid/framework/io/fs.h"
+#include "glog/logging.h"
+#include "gtest/gtest_pred_impl.h"
 
 #if defined _WIN32 || defined __APPLE__
 #else

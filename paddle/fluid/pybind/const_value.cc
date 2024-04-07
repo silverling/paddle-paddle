@@ -18,10 +18,10 @@ limitations under the License. */
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/proto_desc.h"
+#include "pybind11/detail/descr.h"
 
 #if defined(PADDLE_WITH_DGC)
 #include "paddle/fluid/framework/details/dgc_const_values.h"
-#include "paddle/fluid/framework/details/sparse_all_reduce_op_handle.h"
 #endif
 
 namespace paddle {

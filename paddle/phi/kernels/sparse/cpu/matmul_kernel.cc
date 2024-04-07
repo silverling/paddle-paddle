@@ -14,10 +14,18 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/matmul_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class SparseCsrTensor;
+
 namespace sparse {
 
 // TODO(zhouwei25): implement CPU kernel of " CSR @ DENSE -> DENSE"

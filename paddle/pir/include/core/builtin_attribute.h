@@ -14,12 +14,23 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/common/complex.h"
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/builtin_attribute_storage.h"
 #include "paddle/pir/include/core/utils.h"
+#include "paddle/pir/include/core/attribute_base.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
+class IrContext;
+
 class IR_API BoolAttribute : public Attribute {
  public:
   using Attribute::Attribute;

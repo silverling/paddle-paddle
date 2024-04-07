@@ -11,13 +11,16 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/contiguous_kernel.h"
 
-#include <vector>
+#include <stdint.h>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
-#include "paddle/phi/kernels/impl/transpose_grad_kernel_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 

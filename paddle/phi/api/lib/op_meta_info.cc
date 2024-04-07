@@ -14,15 +14,22 @@ limitations under the License. */
 
 #include "paddle/phi/api/ext/op_meta_info.h"
 
+#include <ctype.h>
+#include <string.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <typeinfo>
 
 #include "glog/logging.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 

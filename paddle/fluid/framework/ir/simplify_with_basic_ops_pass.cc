@@ -14,26 +14,26 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/simplify_with_basic_ops_pass.h"
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <map>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-/*
- * This pass is to simplify the Graph, it may contains:
- * - replace complicated op with basic op
- * - remove some unnecessary op
- *
- * In the current implementation, it supports:
- * - remove dropout_op (upscale_in_train) or
- *   replace dropout_op with scale_op (downgrade_in_infer) when is_test is true
- */
-class Graph;
 
 SimplifyWithBasicOpsPass::SimplifyWithBasicOpsPass() {
   AddOpCompat(OpCompat("scale"))

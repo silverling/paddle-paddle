@@ -15,15 +15,18 @@ limitations under the License. */
 #pragma once
 
 #include <unordered_set>
+#include <memory>
 
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
 
 class Graph;
+class Node;
 
 const char kGraphvizMarkedNodeAttr[] = "__graphviz__marked_node__";
 

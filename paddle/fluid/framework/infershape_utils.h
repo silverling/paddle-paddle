@@ -14,12 +14,34 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/framework/shape_inference.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/meta_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

@@ -14,10 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <set>
 #include <string>
 
 #include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace framework {

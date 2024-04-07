@@ -14,17 +14,28 @@
 
 #include "paddle/phi/kernels/selected_rows/adamw_kernel.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <vector>
 
+#include "glog/logging.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/float16.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/adam_kernel.h"
 #include "paddle/phi/kernels/funcs/adam_functors.h"
 #include "paddle/phi/kernels/selected_rows/adam_kernel.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "src/Core/ArrayBase.h"
 
 namespace phi {
+class SelectedRows;
+namespace funcs {
+struct CPUAdamW;
+}  // namespace funcs
+
 namespace sr {
 
 template <typename T, typename Context>

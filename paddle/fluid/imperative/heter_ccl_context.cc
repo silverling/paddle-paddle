@@ -14,24 +14,21 @@
 
 #include "paddle/fluid/imperative/heter_ccl_context.h"
 
-// NCCL first
-#ifdef PADDLE_WITH_NCCL
-#include "paddle/fluid/imperative/all_reduce.h"
-#endif
+#include <ostream>
+#include <set>
+#include <string>
+#include <vector>
 
-#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
-#include "paddle/fluid/platform/collective_helper.h"
 #include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/gen_comm_id_helper.h"
 #include "paddle/fluid/platform/place.h"
-#include "paddle/utils/string/split.h"
-#include "paddle/utils/string/string_helper.h"
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/gloo_context.h"
+#include "paddle/fluid/imperative/nccl_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 namespace imperative {

@@ -14,6 +14,8 @@
 
 #include "paddle/fluid/distributed/collective/process_group.h"
 
+#include <cstdlib>
+
 namespace paddle {
 namespace distributed {
 

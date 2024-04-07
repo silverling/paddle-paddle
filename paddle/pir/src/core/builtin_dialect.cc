@@ -14,14 +14,24 @@
 
 #include "paddle/pir/include/core/builtin_dialect.h"
 
+#include <stdlib.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/common/ddim.h"
 #include "paddle/common/layout.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/parser/ir_parser.h"
+#include "paddle/pir/src/core/parser/lexer.h"
+#include "paddle/pir/src/core/parser/token.h"
 
 namespace pir {
+class IrContext;
+
 BuiltinDialect::BuiltinDialect(IrContext* context)
     : Dialect(name(), context, TypeId::get<BuiltinDialect>()) {
   initialize();

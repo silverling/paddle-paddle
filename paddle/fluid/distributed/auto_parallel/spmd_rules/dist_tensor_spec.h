@@ -14,10 +14,22 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
+
 namespace paddle {
+class Tensor;
+
 namespace distributed {
 using phi::distributed::ProcessMesh;
 using phi::distributed::TensorDistAttr;

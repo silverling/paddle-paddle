@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <atomic>
 #include <memory>
@@ -21,11 +22,20 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <map>
+
 #include "paddle/fluid/framework/op_call_stack.h"
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/type_defs.h"
+#include "paddle/common/macros.h"
+#include "paddle/utils/test_macros.h"
+
 namespace paddle {
+namespace framework {
+class BlockDesc;
+}  // namespace framework
+
 namespace prim {
 
 class UniqueNameGenerator {

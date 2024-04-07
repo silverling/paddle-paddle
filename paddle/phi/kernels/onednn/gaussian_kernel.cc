@@ -14,8 +14,19 @@
 
 #include "paddle/phi/kernels/gaussian_kernel.h"
 
-#include "paddle/phi/backends/onednn/onednn_reuse.h"
+#include <stdint.h>
+#include <memory>
+#include <random>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
 
 namespace phi {
 

@@ -12,26 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <atomic>
-#include <cstring>
-#include <ctime>
-#include <memory>
-#include <random>
 #include <string>
-#include <utility>
 #include <vector>
 
-#include "glog/logging.h"
-#include "paddle/fluid/framework/eigen.h"
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/var_type_inference.h"
-#include "paddle/fluid/memory/memcpy.h"
-#include "paddle/fluid/platform/timer.h"
-#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 class ShuffleBatchOp : public framework::OperatorWithKernel {
  public:

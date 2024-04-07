@@ -14,13 +14,52 @@
 
 #include "paddle/fluid/framework/ir/mkldnn/cpu_quantize_pass.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <sstream>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <iterator>
+#include <map>
+#include <memory>
 
 #include "paddle/fluid/framework/ir/mkldnn/mkldnn_pass_util.h"
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/ArrayBase.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/CwiseUnaryOp.h"
+#include "Eigen/src/Core/DenseBase.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/SelfCwiseBinaryOp.h"
+#include "Eigen/src/Core/Stride.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/XprHelper.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
 
 namespace paddle {
 namespace framework {

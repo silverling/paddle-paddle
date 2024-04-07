@@ -9,12 +9,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/plugin/yolo_box_head_op_plugin.h"
+#include "NvInfer.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {
 class Scope;
+
 namespace proto {
 class OpDesc;
 }  // namespace proto

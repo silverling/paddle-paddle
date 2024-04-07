@@ -14,15 +14,38 @@
 
 #include "paddle/fluid/framework/ir/delete_quant_dequant_filter_op_pass.h"
 
+#include <bits/std_abs.h>
+#include <math.h>
+#include <stdint.h>
 #include <algorithm>
-#include <memory>
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <map>
+#include <ostream>
+#include <utility>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 #define GET_IR_NODE(node__) GET_IR_NODE_FROM_SUBGRAPH(node__, node__, pattern);
 #define GET_NODES                         \

@@ -14,24 +14,54 @@ limitations under the License. */
 
 #include "paddle/phi/api/lib/data_transform.h"
 
+#include <stddef.h>
 #include <sstream>
+#include <cstdint>
+#include <utility>
 
 #include "glog/logging.h"
-
 #include "paddle/common/flags.h"
-#include "paddle/phi/api/lib/kernel_dispatch.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function_registry.h"
-#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/cast_kernel.h"
 #include "paddle/phi/kernels/contiguous_kernel.h"
 #include "paddle/phi/kernels/transfer_layout_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/infermeta/unary.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/none.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PHI_DECLARE_bool(use_stride_kernel);
 

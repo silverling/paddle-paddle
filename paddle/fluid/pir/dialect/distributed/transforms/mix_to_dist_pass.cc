@@ -14,23 +14,27 @@
 
 #include "paddle/fluid/pir/dialect/distributed/transforms/mix_to_dist_pass.h"
 
+#include <stddef.h>
 #include <iostream>
-#include <unordered_set>
 #include <vector>
+#include <string>
 
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_dialect.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_type.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
-#include "paddle/fluid/platform/place.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/attribute.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/ir_mapping.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 using paddle::dialect::DistDenseTensorType;
 

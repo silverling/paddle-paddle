@@ -18,10 +18,15 @@
 #include <memory>
 #include <string>
 #include <vector>
+
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/phi/common/data_type.h"
 
 namespace paddle {
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
+
 namespace inference {
 
 // Get all model's weights and return the data_type, e.g., fp16/bf16 or fp32.

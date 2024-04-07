@@ -18,10 +18,12 @@ limitations under the License. */
 #include <unordered_set>
 
 #include "paddle/fluid/framework/ir/placement_pass_base.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Node;
 
 /*
  * Specifies which operators should use MKLDNN.

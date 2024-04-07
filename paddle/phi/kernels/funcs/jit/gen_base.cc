@@ -14,10 +14,14 @@
 
 #include "paddle/phi/kernels/funcs/jit/gen_base.h"
 
+#include <mm_malloc.h>
+#include <stdlib.h>
 #include <fstream>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 #ifdef _WIN32
 #define posix_memalign_free _aligned_free

@@ -14,11 +14,23 @@
 
 #include "paddle/phi/kernels/reduce_mean_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+#include <functional>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/reduce_kernel_impl.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_utils.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+class OneDNNContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void MeanKernel(const Context& dev_ctx,

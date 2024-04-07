@@ -20,10 +20,16 @@ limitations under the License. */
 #include <mutex>  // NOLINT
 #include <string>
 #include <thread>  // NOLINT
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <unordered_map>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 PHI_DECLARE_bool(enable_host_event_recorder_hook);
 

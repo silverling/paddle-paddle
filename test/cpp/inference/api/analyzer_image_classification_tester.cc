@@ -12,10 +12,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <sys/stat.h>
 #include <fstream>
-#include <iostream>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/inference/api/analysis_predictor.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/platform/enforce.h"
 
 PD_DEFINE_bool(disable_mkldnn_fc, false, "Disable usage of MKL-DNN's FC op");
 

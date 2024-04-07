@@ -13,15 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <NvInfer.h>
-#include <sys/types.h>
-
 #include <cstddef>
 #include <cstdint>
 #include <vector>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
+#include "NvInferRuntimeBase.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 

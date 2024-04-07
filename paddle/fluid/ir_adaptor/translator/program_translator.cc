@@ -14,14 +14,23 @@
 
 #include "paddle/fluid/ir_adaptor/translator/program_translator.h"
 
-#include <chrono>
+#include <bits/chrono.h>
+#include <bits/std_abs.h>
+#include <bits/utility.h>
+#include <ext/alloc_traits.h>
+#include <math.h>
+#include <stdlib.h>
 #include <unordered_map>
+#include <algorithm>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <type_traits>
+#include <utility>
 
-#include "glog/logging.h"
 #include "paddle/common/enforce.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
-#include "paddle/fluid/ir_adaptor/translator/attribute_translator.h"
 #include "paddle/fluid/ir_adaptor/translator/op_translator.h"
 #include "paddle/fluid/ir_adaptor/translator/type_translator.h"
 #include "paddle/fluid/ir_adaptor/translator/utils.h"
@@ -40,6 +49,21 @@
 #include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_type.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
+#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/region.h"
 
 namespace paddle {
 namespace translator {

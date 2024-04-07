@@ -14,15 +14,26 @@
 
 #include "paddle/fluid/eager/grad_tensor_holder.h"
 
-#include <sstream>
+#include <cstdint>
+#include <memory>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 PD_DECLARE_KERNEL(full_like, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(add, CPU, ALL_LAYOUT);

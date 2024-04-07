@@ -14,14 +14,20 @@
 // limitations under the License.
 #pragma once
 
+#include <stdint.h>
 #include <mutex>
 #include <string>
 #include <unordered_set>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

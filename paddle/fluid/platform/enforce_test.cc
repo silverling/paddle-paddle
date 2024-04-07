@@ -11,10 +11,27 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/enforce.h"
 
+#include <cublas_v2.h>
+#include <unistd.h>
 #include <array>
 #include <list>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <set>
+#include <typeinfo>
 
-#include "gtest/gtest.h"
+#include "cudnn_ops_infer.h"
+#include "cufft.h"
+#include "curand.h"
+#include "cusolver_common.h"
+#include "driver_types.h"
+#include "glog/logging.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "nccl.h"
+#include "paddle/fluid/framework/type_defs.h"
 
 TEST(ENFORCE, OK) {
   PADDLE_ENFORCE(true,

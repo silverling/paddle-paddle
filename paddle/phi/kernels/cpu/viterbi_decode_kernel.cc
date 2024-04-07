@@ -14,10 +14,12 @@
 
 #include "paddle/phi/kernels/viterbi_decode_kernel.h"
 
+#include <omp.h>
+#include <stdint.h>
 #include <algorithm>
-#include <memory>
 #include <string>
 #include <vector>
+#include <limits>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
@@ -29,6 +31,13 @@
 #include "paddle/phi/kernels/funcs/gather.h"
 #include "paddle/phi/kernels/funcs/viterbi_decode_functor.h"
 #include "paddle/phi/kernels/transpose_kernel.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/kernels/funcs/math_function.h"
 
 namespace phi {
 

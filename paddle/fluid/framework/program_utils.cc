@@ -15,7 +15,26 @@ limitations under the License. */
 #include "paddle/fluid/framework/program_utils.h"
 
 #include <google/protobuf/text_format.h>
+#include <stdio.h>
+#include <time.h>
+#include <algorithm>
+#include <map>
+#include <ostream>
+
 #include "paddle/fluid/framework/block_desc.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+
+namespace google {
+namespace protobuf {
+class Message;
+}  // namespace protobuf
+}  // namespace google
 
 namespace paddle {
 namespace framework {

@@ -14,12 +14,23 @@
 
 #include "paddle/fluid/distributed/rpc/rpc_agent.h"
 
+#include <ext/alloc_traits.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cstddef>
+#include <ostream>
 
-#include "paddle/fluid/platform/enforce.h"
+#include "brpc/adaptive_connection_type.h"
+#include "brpc/adaptive_protocol_type.h"
+#include "brpc/channel.h"
+#include "butil/endpoint.h"
+#include "butil/iobuf.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/rpc/rpc_service.h"
 
 namespace paddle {
 namespace distributed {

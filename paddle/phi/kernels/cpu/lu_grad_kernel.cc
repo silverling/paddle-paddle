@@ -14,9 +14,9 @@
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-
 #include "paddle/phi/kernels/impl/lu_grad_kernel_impl.h"
-#include "paddle/phi/kernels/lu_grad_kernel.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(lu_grad, CPU, ALL_LAYOUT, phi::LUGradKernel, float, double) {
 }

@@ -14,7 +14,22 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/data_type_transform.h"
 
-#include "gtest/gtest.h"
+#include <stdint.h>
+#include <memory>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
 
 TEST(DataTypeTransform, CPUTransform) {
   auto place = paddle::platform::CPUPlace();

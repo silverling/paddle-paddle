@@ -13,6 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #include "paddle/phi/infermeta/strings/nullary.h"
 
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/meta_tensor.h"
+
 namespace phi {
 namespace strings {
 

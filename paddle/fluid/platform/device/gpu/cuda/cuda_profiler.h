@@ -14,7 +14,7 @@ limitations under the License. */
 #pragma once
 
 #include <cuda_profiler_api.h>
-
+#include <stdint.h>
 #include <string>
 
 #include "paddle/fluid/platform/dynload/nvtx.h"

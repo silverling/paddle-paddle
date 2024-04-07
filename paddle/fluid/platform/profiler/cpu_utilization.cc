@@ -24,7 +24,12 @@
 // limitations under the License.
 
 #include "paddle/fluid/platform/profiler/cpu_utilization.h"
+
+#include <stdio.h>
 #include <array>
+#include <ostream>
+
+#include "glog/logging.h"
 
 namespace paddle {
 namespace platform {

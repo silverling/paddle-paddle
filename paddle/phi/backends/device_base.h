@@ -13,11 +13,16 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <vector>
+#include <string>
 
 #include "paddle/phi/backends/c_comm_lib.h"
 #include "paddle/phi/backends/event.h"
 #include "paddle/phi/backends/stream.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
 
 namespace phi {
 

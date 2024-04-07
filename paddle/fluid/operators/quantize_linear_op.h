@@ -13,6 +13,7 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "paddle/common/ddim.h"
 #include "paddle/common/hostdevice.h"
@@ -23,6 +24,12 @@ limitations under the License. */
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/transform.h"
 #include "paddle/phi/kernels/cast_kernel.h"
+#include "paddle/common/dim.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

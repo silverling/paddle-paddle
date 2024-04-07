@@ -16,6 +16,10 @@
 
 #include <glog/logging.h>
 #include <unordered_map>
+#include <memory>
+#include <mutex>
+#include <ostream>
+#include <utility>
 
 #include "paddle/pir/include/core/attribute_base.h"
 #include "paddle/pir/include/core/builtin_dialect.h"
@@ -24,6 +28,10 @@
 #include "paddle/pir/include/core/spin_lock.h"
 #include "paddle/pir/include/core/type_base.h"
 #include "paddle/pir/src/core/op_info_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/interface_value.h"
+#include "paddle/pir/include/core/storage_manager.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 // The implementation class of the IrContext class, cache registered

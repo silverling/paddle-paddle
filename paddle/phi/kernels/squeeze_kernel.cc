@@ -14,12 +14,23 @@
 
 #include "paddle/phi/kernels/squeeze_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+#include <memory>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/kernels/funcs/unsqueeze.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 template <typename T, typename Context>
 void SqueezeInferKernel(const Context& dev_ctx,
                         const DenseTensor& x,

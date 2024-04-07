@@ -16,11 +16,16 @@
 
 #include <algorithm>
 #include <mutex>  // NOLINT
+#include <ostream>
+#include <string>
+#include <type_traits>
 
-#include "paddle/fluid/memory/allocation/aligned_allocator.h"
 #include "paddle/fluid/platform/flags.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
-#include "paddle/phi/backends/device_manager.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/allocator.h"
 
 PADDLE_DEFINE_EXPORTED_READONLY_bool(
     free_idle_chunk,

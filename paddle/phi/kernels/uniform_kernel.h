@@ -18,8 +18,10 @@
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/device_context.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void UniformKernel(const Context& dev_ctx,

@@ -13,12 +13,13 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/pir/include/core/block_argument.h"
-#include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation_utils.h"
 #include "paddle/pir/src/core/value_impl.h"
-
 #include "paddle/common/enforce.h"
 
 #define CHECK_NULL_IMPL(func_name) \

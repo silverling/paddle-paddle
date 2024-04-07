@@ -14,16 +14,18 @@
 
 #pragma once
 
+#include <bits/chrono.h>
 #include <chrono>
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "gloo/rendezvous/store.h"
-
 #include "paddle/phi/core/distributed/store/store.h"
 
 namespace phi {
 namespace distributed {
+class Store;
 
 class GlooStore : public gloo::rendezvous::Store {
  public:

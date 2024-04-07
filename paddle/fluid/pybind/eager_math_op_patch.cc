@@ -12,47 +12,63 @@ limitations under the License. */
 
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
+
 typedef SSIZE_T ssize_t;
 #endif
 
-#include <Python.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
 #endif
 
 #include <string>
-#include <unordered_map>
-#include <vector>
+#include <memory>
+#include <ostream>
+#include <set>
 
-#include "paddle/fluid/eager/api/all.h"
-#include "paddle/fluid/eager/grad_node_info.h"
-#include "paddle/fluid/eager/hooks.h"
-#include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
 #include "paddle/fluid/pybind/exception.h"
-#include "paddle/phi/api/include/api.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "pybind11/detail/internals.h"
-#include "pybind11/numpy.h"
-#include "pybind11/pybind11.h"
+#include "boolobject.h"
+#include "complexobject.h"
+#include "floatobject.h"
+#include "longobject.h"
+#include "methodobject.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/manual/eager_manual/dygraph_forward_api.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/backends/gpu/gpu_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/pybind.h"
+#include "patchlevel.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
+#include "tupleobject.h"
+
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
-#include "paddle/common/ddim.h"
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
 #include "paddle/fluid/framework/data_type.h"
-#include "paddle/fluid/framework/python_headers.h"
-#include "paddle/fluid/memory/allocation/mmap_allocator.h"
 #include "paddle/fluid/pybind/op_function_common.h"
 #include "paddle/fluid/pybind/tensor_py.h"
 #include "paddle/phi/common/type_promotion.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 namespace pybind {

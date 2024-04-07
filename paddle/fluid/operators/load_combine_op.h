@@ -14,9 +14,13 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_type.h"
@@ -25,6 +29,25 @@ limitations under the License. */
 #include "paddle/fluid/framework/string_array.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

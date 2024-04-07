@@ -15,6 +15,12 @@
 #pragma once
 
 #include <Python.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
@@ -26,6 +32,16 @@
 #include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "object.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/utils/small_vector.h"
 
 namespace egr {
 

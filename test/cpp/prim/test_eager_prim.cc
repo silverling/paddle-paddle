@@ -13,19 +13,31 @@
 // limitations under the License.
 
 #include <sstream>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
 #include "paddle/fluid/eager/api/utils/hook_utils.h"
 #include "paddle/fluid/eager/backward.h"
 #include "paddle/fluid/prim/utils/utils.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_meta.h"
 #include "test/cpp/eager/test_utils.h"
 #include "test/cpp/prim/init_env_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
 
 COMMON_DECLARE_string(tensor_operants_mode);
 

@@ -14,9 +14,17 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+
 namespace paddle {
 namespace distributed {
 

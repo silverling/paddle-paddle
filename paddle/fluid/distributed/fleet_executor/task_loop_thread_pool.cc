@@ -14,10 +14,9 @@
 
 #include "paddle/fluid/distributed/fleet_executor/task_loop_thread_pool.h"
 
-#include "paddle/fluid/distributed/fleet_executor/task_loop.h"
 #include "paddle/fluid/distributed/fleet_executor/task_loop_thread.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace distributed {

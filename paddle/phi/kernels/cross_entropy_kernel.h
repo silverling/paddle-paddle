@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 // The deformed product of operator iterative upgrade, there is no strict 2.0
 // API corresponding to it! In 2.0 API paddle.nn.functional.cross_entropy,

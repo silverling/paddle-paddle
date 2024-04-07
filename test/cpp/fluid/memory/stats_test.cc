@@ -14,13 +14,20 @@
 
 #include "paddle/fluid/memory/stats.h"
 
+#include <bits/chrono.h>
+#include <stddef.h>
 #include <condition_variable>
 #include <mutex>
 #include <string>
 #include <thread>
 #include <vector>
+#include <cstdint>
+#include <functional>
+#include <memory>
 
-#include "gtest/gtest.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace memory {

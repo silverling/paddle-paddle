@@ -15,8 +15,11 @@ limitations under the License. */
 #pragma once
 #include "paddle/common/macros.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 template <typename DeviceContext, typename T>

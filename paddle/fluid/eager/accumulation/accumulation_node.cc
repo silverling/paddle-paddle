@@ -14,19 +14,29 @@
 
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
 
-#include "glog/logging.h"
-#include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
-#include "paddle/fluid/eager/eager_tensor.h"
+#include <utility>
+
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/imperative/gradient_accumulator.h"
-#include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
-#include "paddle/phi/api/all.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/string/printf.h"
+
+namespace phi {
+class DeviceContext;
+}  // namespace phi
 
 namespace egr {
+class VoidHook;
 
 static void CopyOrAddTensor(paddle::Tensor* tensor,
                             const paddle::Tensor& t,

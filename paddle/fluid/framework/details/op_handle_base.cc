@@ -13,6 +13,19 @@
 // limitations under the License.
 #include "paddle/fluid/framework/details/op_handle_base.h"
 
+#include <cuda_runtime.h>
+#include <ostream>
+
+#include "driver_types.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+
 namespace paddle {
 namespace framework {
 namespace details {

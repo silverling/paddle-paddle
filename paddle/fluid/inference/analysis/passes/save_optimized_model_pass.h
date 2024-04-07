@@ -21,6 +21,7 @@ limitations under the License. */
 namespace paddle {
 namespace inference {
 namespace analysis {
+struct Argument;
 
 /*
  * Save model optimized by ir pass

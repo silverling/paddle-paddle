@@ -14,6 +14,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief This kernel calculate Exponentially scaled modified Bessel function of

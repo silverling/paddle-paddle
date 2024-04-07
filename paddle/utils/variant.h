@@ -223,6 +223,7 @@ namespace std {
 
 #pragma once
 
+#include <bits/utility.h>
 #include <cstddef>
 #include <exception>
 #include <functional>
@@ -230,6 +231,7 @@ namespace std {
 #include <new>
 #include <type_traits>
 #include <utility>
+#include <typeinfo>
 
 // MPark.Variant
 //
@@ -953,7 +955,6 @@ class bad_variant_access : public std::exception {
 
 template <typename... Ts>
 class variant;
-
 template <typename T>
 struct variant_size;
 

@@ -13,7 +13,11 @@
 // limitations under the License.
 
 #include "paddle/pir/include/pass/pass.h"
-#include "paddle/pir/include/core/ir_context.h"
+
+#include <stddef.h>
+#include <memory>
+#include <utility>
+
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/region.h"
@@ -22,8 +26,11 @@
 #include "paddle/pir/include/pass/pass_manager.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_match.h"
 #include "paddle/pir/src/pass/pass_adaptor.h"
-
 #include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 

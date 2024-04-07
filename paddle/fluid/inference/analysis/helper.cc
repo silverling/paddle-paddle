@@ -14,6 +14,10 @@
 
 #include "paddle/fluid/inference/analysis/helper.h"
 
+#include <stdint.h>
+
+#include "paddle/fluid/framework/framework.pb.h"
+
 namespace paddle {
 namespace inference {
 namespace analysis {

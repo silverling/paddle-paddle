@@ -14,6 +14,8 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <map>
 #include <memory>
 #include <string>
@@ -28,6 +30,13 @@ limitations under the License. */
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
@@ -36,6 +45,7 @@ class Dataset;
 class ProgramDesc;
 class Scope;
 class TrainerBase;
+class OperatorBase;
 
 struct TEST_API ExecutorPrepareContext {
   ExecutorPrepareContext(const framework::ProgramDesc& prog, size_t block_id);

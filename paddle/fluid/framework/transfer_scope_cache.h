@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <thread>  // NOLINT
 #include <unordered_map>
 #include <unordered_set>
@@ -21,6 +22,10 @@
 #include "paddle/fluid/framework/op_kernel_type.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/utils/test_macros.h"
+
+namespace phi {
+class KernelKey;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

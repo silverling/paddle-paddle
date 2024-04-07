@@ -12,16 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <stddef.h>
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/operation.h"
-#include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
 #include "paddle/pir/src/core/op_result_impl.h"
+#include "glog/logging.h"
+#include "gtest/gtest-death-test.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/src/core/value_impl.h"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
 
 // This unittest is used to test the construction interfaces of value class and
 // operation. The constructed test scenario is: a = OP1(); b = OP2(); c = OP3(a,

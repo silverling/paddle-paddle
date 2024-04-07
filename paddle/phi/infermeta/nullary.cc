@@ -14,6 +14,16 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/nullary.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+
 namespace phi {
 
 void ArangeInferMeta(const Scalar& start,

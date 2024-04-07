@@ -14,9 +14,17 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/op_desc.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
+#include <exception>
+#include <functional>
+#include <ostream>
+#include <type_traits>
+#include <typeinfo>
+#include <unordered_map>
+#include <utility>
 
-#include "glog/logging.h"
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/op_call_stack.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
@@ -24,10 +32,30 @@ limitations under the License. */
 #include "paddle/fluid/framework/shape_inference.h"
 #include "paddle/fluid/framework/var_type_inference.h"
 #include "paddle/fluid/operators/ops_extra_info.h"
-#include "paddle/phi/common/complex.h"
-#include "paddle/pir/include/core/block.h"
-#include "paddle/pir/include/core/value.h"
 #include "paddle/utils/blank.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/compat/op_utils.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
+
+namespace pir {
+class Block;
+class Value;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {

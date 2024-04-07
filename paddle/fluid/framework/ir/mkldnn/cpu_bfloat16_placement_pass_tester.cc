@@ -12,10 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <initializer_list>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
 
-#include "paddle/fluid/framework/ir/mkldnn/cpu_bfloat16_placement_pass.h"
 #include "paddle/fluid/platform/mkldnn_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
 
 namespace paddle {
 namespace framework {

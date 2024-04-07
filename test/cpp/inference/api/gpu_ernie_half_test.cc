@@ -12,8 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <istream>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/inference/api/paddle_inference_api.h"
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace inference {

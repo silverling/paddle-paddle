@@ -14,8 +14,12 @@
 #include "paddle/fluid/platform/os_info.h"
 
 #include <thread>
+#include <memory>
+#include <unordered_map>
 
-#include "gtest/gtest.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 TEST(ThreadInfo, TestThreadIdUtils) {
   using paddle::platform::GetAllThreadIds;

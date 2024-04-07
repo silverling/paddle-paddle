@@ -14,8 +14,27 @@
 
 #include "paddle/fluid/framework/details/threaded_ssa_graph_executor.h"
 
+#include <cxxabi.h>
+#include <deque>
+#include <exception>
+#include <ostream>
+#include <utility>
+
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "ThreadPool.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/blocking_queue.h"
+#include "paddle/fluid/framework/details/fetch_op_handle.h"
+#include "paddle/fluid/framework/details/multi_devices_helper.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/utils/any.h"
 
 #if defined PADDLE_WITH_PSCORE
 #include "paddle/fluid/distributed/ps/service/communicator/communicator.h"

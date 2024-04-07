@@ -14,10 +14,13 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <memory>
 
 #include "paddle/phi/core/ddim.h"
 #include "paddle/phi/core/utils/type_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/phi/core/utils/type_info.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "dnnl.hpp"  // NOLINT

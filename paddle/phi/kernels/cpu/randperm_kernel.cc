@@ -14,9 +14,17 @@
 
 #include "paddle/phi/kernels/randperm_kernel.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <memory>
+#include <random>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void RandpermKernel(const Context& dev_ctx,

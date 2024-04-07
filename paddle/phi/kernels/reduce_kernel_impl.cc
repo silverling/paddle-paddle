@@ -13,7 +13,18 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/reduce_kernel_impl.h"
-#include "paddle/phi/core/kernel_registry.h"
+
+#include <stddef.h>
+#include <algorithm>
+#include <vector>
+
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/tensor_ref.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/phi/core/kernel_utils.h"
 
 namespace phi {
 

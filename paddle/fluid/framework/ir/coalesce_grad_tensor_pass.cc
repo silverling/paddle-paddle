@@ -14,18 +14,39 @@
 
 #include "paddle/fluid/framework/ir/coalesce_grad_tensor_pass.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <string>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/platform/flags.h"
-namespace paddle {
-namespace framework {
-class ProgramDesc;
-class VarDesc;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/scope_buffered_ssa_graph_executor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/string/printf.h"
 
 PADDLE_DEFINE_EXPORTED_double(
     fuse_parameter_memory_size,

@@ -14,7 +14,13 @@
 
 #include "paddle/phi/core/custom_kernel.h"
 
+#include <ostream>
+#include <utility>
+
 #include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace phi {
 

@@ -17,11 +17,13 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/place.h"
-
 #include "paddle/fluid/jit/function_schema.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 
@@ -32,6 +34,8 @@ class Scope;
 }  // namespace framework
 
 namespace jit {
+class FunctionInfo;
+
 using Variable = paddle::framework::Variable;
 using VariableMap = std::unordered_map<std::string, std::shared_ptr<Variable>>;
 using DenseTensor = phi::DenseTensor;

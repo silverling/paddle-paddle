@@ -8,7 +8,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include <fcntl.h>
 
 #ifdef _POSIX_C_SOURCE
 #undef _POSIX_C_SOURCE
@@ -18,13 +17,15 @@ limitations under the License. */
 #undef _XOPEN_SOURCE
 #endif
 
-#include <string>
+#include <features.h>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
 
 #include "paddle/fluid/framework/fleet/gloo_wrapper.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/pybind/gloo_wrapper_py.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 

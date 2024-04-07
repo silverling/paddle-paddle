@@ -14,17 +14,24 @@ limitations under the License. */
 
 #include "paddle/fluid/memory/allocation/buddy_allocator.h"
 
+#include <bits/chrono.h>
+#include <cuda_runtime.h>
 #include <memory>
+#include <iostream>
+#include <vector>
 
 #ifdef WITH_GPERFTOOLS
 #include "gperftools/profiler.h"
 #endif
-#include <fstream>
 #include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "driver_types.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/memory/allocation/system_allocator.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 COMMON_DECLARE_double(fraction_of_gpu_memory_to_use);

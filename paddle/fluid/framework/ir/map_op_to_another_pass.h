@@ -21,6 +21,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 class MapOp2AnotherPass : public FusePassBase {
  public:

@@ -13,8 +13,12 @@
    limitations under the License. */
 
 #pragma once
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <memory>
+#include <type_traits>
 
 #include "paddle/fluid/framework/data_layout.h"
 #include "paddle/fluid/framework/eigen.h"
@@ -22,6 +26,16 @@
 #include "paddle/fluid/operators/eigen/eigen_function.h"
 #include "paddle/phi/kernels/funcs/im2col.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

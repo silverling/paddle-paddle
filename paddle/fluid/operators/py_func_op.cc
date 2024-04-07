@@ -14,17 +14,48 @@
 
 #include "paddle/fluid/operators/py_func_op.h"
 
+#include <ext/alloc_traits.h>
 #include <array>
 #include <memory>
-#include <set>
 #include <string>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <ostream>
+#include <unordered_map>
 
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/gil.h"
+#include "pybind11/pytypes.h"
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+}  // namespace framework
+
 namespace operators {
 
 namespace py = ::pybind11;

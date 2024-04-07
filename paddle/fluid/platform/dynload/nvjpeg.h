@@ -12,7 +12,6 @@ limitations under the License. */
 
 #ifdef PADDLE_WITH_CUDA
 #include <nvjpeg.h>
-
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/nvjpeg.h"

@@ -14,10 +14,18 @@
 
 #include "paddle/phi/kernels/strings/strings_empty_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+namespace dtype {
+class pstring;
+}  // namespace dtype
+
 namespace strings {
 
 template <typename Context>

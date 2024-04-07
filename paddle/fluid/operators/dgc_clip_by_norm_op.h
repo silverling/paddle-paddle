@@ -14,9 +14,20 @@ limitations under the License. */
 
 #pragma once
 
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/operators/clip_by_norm_op.h"
 #include "paddle/phi/kernels/clip_by_norm_kernel.h"
 #include "paddle/phi/kernels/selected_rows/clip_by_norm_kernel.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/phi_utils.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

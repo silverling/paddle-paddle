@@ -16,8 +16,10 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <string>
 
 #include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/core/dll_decl.h"
 
 namespace symbol {
 

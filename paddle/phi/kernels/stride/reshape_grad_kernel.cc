@@ -13,11 +13,19 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/reshape_grad_kernel.h"
-#include "paddle/phi/backends/all_context.h"
+
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/reshape_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void ReshapeGradStridedKernel(const Context& dev_ctx,

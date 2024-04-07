@@ -14,17 +14,27 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/device_worker.h"
 
-#include <array>
-#include <chrono>
+#include <bits/chrono.h>
+#include <ext/alloc_traits.h>
+#include <limits.h>
+#include <stdio.h>
+#include <algorithm>
+#include <fstream>
+#include <random>
+
 #include "paddle/fluid/framework/convert_utils.h"
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "xxhash.h"
 
 namespace paddle {
 namespace framework {
-
-class Scope;
 
 void DeviceWorker::SetRootScope(Scope* root_scope) { root_scope_ = root_scope; }
 

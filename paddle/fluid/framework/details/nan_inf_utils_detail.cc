@@ -14,14 +14,29 @@
 
 #include "paddle/fluid/framework/details/nan_inf_utils_detail.h"
 
+#include <cstdlib>
+#include <istream>
+#include <mutex>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/details/nan_inf_utils.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/phi/common/amp_type_traits.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/variant.h"
 
-#include "paddle/common/flags.h"
-#include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/phi/kernels/funcs/eigen/extensions.h"
+namespace phi {
+class CPUContext;
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

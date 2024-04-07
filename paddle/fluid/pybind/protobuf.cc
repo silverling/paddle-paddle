@@ -14,12 +14,14 @@ limitations under the License. */
 #include "paddle/fluid/pybind/protobuf.h"
 
 #include <complex>
-#include <deque>
-#include <iostream>
 #include <string>
-#include <tuple>
+#include <cstdint>
+#include <exception>
+#include <map>
+#include <memory>
+#include <unordered_map>
+#include <vector>
 
-#include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/op_desc.h"
@@ -30,12 +32,31 @@ limitations under the License. */
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/framework/version.h"
 #include "paddle/fluid/jit/property.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
 #include "paddle/phi/common/scalar.h"
+#include "object.h"
+#include "paddle/common/dim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/exception.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/jit/property.pb.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/utils/variant.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/internals.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 
 namespace paddle {
+class Tensor;
+
 namespace pybind {
 
 PyTypeObject *g_vartype_pytype = nullptr;

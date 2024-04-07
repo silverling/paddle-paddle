@@ -16,10 +16,10 @@ limitations under the License. */
 #ifdef PADDLE_WITH_CUDA
 #include <cudnn.h>
 #include <glog/logging.h>
-
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/cudnn.h"
+#include "cudnn_version.h"
 
 namespace paddle {
 namespace platform {

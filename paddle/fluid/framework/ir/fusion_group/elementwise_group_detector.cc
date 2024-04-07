@@ -14,14 +14,26 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/fusion_group/elementwise_group_detector.h"
 
+#include <stddef.h>
 #include <string>
+#include <cstdint>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/ir/fusion_group/operation.h"
 #include "paddle/fluid/framework/ir/subgraph_detector.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
+
 namespace fusion_group {
 
 static std::unordered_set<std::string> elementwise_op_types;

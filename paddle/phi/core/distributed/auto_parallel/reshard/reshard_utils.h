@@ -26,12 +26,20 @@
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/visit_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 class DeviceContext;
+class DenseTensor;
+class TensorBase;
 
 namespace distributed {
 class ProcessMesh;
+class CommContext;
+class DistTensor;
+class TensorDistAttr;
 
 std::vector<int64_t> GetUnionProcessIds(std::vector<int64_t> in_process_ids,
                                         std::vector<int64_t> out_process_ids);

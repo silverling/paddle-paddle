@@ -13,13 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/api/include/tensor_utils.h"
-#include "glog/logging.h"
 
+#include <stddef.h>
+#include <ostream>
+#include <string>
+#include <typeinfo>
+
+#include "glog/logging.h"
 #include "paddle/phi/api/lib/api_registry.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/core/enforce.h"
+#include "cuda.h"
+#include "driver_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function_registry.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #ifdef PADDLE_WITH_CUDA

@@ -14,6 +14,9 @@
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 
+#include "paddle/fluid/pir/dialect/operator/ir/type_storage.h"
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+
 namespace paddle {
 namespace dialect {
 const pir::Type& SelectedRowsType::dtype() const { return storage()->dtype_; }

@@ -14,14 +14,25 @@
 
 #include "paddle/fluid/eager/grad_tensor_holder.h"
 
+#include <ext/alloc_traits.h>
+#include <memory>
+#include <string>
+
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
-#include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/var_type.h"
 #include "paddle/fluid/imperative/gradient_accumulator.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/phi/api/include/api.h"
+#include "paddle/phi/api/include/sparse_api.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace egr {
 

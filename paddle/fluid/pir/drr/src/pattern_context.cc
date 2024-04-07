@@ -12,7 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
 #include <memory>
+#include <algorithm>
+#include <cstdint>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/common/enforce.h"
 #include "paddle/common/errors.h"
@@ -22,6 +28,9 @@
 #include "paddle/fluid/pir/drr/src/pattern_graph.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/fluid/pir/drr/include/drr_match_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace paddle {
 namespace drr {

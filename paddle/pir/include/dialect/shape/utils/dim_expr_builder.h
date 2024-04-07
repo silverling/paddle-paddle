@@ -14,6 +14,11 @@
 
 #pragma once
 
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
 

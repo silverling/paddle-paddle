@@ -31,6 +31,19 @@
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/phi/core/compat/arg_map_context.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/flags.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+
+namespace paddle {
+namespace imperative {
+class AmpAttrs;
+class VarBase;
+}  // namespace imperative
+}  // namespace paddle
 
 COMMON_DECLARE_bool(use_stride_kernel);
 namespace paddle {

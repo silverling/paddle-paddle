@@ -13,6 +13,12 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <ostream>
+#include <string>
+
 // framework deps
 #include "paddle/fluid/framework/phi_utils.h"
 #include "paddle/fluid/framework/tensor.h"
@@ -21,6 +27,25 @@
 #include "paddle/common/macros.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+
+namespace phi {
+class Allocator;
+}  // namespace phi
 
 namespace egr {
 

@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
 #include <sstream>
+#include <functional>
+#include <initializer_list>
+#include <string>
 
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/ir_adaptor/translator/type_translator.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
@@ -24,6 +25,10 @@
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/type.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/common/data_type.h"
 
 template <typename IR_TYPE>
 void test_parameterless_type() {

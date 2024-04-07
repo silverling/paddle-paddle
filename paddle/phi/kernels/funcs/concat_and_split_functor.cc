@@ -14,6 +14,20 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/concat_and_split_functor.h"
 
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/memory_utils.h"
+#include "paddle/phi/core/dense_tensor.h"
+
 namespace phi {
 namespace funcs {
 

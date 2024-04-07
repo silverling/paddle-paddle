@@ -11,14 +11,26 @@ limitations under the License. */
 
 #pragma once
 
+#include <string>
+#include <typeinfo>
+
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/var_type.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/core/stream.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
 class DenseTensor;
+class SelectedRows;
 }  // namespace phi
 
 namespace paddle {

@@ -14,11 +14,13 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 #include "paddle/phi/core/distributed/type_defs.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
 namespace distributed {

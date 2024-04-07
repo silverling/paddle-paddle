@@ -13,18 +13,42 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <string>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/operators/elementwise/elementwise_op.h"
 #include "paddle/fluid/prim/api/composite_backward/composite_backward_api.h"
 #include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
-#include "paddle/fluid/prim/utils/static/desc_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/op_version_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/prim/api/composite_backward/composite_double_backward_api.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/utils/optional.h"
+#include "paddle/utils/variant.h"
+
 namespace paddle {
 namespace framework {
 class OpDesc;
+class BlockDesc;
 }  // namespace framework
 }  // namespace paddle
 
 namespace paddle {
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+namespace prim {
+class DescTensor;
+}  // namespace prim
+
 namespace operators {
 
 class ElementwiseAddOpMaker : public ElementwiseOpMaker {

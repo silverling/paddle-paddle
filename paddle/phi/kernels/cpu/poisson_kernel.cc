@@ -14,10 +14,12 @@
 
 #include "paddle/phi/kernels/poisson_kernel.h"
 
+#include <stdint.h>
 #include <random>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

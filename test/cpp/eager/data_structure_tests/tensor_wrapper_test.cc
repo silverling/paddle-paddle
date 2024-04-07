@@ -14,10 +14,16 @@
 
 #include "paddle/fluid/eager/tensor_wrapper.h"
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
+#include <utility>
+
 #include "paddle/fluid/eager/utils.h"
 #include "test/cpp/eager/data_structure_tests/grad_node_test.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/lib/utils/allocator.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 TEST(TensorWrapper, Basic) {
   VLOG(6) << "Test Full reserved";

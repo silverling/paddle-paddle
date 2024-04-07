@@ -17,6 +17,8 @@
 
 namespace paddle {
 namespace framework {
+class ProgramDesc;
+
 namespace no_scalar {
 void ConvertProgram(ProgramDesc* program);
 }  // namespace no_scalar

@@ -14,14 +14,23 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <algorithm>
 #include <utility>
 #include <vector>
+#include <memory>
+#include <string>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 #if defined(PADDLE_WITH_GLOO)
 #include <gloo/allgather.h>

@@ -13,7 +13,10 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/new_executor/instruction/builtin_combine_instruction.h"
-#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {

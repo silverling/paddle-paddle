@@ -12,13 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/phi/kernels/complex_grad_kernel.h"
-#include "paddle/phi/backends/all_context.h"
+
+#include <cstdint>
+
 #include "paddle/phi/common/type_traits.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/complex_kernel.h"
 #include "paddle/phi/kernels/funcs/strided_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/visit_type.h"
 
 namespace phi {
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void RealGradStridedKernel(const Context& dev_ctx,

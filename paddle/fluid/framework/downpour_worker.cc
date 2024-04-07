@@ -12,20 +12,43 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <ext/alloc_traits.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+#include <cstdint>
+#include <future>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/device_worker.h"
-#include "paddle/fluid/framework/fleet/metrics.h"
 #include "paddle/fluid/operators/isfinite_op.h"
 #include "paddle/fluid/platform/cpu_helper.h"
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/data_feed.h"
+#include "paddle/fluid/framework/fleet/fleet_wrapper.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/timer.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 #if defined _WIN32 || defined __APPLE__
 #else

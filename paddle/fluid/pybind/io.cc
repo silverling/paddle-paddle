@@ -14,12 +14,23 @@ limitations under the License. */
 
 #include "paddle/fluid/pybind/io.h"
 
+#include <stdint.h>
+#include <istream>
+#include <string>
+
 #include "paddle/fluid/framework/io/save_load_tensor.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/selected_rows_utils.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
-#include "paddle/utils/pybind.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
 
 namespace py = pybind11;
 namespace paddle {

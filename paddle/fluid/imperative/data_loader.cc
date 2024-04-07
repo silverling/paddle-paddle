@@ -18,13 +18,20 @@
 
 #include <sys/wait.h>
 #include <unistd.h>
+#include <bits/types/idtype_t.h>
+#include <bits/types/siginfo_t.h>
+#include <string.h>
 #include <cstdlib>
-
 #include <csignal>
+#include <map>
+#include <ostream>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/fluid/memory/allocation/mmap_allocator.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace imperative {

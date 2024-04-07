@@ -13,12 +13,22 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/fill_diagonal_tensor_grad_kernel.h"
+
 #include <array>
+#include <cstdint>
+#include <vector>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_utils.h"
 
 namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void FillDiagonalTensorGradKernel(const Context& ctx,

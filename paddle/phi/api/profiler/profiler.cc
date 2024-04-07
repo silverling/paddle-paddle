@@ -14,21 +14,30 @@ limitations under the License. */
 
 #include "paddle/phi/api/profiler/profiler.h"
 
+#include <stdint.h>
 #include <mutex>  // NOLINT
-#include <random>
 #include <sstream>
 #include <string>
-#include <type_traits>
+#include <list>
+#include <memory>
 
 #include "glog/logging.h"
-
-#include "paddle/phi/api/profiler/common_event.h"
 #include "paddle/phi/api/profiler/device_tracer.h"
 #include "paddle/phi/api/profiler/host_event_recorder.h"
 #include "paddle/phi/api/profiler/host_tracer.h"
 #include "paddle/phi/api/profiler/profiler_helper.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/os_info.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/api/profiler/event_tracing.h"
+#include "paddle/phi/api/profiler/supplement_tracing.h"
+#include "paddle/phi/api/profiler/trace_event.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/ddim.h"
+
+namespace phi {
+struct CommonEvent;
+struct OperatorSupplementOriginEvent;
+}  // namespace phi
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/backends/dynload/nvtx.h"
 #endif

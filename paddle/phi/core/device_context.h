@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 
 #include "paddle/common/macros.h"
@@ -23,9 +24,17 @@ limitations under the License. */
 #include "paddle/phi/core/distributed/comm_context.h"
 #include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/utils/type_registry.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
 class TensorBase;
+class Allocator;
+class Generator;
+class Place;
+namespace distributed {
+class CommContext;
+}  // namespace distributed
 
 /**
  * DeviceContext provides device-related interfaces.
@@ -223,6 +232,7 @@ class PADDLE_API DeviceContext {
 
  private:
   struct Impl;
+
   std::unique_ptr<Impl> impl_;
 
   template <typename T, typename U>

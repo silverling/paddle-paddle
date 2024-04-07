@@ -17,7 +17,6 @@ limitations under the License. */
 #include <cufft.h>
 #include <cufftXt.h>
 #include <glog/logging.h>
-
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/cufft.h"

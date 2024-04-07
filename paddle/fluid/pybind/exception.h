@@ -14,6 +14,7 @@ limitations under the License. */
 #pragma once
 
 #include <Python.h>
+#include <exception>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign

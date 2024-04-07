@@ -14,8 +14,24 @@
 
 #include "paddle/phi/kernels/batch_norm_grad_kernel.h"
 
+#include <cstdint>
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
+namespace dnnl {
+struct memory;
+}  // namespace dnnl
 
 #define PD_DECLARE_BN_GRAD_FUNCTOR(dtype, backend)                         \
   template void phi::BatchNormGradFunctor<dtype, ::phi::backend##Context>( \

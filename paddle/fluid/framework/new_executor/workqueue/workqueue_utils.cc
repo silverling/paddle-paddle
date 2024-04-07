@@ -14,8 +14,11 @@
 
 #include "paddle/fluid/framework/new_executor/workqueue/workqueue_utils.h"
 
-#include <cstdint>
+#include <features.h>
+#include <mm_malloc.h>
 #include <cstdlib>
+
+#include "paddle/fluid/framework/new_executor/workqueue/event_count.h"
 
 namespace paddle {
 namespace framework {

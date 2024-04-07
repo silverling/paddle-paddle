@@ -13,10 +13,16 @@
 // limitations under the License.
 
 #pragma once
+#include <string>
+
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
 
 namespace phi {
+class DeviceContext;
+
 namespace distributed {
+class DistTensor;
+class TensorDistAttr;
 
 class SToPReshardFunction final : public ReshardFunction {
  public:

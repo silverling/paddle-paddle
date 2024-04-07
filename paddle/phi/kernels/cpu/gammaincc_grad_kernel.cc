@@ -13,6 +13,9 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/gammaincc_grad_kernel.h"
+
+#include <cmath>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/gammaincc_grad_kernel_impl.h"

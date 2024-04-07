@@ -12,10 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <assert.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/tensorrt/dynamic_shape_infermeta_factory.h"
-#include "paddle/fluid/inference/tensorrt/helper.h"
 #include "paddle/phi/core/enforce.h"
-#include "paddle/phi/kernels/funcs/unfold_functor.h"
+#include "NvInferRuntime.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace inference {

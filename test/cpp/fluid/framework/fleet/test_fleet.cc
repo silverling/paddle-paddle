@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <memory>
 
 #include "paddle/fluid/framework/fleet/fleet_wrapper.h"
-#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
 #include "paddle/utils/string/string_helper.h"
+#include "gtest/gtest_pred_impl.h"
 
 #if defined _WIN32 || defined __APPLE__
 #else

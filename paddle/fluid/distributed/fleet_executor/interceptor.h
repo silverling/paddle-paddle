@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <condition_variable>
 #include <deque>
 #include <functional>
@@ -21,6 +22,9 @@
 #include <memory>
 #include <thread>
 #include <vector>
+#include <mutex>
+#include <string>
+#include <unordered_map>
 
 #include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
 #include "paddle/fluid/framework/blocking_queue.h"
@@ -31,6 +35,7 @@
 #include "paddle/fluid/platform/place.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {

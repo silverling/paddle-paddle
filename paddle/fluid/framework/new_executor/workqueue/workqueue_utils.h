@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <atomic>
 #include <cassert>
 #include <cstddef>
@@ -24,6 +25,8 @@
 
 #include "paddle/fluid/framework/new_executor/workqueue/events_waiter.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

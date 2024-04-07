@@ -12,32 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-#include <chrono>
-#include <iostream>
-#include <map>
+#include <stddef.h>
 #include <memory>
 #include <sstream>
 #include <string>
 #include <vector>
+#include <utility>
 
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/framework.pb.h"
-#include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/ir_adaptor/translator/translate.h"
 #include "paddle/fluid/ir_adaptor/translator/utils.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/pir/include/core/builtin_dialect.h"
-#include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
-#include "paddle/pir/include/core/ir_printer.h"
-#include "paddle/pir/include/core/parser/ir_parser.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
 
 using OperatorDialect = paddle::dialect::OperatorDialect;
 using ProgramDesc = paddle::framework::ProgramDesc;

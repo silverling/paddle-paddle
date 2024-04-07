@@ -16,6 +16,9 @@
 
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
 

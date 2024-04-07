@@ -13,9 +13,13 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/op_desc.h"
+
 #include <complex>
-#include "gtest/gtest.h"
+
 #include "paddle/phi/common/scalar.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 TEST(OpDesc, SetScalarAttr) {
   paddle::framework::OpDesc opdesc;

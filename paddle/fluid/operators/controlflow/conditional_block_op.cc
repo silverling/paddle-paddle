@@ -13,11 +13,32 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/operators/controlflow/conditional_block_op.h"
-#include <array>
+
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <set>
 
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/new_executor/standalone_executor.h"
 #include "paddle/fluid/operators/controlflow/control_flow_op_helper.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/executor.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/enforce.h"
+
+namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+}  // namespace paddle
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"

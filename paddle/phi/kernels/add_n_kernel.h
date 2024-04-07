@@ -14,10 +14,15 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/tensor_array.h"
 
 namespace phi {
+class DenseTensor;
+class TensorArray;
+class TensorBase;
 
 // Note(YuanRisheng): std::vector<const TensorBase*> shouldn't be widely used in
 // PHI. Here, we use it to be compatible with Fluid.

@@ -15,6 +15,7 @@
 #ifndef _WIN32
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <string>
@@ -25,6 +26,7 @@
 #include "paddle/fluid/platform/cuda_device_guard.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace memory {

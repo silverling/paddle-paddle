@@ -16,12 +16,14 @@
 
 #include <random>
 #include <thread>  // NOLINT
+#include <memory>
+#include <vector>
 
 #include "gtest/gtest-message.h"
 #include "gtest/gtest-test-part.h"
-#include "gtest/gtest.h"
 #include "gtest/gtest_pred_impl.h"
 #include "paddle/fluid/memory/allocation/cpu_allocator.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace memory {

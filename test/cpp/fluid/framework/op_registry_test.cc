@@ -14,11 +14,33 @@
 
 #include "paddle/fluid/framework/op_registry.h"
 
-#include <glog/logging.h>
-#include <gtest/gtest.h>
+#include <algorithm>
+#include <initializer_list>
+#include <vector>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class CPUContext;
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
+class InferShapeContext;
 
 class CosineOp : public OperatorBase {
  public:

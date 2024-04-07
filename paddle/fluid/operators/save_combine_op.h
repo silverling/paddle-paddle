@@ -15,12 +15,15 @@ limitations under the License. */
 #pragma once
 
 #include <stdint.h>
-
+#include <stddef.h>
 #include <fstream>
 #include <numeric>
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_type.h"
@@ -32,6 +35,20 @@ limitations under the License. */
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/common/port.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/any.h"
+
+namespace phi {
+class ExtendedTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

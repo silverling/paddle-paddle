@@ -14,7 +14,25 @@
 
 #include "paddle/fluid/framework/data_set.h"
 
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
+#include <unistd.h>
+#include <cmath>
+#include <fstream>
+#include <future>
+#include <iostream>
+#include <iterator>
+#include <random>
+#include <unordered_map>
+
 #include "google/protobuf/text_format.h"
+#include "ThreadPool.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/archive.h"
+#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "xxhash.h"
 #if (defined PADDLE_WITH_DISTRIBUTE) && (defined PADDLE_WITH_PSCORE)
 #include "paddle/fluid/distributed/index_dataset/index_sampler.h"
 #endif

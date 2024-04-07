@@ -14,10 +14,15 @@
 
 #include "paddle/phi/kernels/funcs/lapack/lapack_function.h"
 
+#include <complex>
+
 #include "paddle/phi/backends/dynload/lapack.h"
-#include "paddle/phi/common/complex.h"
 
 namespace phi {
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 namespace funcs {
 
 // LU (for example)

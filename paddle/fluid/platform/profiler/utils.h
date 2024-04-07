@@ -13,16 +13,23 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
 
+#include <stdint.h>
 #include <ctime>
 #include <map>
 #include <ostream>
 #include <string>
 #include <vector>
+#include <cstdio>
+#include <memory>
 
 #include "paddle/fluid/platform/dynload/cupti.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/os_info.h"
 #include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
+struct tm;
 
 namespace paddle {
 namespace platform {

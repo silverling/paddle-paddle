@@ -13,8 +13,27 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/binary_infer_sym.h"
-#include "paddle/common/ddim.h"
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <optional>
+#include <string>
+#include <unordered_map>
+#include <variant>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/infer_sym_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr.h"
+#include "paddle/pir/include/dialect/shape/utils/dim_expr_builder.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
 
 namespace {
 

@@ -14,13 +14,21 @@
 
 #include "paddle/fluid/platform/profiler/cuda_tracer.h"
 
-#include <string>
 #include <unordered_map>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/new_executor/workqueue/workqueue_utils.h"
 #include "paddle/fluid/platform/os_info.h"
-#include "paddle/fluid/platform/profiler/cupti_data_process.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/os_info.h"
+
+namespace paddle {
+namespace platform {
+class TraceEventCollector;
+}  // namespace platform
+}  // namespace paddle
 
 #define CUPTI_CALL(call)                                                     \
   do {                                                                       \

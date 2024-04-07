@@ -13,8 +13,13 @@
    limitations under the License. */
 
 #include "paddle/phi/backends/dynload/cutlass_conv2d.h"
+
+#include <dlfcn.h>
 #include <string>
-#include "paddle/phi/core/enforce.h"
+#include <mutex>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 namespace dynload {

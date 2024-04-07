@@ -14,18 +14,38 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/flatten_op.h"
 
-#include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <algorithm>
 
-#include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/phi/core/infermeta_utils.h"
-#include "paddle/phi/infermeta/backward.h"
-#include "paddle/phi/infermeta/unary.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/inplace_op_inference.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/kernel_factory.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 // FIXME(zcd): flatten2 adds an intermediate output(XShape) based on flatten,
 // the XShape is used to carry the shape and lod of X which will be used in

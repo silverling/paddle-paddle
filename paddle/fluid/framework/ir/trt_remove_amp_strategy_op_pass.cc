@@ -14,18 +14,38 @@
 
 #include "paddle/fluid/framework/ir/trt_remove_amp_strategy_op_pass.h"
 
+#include <stddef.h>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <map>
+#include <unordered_set>
 
 #include "paddle/common/errors.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 namespace {
 template <typename InType, typename OutType>

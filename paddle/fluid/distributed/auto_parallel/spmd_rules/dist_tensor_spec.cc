@@ -14,7 +14,16 @@ limitations under the License. */
 
 #include "paddle/fluid/distributed/auto_parallel/spmd_rules/dist_tensor_spec.h"
 
+#include <cstdint>
+
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "paddle/phi/api/include/tensor.h"
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 namespace distributed {

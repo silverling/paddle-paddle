@@ -17,6 +17,7 @@
 #include <mutex>
 #include <string>
 #include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
@@ -25,6 +26,8 @@
 
 namespace paddle {
 namespace framework {
+class BlockDesc;
+
 namespace ir {
 
 class Graph;

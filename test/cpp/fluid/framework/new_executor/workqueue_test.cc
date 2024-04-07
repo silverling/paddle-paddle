@@ -16,10 +16,13 @@
 
 #include <atomic>
 #include <thread>
+#include <ostream>
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/new_executor/workqueue/workqueue_utils.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/new_executor/workqueue/events_waiter.h"
+#include "paddle/fluid/platform/enforce.h"
 
 TEST(WorkQueueUtils, TestEventsWaiter) {
   using paddle::framework::EventsWaiter;

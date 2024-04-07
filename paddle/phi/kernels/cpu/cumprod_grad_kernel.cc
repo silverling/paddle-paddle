@@ -14,16 +14,22 @@
 
 #include "paddle/phi/kernels/cumprod_grad_kernel.h"
 
-#include "paddle/common/ddim.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/complex_functors.h"
 #include "paddle/phi/kernels/funcs/cumprod.h"
 #include "paddle/phi/kernels/funcs/for_range.h"
-
 // NOTE(@xiongkun): use of IsComplex<>
 #include "paddle/phi/core/utils/data_type.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_utils.h"
 
 namespace phi {
 template <typename T, typename Context>

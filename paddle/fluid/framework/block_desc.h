@@ -14,18 +14,24 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <deque>
 #include <memory>
 #include <set>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <map>
+#include <utility>
 
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/proto_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
 
 namespace paddle {
 namespace framework {

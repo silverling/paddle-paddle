@@ -12,8 +12,12 @@ limitations under the License. */
 #pragma once
 
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
+
 template <typename T, typename Context>
 void SequenceMaskKernel(const Context& ctx,
                         const DenseTensor& x,

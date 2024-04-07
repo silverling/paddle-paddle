@@ -13,15 +13,20 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <deque>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <functional>
 
 #include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 class ScopeBufferedMonitor {

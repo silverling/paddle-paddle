@@ -14,13 +14,27 @@
 
 #include "paddle/fluid/operators/reader/buffered_reader.h"
 
-#include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
-#include "paddle/fluid/platform/profiler.h"
-#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
+#include <ostream>
+#include <utility>
 
-#include "paddle/phi/backends/device_guard.h"
-#include "paddle/phi/backends/device_manager.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "cuda_runtime_api.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace operators {

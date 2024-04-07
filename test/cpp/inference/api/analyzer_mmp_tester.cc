@@ -13,9 +13,22 @@
 // limitations under the License.
 
 #include <random>
+#include <algorithm>
+#include <cmath>
+#include <functional>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "paddle/fluid/framework/transfer_scope_cache.h"
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
 
 // Here add missing commands
 PD_DEFINE_string(infer_model2, "", "model path");

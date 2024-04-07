@@ -14,7 +14,10 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/sparse/unary.h"
 
-#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
 namespace sparse {

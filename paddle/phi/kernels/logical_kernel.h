@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 #define DECLARE_LOGICAL_BINARY_KERNEL(type)          \
   template <typename T, typename Context>            \

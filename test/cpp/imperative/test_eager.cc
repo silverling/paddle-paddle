@@ -13,23 +13,37 @@
 // limitations under the License.
 
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
+#include <map>
+#include <ostream>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/imperative/basic_engine.h"
-#include "paddle/fluid/imperative/execution_context.h"
-#include "paddle/fluid/imperative/layer.h"
-#include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/imperative/type_defs.h"
 #include "paddle/fluid/imperative/var_helper.h"
-#include "paddle/fluid/memory/memcpy.h"
-#include "paddle/fluid/platform/device_context.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_rank_table.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace paddle {
 namespace imperative {
+class GradOpNode;
+
 extern std::string LayerDebugString(const std::string& op_type,
                                     const NameVarMap<egr::EagerVariable>& ins,
                                     const NameVarMap<egr::EagerVariable>& outs);

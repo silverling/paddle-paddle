@@ -14,11 +14,28 @@
 #include "paddle/fluid/platform/profiler/host_tracer.h"
 
 #include <sstream>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
-#include "glog/logging.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/platform/profiler/common_event.h"
 #include "paddle/fluid/platform/profiler/host_event_recorder.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/fluid/platform/profiler/trace_event_collector.h"
+#include "paddle/phi/api/profiler/common_event.h"
+#include "paddle/phi/api/profiler/host_event_recorder.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/os_info.h"
 
 namespace paddle {
 namespace platform {

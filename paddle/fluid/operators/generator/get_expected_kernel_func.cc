@@ -12,16 +12,43 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stddef.h>
 #include <algorithm>
-#include <set>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "paddle/fluid/operators/generator/get_expected_kernel_func.h"
-
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/phi_utils.h"
-#include "paddle/fluid/framework/tensor_util.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/string/to_string.h"
+#include "paddle/utils/variant.h"
+
+namespace phi {
+class SelectedRows;
+}  // namespace phi
+
 namespace paddle {
 namespace operators {
 

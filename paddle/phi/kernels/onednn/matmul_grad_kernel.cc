@@ -14,10 +14,31 @@
 
 #include "paddle/phi/kernels/matmul_grad_kernel.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/backends/onednn/matmul_utils.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_reuse.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_utils.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
 
 void CalculateMatrixDims(const std::vector<int64_t> &x_dims,
                          const std::vector<int64_t> &y_dims,

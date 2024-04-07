@@ -14,12 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <utility>
 
 #include "paddle/fluid/distributed/fleet_executor/compute_interceptor.h"
 
 namespace paddle {
 namespace distributed {
+class TaskNode;
 
 class AmplifierInterceptor final : public ComputeInterceptor {
  public:

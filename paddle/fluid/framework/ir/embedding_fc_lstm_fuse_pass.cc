@@ -15,10 +15,32 @@
 #include "paddle/fluid/framework/ir/embedding_fc_lstm_fuse_pass.h"
 
 #include <string>
+#include <algorithm>
+#include <iterator>
+#include <map>
+#include <ostream>
+#include <unordered_set>
+#include <vector>
 
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_version_registry.h"
-#include "paddle/phi/kernels/funcs/blas/blas.h"
+#include "mkl_cblas.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/kernels/funcs/blas/blas_impl.h"
 
 namespace paddle {
 namespace framework {

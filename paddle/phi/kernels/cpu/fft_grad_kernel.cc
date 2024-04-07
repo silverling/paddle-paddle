@@ -13,9 +13,13 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/fft_grad_kernel.h"
+
 #include "paddle/phi/common/type_traits.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/fft_grad_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 PD_REGISTER_KERNEL(fft_c2c_grad,
                    CPU,

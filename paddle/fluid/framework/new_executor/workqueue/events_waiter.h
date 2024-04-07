@@ -14,12 +14,14 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <atomic>
 #include <cstddef>
 #include <functional>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <memory>
 
 #include "paddle/fluid/framework/new_executor/workqueue/event_count.h"
 #include "paddle/fluid/memory/allocation/spin_lock.h"

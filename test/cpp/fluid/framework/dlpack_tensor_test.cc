@@ -14,11 +14,21 @@
 
 #include "paddle/fluid/framework/dlpack_tensor.h"
 
-#include <glog/logging.h>
-#include <gtest/gtest.h>
+#include <algorithm>
+#include <cstdint>
+#include <vector>
 
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/place.h"
+#include "dlpack/dlpack.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/complex.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {

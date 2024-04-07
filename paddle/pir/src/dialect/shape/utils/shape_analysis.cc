@@ -13,8 +13,24 @@
 // limitations under the License.
 
 #include "paddle/pir/include/dialect/shape/utils/shape_analysis.h"
+
+#include <bits/utility.h>
 #include <string>
+#include <algorithm>
+#include <ostream>
+#include <type_traits>
+#include <utility>
+#include <variant>
+
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_util.h"
+#include "glog/logging.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace pir {
 

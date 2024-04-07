@@ -14,10 +14,25 @@
 
 #include "paddle/phi/kernels/nanmedian_kernel.h"
 
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <limits>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/nanmedian_utils.h"
 #include "paddle/phi/kernels/top_k_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

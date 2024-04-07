@@ -12,11 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
+#include <map>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/plugin/c_allreduce_op_plugin.h"
 #include "paddle/phi/common/data_type.h"
+#include "NvInfer.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 using ReduceType = paddle::inference::tensorrt::plugin::ReduceType;

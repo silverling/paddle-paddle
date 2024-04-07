@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -24,6 +25,10 @@
 #include "paddle/fluid/framework/ir/memory_optimize_pass/memory_optimization_var_info.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/variable.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 namespace framework {

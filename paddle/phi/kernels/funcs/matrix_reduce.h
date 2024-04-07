@@ -17,6 +17,8 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 // Use For Matrix OP, reduce_sum 'in' according to out's dim

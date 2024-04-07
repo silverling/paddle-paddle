@@ -15,13 +15,15 @@
 #pragma once
 
 #include <stdlib.h>  // for malloc and free
-
 #include <string>
 #include <vector>
 
 #include "glog/logging.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/kernels/funcs/jit/gen/jitcode.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 
 namespace phi {
 namespace jit {

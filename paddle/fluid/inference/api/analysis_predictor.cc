@@ -15,7 +15,9 @@
 #include "paddle/fluid/inference/api/analysis_predictor.h"
 
 #include <glog/logging.h>
-
+#include <assert.h>
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
 #include <algorithm>
 #include <cstdlib>
 #include <fstream>
@@ -24,28 +26,29 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <cstring>
+#include <system_error>
+#include <thread>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "paddle/fluid//platform/device/gpu/gpu_types.h"
 #include "paddle/fluid/framework/feed_fetch_method.h"
 #include "paddle/fluid/framework/feed_fetch_type.h"
-#include "paddle/fluid/framework/ir/fuse_pass_base.h"
-#include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/naive_executor.h"
-#include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/transfer_scope_cache.h"
-#include "paddle/fluid/framework/var_type_traits.h"
-#include "paddle/fluid/framework/version.h"
 #include "paddle/fluid/inference/analysis/helper.h"
 #include "paddle/fluid/inference/analysis/pass_result_info.h"
 #include "paddle/fluid/inference/analysis/passes/convert_to_mixed_precision.h"
-#include "paddle/fluid/inference/analysis/passes/memory_optimize_pass.h"
 #include "paddle/fluid/inference/api/helper.h"
 #include "paddle/fluid/inference/api/infer_context.h"
 #include "paddle/fluid/inference/api/paddle_analysis_config.h"
 #include "paddle/fluid/inference/api/paddle_inference_api.h"
-#include "paddle/fluid/inference/api/paddle_inference_pass.h"
 #include "paddle/fluid/inference/api/resource_manager.h"
 #include "paddle/fluid/inference/utils/io_utils.h"
 #include "paddle/fluid/inference/utils/model_utils.h"
@@ -55,9 +58,6 @@
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/place.h"
-#include "paddle/fluid/platform/profiler.h"
-#include "paddle/fluid/prim/utils/utils.h"
-#include "paddle/fluid/primitive/base/decomp_trans.h"
 #include "paddle/phi/api/include/context_pool.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/backend.h"
@@ -66,7 +66,44 @@
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/generator.h"
 #include "paddle/phi/kernels/funcs/data_type_transform.h"
-#include "paddle/utils/string/split.h"
+#include "cuda_runtime_api.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/executor.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/analysis/analyzer.h"
+#include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/init.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/port.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/pass/pass.h"
+#include "paddle/utils/string/printf.h"
+#include "paddle/utils/variant.h"
 
 #if defined(PADDLE_WITH_DISTRIBUTE) && defined(PADDLE_WITH_PSCORE)
 #include "paddle/fluid/distributed/fleet_executor/fleet_executor.h"
@@ -117,11 +154,16 @@
 #include "paddle/fluid/pir/transforms/general/inplace_pass.h"
 #include "paddle/fluid/pir/transforms/general/params_sync_among_devices_pass.h"
 #include "paddle/fluid/pir/transforms/general/replace_fetch_with_shadow_output_pass.h"
-#include "paddle/fluid/pir/transforms/passes.h"
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
-#include "paddle/fluid/pir/transforms/shape_optimization_pass.h"
 #include "paddle/pir/include/pass/pass_manager.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
+namespace pir {
+class Operation;
+}  // namespace pir
 
 COMMON_DECLARE_bool(pir_apply_inplace_pass);
 

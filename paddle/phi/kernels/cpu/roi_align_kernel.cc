@@ -14,9 +14,20 @@
 
 #include "paddle/phi/kernels/roi_align_kernel.h"
 
+#include <algorithm>
+#include <cmath>
+#include <cstddef>
+#include <numeric>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

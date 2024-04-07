@@ -22,6 +22,8 @@ limitations under the License. */
 
 namespace phi {
 namespace distributed {
+class DistMetaTensor;
+
 /**
  * A **hack** rule with a strong assumption that the first dimension of
  * all the input and ouput tensors is the batch dimension (broadcast dimension),

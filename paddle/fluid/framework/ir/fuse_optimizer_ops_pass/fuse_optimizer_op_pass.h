@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -23,6 +24,8 @@
 #include "paddle/fluid/framework/details/build_strategy.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/pass.h"
 
 namespace paddle {
 namespace framework {

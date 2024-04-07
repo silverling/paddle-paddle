@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <ostream>
-#include <sstream>
 #include <string>
-#include <unordered_map>
+#include <iostream>
+#include <memory>
+#include <utility>
 
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/program.h"

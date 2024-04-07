@@ -14,14 +14,34 @@
 
 #include "paddle/fluid/framework/ir/memory_optimize_pass/memory_reuse_pass.h"
 
-namespace paddle {
-namespace framework {
-namespace details {
-class ComputationOpHandle;
-class ShareTensorBufferOpHandle;
-}  // namespace details
-}  // namespace framework
-}  // namespace paddle
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <ostream>
+#include <utility>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/computation_op_handle.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/share_tensor_buffer_op_handle.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_helper.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

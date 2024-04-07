@@ -14,10 +14,12 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/fused_attention_grad_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/exception.h"
 
 namespace phi {
+class DenseTensor;
+class SparseCsrTensor;
+
 namespace sparse {
 
 template <typename T, typename Context>

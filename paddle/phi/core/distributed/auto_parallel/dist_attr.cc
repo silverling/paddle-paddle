@@ -14,12 +14,20 @@ limitations under the License. */
 
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
 
+#include <ext/alloc_traits.h>
 #include <algorithm>
 #include <iostream>
 #include <iterator>
+#include <cstddef>
+#include <unordered_map>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/proto_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
+#include "paddle/phi/core/distributed/auto_parallel/utils.h"
 
 namespace phi {
 namespace distributed {

@@ -16,6 +16,15 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/pool_grad_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+
+namespace phi {
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(
     pool2d_grad, CPU, ALL_LAYOUT, phi::Pool2dGradKernel, float, double) {}

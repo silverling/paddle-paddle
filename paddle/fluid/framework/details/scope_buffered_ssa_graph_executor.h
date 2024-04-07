@@ -14,7 +14,7 @@
 
 #pragma once
 #include <ThreadPool.h>
-
+#include <stddef.h>
 #include <deque>
 #include <list>
 #include <memory>
@@ -30,8 +30,17 @@
 #include "paddle/fluid/framework/details/var_handle.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+
 namespace paddle {
 namespace framework {
+class Scope;
+class Variable;
+namespace ir {
+class Graph;
+}  // namespace ir
+
 namespace details {
 
 struct VariableInfo {

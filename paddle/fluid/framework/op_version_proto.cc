@@ -14,6 +14,8 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/op_version_proto.h"
 
+#include <cstdint>
+
 namespace paddle {
 namespace framework {
 namespace compatible {

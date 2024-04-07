@@ -12,14 +12,24 @@ limitations under the License. */
 #pragma once
 
 #include <utf8proc.h>
-
+#include <ext/alloc_traits.h>
+#include <stdint.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <cstring>
+#include <iostream>
+#include <memory>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/string_array.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

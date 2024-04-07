@@ -20,6 +20,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 // There may be many transpose-flatten structures in a model, and the output of
 // these structures will be used as inputs to the concat Op. This pattern will

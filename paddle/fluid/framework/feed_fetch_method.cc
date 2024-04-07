@@ -15,20 +15,27 @@ limitations under the License. */
 #include "paddle/fluid/framework/feed_fetch_method.h"
 
 #include <string>
+#include <ostream>
+#include <typeinfo>
 
 #include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 COMMON_DECLARE_bool(enable_pir_in_executor);
 COMMON_DECLARE_bool(enable_pir_api);
 
-namespace phi {
-class DenseTensor;
-}  // namespace phi
-
 namespace paddle {
 namespace framework {
-
-class Variable;
 
 void SetVariable(Scope* scope,
                  const phi::DenseTensor& input,

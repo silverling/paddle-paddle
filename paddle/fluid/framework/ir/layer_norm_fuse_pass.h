@@ -22,6 +22,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 /*
  * \brief   Fuse the subgraph representing layer normalization into

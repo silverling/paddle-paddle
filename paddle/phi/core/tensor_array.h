@@ -14,9 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
+class Allocator;
+class Place;
 
 /// \brief The TensorArray store a list of tensor and it is designed for
 /// compatible with LodTensorArray in Fluid. It shouldn't be used widely

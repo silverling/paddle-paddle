@@ -12,13 +12,11 @@ limitations under the License. */
 #include "paddle/fluid/platform/profiler/event_node.h"
 
 #include <climits>
-
 #include <algorithm>
 #include <deque>
 #include <set>
 #include <stack>
-
-#include "paddle/fluid/platform/profiler/utils.h"
+#include <utility>
 
 namespace paddle {
 namespace platform {

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <string>
+#include <map>
 
 #include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
 

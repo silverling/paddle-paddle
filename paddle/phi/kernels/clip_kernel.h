@@ -20,6 +20,7 @@
 #include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ClipKernel(const Context& dev_ctx,

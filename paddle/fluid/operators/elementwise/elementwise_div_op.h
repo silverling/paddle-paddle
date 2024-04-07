@@ -15,8 +15,15 @@ limitations under the License. */
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include "paddle/fluid/operators/elementwise/elementwise_mul_op.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
 namespace operators {

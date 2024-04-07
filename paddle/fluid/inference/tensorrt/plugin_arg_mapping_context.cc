@@ -14,6 +14,19 @@
 
 #include "paddle/fluid/inference/tensorrt/plugin_arg_mapping_context.h"
 
+#include <map>
+#include <ostream>
+#include <utility>
+#include <vector>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+
 namespace paddle {
 namespace inference {
 namespace tensorrt {

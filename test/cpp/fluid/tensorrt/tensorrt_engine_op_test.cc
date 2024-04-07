@@ -14,10 +14,7 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/tensorrt/tensorrt_engine_op.h"
 
-#include <gtest/gtest.h>
-
 #include "paddle/fluid/framework/block_desc.h"
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/program_desc.h"
@@ -25,7 +22,12 @@ limitations under the License. */
 #include "paddle/fluid/inference/analysis/helper.h"
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/convert/ut_helper.h"
-#include "paddle/phi/common/data_type.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/tensorrt/op_teller.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
 
 USE_NO_KERNEL_OP(tensorrt_engine);
 namespace paddle {

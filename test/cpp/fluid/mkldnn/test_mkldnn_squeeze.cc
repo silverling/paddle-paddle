@@ -11,18 +11,24 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License. */
-#include <gtest/gtest.h>
+#include <memory>
+#include <random>
+#include <string>
+#include <vector>
 
-#include <fstream>
-
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/framework/naive_executor.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace inference {

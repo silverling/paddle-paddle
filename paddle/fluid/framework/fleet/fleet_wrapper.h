@@ -15,12 +15,15 @@ limitations under the License. */
 #pragma once
 
 #include <memory>
+#include <functional>
+#include <future>
+#include <ostream>
 #ifdef PADDLE_WITH_PSLIB
 #include <archive.h>
 #include <pslib.h>
 #endif
 #include <ThreadPool.h>
-
+#include <stdint.h>
 #include <atomic>
 #include <ctime>
 #include <map>
@@ -36,10 +39,18 @@ limitations under the License. */
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/platform/macros.h"  // for DISABLE_COPY_AND_ASSIGN
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/place.h"
 #ifdef PADDLE_WITH_HETERPS
 #include "paddle/fluid/platform/device/gpu/gpu_types.h"
 #endif
 #include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

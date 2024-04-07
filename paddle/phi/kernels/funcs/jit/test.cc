@@ -12,17 +12,33 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <string.h>
 #include <array>
 #include <iostream>
 #include <random>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <initializer_list>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <vector>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/common/place.h"
-#include "paddle/phi/core/enforce.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_key.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 PD_DEFINE_double(acc, 1e-5, "Test accuracy threshold.");
 

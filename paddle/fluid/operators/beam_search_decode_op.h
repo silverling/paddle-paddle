@@ -14,8 +14,27 @@ limitations under the License. */
 
 #pragma once
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <vector>
+
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/operators/beam_search_decode_op_def.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

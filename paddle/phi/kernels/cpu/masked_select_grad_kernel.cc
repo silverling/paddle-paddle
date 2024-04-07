@@ -14,15 +14,27 @@
 
 #include "paddle/phi/kernels/masked_select_grad_kernel.h"
 
-#include "paddle/phi/kernels/expand_kernel.h"
+#include <stdint.h>
 
+#include "paddle/phi/kernels/expand_kernel.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/empty_kernel.h"
 #include "paddle/phi/kernels/expand_grad_kernel.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void MaskedSelectGradKernel(const Context& dev_ctx,

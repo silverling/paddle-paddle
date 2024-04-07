@@ -12,14 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-
-#include <cmath>
-#include <functional>
+#include <bits/std_abs.h>
+#include <stdlib.h>
+#include <cstdint>
+#include <vector>
 
 #include "paddle/phi/kernels/autotune/cache.h"
-
-#include "glog/logging.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/kernels/autotune/cache_base.h"
 
 enum ConvAlgos { GEMMKernel = 0, CuDNNKernel_1 = 1, CuDNNKernel_2 = 2 };
 

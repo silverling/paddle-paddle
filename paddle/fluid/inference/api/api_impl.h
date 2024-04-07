@@ -15,11 +15,12 @@ limitations under the License. */
 #pragma once
 
 #include <glog/logging.h>
-
+#include <stddef.h>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
+#include <mutex>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/lod_tensor.h"
@@ -32,11 +33,16 @@ limitations under the License. */
 #include "paddle/fluid/platform/init.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 
 namespace framework {
 class Scope;
+class Executor;
+class OpDesc;
+class ProgramDesc;
+struct ExecutorPrepareContext;
 }  // namespace framework
 
 class NativePaddlePredictor : public PaddlePredictor {

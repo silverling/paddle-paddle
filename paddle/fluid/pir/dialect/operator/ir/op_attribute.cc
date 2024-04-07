@@ -13,8 +13,16 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
+
+#include <stdlib.h>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/common/enforce.h"
 #include "paddle/common/errors.h"
+#include "paddle/pir/include/core/parser/ir_parser.h"
+#include "paddle/pir/src/core/parser/token.h"
 
 namespace paddle {
 namespace dialect {

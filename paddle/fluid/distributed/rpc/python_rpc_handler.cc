@@ -14,6 +14,12 @@
 
 #include "paddle/fluid/distributed/rpc/python_rpc_handler.h"
 
+#include <array>
+
+#include "pybind11/cast.h"
+#include "pybind11/gil.h"
+#include "pybind11/pybind11.h"
+
 namespace paddle {
 namespace distributed {
 constexpr auto kInternalModule = "paddle.distributed.rpc.internal";

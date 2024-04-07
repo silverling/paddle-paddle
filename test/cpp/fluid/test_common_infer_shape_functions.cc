@@ -12,13 +12,38 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "gtest/gtest.h"
-#include "paddle/common/ddim.h"
-#include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/var_type.h"
+#include <algorithm>
+#include <functional>
+#include <iosfwd>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/imperative/infer_shape_context.h"
 #include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/operators/common_infer_shape_functions.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/small_vector.h"
+
+namespace paddle {
+namespace framework {
+class InferShapeContext;
+}  // namespace framework
+}  // namespace paddle
 
 USE_OP_ITSELF(relu);
 USE_OP_ITSELF(elementwise_add);

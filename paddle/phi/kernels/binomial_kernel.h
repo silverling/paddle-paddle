@@ -18,6 +18,7 @@
 #include "paddle/phi/core/device_context.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief This kernel generate random value that follow binomial distribution.

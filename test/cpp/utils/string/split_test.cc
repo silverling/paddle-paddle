@@ -14,9 +14,12 @@
 
 #include "paddle/utils/string/split.h"
 
+#include <stdlib.h>
 #include <string>
 
-#include "gtest/gtest.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 TEST(StringSplit, StringSplit) {
   std::string to_split = "0,1,2,3,4,5";

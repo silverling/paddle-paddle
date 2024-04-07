@@ -16,6 +16,12 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/pow2_decay_with_linear_warmup_kernel_impl.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 PD_REGISTER_KERNEL(pow2_decay_with_linear_warmup,
                    CPU,

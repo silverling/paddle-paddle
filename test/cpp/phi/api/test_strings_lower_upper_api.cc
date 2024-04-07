@@ -12,9 +12,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See
 the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <ctype.h>
 #include <memory>
+#include <algorithm>
+#include <string>
 
 #include "paddle/phi/api/include/strings_api.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
@@ -22,6 +23,15 @@ limitations under the License. */
 #include "paddle/phi/common/pstring.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/string_tensor.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 PD_DECLARE_KERNEL(strings_lower, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(strings_upper, CPU, ALL_LAYOUT);

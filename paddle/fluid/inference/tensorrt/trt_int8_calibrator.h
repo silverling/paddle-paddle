@@ -16,7 +16,6 @@
 
 #include <NvInfer.h>
 #include <cuda_runtime_api.h>
-
 #include <atomic>
 #include <memory>
 #include <mutex>  // NOLINT
@@ -24,10 +23,15 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <condition_variable>
+#include <cstddef>
+#include <thread>
 
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/inference/tensorrt/engine.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 namespace inference {

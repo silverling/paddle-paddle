@@ -15,15 +15,22 @@
 #include "paddle/fluid/pir/transforms/gpu/conv2d_add_fuse_pass.h"
 
 #include <string>
+#include <cstdint>
+#include <variant>
 
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/drr/include/drr_pattern_base.h"
-
 #include "paddle/fluid/pir/utils/general_functions.h"
-#include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/value.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "paddle/fluid/pir/drr/include/drr_match_context.h"
+#include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
+#include "paddle/fluid/pir/drr/include/drr_rewrite_pattern.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

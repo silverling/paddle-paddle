@@ -12,13 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
+#include <memory>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/kernels/elementwise_add_kernel.h"
 #include "paddle/phi/kernels/elementwise_divide_kernel.h"
 #include "paddle/phi/kernels/elementwise_multiply_kernel.h"
 #include "paddle/phi/kernels/elementwise_subtract_kernel.h"
-
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

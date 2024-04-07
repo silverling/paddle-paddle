@@ -21,6 +21,25 @@ limitations under the License. */
     Will be adjusted/removed/moved in the near future
 */
 
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <utility>
+#include <vector>
+
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/tensor_meta.h"
+
+namespace phi {
+class Allocation;
+class DenseTensor;
+class Stream;
+}  // namespace phi
+
 public:
 /* @jim19930609: Remove dependency on protobuf after Tensor Unification.
  */

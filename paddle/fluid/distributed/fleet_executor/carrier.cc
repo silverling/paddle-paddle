@@ -14,21 +14,41 @@
 
 #include "paddle/fluid/distributed/fleet_executor/carrier.h"
 
-#include <algorithm>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <vector>
+#include <limits>
+#include <map>
+#include <ostream>
+#include <set>
+#include <utility>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/distributed/fleet_executor/global.h"
 #include "paddle/fluid/distributed/fleet_executor/interceptor.h"
 #include "paddle/fluid/distributed/fleet_executor/message_bus.h"
-#include "paddle/fluid/distributed/fleet_executor/runtime_graph.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
 #include "paddle/fluid/framework/garbage_collector.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/platform/flags.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/backends/context_pool.h"
+
+namespace paddle {
+namespace framework {
+class OperatorBase;
+}  // namespace framework
+}  // namespace paddle
+
 PADDLE_DEFINE_EXPORTED_bool(
     fleet_executor_with_standalone,
     false,

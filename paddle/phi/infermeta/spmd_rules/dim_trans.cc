@@ -13,12 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/dim_trans.h"
+
+#include <ext/alloc_traits.h>
 #include <cassert>
-#include <cstdio>
-#include <numeric>
 #include <set>
+#include <algorithm>
+#include <iostream>
+
 #include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 
 namespace phi {
 namespace distributed {

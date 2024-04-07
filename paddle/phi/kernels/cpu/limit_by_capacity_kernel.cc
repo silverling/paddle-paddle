@@ -13,13 +13,16 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/limit_by_capacity_kernel.h"
+
+#include <stdint.h>
+
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
 
-#if defined(PADDLE_WITH_GLOO)
-#include "paddle/phi/core/distributed/gloo_comm_context.h"
-#endif
 namespace phi {
+class CPUContext;
+class DenseTensor;
 
 template <typename T, typename Context>
 void LimitByCapacityKernel(const Context& dev_ctx,

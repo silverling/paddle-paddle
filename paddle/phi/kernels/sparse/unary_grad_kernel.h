@@ -14,11 +14,17 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
+class SparseCooTensor;
+class SparseCsrTensor;
+
 namespace sparse {
 
 #define DECLARE_SPARSE_UNARY_GRAD_KERNEL(prefix)              \

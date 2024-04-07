@@ -15,9 +15,16 @@
 #include "paddle/fluid/memory/allocation/auto_growth_best_fit_allocator.h"
 
 #include <cstdlib>
+#include <initializer_list>
+#include <string>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/memory/allocation/aligned_allocator.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/flags.h"
+#include "paddle/phi/core/allocator.h"
 
 PD_DECLARE_bool(free_idle_chunk);
 PD_DECLARE_bool(free_when_no_cache_hit);

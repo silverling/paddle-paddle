@@ -14,10 +14,18 @@
 
 #include "paddle/phi/kernels/compare_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/elementwise_base.h"
-#include "paddle/phi/kernels/impl/compare_kernel_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/kernels/funcs/compare_functors.h"
 
 namespace phi {
 

@@ -19,6 +19,7 @@
 #include "paddle/phi/core/device_context.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void IdentityLossGradKernel(const Context& dev_ctx,

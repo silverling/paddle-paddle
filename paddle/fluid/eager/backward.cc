@@ -14,9 +14,36 @@
 
 #include "paddle/fluid/eager/backward.h"
 
+#include <stddef.h>
+#include <algorithm>
+#include <deque>
+#include <memory>
+#include <ostream>
+#include <queue>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/eager/general_grad.h"
 #include "paddle/fluid/memory/stats.h"
 #include "paddle/phi/kernels/autotune/switch_autotune.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/accumulation/accumulation_node.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/grad_node_info.h"
+#include "paddle/fluid/eager/grad_tensor_holder.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/small_vector.h"
 
 namespace egr {
 

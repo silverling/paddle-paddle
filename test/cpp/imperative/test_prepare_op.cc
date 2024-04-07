@@ -17,16 +17,41 @@
 //
 
 #include <paddle/fluid/framework/op_registry.h>
-
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <utility>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/imperative/prepared_operator.h"
 #include "paddle/fluid/imperative/type_defs.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/memory/memcpy.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+
+namespace egr {
+class EagerVariable;
+}  // namespace egr
 
 PD_DECLARE_KERNEL(split, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(relu, CPU, ALL_LAYOUT);

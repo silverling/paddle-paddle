@@ -12,8 +12,59 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/common/scalar.h"
 #include "test/cpp/auto_parallel/spmd_rule_test_util.h"
+#include "glog/logging.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/reduce_type.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/distributed/type_defs.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/infermeta/spmd_rules/cast.h"
+#include "paddle/phi/infermeta/spmd_rules/concat.h"
+#include "paddle/phi/infermeta/spmd_rules/cumsum.h"
+#include "paddle/phi/infermeta/spmd_rules/default_data_parallel.h"
+#include "paddle/phi/infermeta/spmd_rules/embedding.h"
+#include "paddle/phi/infermeta/spmd_rules/flash_attention.h"
+#include "paddle/phi/infermeta/spmd_rules/full_like.h"
+#include "paddle/phi/infermeta/spmd_rules/fused_rope.h"
+#include "paddle/phi/infermeta/spmd_rules/gather.h"
+#include "paddle/phi/infermeta/spmd_rules/layer_norm.h"
+#include "paddle/phi/infermeta/spmd_rules/numel.h"
+#include "paddle/phi/infermeta/spmd_rules/pow.h"
+#include "paddle/phi/infermeta/spmd_rules/reduction.h"
+#include "paddle/phi/infermeta/spmd_rules/replicated.h"
+#include "paddle/phi/infermeta/spmd_rules/reshape.h"
+#include "paddle/phi/infermeta/spmd_rules/scale.h"
+#include "paddle/phi/infermeta/spmd_rules/scatter.h"
+#include "paddle/phi/infermeta/spmd_rules/squeeze.h"
+#include "paddle/phi/infermeta/spmd_rules/stack.h"
+#include "paddle/phi/infermeta/spmd_rules/transpose.h"
+#include "paddle/phi/infermeta/spmd_rules/triu.h"
+#include "paddle/phi/infermeta/spmd_rules/unsqueeze.h"
+#include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/phi/infermeta/spmd_rules/where.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace distributed {

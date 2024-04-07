@@ -14,15 +14,29 @@
 
 #include "paddle/fluid/pir/transforms/gpu/conv2d_add_act_fuse_pass.h"
 
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
-
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "cuda.h"
+#include "cudnn_version.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
 
-#include "paddle/common/ddim.h"
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

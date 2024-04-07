@@ -13,26 +13,26 @@
 // limitations under the License.
 
 #include <algorithm>
-#include <fstream>
 #include <iostream>
 #include <set>
 #include <string>
 #include <unordered_set>
-#ifndef _WIN32
-#include <unistd.h>
-#endif
+#include <functional>
+#include <map>
+#include <tuple>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/framework/variable.h"
-#include "paddle/fluid/operators/custom_device_common_op_registry.h"
 #include "paddle/fluid/pybind/eager_generator.h"
-#include "paddle/fluid/pybind/pybind.h"
 #include "paddle/utils/string/string_helper.h"
-
-// phi
-#include "paddle/phi/kernels/declarations.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/string/printf.h"
 
 static std::string LegalizeVarName(const std::string& var_name) {
   std::string ret = var_name;

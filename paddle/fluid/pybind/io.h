@@ -16,6 +16,7 @@ limitations under the License. */
 
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
+
 typedef SSIZE_T ssize_t;
 #endif
 
@@ -26,6 +27,7 @@ typedef SSIZE_T ssize_t;
 #endif
 
 #include "paddle/fluid/pybind/pybind_variant_caster.h"
+#include "pybind11/pybind11.h"
 
 namespace paddle {
 namespace pybind {

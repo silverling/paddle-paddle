@@ -12,11 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <array>
+#include <cstdlib>
+#include <memory>
+#include <mutex>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/backends/gpu/gpu_info.h"
-
 #include "glog/logging.h"
-
 #include "paddle/phi/core/enforce.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/dynload/cudnn.h"
+#include "paddle/phi/backends/gpu/gpu_decls.h"
+#include "paddle/phi/backends/gpu/gpu_types.h"
 
 static std::once_flag g_device_props_size_init_flag;
 static std::vector<std::unique_ptr<std::once_flag>> g_device_props_init_flags;

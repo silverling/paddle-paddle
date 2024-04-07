@@ -12,14 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <Python.h>
-#include "pybind11/stl.h"
+#include <stdint.h>
+#include <set>
+#include <sstream>
+#include <vector>
 
+#include "pybind11/stl.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_api.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
 #include "paddle/fluid/pybind/dist_api.h"
 #include "paddle/fluid/pybind/dist_static_op_function.h"
-#include "paddle/phi/core/enforce.h"
+#include "modsupport.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/reduce_type.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pybind11.h"
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 namespace py = pybind11;
 

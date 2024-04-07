@@ -25,6 +25,7 @@
 #include <memory>
 #include <type_traits>
 #include <vector>
+#include <tuple>
 
 #include "paddle/utils/none.h"
 #include "paddle/utils/small_vector.h"

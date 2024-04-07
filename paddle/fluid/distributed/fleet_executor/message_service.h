@@ -17,6 +17,13 @@
 #include "brpc/server.h"
 #include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
 
+namespace google {
+namespace protobuf {
+class Closure;
+class RpcController;
+}  // namespace protobuf
+}  // namespace google
+
 namespace paddle {
 namespace distributed {
 

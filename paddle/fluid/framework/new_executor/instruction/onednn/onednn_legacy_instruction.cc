@@ -14,28 +14,47 @@
 
 #include "paddle/fluid/framework/new_executor/instruction/onednn/onednn_legacy_instruction.h"
 
+#include <cstdint>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
-#include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
-#include "paddle/fluid/framework/new_executor/interpreter/stream_analyzer.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
-#include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
-
-#include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/core/type_defs.h"
-
-#include "dnnl.hpp"  // NOLINT
-#include "paddle/fluid/framework/new_executor/instruction/onednn/onednn_instruction.h"
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/ir_adaptor/translator/op_compat_info.h"
 #include "paddle/phi/backends/onednn/onednn_context.h"
 #include "paddle/phi/backends/onednn/onednn_helper.h"
 #include "paddle/phi/kernels/funcs/data_layout_transform.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/small_vector.h"
 
 namespace paddle {
 namespace framework {

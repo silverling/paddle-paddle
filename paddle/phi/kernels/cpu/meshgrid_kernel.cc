@@ -14,6 +14,8 @@
 
 #include "paddle/phi/kernels/meshgrid_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/meshgrid_kernel_impl.h"

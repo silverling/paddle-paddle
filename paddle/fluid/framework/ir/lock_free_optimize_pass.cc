@@ -15,11 +15,16 @@
 #include "paddle/fluid/framework/ir/lock_free_optimize_pass.h"
 
 #include <string>
+#include <map>
+#include <ostream>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

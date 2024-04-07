@@ -12,13 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
-#include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/prim/api/manual_prim/utils/utils.h"
 #include "paddle/fluid/prim/utils/static/desc_tensor.h"
@@ -26,7 +34,20 @@
 #include "paddle/fluid/prim/utils/utils.h"
 #include "paddle/phi/api/include/operants_manager.h"
 #include "paddle/phi/core/enforce.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
+#include "paddle/fluid/prim/utils/static/static_global_utils.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/optional.h"
 
 PD_DECLARE_bool(prim_enabled);
 COMMON_DECLARE_string(tensor_operants_mode);

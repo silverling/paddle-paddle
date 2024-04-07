@@ -15,9 +15,15 @@ limitations under the License. */
 #pragma once
 
 #include <glog/logging.h>
+#include <stdint.h>
 #include <limits>
 #include <string>
 #include <utility>
+#include <cstddef>
+#include <memory>
+#include <ostream>
+#include <vector>
+
 #include "paddle/common/layout.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/api/lib/backend_set.h"
@@ -28,9 +34,16 @@ limitations under the License. */
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
-
 // TODO(chenweihang): split Key, Kernel, Factory into diff files
 #include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/utils/optional.h"
+
+namespace phi {
+class DeviceContext;
+}  // namespace phi
 
 namespace paddle {
 namespace experimental {

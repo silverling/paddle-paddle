@@ -17,14 +17,20 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
+class Node;
+
 namespace patterns {
 
 // Declare patterns for multi head attention.

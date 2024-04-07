@@ -14,8 +14,13 @@
 
 #include "paddle/phi/kernels/all_gather_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 #if defined(PADDLE_WITH_GLOO)
 #include "paddle/phi/core/distributed/gloo_comm_context.h"
@@ -25,6 +30,10 @@
 #endif
 
 namespace phi {
+namespace dtype {
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void AllGatherKernel(const Context& dev_ctx,

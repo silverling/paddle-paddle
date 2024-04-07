@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
 #include <functional>
 #include <optional>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <ostream>
+#include <vector>
 
 #include "glog/logging.h"
 

@@ -14,10 +14,13 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/op_call_stack.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
@@ -25,6 +28,17 @@
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/pir/include/core/type.h"
+
+namespace pir {
+class Block;
+class IrContext;
+class Operation;
+class Program;
+}  // namespace pir
 
 namespace paddle {
 namespace translator {

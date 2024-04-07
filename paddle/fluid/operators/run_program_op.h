@@ -14,6 +14,9 @@ limitations under the License. */
 
 #pragma once
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <iterator>
 #include <memory>
@@ -22,6 +25,8 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <list>
+#include <ostream>
 
 #include "paddle/fluid/framework/executor_cache.h"
 #include "paddle/fluid/framework/op_desc.h"
@@ -31,6 +36,18 @@ limitations under the License. */
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/var_type_traits.h"
 #include "paddle/fluid/framework/variable.h"
+#include "driver_types.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/parallel_executor.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/variant.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #endif

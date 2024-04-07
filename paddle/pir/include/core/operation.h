@@ -14,8 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <ostream>
 #include <vector>
+#include <atomic>
+#include <cstdint>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/enforce.h"
 #include "paddle/common/macros.h"
@@ -26,15 +33,27 @@
 #include "paddle/pir/include/core/operation_utils.h"
 #include "paddle/pir/include/core/type.h"
 #include "paddle/pir/include/core/visitors.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block_operand.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/region.h"
+#include "paddle/pir/include/core/value.h"
+
 namespace pir {
 class OpBase;
 class Program;
 class OpOperand;
 class OpResult;
+class Dialect;
+class IrContext;
+class IrMapping;
 
 namespace detail {
 class OpResultImpl;
 class OpOperandImpl;
+class BlockOperandImpl;
 }  // namespace detail
 
 class CloneOptions {

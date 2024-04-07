@@ -12,17 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/details/all_reduce_op_handle.h"
 #include "paddle/fluid/framework/details/container_cast.h"
 #include "paddle/fluid/framework/details/fused_all_reduce_op_handle.h"
 #include "paddle/fluid/framework/details/grad_merge_all_reduce_op_handle.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
-#include "paddle/fluid/framework/ir/graph_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/string/printf.h"
 
 namespace paddle {
+namespace platform {
+class NCCLCommunicator;
+}  // namespace platform
+
 namespace framework {
+class Scope;
+
 namespace ir {
 
 class FuseAllReduceOpPass : public ir::Pass {

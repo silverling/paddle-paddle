@@ -22,13 +22,25 @@
 // \author Yi Li, Guodong Zhang, Jifeng Dai
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <cmath>
+#include <string>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

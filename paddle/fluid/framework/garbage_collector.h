@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <deque>
 #include <functional>
 #include <memory>
@@ -23,8 +25,21 @@
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/stream_callback_manager.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
+namespace platform {
+template <typename Stream> class StreamCallbackManager;
+}  // namespace platform
+
 namespace framework {
 
 class GarbageCollector {

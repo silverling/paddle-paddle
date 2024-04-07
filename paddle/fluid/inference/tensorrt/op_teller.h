@@ -25,6 +25,9 @@
 namespace paddle {
 namespace framework {
 class OpDesc;
+namespace ir {
+class Node;
+}  // namespace ir
 }  // namespace framework
 }  // namespace paddle
 

@@ -14,8 +14,10 @@
 
 #include "paddle/fluid/distributed/fleet_executor/amplifier_interceptor.h"
 
+#include <memory>
+
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
-#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor.h"
 
 namespace paddle {
 namespace distributed {

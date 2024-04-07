@@ -11,7 +11,7 @@ limitations under the License. */
 // disable numpy compile error
 #include "paddle/fluid/pybind/eager.h"
 
-#include <Python.h>
+#include <stddef.h>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
@@ -19,32 +19,62 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
+#include <new>
+#include <ostream>
+#include <unordered_map>
 
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "pybind11/detail/internals.h"
 #include "pybind11/numpy.h"
 #include "pybind11/pybind11.h"
+#include "descrobject.h"
+#include "methodobject.h"
+#include "modsupport.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/api/lib/utils/allocator.h"
+#include "paddle/phi/backends/gpu/gpu_info.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/pybind.h"
+#include "patchlevel.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
+#include "pymacro.h"
+#include "pyport.h"
+#include "tupleobject.h"
+
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
-#include "paddle/fluid/framework/phi_utils.h"
-#include "paddle/fluid/framework/python_headers.h"
 #include "paddle/fluid/pybind/exception.h"
 #include "paddle/fluid/pybind/tensor_py.h"
-#include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/phi/core/string_tensor.h"
+
+namespace phi {
+namespace distributed {
+class TensorDistAttr;
+}  // namespace distributed
+}  // namespace phi
 
 using phi::distributed::DistTensor;
 using phi::distributed::Placement;

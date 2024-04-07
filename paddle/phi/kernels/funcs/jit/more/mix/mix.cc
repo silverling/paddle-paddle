@@ -16,6 +16,12 @@
 
 #include "paddle/phi/kernels/funcs/jit/kernels.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "paddle/phi/kernels/funcs/jit/macro.h"
 
 namespace phi {
 namespace jit {

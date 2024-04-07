@@ -16,12 +16,16 @@ limitations under the License. */
 
 #include <cryptopp/cryptlib.h>
 #include <glog/logging.h>
-#include <gtest/gtest.h>
-
 #include <fstream>
 #include <string>
+#include <memory>
+#include <vector>
 
 #include "paddle/fluid/framework/io/crypto/cipher_utils.h"
+#include "crypto/cipher.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace framework {

@@ -14,13 +14,23 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <list>
 #include <map>
 #include <set>
+#include <memory>
+#include <mutex>
+#include <vector>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/allocation/spin_lock.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 #ifdef PADDLE_WITH_CUDA
 #include <cuda_runtime.h>

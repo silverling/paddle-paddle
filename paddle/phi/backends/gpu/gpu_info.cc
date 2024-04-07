@@ -14,12 +14,13 @@ limitations under the License. */
 
 #include "paddle/phi/backends/gpu/gpu_info.h"
 
+#include <stdlib.h>
 #include <sstream>
 #include <vector>
+#include <string>
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-
 #include "paddle/phi/common/memory_utils.h"
 
 COMMON_DECLARE_string(selected_gpus);

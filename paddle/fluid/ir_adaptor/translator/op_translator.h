@@ -14,8 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <tuple>
 #include <unordered_map>
+#include <functional>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/op_desc.h"
@@ -26,9 +30,21 @@
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+
+namespace pir {
+class Block;
+class IrContext;
+class Operation;
+}  // namespace pir
 
 namespace paddle {
 namespace translator {
+class TranslationContext;
 
 /// @brief This class is used to translate a OpDesc, it's a functor class and
 /// should have no non-static data member, since we expected it's stateless.

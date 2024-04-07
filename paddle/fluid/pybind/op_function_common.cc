@@ -14,31 +14,50 @@
 
 #include "paddle/fluid/pybind/op_function_common.h"
 
-#include <pybind11/chrono.h>
-#include <pybind11/complex.h>
-#include <pybind11/functional.h>
-#include <pybind11/stl.h>
-
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <complex>
+#include <cstdint>
+#include <iterator>
+#include <ostream>
+#include <set>
+#include <utility>
 
-#include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/variable.h"
-#include "paddle/fluid/imperative/tracer.h"
-#include "paddle/fluid/imperative/type_defs.h"
 #include "paddle/fluid/operators/ops_extra_info.h"
-#include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/fluid/pybind/imperative.h"
 #include "paddle/phi/common/complex.h"
-#include "paddle/pir/include/core/block.h"
-#include "paddle/pir/include/core/op_result.h"
 #include "paddle/pir/include/core/value.h"
+#include "abstract.h"
+#include "boolobject.h"
+#include "complexobject.h"
+#include "floatobject.h"
+#include "listobject.h"
+#include "longobject.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/pybind.h"
+#include "paddle/utils/variant.h"
+#include "pyport.h"
+#include "tupleobject.h"
+#include "unicodeobject.h"
+
+namespace pir {
+class Block;
+}  // namespace pir
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+}  // namespace framework
+
 namespace pybind {
 
 class OpAttrTypeMap {

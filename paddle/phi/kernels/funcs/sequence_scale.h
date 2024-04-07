@@ -19,6 +19,8 @@ limitations under the License. */
 #include "paddle/phi/core/lod_utils.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 /*

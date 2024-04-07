@@ -14,6 +14,15 @@
 
 #include "paddle/fluid/pir/dialect/operator/interface/parse_kernel_key.h"
 
+#include <memory>
+
+#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
+#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+
 namespace paddle::dialect {
 
 KernelKeyTuple UniqueOpParseKernelKey(pir::Operation* op) {

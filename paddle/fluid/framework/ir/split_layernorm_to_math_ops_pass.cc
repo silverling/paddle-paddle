@@ -14,15 +14,35 @@
 
 #include "paddle/fluid/framework/ir/split_layernorm_to_math_ops_pass.h"
 
+#include <string.h>
 #include <vector>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <unordered_set>
 
-#include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/utils/string/pretty_log.h"
-#include "paddle/utils/string/printf.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

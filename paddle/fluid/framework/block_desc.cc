@@ -15,9 +15,21 @@ limitations under the License. */
 #include "paddle/fluid/framework/block_desc.h"
 
 #include <queue>
+#include <algorithm>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

@@ -17,6 +17,10 @@
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/variable.h"
 
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+
 namespace paddle {
 namespace framework {
 class Variable;

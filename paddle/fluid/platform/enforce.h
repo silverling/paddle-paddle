@@ -54,6 +54,7 @@ limitations under the License. */
 #include <string>
 #include <type_traits>
 #include <utility>
+#include <exception>
 
 #if !defined(_WIN32) && !defined(PADDLE_WITH_MUSL)
 #include <execinfo.h>
@@ -64,10 +65,11 @@ limitations under the License. */
 #include "paddle/common/flags.h"
 #include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/platform/macros.h"
-
 #include "paddle/phi/common/port.h"
 #include "paddle/utils/string/printf.h"
 #include "paddle/utils/string/to_string.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/backends/dynload/cublas.h"

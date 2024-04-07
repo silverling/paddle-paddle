@@ -15,7 +15,6 @@ limitations under the License. */
 #pragma once
 
 #include <sys/stat.h>
-
 #include <cstdio>
 #include <fstream>
 #include <memory>
@@ -25,19 +24,38 @@ limitations under the License. */
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/common/port.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
+namespace paddle {
+namespace framework {
+class Variable;
+namespace proto {
+class OpDesc;
+}  // namespace proto
+}  // namespace framework
+namespace inference {
+namespace analysis {
+struct DataTypeNamer;
+}  // namespace analysis
+}  // namespace inference
+}  // namespace paddle
 
 #ifdef _WIN32
 #include <direct.h>
 #include <io.h>
+
 #define GCC_ATTRIBUTE(attr__)
 #define MKDIR(path) _mkdir(path)
 #else
 #include <unistd.h>
+
 #define GCC_ATTRIBUTE(attr__) __attribute__((attr__));
 #define MKDIR(path) mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #endif

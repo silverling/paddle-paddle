@@ -13,9 +13,13 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <atomic>
+#include <cstdint>
+#include <ostream>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/src/core/value_impl.h"
+#include "paddle/common/errors.h"
 
 namespace {
 uint64_t GenerateId() {

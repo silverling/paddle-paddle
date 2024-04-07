@@ -17,6 +17,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /**
  * @brief This kernel is used to perform matrix vector multiplication

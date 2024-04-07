@@ -13,9 +13,35 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/eig_grad_kernel.h"
-#include "paddle/phi/kernels/cpu/eig.h"
 
+#include <string>
+
+#include "paddle/phi/kernels/cpu/eig.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/CwiseNullaryOp.h"
+#include "Eigen/src/Core/Diagonal.h"
+#include "Eigen/src/Core/GeneralProduct.h"
+#include "Eigen/src/Core/NoAlias.h"
+#include "Eigen/src/Core/PermutationMatrix.h"
+#include "Eigen/src/Core/SelfCwiseBinaryOp.h"
+#include "Eigen/src/Core/TriangularMatrix.h"
+#include "Eigen/src/Core/Visitor.h"
+#include "Eigen/src/Core/arch/AVX/Complex.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/Complex.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
 
 namespace phi {
 

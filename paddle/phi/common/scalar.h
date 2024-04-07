@@ -18,12 +18,20 @@ limitations under the License. */
 #include <limits>
 #include <sstream>
 #include <vector>
+#include <complex>
+#include <string>
 
 #include "paddle/common/exception.h"
 #include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 class Tensor;
+
 namespace experimental {
 
 template <typename T>
@@ -424,5 +432,6 @@ std::vector<paddle::experimental::Scalar> WrapAsScalars(
 
 namespace phi {
 class DenseTensor;
+
 using Scalar = paddle::experimental::ScalarBase<DenseTensor>;
 }  // namespace phi

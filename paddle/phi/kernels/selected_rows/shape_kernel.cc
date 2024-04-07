@@ -14,14 +14,23 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/selected_rows/shape_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/backends/gpu/gpu_context.h"
-#include "paddle/phi/backends/xpu/xpu_context.h"
-#include "paddle/phi/common/float16.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/shape_kernel.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class GPUContext;
+namespace dtype {
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
+
 namespace sr {
 
 template <typename T, typename Context>

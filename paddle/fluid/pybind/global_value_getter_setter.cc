@@ -14,21 +14,26 @@
 
 #include "paddle/fluid/pybind/global_value_getter_setter.h"
 
-#include <cctype>
 #include <functional>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
-#include <vector>
+#include <map>
+#include <ostream>
 
 #include "paddle/common/flags.h"
 #include "paddle/common/macros.h"
-#include "paddle/fluid/framework/python_headers.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
-#include "paddle/fluid/platform/macros.h"
 #include "pybind11/stl.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/variant.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
 
 // FIXME(zengjinle): these 2 flags may be removed by the linker when compiling
 // CPU-only Paddle. It is because they are only used in

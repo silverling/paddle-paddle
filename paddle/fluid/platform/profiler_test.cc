@@ -15,8 +15,16 @@ limitations under the License. */
 #include "paddle/fluid/platform/profiler.h"
 
 #include <string>
+#include <ostream>
 
-#include "gtest/gtest.h"
+#include "cuda_runtime_api.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/phi/api/profiler/event.h"
+#include "paddle/phi/backends/gpu/forwards.h"
 
 TEST(Event, CpuElapsedTime) {
   using paddle::platform::Event;

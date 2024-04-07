@@ -13,12 +13,19 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <string.h>
+#include <algorithm>
+#include <new>
+#include <ostream>
+#include <string>
+#include <utility>
 
 #include "paddle/pir/include/core/dialect.h"
-#include "paddle/pir/include/core/interface_support.h"
 #include "paddle/pir/src/core/op_info_impl.h"
+#include "paddle/common/enforce.h"
 
 namespace pir {
+class IrContext;
 
 void OpInfo::AttachInterface(InterfaceValue &&interface_value) {
   IR_ENFORCE(impl_, "Cann't attach interface to a nullptr OpInfo");

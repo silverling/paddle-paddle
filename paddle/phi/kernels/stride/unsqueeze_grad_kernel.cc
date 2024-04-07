@@ -11,12 +11,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include "paddle/phi/backends/all_context.h"
+#include <cstdint>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/flatten_grad_kernel.h"
 #include "paddle/phi/kernels/reshape_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
 
 template <typename Context>
 void UnsqueezeGradStridedKernel(const Context& dev_ctx,

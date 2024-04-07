@@ -17,6 +17,7 @@
 #include "paddle/phi/common/int_array.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void AffineGridGradKernel(const Context& dev_ctx,

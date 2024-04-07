@@ -14,9 +14,17 @@
 
 #pragma once
 
+#include <iosfwd>
+
 #include "paddle/pir/include/core/dialect.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
+class IrContext;
+class IrParser;
+
 ///
 /// \brief Built-in Dialect: automatically registered into global IrContext,
 /// all built-in types defined in builtin_type.h will be registered in this

@@ -14,10 +14,28 @@
 
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
 
+#include <ostream>
+
 #include "paddle/fluid/framework/new_executor/pir_interpreter.h"
 #include "paddle/fluid/framework/new_executor/program_interpreter.h"
-#include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/core/value.h"
+#include "glog/logging.h"
+#include "paddle/fluid/framework/new_executor/interpreter_base_impl.h"
+#include "paddle/fluid/platform/flags.h"
+#include "paddle/phi/common/place.h"
+
+namespace paddle {
+namespace framework {
+class BlockDesc;
+class ProgramDesc;
+class Scope;
+class Variable;
+class VariableScope;
+struct OpFuncNode;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 PADDLE_DEFINE_EXPORTED_bool(
     new_executor_serial_run,

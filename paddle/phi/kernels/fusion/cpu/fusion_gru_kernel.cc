@@ -12,21 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ext/alloc_traits.h>
 #include <cstring>  // for memcpy
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <memory>
 
-#include "paddle/common/errors.h"
-#include "paddle/phi/common/float16.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/fc_functor.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
 #include "paddle/phi/kernels/funcs/sequence2batch.h"
+#include "mkl_cblas.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class CPUPlace;
+
 namespace fusion {
 
 #define INIT_BASE_DEFINES                                  \

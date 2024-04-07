@@ -16,6 +16,15 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/pool_kernel_impl.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+
+namespace phi {
+class CPUContext;
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_REGISTER_KERNEL(pool2d, CPU, ALL_LAYOUT, phi::Pool2dKernel, float, double) {}
 PD_REGISTER_KERNEL(max_pool2d_with_index,

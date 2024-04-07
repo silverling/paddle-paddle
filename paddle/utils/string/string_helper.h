@@ -17,7 +17,6 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
-
 #include <algorithm>
 #include <cstdint>
 #include <cstring>
@@ -25,6 +24,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstdlib>
 
 namespace paddle {
 namespace string {

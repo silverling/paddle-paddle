@@ -14,10 +14,22 @@
 
 #include "paddle/phi/kernels/uniform_kernel.h"
 
+#include <memory>
+#include <random>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/uniform_real_distribution.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void UniformKernel(const Context &dev_ctx,

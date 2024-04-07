@@ -13,9 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/core/sparse_coo_tensor.h"
-#include "paddle/phi/core/enforce.h"
+
+#include <string.h>
+#include <cstdint>
+#include <vector>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
+class Allocator;
 
 SparseCooTensor::SparseCooTensor() {
   DenseTensor non_zero_indices, non_zero_elements;

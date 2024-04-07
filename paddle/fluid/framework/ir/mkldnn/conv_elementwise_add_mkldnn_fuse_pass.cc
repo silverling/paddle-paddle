@@ -14,14 +14,26 @@
 
 #include "paddle/fluid/framework/ir/mkldnn/conv_elementwise_add_mkldnn_fuse_pass.h"
 
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/graph_traits.h"
 #include "paddle/fluid/framework/ir/mkldnn/mkldnn_pass_util.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 ResidualConnectionMKLDNNFusePass::ResidualConnectionMKLDNNFusePass() {
   AddOpCompat(OpCompat("conv2d"))

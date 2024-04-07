@@ -16,17 +16,34 @@
 
 #include <memory>
 #include <string>
+#include <algorithm>
+#include <cctype>
+#include <iterator>
+#include <ostream>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/eager/api/utils/global_utils.h"
-#include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/imperative/type_defs.h"
 #include "paddle/fluid/imperative/var_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_kernel_type.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace paddle {
 namespace imperative {
-
-class VarBase;
 
 // According to the input `place` and `dtype`, this function returns a tuple
 // consists of three sets:

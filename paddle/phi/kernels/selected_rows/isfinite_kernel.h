@@ -18,6 +18,7 @@ limitations under the License. */
 #include "paddle/phi/kernels/isfinite_kernel.h"
 
 namespace phi {
+class SelectedRows;
 
 #define DEFINE_ISFINITE_SR(isfinite_sr)   \
   template <typename T, typename Context> \

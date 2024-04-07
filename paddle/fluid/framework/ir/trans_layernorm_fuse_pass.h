@@ -13,7 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

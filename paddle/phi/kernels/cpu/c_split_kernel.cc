@@ -14,9 +14,18 @@
 
 #include "paddle/phi/kernels/c_split_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void CSplitKernel(const Context& ctx,

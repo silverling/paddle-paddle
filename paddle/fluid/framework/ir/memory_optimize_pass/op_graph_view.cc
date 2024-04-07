@@ -14,13 +14,11 @@
 
 #include "paddle/fluid/framework/ir/memory_optimize_pass/op_graph_view.h"
 
-namespace paddle {
-namespace framework {
-namespace details {
-class OpHandleBase;
-}  // namespace details
-}  // namespace framework
-}  // namespace paddle
+#include <string>
+
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

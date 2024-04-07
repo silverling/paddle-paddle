@@ -18,22 +18,42 @@ limitations under the License. */
 #include <random>
 #include <sstream>
 #include <string>
-#include <type_traits>
+#include <algorithm>
+#include <cstdint>
+#include <limits>
+#include <list>
+#include <stack>
+#include <utility>
 
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/profiler/common_event.h"
 #include "paddle/fluid/platform/profiler/host_event_recorder.h"
 #include "paddle/fluid/platform/profiler/host_tracer.h"
 #include "paddle/fluid/platform/profiler/profiler.h"
 #include "paddle/fluid/platform/profiler_helper.h"
 #include "paddle/phi/api/profiler/device_tracer.h"
-#ifdef PADDLE_WITH_CUDA
-#include "paddle/fluid/platform/dynload/nvtx.h"
-#endif
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/os_info.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/platform/profiler/mem_tracing.h"
+#include "paddle/fluid/platform/profiler/supplement_tracing.h"
+#include "paddle/phi/api/profiler/common_event.h"
+#include "paddle/phi/api/profiler/event.h"
+#include "paddle/phi/api/profiler/host_event_recorder.h"
+#include "paddle/phi/api/profiler/host_tracer.h"
+#include "paddle/phi/api/profiler/profiler.pb.h"
+#include "paddle/phi/api/profiler/profiler_helper.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/os_info.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
 
 COMMON_DECLARE_bool(enable_record_memory);
 

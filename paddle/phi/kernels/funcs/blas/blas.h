@@ -14,7 +14,11 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle/phi/core/dense_tensor.h"
+#include "mkl_cblas.h"
+#include "paddle/phi/core/ddim.h"
 
 #ifdef PADDLE_WITH_MKLML
 #include "paddle/phi/backends/dynload/mklml.h"
@@ -29,6 +33,8 @@
 #endif
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 /**

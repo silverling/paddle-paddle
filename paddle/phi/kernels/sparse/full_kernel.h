@@ -20,6 +20,8 @@
 #include "paddle/phi/core/sparse_csr_tensor.h"
 
 namespace phi {
+class SparseCooTensor;
+class SparseCsrTensor;
 
 template <typename T, typename Context>
 void FullLikeCooKernel(const Context& dev_ctx,

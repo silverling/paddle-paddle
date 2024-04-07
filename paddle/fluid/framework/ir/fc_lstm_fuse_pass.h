@@ -22,6 +22,8 @@
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace ir {
 
 // The MulLstmFusePass and MulLstmFusePass will fuse to the same FusionLstm op.

@@ -14,8 +14,19 @@
 
 #include "paddle/fluid/inference/analysis/passes/ir_analysis_pass.h"
 
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/inference/analysis/ir_pass_manager.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/inference/analysis/argument.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace inference {

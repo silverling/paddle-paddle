@@ -14,6 +14,17 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/crf_decoding_op.h"
 
+#include <algorithm>
+
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+
 namespace paddle {
 namespace operators {
 class CRFDecodingOpMaker : public framework::OpProtoAndCheckerMaker {

@@ -14,9 +14,21 @@
 
 #include "paddle/phi/kernels/index_add_grad_kernel.h"
 
+#include <cstdint>
+#include <string>
+
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/kernels/cpu/index_select_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

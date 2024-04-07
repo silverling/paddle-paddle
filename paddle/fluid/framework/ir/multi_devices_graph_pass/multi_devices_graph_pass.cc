@@ -13,6 +13,7 @@
 // limitations under the License.
 #include "paddle/fluid/framework/ir/multi_devices_graph_pass/multi_devices_graph_pass.h"
 
+#include <ext/alloc_traits.h>
 #include <algorithm>
 #include <fstream>
 #include <memory>
@@ -21,6 +22,8 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <iterator>
+#include <map>
 
 #include "paddle/fluid/framework/details/all_reduce_op_handle.h"
 #include "paddle/fluid/framework/details/broadcast_op_handle.h"
@@ -33,9 +36,25 @@
 #include "paddle/fluid/framework/details/scale_loss_grad_op_handle.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/node.h"
-#include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/dgc_const_values.h"
+#include "paddle/fluid/framework/details/multi_devices_helper.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/optional.h"
 
 #if defined(PADDLE_WITH_DGC)
 #include "paddle/fluid/framework/details/sparse_all_reduce_op_handle.h"

@@ -22,6 +22,7 @@ limitations under the License. */
 #include <string>
 #include <thread>  // NOLINT
 #include <vector>
+#include <future>
 
 #include "paddle/fluid/framework/data_feed.h"
 #include "paddle/fluid/framework/data_set.h"
@@ -35,6 +36,12 @@ limitations under the License. */
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/operators/reader/blocking_queue.h"
 #include "paddle/phi/common/port.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
@@ -48,9 +55,9 @@ class DeviceWorker;
 class HeterWrapper;
 class HeterRequest;
 class HeterResponse;
-
 template <class T>
 class ChannelObject;
+class DataFeed;
 
 class TrainerBase {
  public:

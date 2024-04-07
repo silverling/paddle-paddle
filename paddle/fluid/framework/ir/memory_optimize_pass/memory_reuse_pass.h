@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -84,6 +86,7 @@ namespace ir {
  * ComputationOpHandle::Run() in the future.
  */
 class Graph;
+class Node;
 
 class MemoryReusePass : public Pass {
  protected:

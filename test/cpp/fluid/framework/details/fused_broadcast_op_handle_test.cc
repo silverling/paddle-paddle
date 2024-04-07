@@ -14,23 +14,26 @@
 
 #include "paddle/fluid/framework/details/fused_broadcast_op_handle.h"
 
-#include "gtest/gtest.h"
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <unordered_map>
+
 #include "paddle/fluid/framework/details/op_handle_base.h"
 #include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "test/cpp/fluid/framework/details/broadcast_op_handle_test.h"
-
-namespace paddle {
-namespace framework {
-class Scope;
-}  // namespace framework
-}  // namespace paddle
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace paddle {
 namespace framework {
 namespace details {
-
-struct VarHandle;
 
 using DeviceType = paddle::platform::DeviceType;
 

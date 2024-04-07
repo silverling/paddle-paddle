@@ -15,7 +15,15 @@
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/device/gpu/gpu_resource_pool.h"
 
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
+
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/resource_pool.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace platform {

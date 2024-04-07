@@ -15,8 +15,13 @@
 #pragma once
 
 #include <glog/logging.h>
-
+#include <bits/chrono.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <fstream>
+#include <cstdint>
+#include <memory>
+#include <stdexcept>
 #if !defined(_WIN32)
 #include <sys/time.h>
 #endif
@@ -37,6 +42,11 @@
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/common/port.h"
 #include "paddle/utils/string/printf.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
 
 extern std::string paddle::framework::DataTypeToString(
     const framework::proto::VarType::Type type);

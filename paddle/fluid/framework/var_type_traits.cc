@@ -14,21 +14,13 @@
 
 #include "paddle/fluid/framework/var_type_traits.h"
 
-#include "paddle/fluid/framework/lod_rank_table.h"
-#include "paddle/fluid/framework/reader.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/operators/reader/lod_tensor_blocking_queue.h"
-#include "paddle/fluid/platform/macros.h"
-#ifdef PADDLE_WITH_CUDA
-#if defined(PADDLE_WITH_NCCL)
-#include "paddle/fluid/operators/nccl/nccl_gpu_common.h"
-#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
-#endif
-#include <cudnn.h>
+#include <bits/utility.h>
+#include <unordered_map>
+#include <utility>
 
-#include "paddle/fluid/operators/cudnn_rnn_cache.h"
-#include "paddle/phi/kernels/gpudnn/conv_gpudnn_info.h"
-#endif
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 #ifdef PADDLE_WITH_HIP
 #if defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/operators/nccl/nccl_gpu_common.h"   // NOLINT
@@ -40,9 +32,6 @@
 #if defined(PADDLE_WITH_XPU_BKCL)
 #include "paddle/fluid/platform/device/xpu/bkcl_helper.h"
 #endif
-
-#include "paddle/fluid/framework/raw_tensor.h"
-#include "paddle/fluid/operators/cuda_graph_with_in_out.h"
 
 namespace paddle {
 namespace framework {

@@ -26,6 +26,10 @@ limitations under the License. */
 
 namespace paddle {
 namespace framework {
+class ProgramDesc;
+namespace proto {
+class ProgramDesc;
+}  // namespace proto
 
 std::map<int, int> Prune(const proto::ProgramDesc& input,
                          const std::set<std::string>& feed_var_names,

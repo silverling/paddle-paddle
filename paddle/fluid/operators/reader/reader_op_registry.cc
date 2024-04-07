@@ -14,11 +14,19 @@
 
 #include "paddle/fluid/operators/reader/reader_op_registry.h"
 
-namespace paddle {
-namespace framework {
-class VarDesc;
-}  // namespace framework
-}  // namespace paddle
+#include <memory>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

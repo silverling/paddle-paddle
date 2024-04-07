@@ -14,7 +14,10 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <cmath>
+#include <numeric>
+#include <vector>
 
 #include "paddle/phi/kernels/autotune/cache.h"
 

@@ -14,20 +14,28 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "paddle/common/hostdevice.h"
 #include "paddle/common/macros.h"  // import FLT_MAX
 #include "paddle/phi/common/amp_type_traits.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/phi/backends/gpu/gpu_decls.h"
 #endif
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 /*

@@ -13,13 +13,21 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/reshape_kernel.h"
-#include <algorithm>
-#include "paddle/phi/backends/all_context.h"
+
+#include <stddef.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/strided_reshape_utils.h"
 #include "paddle/phi/kernels/funcs/strided_utils.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/visit_type.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+
 template <typename Context>
 void ReshapeStridedKernel(const Context& dev_ctx,
                           const DenseTensor& x,

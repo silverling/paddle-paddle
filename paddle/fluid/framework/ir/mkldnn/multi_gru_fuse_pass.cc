@@ -15,12 +15,30 @@
 #include "paddle/fluid/framework/ir/mkldnn/multi_gru_fuse_pass.h"
 
 #include <vector>
+#include <algorithm>
+#include <initializer_list>
+#include <map>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/errors.h"
-#include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

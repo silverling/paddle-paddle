@@ -14,7 +14,16 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/trainer.h"
 
+#include <ext/alloc_traits.h>
+#include <stdio.h>
+#include <ctime>
+#include <fstream>
+
 #include "io/fs.h"
+#include "paddle/fluid/framework/barrier.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/data_set.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
 
 namespace paddle {
 namespace framework {

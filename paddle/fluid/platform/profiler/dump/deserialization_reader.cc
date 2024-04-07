@@ -11,8 +11,19 @@ limitations under the License. */
 #include "paddle/fluid/platform/profiler/dump/deserialization_reader.h"
 
 #include <cstring>
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/platform/profiler/extra_info.h"
+#include "glog/logging.h"
+#include "paddle/fluid/platform/profiler/dump/nodetree.pb.h"
+#include "paddle/fluid/platform/profiler/event_node.h"
+#include "paddle/fluid/platform/profiler/event_python.h"
+#include "paddle/phi/api/profiler/trace_event.h"
 
 namespace paddle {
 namespace platform {

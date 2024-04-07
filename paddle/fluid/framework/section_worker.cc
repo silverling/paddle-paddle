@@ -10,16 +10,32 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
-#include <cfloat>
+#include <stdint.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/device_worker.h"
 #include "paddle/fluid/framework/executor_gc_helper.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/garbage_collector.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
-
-class TrainerDesc;
 
 uint64_t SectionWorker::batch_id_(0);
 

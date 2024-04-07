@@ -14,15 +14,40 @@
 
 #include "paddle/fluid/framework/new_executor/standalone_executor.h"
 
-#include <gtest/gtest.h>
-
-#include <chrono>
+#include <bits/chrono.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <iostream>
 #include <memory>
 #include <string>
+#include <algorithm>
+#include <array>
+#include <list>
+#include <map>
+#include <set>
 
 #include "paddle/fluid/framework/new_executor/interpreter/plan.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpreter/job.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 USE_OP_ITSELF(fill_constant);
 USE_OP_ITSELF(uniform_random);

@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/api/manual/eager_manual/dygraph_forward_api.h"
 #include "paddle/fluid/eager/api/manual/eager_manual/nodes/nodes.h"
@@ -24,6 +29,20 @@
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/api/include/sparse_api.h"
 #include "paddle/phi/common/type_promotion.h"
+#include "paddle/fluid/eager/autograd_meta.h"
+#include "paddle/fluid/eager/eager_layout_transformer.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/imperative/amp_auto_cast.h"
+#include "paddle/fluid/imperative/layout_autotune.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/api.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
 
 COMMON_DECLARE_bool(check_nan_inf);
 

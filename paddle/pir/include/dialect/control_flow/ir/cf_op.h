@@ -14,14 +14,29 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <functional>
+#include <initializer_list>
+#include <tuple>
+#include <vector>
 
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/op_trait.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_interface.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
+class Builder;
+class IrPrinter;
+class Operation;
+class SideEffectTrait;
+class TuplePopOp;
+struct OperationArgument;
+
 class IR_API YieldOp : public Op<YieldOp, SideEffectTrait> {
  public:
   using Op::Op;

@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 
 namespace paddle {
@@ -21,6 +23,7 @@ namespace framework {
 namespace ir {
 
 class Graph;
+
 /*
  * compute quantization scales for biases and weights
  */

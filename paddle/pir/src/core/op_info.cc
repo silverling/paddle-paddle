@@ -13,8 +13,7 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/op_info.h"
-#include "paddle/pir/include/core/dialect.h"
-#include "paddle/pir/include/core/ir_context.h"
+
 #include "paddle/pir/src/core/op_info_impl.h"
 
 namespace pir {

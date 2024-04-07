@@ -19,6 +19,9 @@ limitations under the License. */
 #include "paddle/phi/kernels/legacy/elementwise_multipy_kernel.h"
 
 namespace phi {
+class DenseTensor;
+class SelectedRows;
+
 namespace sr {
 
 template <typename T, typename Context>

@@ -13,11 +13,17 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/yolo_box_kernel.h"
+
+#include <string.h>
 #include <array>
+#include <algorithm>
+#include <cmath>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/yolo_box_util.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

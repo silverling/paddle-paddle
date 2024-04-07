@@ -14,7 +14,19 @@
 
 #include "paddle/fluid/platform/stream_callback_manager.h"
 
-#include "paddle/fluid/platform/device/device_wrapper.h"
+#include <cuda_runtime.h>
+#include <cxxabi.h>
+#include <memory>
+#include <utility>
+
+#include "ThreadPool.h"
+#include "cuda.h"
+#include "driver_types.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/phi/core/enforce.h"
+
+struct CUstream_st;
 
 namespace paddle {
 namespace platform {

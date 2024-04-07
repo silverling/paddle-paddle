@@ -14,9 +14,23 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/full_kernel.h"
 
+#include <cstdint>
+#include <memory>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void FullBatchSizeLikeKernel(const Context& dev_ctx,

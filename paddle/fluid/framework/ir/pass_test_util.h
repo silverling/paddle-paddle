@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -28,7 +29,12 @@
 
 namespace paddle {
 namespace framework {
+class BlockDesc;
+class OpDesc;
+class Scope;
+
 namespace ir {
+class Graph;
 
 // -------------------------- helper functions --------------------------------
 namespace test {

@@ -15,14 +15,25 @@ limitations under the License. */
 #include "paddle/fluid/framework/unused_var_check.h"
 
 #include <glog/logging.h>
-
 #include <string>
+#include <map>
+#include <ostream>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
 #include "paddle/fluid/framework/op_info.h"
 #include "paddle/fluid/framework/operator.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/flags.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
 PADDLE_DEFINE_EXPORTED_bool(
     enable_unused_var_check,
     false,

@@ -14,12 +14,22 @@
 
 #include "paddle/phi/kernels/reduce_any_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/cpu/reduce.h"
-#include "paddle/phi/kernels/funcs/reduce_functor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_utils.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
+class DenseTensor;
+namespace funcs {
+struct AnyFunctor;
+}  // namespace funcs
 
 template <typename T, typename Context>
 void AnyRawKernel(const Context& dev_ctx,

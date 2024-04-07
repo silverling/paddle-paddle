@@ -14,6 +14,10 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+
 namespace phi {
 namespace distributed {
 

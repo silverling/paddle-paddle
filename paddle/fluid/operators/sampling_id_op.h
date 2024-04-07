@@ -20,9 +20,21 @@
 #include <random>
 #include <sstream>
 #include <vector>
+#include <cstdint>
+#include <memory>
+#include <string>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/phi/core/generator.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

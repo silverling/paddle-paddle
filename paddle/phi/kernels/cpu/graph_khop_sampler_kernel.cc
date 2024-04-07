@@ -15,14 +15,26 @@
 #include "paddle/phi/kernels/graph_khop_sampler_kernel.h"
 
 #include <stdlib.h>
-
 #include <numeric>
 #include <random>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <limits>
+#include <string>
+#include <utility>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

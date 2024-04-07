@@ -14,15 +14,24 @@ limitations under the License. */
 
 #include "paddle/phi/core/meta_tensor.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <string>
 
+#include "glog/logging.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/phi/core/string_tensor.h"
 #include "paddle/phi/core/string_tensor_utils.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
+#include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/core/utils/type_registry.h"
 
 namespace phi {
 

@@ -14,8 +14,11 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/softmax_grad_kernel.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace fusion {
 
 template <typename T, typename Context>

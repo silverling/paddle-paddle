@@ -15,11 +15,18 @@
 #include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
 
 #include <string>
+#include <map>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
 
 namespace paddle {
+namespace imperative {
+class VariableWrapper;
+}  // namespace imperative
+
 namespace framework {
 
 const Attribute &InferNoNeedBufferVarsContext::GetAttr(

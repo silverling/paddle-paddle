@@ -14,13 +14,18 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <list>
 #include <memory>
 #include <queue>
 #include <vector>
+#include <future>
 
 #include "ThreadPool.h"
 #include "paddle/fluid/framework/reader.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/place.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/device/gpu/gpu_resource_pool.h"

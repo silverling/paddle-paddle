@@ -14,13 +14,17 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <queue>
 #include <utility>
+#include <map>
 
 #include "paddle/fluid/distributed/fleet_executor/interceptor.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
 
 namespace paddle {
 namespace distributed {
+class TaskNode;
 
 const int64_t INFINITE_BUFFER_SIZE = -1;
 

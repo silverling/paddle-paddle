@@ -14,12 +14,17 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <utility>
+
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/core/region.h"
 
 namespace pir {
 
 class FrozenRewritePatternSet;
+class Operation;
+class Region;
 
 /// This enum will control which ops will be added to the worklist during the
 /// match rewrite process

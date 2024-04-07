@@ -23,16 +23,35 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <exception>
+#include <functional>
+#include <map>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/imperative/gradient_accumulator.h"
 #include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/imperative/op_base.h"
-#include "paddle/fluid/imperative/tracer.h"
-#include "paddle/fluid/platform/profiler.h"
 #include "paddle/phi/kernels/autotune/switch_autotune.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/data_type.h"
 
 COMMON_DECLARE_bool(sort_sum_gradient);
 

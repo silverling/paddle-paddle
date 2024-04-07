@@ -14,11 +14,16 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <functional>
+
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/hooks.h"
 #include "paddle/phi/api/all.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+
 namespace egr {
 namespace egr_utils_api {
 

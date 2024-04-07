@@ -21,6 +21,7 @@
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 /*
  * Fuse the Conv and BatchNorm to a ConvBNMKLDNNOp.

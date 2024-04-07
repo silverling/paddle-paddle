@@ -14,10 +14,26 @@
 
 #include "paddle/phi/kernels/prelu_kernel.h"
 
+#include <iosfwd>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+
 template <typename T, typename Context>
 void PReluKernel(const Context& dev_ctx,
                  const DenseTensor& x,

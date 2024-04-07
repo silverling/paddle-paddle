@@ -14,14 +14,41 @@
 
 #include "paddle/fluid/framework/details/parallel_ssa_graph_executor.h"
 
+#include <cxxabi.h>
 #include <algorithm>
 #include <memory>
 #include <utility>
+#include <exception>
+#include <future>
+#include <map>
+#include <ostream>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/ir/graph_helper.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/multi_devices_helper.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
+class OpDesc;
+class Scope;
+
 namespace details {
 
 static std::vector<std::unique_ptr<ir::Graph>> SeparateMultiDevicesGraph(

@@ -14,9 +14,11 @@
 
 #include "paddle/phi/kernels/funcs/jit/helper.h"
 
+#include <ctype.h>
 #include <numeric>
+#include <algorithm>
 
-#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/kernels/funcs/jit/gen_base.h"
 
 namespace phi {
 namespace jit {

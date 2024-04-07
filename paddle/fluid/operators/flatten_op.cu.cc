@@ -12,7 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include "paddle/fluid/operators/flatten_op.h"
+#include <stdint.h>
+
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace paddle {
+namespace operators {
+template <typename DeviceContext, typename T> class Flatten2GradKernel;
+template <typename DeviceContext, typename T> class Flatten2Kernel;
+}  // namespace operators
+}  // namespace paddle
+namespace phi {
+class GPUContext;
+}  // namespace phi
 
 namespace ops = paddle::operators;
 

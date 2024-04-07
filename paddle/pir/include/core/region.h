@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <list>
 #include <memory>
+#include <iterator>
 
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/core/ir_mapping.h"
@@ -29,6 +30,7 @@ class Block;
 class Operation;
 class IrContext;
 class Program;
+class IrMapping;
 
 class IR_API Region {
  public:

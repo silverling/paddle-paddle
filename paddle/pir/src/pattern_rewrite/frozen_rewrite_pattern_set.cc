@@ -19,8 +19,12 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <functional>
+#include <utility>
 
 #include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 

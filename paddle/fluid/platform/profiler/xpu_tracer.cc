@@ -15,11 +15,10 @@
 
 #include "paddle/fluid/platform/profiler/xpu_tracer.h"
 
-#include <mutex>
-#include <unordered_map>
-
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/os_info.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/os_info.h"
 #ifdef PADDLE_WITH_XPU
 #include "paddle/phi/backends/device_manager.h"
 #endif
@@ -37,6 +36,7 @@
 
 namespace paddle {
 namespace platform {
+class TraceEventCollector;
 
 void XPUTracer::PrepareTracing() {
   PADDLE_ENFORCE_EQ(

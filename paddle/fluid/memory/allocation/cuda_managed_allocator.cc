@@ -14,10 +14,7 @@
 
 #include "paddle/fluid/memory/allocation/cuda_managed_allocator.h"
 
-#ifdef PADDLE_WITH_CUDA
-#include <cuda.h>
-#include <cuda_runtime.h>
-#endif
+#include <stdint.h>
 
 #ifdef PADDLE_WITH_HIP
 #include <hip/hip_runtime.h>
@@ -25,9 +22,14 @@
 
 #include <string>
 
-#include "paddle/fluid/platform/cuda_device_guard.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/utils/string/printf.h"
 
 namespace paddle {
 namespace memory {

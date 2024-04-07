@@ -14,9 +14,19 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <ostream>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/eager/grad_node_info.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/small_vector.h"
 
 namespace egr {
+class GradSlotMeta;
 
 /**
  * Input Buffer is designed for backward grad accumulate.

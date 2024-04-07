@@ -13,8 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/op_call_stack.h"
+
+#include <stddef.h>
 #include <string>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

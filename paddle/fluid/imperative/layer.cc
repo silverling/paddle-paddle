@@ -14,6 +14,10 @@
 
 #include "paddle/fluid/imperative/layer.h"
 
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/framework/convert_utils.h"
@@ -24,8 +28,21 @@
 #include "paddle/fluid/imperative/var_helper.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/profiler.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
+#include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/selected_rows.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #endif

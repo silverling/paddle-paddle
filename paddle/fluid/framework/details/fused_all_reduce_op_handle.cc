@@ -13,13 +13,33 @@
 // limitations under the License.
 #include "paddle/fluid/framework/details/fused_all_reduce_op_handle.h"
 
+#include <cuda_runtime.h>
+#include <algorithm>
+#include <memory>
+#include <ostream>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/details/container_cast.h"
-#include "paddle/fluid/framework/details/variable_visitor.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/backends/device_memory_aligment.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/string/printf.h"
 
 PD_DEFINE_bool(skip_fused_all_reduce_check, false, "");  // NOLINT
 COMMON_DECLARE_bool(allreduce_record_one_event);

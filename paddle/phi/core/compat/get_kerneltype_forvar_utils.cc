@@ -14,7 +14,9 @@
 
 #include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
 
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
 namespace phi {
 
 const std::string& GetKernelTypeForVarContext::GetVarName() const {

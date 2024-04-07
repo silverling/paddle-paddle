@@ -19,6 +19,7 @@
 #include "paddle/phi/kernels/impl/conv_grad_kernel_impl.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void DepthwiseConvGradKernel(const Context& dev_ctx,

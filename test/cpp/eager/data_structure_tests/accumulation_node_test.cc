@@ -15,17 +15,22 @@
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
 
 #include <sstream>
+#include <cstdint>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/eager/api/utils/hook_utils.h"
-#include "paddle/fluid/eager/eager_tensor.h"
-#include "paddle/fluid/eager/grad_node_info.h"
-#include "paddle/fluid/eager/grad_tensor_holder.h"
 #include "paddle/fluid/eager/hooks.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/phi/api/lib/utils/allocator.h"
-#include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 // TODO(jiabin): remove nolint here!!!
 using namespace egr;  // NOLINT

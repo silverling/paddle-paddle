@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <bits/chrono.h>
+#include <stdint.h>
 #include <chrono>
 #include <utility>
 
@@ -21,6 +23,8 @@
 
 namespace paddle {
 namespace distributed {
+class InterceptorMessage;
+class TaskNode;
 
 class StartInterceptor final : public ComputeInterceptor {
  public:

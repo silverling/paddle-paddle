@@ -15,8 +15,14 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/placement_pass_base.h"
 
 #include <string>
+#include <algorithm>
+#include <ostream>
+#include <vector>
 
-#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {

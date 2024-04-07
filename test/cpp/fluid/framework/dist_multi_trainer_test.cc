@@ -12,12 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "gtest/gtest.h"
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/trainer.h"
-#ifdef PADDLE_WITH_GLOO
-#include "paddle/fluid/framework/fleet/gloo_wrapper.h"
-#endif
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/data_feed.h"
+#include "paddle/fluid/framework/data_set.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
 #if defined _WIN32 || defined __APPLE__
 #else
 #define _LINUX

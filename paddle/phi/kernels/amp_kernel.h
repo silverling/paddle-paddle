@@ -20,6 +20,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void CheckFiniteAndUnscaleKernel(const Context& dev_ctx,

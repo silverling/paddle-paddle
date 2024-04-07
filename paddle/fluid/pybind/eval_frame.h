@@ -19,6 +19,9 @@ extern "C" {
 
 #include <Python.h>
 
+#include "object.h"
+#include "pyport.h"
+
 PyObject *set_eval_frame_py(PyObject *callback);
 PyMODINIT_FUNC PyInit__eval_frame();
 

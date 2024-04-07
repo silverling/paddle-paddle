@@ -14,6 +14,14 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/nccl/nccl_gpu_common.h"
 
+#include <stddef.h>
+#include <memory>
+#include <mutex>
+#include <unordered_map>
+
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/phi/core/enforce.h"
+
 namespace paddle {
 namespace platform {
 namespace {

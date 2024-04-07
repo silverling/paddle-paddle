@@ -14,6 +14,11 @@
 
 #include "paddle/fluid/imperative/nccl_context.h"
 
+#include <cuda_runtime.h>
+#include <ext/alloc_traits.h>
+#include <ostream>
+#include <string>
+
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/imperative/all_reduce.h"
 #include "paddle/fluid/platform/collective_helper.h"
@@ -27,17 +32,18 @@
 #endif
 
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/place.h"
-
-namespace paddle {
-namespace framework {
-class Variable;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace imperative {

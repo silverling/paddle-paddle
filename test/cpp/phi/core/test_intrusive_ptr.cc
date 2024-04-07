@@ -12,12 +12,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <cxxabi.h>
+#include <stddef.h>
 #include <future>
 #include <vector>
+#include <algorithm>
+#include <system_error>
+#include <utility>
 
-#include "gtest/gtest.h"
 #include "paddle/phi/core/utils/intrusive_ptr.h"
 #include "paddle/phi/core/utils/intrusive_ref_counter.h"
+#include "glog/logging.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace phi {
 namespace tests {

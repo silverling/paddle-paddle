@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <array>
 #include <atomic>
 #include <functional>
@@ -26,9 +27,13 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <cstdint>
+#include <map>
+#include <ostream>
+#include <string>
+#include <utility>
 
 #include "glog/logging.h"
-
 #include "paddle/common/errors.h"
 #include "paddle/common/macros.h"
 #include "paddle/phi/backends/context_pool.h"
@@ -38,6 +43,12 @@
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/utils/optional.h"
+#include "cuda.h"
+#include "cuda_runtime_api.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+#include "paddle/phi/backends/gpu/gpu_types.h"
 
 #if CUDA_VERSION < 11000
 // For CUDA versions less than 11.0, use a dummy type for cudaFunction_t.
@@ -47,6 +58,8 @@ cudaError_t cudaGetFuncBySymbol(cudaFunction_t *functionPtr,
 #endif
 
 namespace phi {
+class DeviceContext;
+
 namespace backends {
 namespace gpu {
 

@@ -13,12 +13,23 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
 #include <algorithm>
 #include <vector>
+#include <memory>
 
 #include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/core/mixed_vector.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Meta.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 namespace funcs {

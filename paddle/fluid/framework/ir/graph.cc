@@ -15,9 +15,14 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/graph.h"
 
 #include <memory>
+#include <unordered_map>
 
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/flags.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+
 PADDLE_DEFINE_EXPORTED_bool(convert_all_blocks,
                             true,
                             "Convert all blocks in program into SSAgraphs");

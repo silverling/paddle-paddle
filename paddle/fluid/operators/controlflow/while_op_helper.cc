@@ -14,15 +14,38 @@
 
 #include "paddle/fluid/operators/controlflow/while_op_helper.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <string>
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
 #include "paddle/utils/string/string_helper.h"
-
-namespace paddle {
-namespace framework {
-class BlockDesc;
-}  // namespace framework
-}  // namespace paddle
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/operators/controlflow/op_variant.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

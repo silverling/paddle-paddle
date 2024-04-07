@@ -14,10 +14,14 @@
 
 #include "paddle/fluid/memory/allocation/cpu_allocator.h"
 
+#include <mm_malloc.h>
 #include <cstdlib>
 
 #include "paddle/fluid/memory/stats.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace memory {

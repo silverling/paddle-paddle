@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stddef.h>
+#include <stdint.h>
 #include <forward_list>
 #include <list>
 #include <map>
@@ -31,6 +33,8 @@ limitations under the License. */
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/fluid/platform/profiler/mem_tracing.h"
 #include "paddle/fluid/platform/profiler/supplement_tracing.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #endif

@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #pragma once
+#include <string>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 
@@ -21,6 +23,7 @@ namespace framework {
 namespace ir {
 
 class Graph;
+class Node;
 
 class TransferLayoutElimPass : public FusePassBase {
  public:

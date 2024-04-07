@@ -14,13 +14,27 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/utils/type_info.h"
 
 namespace phi {
 
 class DenseTensorUtils;
+class Allocator;
+class Place;
 
 /// \brief The SparseCooTensor uses two DenseTensors to represent
 /// the non zero elements and the indices of non zero elements of

@@ -14,13 +14,25 @@
 
 #include "paddle/phi/kernels/reduce_sum_grad_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/cast_kernel.h"
-#include "paddle/phi/kernels/empty_kernel.h"
-#include "paddle/phi/kernels/funcs/reduce_functor.h"
 #include "paddle/phi/kernels/impl/reduce_grad.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_utils.h"
+#include "paddle/utils/none.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+
 namespace phi {
+class DenseTensor;
+namespace funcs {
+struct SumGradFunctor;
+}  // namespace funcs
 
 template <typename T, typename Context>
 void ReduceSumGradKernel(const Context& dev_ctx,

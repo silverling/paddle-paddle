@@ -15,13 +15,15 @@ limitations under the License. */
 #pragma once
 
 #include <stdint.h>
-
 #include <functional>
 #include <iosfwd>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <cstdint>
+#include <typeinfo>
+#include <utility>
 
 #include "paddle/fluid/framework/framework.pb.h"
 #include "paddle/fluid/framework/type_defs.h"
@@ -30,6 +32,10 @@ limitations under the License. */
 #include "paddle/phi/common/scalar.h"
 #include "paddle/utils/any.h"
 #include "paddle/utils/variant.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

@@ -13,20 +13,33 @@
 // limitations under the License.
 
 #include <glog/logging.h>
-#include <gtest/gtest.h>
-
+#include <bits/std_abs.h>
+#include <stdlib.h>
 #include <algorithm>
-#include <functional>
 #include <limits>
 #include <memory>
 #include <random>
+#include <cstdint>
+#include <future>
+#include <map>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/inference/api/helper.h"
 #include "paddle/fluid/inference/api/paddle_tensor.h"
 #include "paddle/fluid/platform/device_context.h"
-#include "paddle/fluid/platform/place.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+
+namespace phi {
+class DeviceContext;
+class Place;
+}  // namespace phi
 
 namespace paddle_infer {
 

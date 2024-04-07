@@ -27,9 +27,14 @@
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/platform/profiler.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/platform/event.h"
 
 namespace paddle {
 namespace framework {
+class ProgramDesc;
+namespace ir {
+class Graph;
+}  // namespace ir
 
 class CostData {
  public:

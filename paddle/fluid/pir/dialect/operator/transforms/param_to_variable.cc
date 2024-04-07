@@ -14,12 +14,24 @@
 
 #include "paddle/fluid/pir/dialect/operator/transforms/param_to_variable.h"
 
-#include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/data_type.h"
+#include <string.h>
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/parameter.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace paddle {
 namespace dialect {

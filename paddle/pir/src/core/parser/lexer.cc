@@ -14,6 +14,10 @@
 
 #include "paddle/pir/src/core/parser/lexer.h"
 
+#include <ctype.h>
+#include <stdio.h>
+#include <string>
+
 Token Lexer::ConsumeToken() {
   SkipWhitespace();
   if (auto token = LexIdentifier()) {

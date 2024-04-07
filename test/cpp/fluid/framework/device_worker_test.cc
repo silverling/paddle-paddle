@@ -14,9 +14,11 @@
 
 #include "paddle/fluid/framework/device_worker.h"
 
-#include <gtest/gtest.h>
-
 #include "paddle/fluid/framework/lod_tensor.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {

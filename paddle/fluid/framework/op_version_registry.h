@@ -14,21 +14,30 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <ostream>
 
 #include "paddle/common/macros.h"
 #include "paddle/fluid/framework/op_version_proto.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/utils/none.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace compatible {
+class OpVersionEQComparator;
+class OpVersionGEComparator;
+class OpVersionLEComparator;
+class OpVersionNEComparator;
 
 namespace pb {
 class OpVersionMap;

@@ -15,25 +15,42 @@
 #include "paddle/fluid/pybind/bind_fleet_executor.h"
 
 #include <pybind11/numpy.h>
-#include <pybind11/stl.h>
-
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
+#include <map>
+#include <utility>
 
 #include "paddle/fluid/distributed/fleet_executor/dist_model.h"
 #include "paddle/fluid/distributed/fleet_executor/dist_model_tensor_wrapper.h"
 #include "paddle/fluid/distributed/fleet_executor/fleet_executor.h"
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
-#include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/platform/float16.h"
-#include "paddle/fluid/platform/place.h"
 #include "pybind11/pybind11.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/float16.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
+
+namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+}  // namespace paddle
 
 namespace py = pybind11;
 
 namespace pybind11 {
+class gil_scoped_release;
+
 namespace detail {
 
 // Note: use same enum number of float16 in numpy.

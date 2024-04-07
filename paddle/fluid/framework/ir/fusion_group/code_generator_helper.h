@@ -14,16 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <utility>
 
 #include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {

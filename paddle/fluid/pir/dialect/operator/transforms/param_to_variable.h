@@ -13,12 +13,24 @@
 // limitations under the License.
 
 #pragma once
+#include <memory>
+
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/pir/include/core/dialect_interface.h"
 #include "paddle/pir/include/core/parameter.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class Dialect;
+class Parameter;
+}  // namespace pir
 
 namespace paddle {
+namespace framework {
+class Variable;
+}  // namespace framework
+
 namespace dialect {
 class TEST_API ParameterConvertInterface
     : public pir::DialectInterface::Base<ParameterConvertInterface> {

@@ -15,13 +15,14 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
-
 #include "paddle/fluid/jit/engine/base_engine.h"
 #include "paddle/fluid/jit/function_schema.h"
 #include "paddle/fluid/jit/function_utils.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 
@@ -30,6 +31,8 @@ class InterpreterCore;
 }  // namespace framework
 
 namespace jit {
+class FunctionInfo;
+
 using InterpreterCore = framework::InterpreterCore;
 // using Graph = framework::ir::Graph;
 

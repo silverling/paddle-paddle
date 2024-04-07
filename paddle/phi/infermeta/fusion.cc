@@ -13,17 +13,30 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/infermeta/fusion.h"
+
+#include <bits/std_abs.h>
+#include <ext/alloc_traits.h>
+#include <stdlib.h>
 #include <unordered_set>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
+#include <iterator>
+#include <memory>
+
 #include "paddle/common/layout.h"
-#include "paddle/phi/common/scalar.h"
-#include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/kernels/cpu/conv_util.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
 #include "paddle/phi/kernels/funcs/concat_funcs.h"
 #include "paddle/phi/kernels/funcs/strided_slice.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace phi {
 

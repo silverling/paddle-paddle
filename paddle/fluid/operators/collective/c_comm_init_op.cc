@@ -21,8 +21,23 @@ limitations under the License. */
 #include "xpu/bkcl.h"
 #endif
 #include <string>
+#include <algorithm>
+#include <ostream>
+#include <vector>
 
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/variant.h"
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL) || \
     defined(PADDLE_WITH_XPU_BKCL) || defined(PADDLE_WITH_CUSTOM_DEVICE)
@@ -30,23 +45,15 @@ limitations under the License. */
 #endif
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
-#include "paddle/phi/core/distributed/nccl_comm_context.h"
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #elif defined(PADDLE_WITH_XPU_BKCL)
 #include "paddle/phi/core/distributed/bkcl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 
-#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
 #include "paddle/phi/core/distributed/store/store_utils.h"
-#include "paddle/phi/core/distributed/store/tcp_store.h"
-
-namespace paddle {
-namespace framework {
-class Scope;
-}  // namespace framework
-}  // namespace paddle
 
 namespace paddle {
 namespace operators {

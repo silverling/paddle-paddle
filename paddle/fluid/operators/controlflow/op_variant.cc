@@ -14,6 +14,11 @@
 
 #include "paddle/fluid/operators/controlflow/op_variant.h"
 
+#include <algorithm>
+
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+
 namespace paddle {
 namespace operators {
 

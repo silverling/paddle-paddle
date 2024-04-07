@@ -14,13 +14,20 @@
 
 #include "paddle/fluid/pybind/custom_device_py.h"
 
+#include <stddef.h>
 #include <string>
 #include <vector>
+#include <memory>
 
-#include "paddle/fluid/platform/device_context.h"
 #include "paddle/phi/backends/device_manager.h"
 #include "paddle/phi/backends/event.h"
 #include "paddle/phi/backends/stream.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/descr.h"
 
 namespace py = pybind11;
 

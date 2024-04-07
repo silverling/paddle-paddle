@@ -13,9 +13,27 @@
 // limitations under the License.
 
 #include "paddle/fluid/pybind/rpc.h"
+
+#include <stdint.h>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/distributed/rpc/future_wrapper.h"
-#include "paddle/fluid/distributed/rpc/python_rpc_handler.h"
 #include "paddle/fluid/distributed/rpc/rpc_agent.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pytypes.h"
+
+namespace paddle {
+namespace distributed {
+class PythonRpcHandler;
+}  // namespace distributed
+}  // namespace paddle
+namespace pybind11 {
+class gil_scoped_release;
+}  // namespace pybind11
 
 namespace py = pybind11;
 using paddle::distributed::FutureWrapper;

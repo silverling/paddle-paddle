@@ -14,20 +14,28 @@ limitations under the License. */
 
 #include "paddle/phi/api/lib/tensor_copy.h"
 
-#include "glog/logging.h"
+#include <memory>
+#include <ostream>
 
+#include "glog/logging.h"
 #include "paddle/phi/api/include/context_pool.h"
 #include "paddle/phi/api/lib/api_gen_utils.h"
 #include "paddle/phi/api/lib/kernel_dispatch.h"
 #include "paddle/phi/core/compat/convert_utils.h"
-#include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/api/lib/backend_set.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
 #ifdef PADDLE_WITH_DISTRIBUTE
-#include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/infermeta/spmd_rules/rules.h"
 #endif
 namespace paddle {
 namespace experimental {

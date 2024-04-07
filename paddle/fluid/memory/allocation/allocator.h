@@ -13,11 +13,16 @@
 // limitations under the License.
 
 #pragma once
+#include <cuda_runtime.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
+#include <cstring>
+#include <exception>
+#include <ostream>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/inlined_vector.h"
@@ -25,9 +30,12 @@
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/place.h"
 
 #ifdef PADDLE_WITH_NCCL
 #include <nccl.h>
+
 #include "paddle/fluid/platform/dynload/nccl.h"
 #endif
 

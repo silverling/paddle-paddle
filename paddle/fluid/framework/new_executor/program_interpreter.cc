@@ -14,6 +14,19 @@
 
 #include "paddle/fluid/framework/new_executor/program_interpreter.h"
 
+#include <bits/chrono.h>
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
+#include <algorithm>
+#include <exception>
+#include <future>
+#include <iostream>
+#include <system_error>
+#include <thread>
+#include <type_traits>
+#include <typeinfo>
+#include <utility>
+
 #include "paddle/fluid/framework/details/nan_inf_utils.h"
 #include "paddle/fluid/framework/details/share_tensor_buffer_functor.h"
 #include "paddle/fluid/framework/io/save_load_tensor.h"
@@ -28,16 +41,70 @@
 #include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/executor_gc_helper.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/new_executor/garbage_collector/garbage_collector.h"
+#include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/fluid/framework/op_call_stack.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/memory/stats.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/event.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/fluid/platform/timer.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph_with_memory_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/os_info.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/kernels/autotune/gpu_timer.h"
+#include "paddle/utils/variant.h"
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/platform/mkldnn_helper.h"
 #endif
 #include "paddle/fluid/platform/cuda_graph_with_memory_pool.h"
-#include "paddle/phi/backends/device_manager.h"
+
+namespace paddle {
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
+namespace operators {
+namespace reader {
+class OrderedMultiDeviceLoDTensorBlockingQueueHolder;
+}  // namespace reader
+}  // namespace operators
+}  // namespace paddle
+namespace phi {
+class InferMetaContext;
+}  // namespace phi
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/common/flags.h"
-#include "paddle/fluid/platform/device/gpu/nccl_helper.h"
-#include "paddle/phi/core/distributed/comm_context_manager.h"
-#include "paddle/phi/core/distributed/nccl_comm_context.h"
+
 COMMON_DECLARE_bool(dynamic_static_unified_comm);
 #endif
 

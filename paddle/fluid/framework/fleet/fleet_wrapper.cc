@@ -28,8 +28,12 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/fleet/fleet_wrapper.h"
 
-#include "glog/logging.h"
-#include "paddle/fluid/framework/op_registry.h"
+#include <ext/alloc_traits.h>
+#include <string.h>
+#include <cstdint>
+
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace paddle {
 namespace framework {

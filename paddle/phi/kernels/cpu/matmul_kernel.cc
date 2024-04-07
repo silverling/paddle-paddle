@@ -14,6 +14,8 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/matmul_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/complex.h"
 #include "paddle/phi/core/kernel_registry.h"

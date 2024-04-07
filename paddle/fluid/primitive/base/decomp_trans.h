@@ -15,12 +15,23 @@
 #pragma once
 
 #include <memory>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/pir/dialect/operator/interface/decomp.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace pir {
+class Block;
+class Operation;
+class Program;
+}  // namespace pir
 
 namespace paddle {
 

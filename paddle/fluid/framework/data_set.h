@@ -15,7 +15,7 @@
 #pragma once
 
 #include <ThreadPool.h>
-
+#include <stddef.h>
 #include <fstream>
 #include <memory>
 #include <mutex>  // NOLINT
@@ -26,7 +26,12 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+
 #include "paddle/common/macros.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/data_feed.pb.h"
 #ifdef PADDLE_WITH_GLOO
 #include <gloo/broadcast.h>
 
@@ -35,8 +40,11 @@
 
 #include "paddle/fluid/framework/data_feed.h"
 
+class ThreadPool;
+
 namespace paddle {
 namespace framework {
+template <typename KeyType, typename ValType> class HashTable;
 
 // Dataset is a abstract class, which defines user interfaces
 // Example Usage:

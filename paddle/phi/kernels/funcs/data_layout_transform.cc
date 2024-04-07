@@ -14,14 +14,22 @@
 
 #include "paddle/phi/kernels/funcs/data_layout_transform.h"
 
-#include "glog/logging.h"
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <vector>
 
+#include "glog/logging.h"
 #include "paddle/common/layout.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/backends/onednn/onednn_context.h"
-#include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/phi/backends/onednn/onednn_helper.h"
@@ -29,6 +37,10 @@
 #endif
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+
 namespace funcs {
 
 #ifdef PADDLE_WITH_DNNL

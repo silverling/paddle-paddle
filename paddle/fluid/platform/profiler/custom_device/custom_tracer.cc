@@ -14,11 +14,14 @@
 
 #include "paddle/fluid/platform/profiler/custom_device/custom_tracer.h"
 
-#include <mutex>
 #include <unordered_map>
+#include <list>
+#include <utility>
 
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/os_info.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/os_info.h"
 #ifdef PADDLE_WITH_CUSTOM_DEVICE
 #include "paddle/phi/backends/device_manager.h"
 #endif

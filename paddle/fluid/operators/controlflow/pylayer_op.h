@@ -22,8 +22,17 @@
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/var_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+class InterpreterCore;
+class Scope;
+}  // namespace framework
+
 namespace operators {
 
 class PyLayerOp : public framework::OperatorBase {

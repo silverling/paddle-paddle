@@ -22,6 +22,7 @@
 namespace paddle {
 namespace jit {
 class BaseEngine;
+
 using EngineMap = std::unordered_map<std::string, std::shared_ptr<BaseEngine>>;
 
 class CompilationUnit {

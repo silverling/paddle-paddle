@@ -10,11 +10,15 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/framework/io/save_paddle2cinn_varmap.h"
+
 #include <fstream>
 #include <unordered_map>
+#include <utility>
+
 #include "glog/logging.h"
 #include "paddle/phi/common/port.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

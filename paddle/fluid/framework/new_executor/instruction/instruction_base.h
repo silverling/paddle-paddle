@@ -14,21 +14,37 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
+#include <unordered_set>
+#include <utility>
 
 #include "paddle/fluid/framework/new_executor/new_executor_defs.h"
 #include "paddle/fluid/platform/event.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
 class Value;
+class Operation;
 }  // namespace pir
 
 namespace paddle {
+namespace platform {
+class DeviceEvent;
+}  // namespace platform
+
 namespace framework {
 class ValueExecutionInfo;
+class Scope;
+class Variable;
 
 using SchedulingPriority = int64_t;
 

@@ -10,8 +10,10 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
 
+#include <stdint.h>
 #include <fstream>
 #include <unordered_map>
+#include <string>
 
 namespace paddle {
 namespace framework {

@@ -18,6 +18,7 @@ limitations under the License. */
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <utility>
 
 #include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/attribute_checker.h"
@@ -27,6 +28,11 @@ limitations under the License. */
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/utils/flat_hash_map.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+
 namespace paddle {
 namespace framework {
 

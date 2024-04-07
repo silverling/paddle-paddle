@@ -14,11 +14,13 @@
 
 #include "paddle/phi/kernels/sigmoid_cross_entropy_with_logits_kernel.h"
 
+#include <bits/std_abs.h>
 #include <algorithm>
-#include <limits>
+#include <cmath>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

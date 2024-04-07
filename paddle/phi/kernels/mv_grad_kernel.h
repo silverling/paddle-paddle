@@ -17,6 +17,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 // Using dimensional constraints on matrix multiplication, it is
 // straight-forward to check the following table for when X and Y

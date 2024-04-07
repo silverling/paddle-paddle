@@ -13,11 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/sequence_scale.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
 
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <vector>
+
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/lod_utils.h"
 
 namespace phi {
 namespace funcs {

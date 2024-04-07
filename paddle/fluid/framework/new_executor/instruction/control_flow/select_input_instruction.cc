@@ -13,9 +13,28 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/new_executor/instruction/control_flow/select_input_instruction.h"
+
+#include <memory>
+#include <ostream>
+#include <typeinfo>
+#include <unordered_map>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
-#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace paddle {
 namespace framework {

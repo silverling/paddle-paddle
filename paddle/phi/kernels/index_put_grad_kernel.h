@@ -15,9 +15,12 @@
 #pragma once
 
 #include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
+
 template <typename T, typename Context>
 void IndexPutGradKernel(const Context& dev_ctx,
                         const DenseTensor& x,

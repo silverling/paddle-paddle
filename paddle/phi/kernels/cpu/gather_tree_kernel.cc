@@ -14,8 +14,15 @@
 
 #include "paddle/phi/kernels/gather_tree_kernel.h"
 
-#include "paddle/phi/core/enforce.h"
+#include <stdint.h>
+#include <string>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

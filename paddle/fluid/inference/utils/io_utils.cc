@@ -15,13 +15,20 @@
 #include "paddle/fluid/inference/utils/io_utils.h"
 
 #include <fcntl.h>
-
+#include <ext/alloc_traits.h>
+#include <unistd.h>
 #include <utility>
+#include <algorithm>
+#include <cstdint>
+#include <istream>
 
 #include "google/protobuf/io/zero_copy_stream_impl.h"
 #include "google/protobuf/text_format.h"
 #include "paddle/fluid/inference/analysis/helper.h"
 #include "paddle/fluid/inference/utils/shape_range_info.pb.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
 
 namespace paddle {
 namespace inference {

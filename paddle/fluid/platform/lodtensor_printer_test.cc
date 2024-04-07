@@ -13,8 +13,8 @@
 // limitations under the License.
 #include "paddle/fluid/platform/lodtensor_printer.h"
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/scope.h"
+#include "gtest/gtest_pred_impl.h"
 
 TEST(LodTensorPrinter, PrintVar) {
   paddle::framework::Scope scope;

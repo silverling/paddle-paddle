@@ -15,12 +15,26 @@
 #include "paddle/phi/core/kernel_registry.h"
 
 #include <typeindex>
-#include <typeinfo>
 
-#include "paddle/phi/core/custom_kernel.h"
-#include "paddle/phi/core/kernel_utils.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class ExtendedTensor;
+class GPUContext;
+class OneDNNContext;
+class SelectedRows;
+class SparseCooTensor;
+class SparseCsrTensor;
+class StringTensor;
+class TensorArray;
+class TensorBase;
 
 void SetKernelArgsDef(const std::vector<std::type_index>& args_type,
                       const KernelKey& default_key,

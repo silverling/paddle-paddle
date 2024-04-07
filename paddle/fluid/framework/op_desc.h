@@ -20,6 +20,10 @@ limitations under the License. */
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <map>
 
 #include "paddle/common/macros.h"
 #include "paddle/fluid/distributed/auto_parallel/dist_attr.h"
@@ -27,8 +31,16 @@ limitations under the License. */
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace distributed {
+namespace auto_parallel {
+class OperatorDistAttr;
+}  // namespace auto_parallel
+}  // namespace distributed
+
 namespace framework {
 
 class VarDesc;

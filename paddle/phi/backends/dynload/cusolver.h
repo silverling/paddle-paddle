@@ -15,11 +15,12 @@ limitations under the License. */
 
 #include <cuda.h>
 #include <cusolverDn.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"
 #include "paddle/phi/common/port.h"
+#include "cusolver_common.h"
 
 namespace phi {
 namespace dynload {

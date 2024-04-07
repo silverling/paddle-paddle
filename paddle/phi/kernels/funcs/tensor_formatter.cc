@@ -15,10 +15,21 @@
 #include "paddle/phi/kernels/funcs/tensor_formatter.h"
 
 #include <string>
+#include <algorithm>
+#include <iostream>
+#include <mutex>
+#include <vector>
 
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace paddle {
 namespace funcs {

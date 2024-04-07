@@ -16,8 +16,10 @@
 
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void RandintKernel(const Context& dev_ctx,

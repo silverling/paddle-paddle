@@ -15,18 +15,25 @@
 #include "paddle/phi/kernels/adamw_kernel.h"
 
 #include <vector>
+#include <complex>
+#include <ostream>
+#include <string>
 
 #include "glog/logging.h"
-
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/float16.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/adam_kernel.h"
-#include "paddle/phi/kernels/funcs/adam_functors.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
 
 namespace phi {
+class CPUPlace;
+namespace jit {
+template <typename T> struct AdamWTuple;
+}  // namespace jit
 
 template <typename T, typename Context>
 void AdamwDenseKernel(const Context& dev_ctx,

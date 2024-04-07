@@ -15,9 +15,14 @@
 #include "paddle/fluid/inference/analysis/analyzer.h"
 
 #include <string>
+#include <vector>
 
 #include "paddle/fluid/inference/analysis/passes/passes.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/analysis/analysis_pass.h"
+#include "paddle/fluid/inference/analysis/argument.h"
 
 namespace paddle {
 namespace inference {

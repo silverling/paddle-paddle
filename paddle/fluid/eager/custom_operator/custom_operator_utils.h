@@ -16,6 +16,11 @@
 
 #include "paddle/phi/api/ext/op_meta_info.h"
 
+namespace paddle {
+class CustomOpKernelContext;
+class OpMetaInfo;
+}  // namespace paddle
+
 namespace egr {
 void run_custom_op_impl(const paddle::OpMetaInfo& op_info,
                         bool is_forward,

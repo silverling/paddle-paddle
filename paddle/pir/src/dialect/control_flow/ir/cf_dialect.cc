@@ -12,11 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
-#include "paddle/pir/include/core/ir_printer.h"
+
+#include <ostream>
+
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_type.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace pir {
+class IrPrinter;
+
 void ControlFlowDialect::initialize() {
   RegisterTypes<StackType, InletType, OutletType>();
   RegisterOps<YieldOp, StackCreateOp, TuplePushOp, TuplePopOp>();

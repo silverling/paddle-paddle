@@ -14,14 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <utility>
 
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/enforce.h"
+#include "cuda.h"
+#include "nvrtc.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/backends/dynload/cuda_driver.h"
 #include "paddle/phi/backends/dynload/nvrtc.h"

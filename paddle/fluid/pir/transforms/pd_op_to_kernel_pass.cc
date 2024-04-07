@@ -14,10 +14,21 @@
 
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
 
+#include <ext/alloc_traits.h>
+#include <string.h>
 #include <iostream>
 #include <regex>
 #include <string>
 #include <unordered_set>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <set>
+#include <tuple>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/op_kernel_type.h"
@@ -28,14 +39,12 @@
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
 #include "paddle/fluid/pir/dialect/operator/interface/parse_kernel_key.h"
-#include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/manual_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/trait/inplace.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
@@ -49,12 +58,56 @@
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/pir/dialect/operator/interface/get_kernel_type_for_var.h"
+#include "paddle/fluid/pir/dialect/operator/interface/infermeta.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/lib/backend_set.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/program.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/small_vector.h"
+
+namespace paddle {
+namespace dialect {
+class InplaceTrait;
+class OneDNNDynamicFallbackTrait;
+class OneDNNTrait;
+}  // namespace dialect
+}  // namespace paddle
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/fluid/framework/framework.pb.h"
-#include "paddle/fluid/pir/dialect/operator/ir/onednn_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_onednn_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/trait/onednn.h"
+
 COMMON_DECLARE_bool(use_mkldnn);
 #endif
 

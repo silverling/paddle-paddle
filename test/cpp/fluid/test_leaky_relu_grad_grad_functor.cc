@@ -14,6 +14,14 @@
 
 #include "test/cpp/fluid/test_leaky_relu_grad_grad_functor.h"
 
+#include <memory>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
+
 namespace paddle {
 namespace operators {
 

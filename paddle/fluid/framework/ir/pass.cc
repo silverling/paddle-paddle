@@ -14,18 +14,21 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/pass.h"
 
+#include <stddef.h>
 #include <algorithm>
 
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/program_utils.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 class Scope;
-namespace ir {
-class Graph;
-}  // namespace ir
 }  // namespace framework
 }  // namespace paddle
 #ifdef PADDLE_WITH_DNNL

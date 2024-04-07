@@ -14,10 +14,23 @@
 
 #include "paddle/fluid/platform/cuda_graph_with_memory_pool.h"
 
+#include <ostream>
+#include <set>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/memory/allocation/allocator_facade.h"
 #include "paddle/fluid/platform/device_event.h"
 #include "paddle/phi/backends/context_pool.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+
+namespace phi {
+class DeviceContext;
+}  // namespace phi
 
 PD_DECLARE_bool(use_stream_safe_cuda_allocator);
 COMMON_DECLARE_bool(new_executor_use_cuda_graph);

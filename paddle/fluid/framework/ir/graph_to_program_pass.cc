@@ -14,10 +14,11 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/graph_to_program_pass.h"
 
-#include <algorithm>
+#include <map>
+#include <string>
 
-#include "paddle/common/flags.h"
-#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/ir/graph_helper.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {

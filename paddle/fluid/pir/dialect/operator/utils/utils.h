@@ -14,6 +14,11 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/type_storage.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/common/scalar.h"
@@ -22,6 +27,19 @@
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_type.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/utils/any.h"
+
+namespace phi {
+class Place;
+}  // namespace phi
 
 namespace paddle {
 namespace dialect {

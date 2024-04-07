@@ -14,12 +14,17 @@
 
 #pragma once
 
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/tensor_array.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/phi/core/meta_tensor.h"
 
 namespace phi {
+class TensorArray;
 
 template <typename T, typename Context>
 void SliceKernel(const Context& ctx,

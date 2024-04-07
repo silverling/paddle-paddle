@@ -21,11 +21,21 @@
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 class OpDesc;
-class InferShapeContext;
 template <typename T>
 class EmptyGradOpMaker;
 }  // namespace framework

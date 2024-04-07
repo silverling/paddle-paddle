@@ -14,9 +14,13 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void EinsumInferKernel(const Context& dev_ctx,

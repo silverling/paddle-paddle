@@ -14,13 +14,23 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <optional>
+#include <string>
 
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_type_interfaces.h"
 #include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/op_trait.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace pir {
+class Builder;
+struct OperationArgument;
+}  // namespace pir
 
 namespace pir::shape {
 

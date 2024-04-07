@@ -24,8 +24,14 @@
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/imperative/type_defs.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
+namespace imperative {
+class VariableWrapper;
+}  // namespace imperative
+
 namespace framework {
 
 class InferNoNeedBufferVarsContext {

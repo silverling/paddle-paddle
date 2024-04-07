@@ -14,12 +14,11 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sign_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/sign_kernel_impl.h"
-
-// See Note [ Why still include the fluid headers? ]
-#include "paddle/phi/common/bfloat16.h"
 
 PD_REGISTER_KERNEL(sign,
                    CPU,

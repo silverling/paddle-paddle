@@ -13,13 +13,27 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <iostream>
-#include <sstream>
+#include <string>
+#include <utility>
 
-#include "gtest/gtest.h"
-#include "paddle/phi/common/float16.h"
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/small_vector.h"
+
+namespace phi {
+class CPUContext;
+class DenseTensor;
+namespace dtype {
+struct float16;
+}  // namespace dtype
+}  // namespace phi
 
 PD_DECLARE_KERNEL(scale, CPU, ALL_LAYOUT);
 

@@ -14,20 +14,29 @@
 
 #include "paddle/fluid/framework/ir/layernorm_shift_partition_fuse_pass.h"
 
-#include <cmath>
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <map>
+#include <ostream>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
-#include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/op_version_registry.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 LayerNormShiftPartitionFusePass::LayerNormShiftPartitionFusePass() {
   AddOpCompat(OpCompat("layer_norm"))

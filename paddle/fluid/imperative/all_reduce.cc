@@ -16,7 +16,33 @@
 
 #include "paddle/fluid/imperative/all_reduce.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <numeric>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/collective_helper.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/dynload/nccl.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/mixed_vector.h"
+#include "paddle/phi/core/selected_rows.h"
 
 #ifdef PADDLE_WITH_NCCL
 #include <nccl.h>
@@ -26,8 +52,6 @@
 #include <rccl.h>
 #endif
 
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/imperative/parallel_context.h"
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"

@@ -14,12 +14,25 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/builtin_attribute_storage.h"
 #include "paddle/pir/include/core/utils.h"
 #include "paddle/utils/flat_hash_map.h"
+#include "paddle/pir/include/core/attribute_base.h"
+#include "paddle/pir/include/core/storage_manager_support.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

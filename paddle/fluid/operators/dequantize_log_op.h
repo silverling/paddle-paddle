@@ -15,9 +15,14 @@ limitations under the License. */
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
 class DenseTensor;

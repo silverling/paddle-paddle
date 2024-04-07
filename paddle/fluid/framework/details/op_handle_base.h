@@ -13,17 +13,26 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <functional>
+#include <utility>
 
 #include "paddle/fluid/framework/details/execution_strategy.h"
 #include "paddle/fluid/framework/details/var_handle.h"
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

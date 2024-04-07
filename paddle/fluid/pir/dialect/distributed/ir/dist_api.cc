@@ -13,17 +13,26 @@
 // limitations under the License.
 
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_api.h"
+
 #include <vector>
+#include <cstdint>
+#include <memory>
+
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_attribute.h"
 #include "paddle/fluid/pir/dialect/distributed/ir/dist_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/api_builder.h"
-#include "paddle/phi/common/data_type.h"
-#include "paddle/phi/common/place.h"
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/operation_utils.h"
 #include "paddle/pir/include/core/value.h"
 #include "paddle/utils/flat_hash_map.h"
+#include "paddle/pir/include/core/ir_context.h"
+
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 namespace paddle {
 namespace dialect {

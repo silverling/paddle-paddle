@@ -14,11 +14,25 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/pir/include/core/ir_context.h"
+
+namespace phi {
+class Allocator;
+}  // namespace phi
 
 namespace paddle {
 namespace dialect {

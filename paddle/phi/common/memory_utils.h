@@ -14,8 +14,16 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <future>  // NOLINT
 #include <unordered_map>
+#include <cstddef>
+#include <map>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include "paddle/common/macros.h"
 #include "paddle/phi/common/place.h"
@@ -24,6 +32,9 @@
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/stream.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/gpu/gpu_decls.h"
 
 #ifdef PADDLE_WITH_CUDA
 #include <cuda.h>
@@ -35,6 +46,7 @@
 #endif
 
 namespace phi {
+class DeviceContext;
 
 struct MemoryInterface {
   /**

@@ -14,16 +14,32 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <map>
 #include <vector>
+#include <list>
+#include <memory>
+#include <set>
+#include <tuple>
 
 #include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+
+namespace paddle {
+namespace framework {
+class Instruction;
+class OperatorBase;
+}  // namespace framework
+}  // namespace paddle
 
 PD_DECLARE_bool(new_executor_sequential_run);
 
 namespace paddle {
 namespace framework {
 class InstructionBase;
+
 namespace interpreter {
 
 // DependencyBuilder provides some dependency adding function to handle the

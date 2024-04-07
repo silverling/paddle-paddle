@@ -13,7 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
 
+#include <stdint.h>
 #include <utility>
+#include <iosfwd>
+#include <map>
+#include <string>
+#include <vector>
 
 #include "paddle/phi/core/distributed/auto_parallel/device_mesh.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"

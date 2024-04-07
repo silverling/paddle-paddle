@@ -12,12 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <algorithm>
+#include <cstdint>
+#include <cstdlib>
+#include <functional>
+#include <istream>
+#include <memory>
+#include <numeric>
+#include <string>
+#include <thread>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/transfer_scope_cache.h"
-#include "paddle/fluid/platform/errors.h"
-#include "paddle/phi/core/enforce.h"
 #include "test/cpp/inference/api/tester_helper.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/analysis_predictor.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace inference {
 
 using paddle::PaddleTensor;

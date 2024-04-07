@@ -12,16 +12,44 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <ext/alloc_traits.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <algorithm>
+#include <cstdint>
+#include <future>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/framework/device_worker.h"
 #include "paddle/fluid/operators/isfinite_op.h"
 #include "paddle/fluid/platform/cpu_helper.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/data_feed.h"
+#include "paddle/fluid/framework/fleet/fleet_wrapper.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 namespace framework {
-
-class OpDesc;
-class OperatorBase;
-class ProgramDesc;
 
 bool HasDependentOutput(const OpDesc& op_desc,
                         const std::unordered_set<std::string>& dependent_vars) {

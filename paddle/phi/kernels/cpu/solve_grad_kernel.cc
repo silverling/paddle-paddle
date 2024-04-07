@@ -13,8 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/solve_grad_kernel.h"
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/solve_grad_kernel_impl.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(
     solve_grad, CPU, ALL_LAYOUT, phi::SolveGradKernel, float, double) {}

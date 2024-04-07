@@ -16,26 +16,31 @@
 
 #include <iostream>
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
+#include <map>
 
-// Eager
-#include "paddle/fluid/eager/api/all.h"
-#include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/backward.h"
-#include "paddle/fluid/eager/utils.h"
 #include "test/cpp/eager/test_utils.h"
-
 // Eager Generated
 #include "paddle/fluid/eager/api/generated/eager_generated/forwards/dygraph_functions.h"
 #include "paddle/fluid/eager/api/generated/fluid_generated/dygraph_forward_api.h"
-
-// Fluid
-#include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/imperative/basic_engine.h"
 #include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/memory/memcpy.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/generated/eager_generated/forwards/scale.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
 
 static size_t max_num_benchmark_runs = 4000;
 

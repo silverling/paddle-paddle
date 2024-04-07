@@ -14,9 +14,15 @@
 
 #include "paddle/fluid/framework/op_compatible_info.h"
 
+#include <stdlib.h>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/macros.h"
-#include "paddle/fluid/platform/init_phi.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/enforce.h"
 
 REGISTER_FILE_SYMBOLS(op_compatible_info);
 

@@ -14,14 +14,14 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/node.h"
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/var_desc.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 class RunnableOp {
  public:

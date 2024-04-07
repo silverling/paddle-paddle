@@ -14,7 +14,8 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/shape_inference.h"
 
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

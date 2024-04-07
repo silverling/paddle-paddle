@@ -19,6 +19,7 @@
 #include "paddle/phi/kernels/impl/conv_kernel_impl.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ConvKernel(const Context& dev_ctx,

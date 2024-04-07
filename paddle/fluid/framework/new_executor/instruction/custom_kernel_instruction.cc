@@ -13,6 +13,13 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/new_executor/instruction/custom_kernel_instruction.h"
+
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+
 #include "paddle/fluid/framework/custom_operator_utils.h"
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
@@ -21,6 +28,30 @@
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_ref_array.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
+#include "paddle/fluid/pir/dialect/kernel/ir/kernel_type.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace paddle {
 namespace framework {

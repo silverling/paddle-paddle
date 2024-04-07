@@ -11,20 +11,34 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/fleet/gloo_wrapper.h"
 
+#include <ext/alloc_traits.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <functional>
+#include <iostream>
+#include <ratio>
+#include <thread>
+#include <utility>
+
 #include "paddle/fluid/framework/io/fs.h"
 #include "paddle/utils/string/string_helper.h"
-
-namespace gloo {
-namespace transport {
-class Device;
-}  // namespace transport
-}  // namespace gloo
+#include "gloo/common/error.h"
+#include "gloo/rendezvous/context.h"
+#include "gloo/rendezvous/http_store.h"
+#include "gloo/rendezvous/prefix_store.h"
+#include "gloo/rendezvous/store.h"
+#include "gloo/transport/address.h"
+#include "gloo/transport/context.h"
+#include "gloo/transport/device.h"
+#include "gloo/transport/pair.h"
+#include "gloo/transport/tcp/attr.h"
+#include "gloo/transport/tcp/device.h"
 
 namespace gloo {
 namespace rendezvous {
-
-class HTTPStore;
-class Store;
 
 constexpr int kNodeSize = 136;
 

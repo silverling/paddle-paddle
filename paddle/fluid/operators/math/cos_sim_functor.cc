@@ -14,6 +14,10 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/math/cos_sim_functor.h"
 
+namespace phi {
+class CPUContext;
+}  // namespace phi
+
 namespace paddle {
 namespace operators {
 namespace math {

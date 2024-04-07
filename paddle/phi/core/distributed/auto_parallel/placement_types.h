@@ -23,12 +23,17 @@
 #include <ostream>
 #include <string>
 #include <vector>
+#include <cstddef>
+#include <memory>
+#include <typeindex>
 
 #include "paddle/common/errors.h"
 #include "paddle/phi/common/reduce_type.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 namespace distributed {

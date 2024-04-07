@@ -17,9 +17,12 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
+#include <string>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/pass/pass.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace pir {
 

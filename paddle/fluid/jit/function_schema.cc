@@ -15,9 +15,8 @@
 #include "paddle/fluid/jit/function_schema.h"
 
 #include "paddle/fluid/framework/program_desc.h"
-#include "paddle/phi/core/enforce.h"
-
 #include "paddle/fluid/jit/function_utils.h"
+
 namespace paddle {
 namespace jit {
 

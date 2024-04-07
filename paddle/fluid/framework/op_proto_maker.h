@@ -14,12 +14,17 @@ limitations under the License. */
 #pragma once
 
 #include <string>
+#include <ostream>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+
 namespace paddle {
 namespace framework {
+class OpAttrChecker;
+template <typename T> class TypedAttrChecker;
 
 //////////////////////////
 // Don't add more roles to make this too complicated!

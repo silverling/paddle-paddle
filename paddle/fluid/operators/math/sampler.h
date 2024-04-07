@@ -20,6 +20,8 @@ limitations under the License. */
 #include <vector>
 
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace operators {

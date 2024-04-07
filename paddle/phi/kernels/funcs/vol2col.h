@@ -18,8 +18,11 @@ limitations under the License. */
 
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/layout.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 using DataLayout = phi::DataLayout;

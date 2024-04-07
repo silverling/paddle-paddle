@@ -14,11 +14,29 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <functional>
+#include <memory>
+#include <string>
+#include <typeinfo>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/operators/math/concat_and_split.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/none.h"
+#include "paddle/utils/optional.h"
 
 namespace paddle {
 namespace operators {

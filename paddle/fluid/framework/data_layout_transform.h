@@ -21,6 +21,12 @@
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/phi/kernels/funcs/data_layout_transform.h"
+#include "paddle/common/layout.h"
+#include "paddle/utils/test_macros.h"
+
+namespace phi {
+class KernelKey;
+}  // namespace phi
 
 #ifdef PADDLE_WITH_DNNL
 #include "paddle/phi/backends/onednn/onednn_helper.h"

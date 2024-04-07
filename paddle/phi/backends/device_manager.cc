@@ -13,8 +13,8 @@
 // limitations under the License.
 
 #include "paddle/phi/backends/device_manager.h"
-#include "paddle/phi/common/complex.h"
-#include "paddle/phi/core/distributed/xccl_comm_context.h"
+
+#include <stdlib.h>
 
 #if !defined(_WIN32)
 #include <dirent.h>
@@ -22,13 +22,19 @@
 
 #endif
 
-#include <functional>
 #include <regex>
+#include <ostream>
+#include <type_traits>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/utils/string/split.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/utils/rw_lock.h"
 
 namespace phi {
+class TraceEventCollector;
 
 void Device::CheckInitialized() {
   std::call_once(initialized_once_flag_, [&]() {

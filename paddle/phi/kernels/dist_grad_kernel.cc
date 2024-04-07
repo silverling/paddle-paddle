@@ -14,16 +14,27 @@
 
 #include "paddle/phi/kernels/dist_grad_kernel.h"
 
-#include <tuple>
 #include <vector>
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include <cstdint>
+#include <utility>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/elementwise_subtract_kernel.h"
 #include "paddle/phi/kernels/p_norm_grad_kernel.h"
 #include "paddle/phi/kernels/reduce_sum_kernel.h"
 #include "paddle/phi/kernels/scale_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 std::pair<std::vector<int64_t>, std::vector<int64_t>> GetReduceDims(
     const DDim& src_dim, const DDim& dst_dim) {

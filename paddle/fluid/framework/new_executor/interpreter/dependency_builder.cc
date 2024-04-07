@@ -14,14 +14,30 @@
 
 #include "paddle/fluid/framework/new_executor/interpreter/dependency_builder.h"
 
+#include <ext/alloc_traits.h>
+#include <limits.h>
 #include <queue>
 #include <sstream>
 #include <stack>
+#include <algorithm>
+#include <iomanip>
+#include <iterator>
+#include <string>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/framework/new_executor/instruction/phi_kernel_instruction.h"
 #include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/platform/flags.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/variant.h"
 
 PADDLE_DEFINE_EXPORTED_bool(
     add_dependency_for_communication_op,

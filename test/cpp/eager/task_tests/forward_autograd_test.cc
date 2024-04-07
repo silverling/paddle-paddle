@@ -12,18 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <sstream>
+#include <algorithm>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/api/generated/eager_generated/backwards/scale_node.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/grad_node_info.h"
-#include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_meta.h"
 #include "test/cpp/eager/test_utils.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/eager/api/generated/eager_generated/forwards/scale.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/utils/small_vector.h"
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 

@@ -12,18 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <google/protobuf/text_format.h>
 
-#include <cstdlib>
-#include <string>
-#include <vector>
 
-#include "io/fs.h"
-#include "paddle/fluid/framework/data_feed_factory.h"
-#include "paddle/fluid/framework/data_set.h"
-#include "paddle/fluid/framework/device_worker_factory.h"
-#include "paddle/fluid/framework/fleet/ps_gpu_wrapper.h"
-#include "paddle/fluid/framework/trainer.h"
 #if (defined PADDLE_WITH_NCCL || defined PADDLE_WITH_RCCL || \
      defined PADDLE_WITH_XPU_BKCL) &&                        \
     (defined PADDLE_WITH_PSLIB)

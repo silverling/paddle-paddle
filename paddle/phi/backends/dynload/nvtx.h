@@ -15,7 +15,7 @@ limitations under the License. */
 #ifndef _WIN32
 #include <cuda.h>
 #include <nvToolsExt.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"

@@ -14,9 +14,17 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/check_numerics_kernel.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <cmath>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/check_numerics_utils.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

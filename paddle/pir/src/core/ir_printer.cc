@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <list>
 #include <ostream>
 #include <string>
 #include <unordered_map>
+#include <map>
+#include <utility>
+#include <vector>
 
 #include "paddle/pir/include/core/block.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
@@ -26,6 +28,16 @@
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/utils.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/pir/include/core/block_argument.h"
+#include "paddle/pir/include/core/builtin_op.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/region.h"
 
 namespace pir {
 

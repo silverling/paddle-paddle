@@ -14,14 +14,32 @@
 
 #include "paddle/fluid/framework/ir/mkldnn/operator_scale_onednn_fuse_pass.h"
 
+#include <algorithm>
+#include <map>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/mkldnn/mkldnn_pass_util.h"
 #include "paddle/fluid/framework/op_version_registry.h"
-#include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
+class Graph;
 
 using string::PrettyLogDetail;
 

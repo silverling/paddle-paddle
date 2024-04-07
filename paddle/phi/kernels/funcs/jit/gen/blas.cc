@@ -14,13 +14,25 @@
 
 #include "paddle/phi/kernels/funcs/jit/gen/blas.h"
 
+#include <memory>
+
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/jit/macro.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/gen_base.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "xbyak_mnemonic.h"
 
 namespace phi {
 namespace jit {
 namespace gen {
+class VAddBiasCreator;
+class VAddCreator;
+class VAddReluCreator;
+class VMulCreator;
+class VScalCreator;
+class VSubCreator;
 
 void VXXJitCode::genCode() {
   // do not need push stack, and do not need save avx512reg if do not use avx512

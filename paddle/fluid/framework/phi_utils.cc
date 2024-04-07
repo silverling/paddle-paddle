@@ -15,17 +15,46 @@ limitations under the License. */
 #include "paddle/fluid/framework/phi_utils.h"
 
 #include <sstream>
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <utility>
 
 #include "paddle/fluid/framework/convert_utils.h"
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/framework/selected_rows_utils.h"
 #include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/compat/op_utils.h"
 #include "paddle/phi/core/kernel_factory.h"
-#include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/core/type_defs.h"
-#include "paddle/utils/string/string_helper.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/init_default_kernel_signature_map.h"
+#include "paddle/fluid/framework/library_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/flat_hash_map.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {

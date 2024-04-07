@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <vector>
@@ -22,9 +24,16 @@
 #include "paddle/fluid/framework/details/fast_threaded_ssa_graph_executor.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/details/exception_holder.h"
+#include "paddle/fluid/framework/details/execution_strategy.h"
+#include "paddle/fluid/framework/details/ssa_graph_executor.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 class ParallelSSAGraphExecutor final : public SSAGraphExecutor {

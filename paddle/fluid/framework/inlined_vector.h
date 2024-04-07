@@ -13,10 +13,12 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <cstdint>
 #include <vector>
 
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace framework {

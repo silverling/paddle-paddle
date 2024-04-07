@@ -13,14 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/operators/fused/multi_gru_op.h"
-// #include "paddle/fluid/operators/fused/fusion_gru_op.h"
-#include <cstring>  // for memcpy
+
+#include <ext/alloc_traits.h>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <initializer_list>
+#include <memory>
 
-#include "paddle/phi/kernels/funcs/blas/blas.h"
-#include "paddle/phi/kernels/funcs/fc_functor.h"
-#include "paddle/phi/kernels/funcs/sequence2batch.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

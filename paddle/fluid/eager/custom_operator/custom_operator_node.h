@@ -14,12 +14,24 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/hooks.h"
 #include "paddle/fluid/eager/tensor_wrapper.h"
 #include "paddle/fluid/framework/custom_operator.h"
 #include "paddle/utils/any.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/small_vector.h"
+#include "paddle/utils/string/printf.h"
 
 namespace egr {
 class RunCustomOpNode : public GradNodeBase {

@@ -69,6 +69,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <iostream>
 #include <sstream>
 #include <string>

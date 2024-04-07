@@ -21,6 +21,11 @@
 #include <string>
 #include <variant>
 #include <vector>
+#include <cstddef>
+#include <cstdint>
+#include <type_traits>
+#include <typeindex>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/common/enforce.h"

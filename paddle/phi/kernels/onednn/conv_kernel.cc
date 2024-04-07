@@ -14,13 +14,29 @@
 
 #include "paddle/phi/kernels/conv_kernel.h"
 
+#include <stdint.h>
+#include <algorithm>
+#include <iosfwd>
+#include <memory>
+#include <utility>
+
 #include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/visit_type.h"
-#include "paddle/phi/kernels/funcs/data_layout_transform.h"
 #include "paddle/phi/kernels/onednn/conv_function.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void ConvKernel(const Context& dev_ctx,

@@ -18,9 +18,12 @@
 #include <string>
 #include <tuple>
 #include <unordered_set>
+#include <iosfwd>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace paddle {
 namespace imperative {

@@ -15,6 +15,11 @@
 #include "paddle/fluid/pir/dialect/operator/ir/ir_tensor.h"
 
 #include "paddle/common/enforce.h"
+#include "paddle/common/ddim.h"
+
+namespace phi {
+class Allocator;
+}  // namespace phi
 
 namespace paddle {
 namespace dialect {

@@ -14,13 +14,19 @@
 
 #include "paddle/phi/kernels/identity_loss_grad_kernel.h"
 
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/mean_all_grad_kernel.h"
 #include "paddle/phi/kernels/reduce_sum_grad_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void IdentityLossGradKernel(const Context& dev_ctx,

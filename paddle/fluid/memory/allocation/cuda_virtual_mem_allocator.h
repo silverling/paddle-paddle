@@ -20,10 +20,19 @@
 #include "paddle/fluid/platform/cuda_device_guard.h"
 #endif
 
+#include <stddef.h>
 #include <mutex>  // NOLINT
+#include <map>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/place.h"
+#include "cuda.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 #if CUDA_VERSION >= 10020
 

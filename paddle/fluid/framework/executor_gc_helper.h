@@ -18,6 +18,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <set>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/garbage_collector.h"
 #include "paddle/fluid/framework/operator.h"
@@ -30,6 +32,8 @@ namespace framework {
 class GarbageCollector;
 class OperatorBase;
 class Scope;
+class BlockDesc;
+class ProgramDesc;
 
 struct OpInOutInfo {
  public:

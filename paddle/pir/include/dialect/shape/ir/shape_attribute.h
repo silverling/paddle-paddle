@@ -17,6 +17,15 @@
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/utils.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_attribute_storage.h"
+#include "paddle/pir/include/core/attribute_base.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/dialect/shape/utils/shape_or_data_expr.h"
+
+namespace pir {
+class IrContext;
+class Operation;
+}  // namespace pir
 
 namespace pir::shape {
 

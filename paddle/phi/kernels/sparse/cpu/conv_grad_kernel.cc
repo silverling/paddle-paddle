@@ -14,10 +14,24 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/conv_grad_kernel.h"
 
+#include <string.h>
+#include <algorithm>
+#include <utility>
+
 #include "paddle/phi/core/visit_type.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
 #include "paddle/phi/kernels/sparse/cpu/conv.h"
+#include "mkl_cblas.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/phi/kernels/funcs/sparse/convolution.h"
 
 namespace phi {
 namespace sparse {

@@ -14,9 +14,13 @@
 
 #include "paddle/phi/kernels/pad_grad_kernel.h"
 
+#include <cstdint>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/pad_grad_kernel_impl.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
 
 PD_REGISTER_KERNEL(pad_grad,
                    CPU,

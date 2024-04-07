@@ -16,8 +16,11 @@ limitations under the License. */
 
 #include "paddle/phi/core/meta_tensor.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
+class MetaTensor;
+
 namespace sparse {
 
 void IndicesInferMeta(const MetaTensor& x, MetaTensor* out);

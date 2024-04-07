@@ -14,11 +14,7 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/profiler/utils.h"
 
-#include <sstream>
 #include <vector>
-
-#include "glog/logging.h"
-#include "paddle/fluid/platform/device/gpu/gpu_info.h"
 
 namespace paddle {
 namespace platform {
@@ -47,6 +43,7 @@ std::string json_vector<std::string>(
 #ifdef PADDLE_WITH_HIP
 
 #include "hip/hip_runtime.h"
+
 float CalculateEstOccupancy(uint32_t DeviceId,
                             int32_t DynamicSharedMemory,
                             int32_t BlockX,

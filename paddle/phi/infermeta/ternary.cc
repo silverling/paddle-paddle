@@ -14,12 +14,20 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/ternary.h"
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
 
+#include "glog/logging.h"
 #include "paddle/common/ddim.h"
 #include "paddle/common/layout.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
 #include "paddle/phi/kernels/impl/box_coder.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 

@@ -19,6 +19,9 @@ limitations under the License. */
 #include "paddle/phi/kernels/sparse/mask_kernel.h"
 
 namespace phi {
+class DenseTensor;
+class SparseCooTensor;
+
 namespace sparse {
 
 template <typename T, typename Context>

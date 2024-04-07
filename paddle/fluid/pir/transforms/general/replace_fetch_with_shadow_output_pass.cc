@@ -14,10 +14,24 @@
 
 #include "paddle/fluid/pir/transforms/general/replace_fetch_with_shadow_output_pass.h"
 
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 

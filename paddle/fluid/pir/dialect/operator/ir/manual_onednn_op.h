@@ -14,6 +14,8 @@
 
 #pragma once
 #include <vector>
+#include <cstdint>
+#include <string>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/ir_adaptor/translator/utils.h"
@@ -36,8 +38,27 @@
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/op_trait.h"
 #include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace phi {
+class InferMetaContext;
+}  // namespace phi
+namespace pir {
+class Builder;
+class ShapeConstraintIRAnalysis;
+class Type;
+}  // namespace pir
 
 namespace paddle {
+namespace dialect {
+class GetKernelTypeForVarInterface;
+class InferMetaInterface;
+class InferSymbolicShapeInterface;
+class OneDNNTrait;
+}  // namespace dialect
+
 namespace onednn {
 namespace dialect {
 

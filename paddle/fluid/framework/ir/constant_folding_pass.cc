@@ -16,24 +16,32 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
-#include "glog/logging.h"
+#include <algorithm>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
-#include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 #include "paddle/fluid/framework/ir/pass.h"
 #include "paddle/fluid/framework/op_registry.h"
-#include "paddle/fluid/framework/op_version_registry.h"
-#include "paddle/fluid/platform/enforce.h"
-
-namespace paddle {
-namespace framework {
-namespace ir {
-class Node;
-}  // namespace ir
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 /*
  * When a op's inputs and outputs is determined before feeding data to the

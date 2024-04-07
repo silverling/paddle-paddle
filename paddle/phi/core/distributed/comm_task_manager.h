@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <bits/chrono.h>
+#include <stdint.h>
 #include <atomic>
 #include <condition_variable>
 #include <iostream>
@@ -22,6 +24,7 @@
 #include <mutex>
 #include <thread>
 #include <unordered_map>
+#include <string>
 
 #include "paddle/common/macros.h"
 #include "paddle/phi/core/distributed/comm_context.h"
@@ -29,6 +32,7 @@
 
 namespace phi {
 namespace distributed {
+class CommTask;
 
 enum ErrorHandlingMode { NoHandling = 0, TearDown = 1 };
 

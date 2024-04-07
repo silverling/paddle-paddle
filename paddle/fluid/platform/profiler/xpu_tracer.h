@@ -21,9 +21,11 @@
 #include "paddle/fluid/platform/dynload/xpti.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/profiler/tracer_base.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace platform {
+class TraceEventCollector;
 
 class XPUTracer : public TracerBase {
  public:

@@ -13,7 +13,11 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
+#include <string>
+
 #include "paddle/phi/backends/device_manager.h"
+#include "paddle/phi/common/place.h"
 
 namespace phi {
 

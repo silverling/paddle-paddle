@@ -16,8 +16,14 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/assign_kernel.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+
 namespace sr {
 
 // Note: use `const paddle::optional<SelectedRows>& x`

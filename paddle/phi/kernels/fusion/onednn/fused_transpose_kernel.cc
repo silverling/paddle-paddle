@@ -12,13 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "glog/logging.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <ostream>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
+#include "glog/logging.h"
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/transpose_kernel.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_utils.h"
+#include "paddle/phi/kernels/funcs/data_layout_transform.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+
 namespace fusion {
 
 void SetInMemDescWithSqueeze2FuseSupport(

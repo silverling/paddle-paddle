@@ -17,13 +17,21 @@ limitations under the License. */
 #include <map>
 #include <memory>
 #include <unordered_map>
+#include <cstdint>
+#include <string>
+#include <vector>
 
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/profiler/event_node.h"
 #include "paddle/fluid/platform/profiler/extra_info.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
 
 namespace paddle {
 namespace platform {
+class HostTraceEventNode;
+class NodeTrees;
 
 struct DevicePythonNode {
   DevicePythonNode() = default;

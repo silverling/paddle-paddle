@@ -14,8 +14,10 @@
 
 #include "paddle/fluid/framework/details/exception_holder.h"
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/memory/allocation/allocator.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace framework {

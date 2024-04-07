@@ -14,11 +14,24 @@
 
 #include "paddle/fluid/framework/ir/set_subgraph_edge_pass.h"
 
-#include <algorithm>
-#include <memory>
+#include <stddef.h>
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <map>
+#include <ostream>
+
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace framework {

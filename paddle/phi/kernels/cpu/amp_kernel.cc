@@ -14,15 +14,26 @@
 
 #include "paddle/phi/kernels/amp_kernel.h"
 
+#include <stddef.h>
 #include <cmath>
+#include <cstdint>
+#include <numeric>
 
-#include "paddle/phi/common/amp_type_traits.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/empty_kernel.h"
 #include "paddle/phi/kernels/funcs/eigen/common.h"
 #include "paddle/phi/kernels/impl/amp_kernel_impl.h"
 #include "paddle/phi/kernels/isfinite_kernel.h"
 #include "paddle/phi/kernels/reduce_all_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 

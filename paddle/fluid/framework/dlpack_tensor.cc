@@ -13,9 +13,24 @@
 // limitations under the License.
 #include "paddle/fluid/framework/dlpack_tensor.h"
 
+#include <string>
+#include <typeinfo>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/platform/place.h"
+#include "dlpack/dlpack.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/complex.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 namespace framework {

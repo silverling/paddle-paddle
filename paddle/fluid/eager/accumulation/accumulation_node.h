@@ -14,12 +14,23 @@
 
 #pragma once
 
+#include <functional>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/hooks.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/small_vector.h"
 
 namespace egr {
+class VoidHook;
 
 class TEST_API GradNodeAccumulation : public GradNodeBase {
  public:

@@ -15,7 +15,21 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/mkldnn/cpu_quantize_placement_pass.h"
 
 #include <unordered_set>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+
 #include "paddle/fluid/framework/ir/mkldnn/mkldnn_pass_util.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

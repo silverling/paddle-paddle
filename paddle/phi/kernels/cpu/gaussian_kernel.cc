@@ -14,9 +14,15 @@
 
 #include "paddle/phi/kernels/gaussian_kernel.h"
 
+#include <stdint.h>
+#include <memory>
+#include <random>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/core/generator.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

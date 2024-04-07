@@ -15,16 +15,23 @@
 // Auto Generated, DO NOT EDIT!
 
 #include "paddle/fluid/primitive/rule/vjp/manual/manual_vjp.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_api.h"
+
+#include <ext/alloc_traits.h>
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/prim/utils/static/static_global_utils.h"
-#include "paddle/fluid/primitive/backend/backend.h"
 #include "paddle/fluid/primitive/rule/vjp/details.h"
-#include "paddle/fluid/primitive/type/lazy_tensor.h"
 #include "paddle/fluid/primitive/utils/utils.h"
-#include "paddle/pir/include/core/operation.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/prim/utils/static/composite_grad_desc_maker.h"
+#include "paddle/fluid/primitive/backend/generated/generated_backend.h"
+#include "paddle/fluid/primitive/backend/manual/manual_backend.h"
+#include "paddle/phi/api/include/tensor.h"
 
 namespace paddle {
 namespace primitive {
+class LazyTensor;
 
 std::vector<std::vector<paddle::Tensor>> add_n_vjp(
     const std::vector<paddle::Tensor>& x,

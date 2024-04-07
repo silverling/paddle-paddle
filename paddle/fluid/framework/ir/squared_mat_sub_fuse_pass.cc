@@ -15,8 +15,22 @@
 #include "paddle/fluid/framework/ir/squared_mat_sub_fuse_pass.h"
 
 #include <string>
+#include <map>
+#include <ostream>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/op_version_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

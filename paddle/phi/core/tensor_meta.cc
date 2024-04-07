@@ -13,7 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/core/tensor_meta.h"
-#include "paddle/phi/core/enforce.h"
+
+#include <stdint.h>
+#include <utility>
+
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 

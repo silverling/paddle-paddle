@@ -14,11 +14,17 @@
 
 #include "paddle/phi/kernels/take_along_axis_kernel.h"
 
+#include <stdint.h>
+#include <string>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/gather_scatter_functor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

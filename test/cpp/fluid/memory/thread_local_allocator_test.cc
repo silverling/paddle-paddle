@@ -14,12 +14,21 @@
 
 #include "paddle/fluid/memory/allocation/thread_local_allocator.h"
 
+#include <ext/alloc_traits.h>
+#include <stdlib.h>
 #include <condition_variable>  // NOLINT
 #include <thread>              // NOLINT
+#include <algorithm>
+#include <functional>
+#include <string>
 
-#include "gtest/gtest.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/memory/malloc.h"
+#include "gtest/gtest-death-test.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
 
 COMMON_DECLARE_double(fraction_of_gpu_memory_to_use);
 COMMON_DECLARE_string(allocator_strategy);

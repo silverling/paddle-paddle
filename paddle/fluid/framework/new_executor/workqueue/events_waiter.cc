@@ -15,8 +15,12 @@
 #include "paddle/fluid/framework/new_executor/workqueue/events_waiter.h"
 
 #include <glog/logging.h>
+#include <mutex>
+#include <ostream>
+#include <utility>
 
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

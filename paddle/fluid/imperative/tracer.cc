@@ -13,10 +13,16 @@
 // limitations under the License.
 #include "paddle/fluid/imperative/tracer.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <map>
-#include <set>
-#include <unordered_set>
 #include <utility>
+#include <exception>
+#include <functional>
+#include <ostream>
+#include <typeinfo>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/api/utils/global_utils.h"
@@ -27,13 +33,35 @@
 #include "paddle/fluid/imperative/op_base.h"
 #include "paddle/fluid/operators/ops_extra_info.h"
 #include "paddle/fluid/platform/denormal.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
-#include "paddle/fluid/platform/profiler.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/api/lib/api_gen_utils.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/utils/string/string_helper.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_call_stack.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_info.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/small_vector.h"
+
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 COMMON_DECLARE_bool(use_mkldnn);
 COMMON_DECLARE_string(tracer_mkldnn_ops_on);

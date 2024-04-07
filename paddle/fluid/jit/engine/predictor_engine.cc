@@ -14,10 +14,17 @@
 
 #include "paddle/fluid/jit/engine/predictor_engine.h"
 
+#include <string>
+
 #include "paddle/fluid/inference/api/analysis_predictor.h"
 #include "paddle/fluid/inference/api/paddle_api.h"
 #include "paddle/fluid/jit/function_utils.h"
-#include "paddle/fluid/platform/device_context.h"
+#include "glog/logging.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/jit/function_schema.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace jit {

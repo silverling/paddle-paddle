@@ -17,6 +17,9 @@
 
 namespace paddle {
 namespace framework {
+class Instruction;
+class InstructionBase;
+class Variable;
 
 class InterpreterCoreFastGarbageCollector
     : public InterpreterCoreGarbageCollector {

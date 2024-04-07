@@ -19,6 +19,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+#include <memory>
 
 #include "paddle/fluid/jit/property.pb.h"
 

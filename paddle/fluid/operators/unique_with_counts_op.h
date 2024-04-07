@@ -17,10 +17,20 @@ limitations under the License. */
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <string>
 
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/operators/unique_op.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

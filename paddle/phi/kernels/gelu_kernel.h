@@ -21,6 +21,7 @@
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 #define GELU_CONSTANT 0.044715
 

@@ -14,7 +14,10 @@
 
 #include "paddle/phi/common/memory_utils.h"
 
+#include <stddef.h>
+
 namespace phi {
+class DeviceContext;
 
 namespace memory_utils {
 

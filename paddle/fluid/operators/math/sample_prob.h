@@ -13,15 +13,26 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stdint.h>
 #include <iostream>
 #include <unordered_set>
 #include <vector>
+#include <cmath>
+#include <cstddef>
+#include <utility>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/operators/math/sampler.h"
 #include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
+namespace phi {
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

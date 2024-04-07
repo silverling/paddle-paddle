@@ -17,19 +17,58 @@
 //
 
 #include <paddle/fluid/framework/op_registry.h>
-
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <iosfwd>
+#include <map>
+#include <unordered_map>
+#include <utility>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/imperative/execution_context.h"
 #include "paddle/fluid/imperative/infer_shape_context.h"
 #include "paddle/fluid/imperative/infer_var_type_context.h"
 #include "paddle/fluid/imperative/layer.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/op_base.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/compat/arg_map_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/small_vector.h"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
+namespace egr {
+class EagerVariable;
+}  // namespace egr
 
 namespace paddle {
 namespace imperative {
+class VariableWrapper;
 
 using vb_vector = std::vector<std::shared_ptr<imperative::VarBase>>;
 

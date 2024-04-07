@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <atomic>
 #include <fstream>
 #include <map>
@@ -26,6 +27,8 @@ limitations under the License. */
 #include <unordered_set>  // NOLINT
 #include <utility>        // NOLINT
 #include <vector>
+#include <cstdint>
+#include <future>
 
 #if defined(PADDLE_WITH_PSCORE)
 #include "paddle/fluid/distributed/ps/wrapper/fleet.h"
@@ -45,6 +48,12 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/timer.h"
 #include "paddle/phi/common/port.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {
@@ -59,6 +68,8 @@ class Scope;
 
 namespace paddle {
 namespace framework {
+class GarbageCollector;
+class OpDesc;
 
 TEST_API std::string PrintLodTensor(phi::DenseTensor* tensor,
                                     int64_t start,

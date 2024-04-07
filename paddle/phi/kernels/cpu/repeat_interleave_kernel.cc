@@ -14,9 +14,15 @@
 
 #include "paddle/phi/kernels/repeat_interleave_kernel.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <string>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/repeat_interleave_kernel_impl.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(repeat_interleave,
                    CPU,

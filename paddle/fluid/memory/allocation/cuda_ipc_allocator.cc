@@ -16,16 +16,17 @@
 
 #include "paddle/fluid/memory/allocation/cuda_ipc_allocator.h"
 
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <cstdlib>
-
-#include <random>
 #include <string>
+#include <mutex>
+#include <ostream>
+#include <unordered_map>
+#include <unordered_set>
 
-#include "glog/logging.h"
 #include "paddle/fluid/platform/cuda_device_guard.h"
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace memory {

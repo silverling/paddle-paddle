@@ -15,17 +15,26 @@
 #include "paddle/fluid/jit/serializer.h"
 
 #include <set>
+#include <istream>
+#include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/var_desc.h"
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/device_context.h"
-
 #include "paddle/common/flags.h"
 #include "paddle/fluid/jit/engine/interpreter_engine.h"
 #include "paddle/fluid/jit/engine/predictor_engine.h"
 #include "paddle/fluid/jit/layer.h"
 #include "paddle/fluid/jit/property.h"
 #include "paddle/fluid/jit/serializer_utils.h"
+#include "glog/logging.h"
+#include "paddle/common/exception.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/jit/function_schema.h"
+#include "paddle/fluid/jit/function_utils.h"
 
 COMMON_DECLARE_string(jit_engine_type);
 

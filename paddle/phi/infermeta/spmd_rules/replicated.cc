@@ -14,11 +14,19 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/replicated.h"
 
-#include "glog/logging.h"
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
 
+#include "glog/logging.h"
 #include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
-#include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
 
 namespace phi {
 namespace distributed {

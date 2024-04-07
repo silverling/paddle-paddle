@@ -17,6 +17,8 @@ limitations under the License. */
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/kernels/funcs/detail/lstm_cpu_kernel.h"
 #include "paddle/phi/kernels/funcs/detail/lstm_kernel.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorBase.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 namespace phi {
 namespace funcs {

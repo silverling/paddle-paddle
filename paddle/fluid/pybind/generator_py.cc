@@ -8,9 +8,11 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
-#include <fcntl.h>
-
 #include "paddle/phi/core/generator.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/pytypes.h"
 
 #ifdef _POSIX_C_SOURCE
 #undef _POSIX_C_SOURCE
@@ -20,10 +22,14 @@ limitations under the License. */
 #undef _XOPEN_SOURCE
 #endif
 
+#include <features.h>
 #include <memory>
 #include <sstream>
-#include <string>
 #include <vector>
+#include <array>
+#include <cstdint>
+#include <random>
+#include <stdexcept>
 
 #include "paddle/fluid/pybind/generator_py.h"
 

@@ -14,6 +14,8 @@
 
 #include "paddle/phi/core/device_context.h"
 
+#include <utility>
+
 #if defined(PADDLE_WITH_CUDA)
 #include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
 #elif defined(PADDLE_WITH_HIP)
@@ -21,11 +23,21 @@
 #endif
 
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/phi/core/string_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_base.h"
 
 namespace phi {
+class Allocator;
+class Generator;
+namespace distributed {
+class CommContext;
+}  // namespace distributed
+
 using DataType = phi::DataType;
 
 struct DeviceContext::Impl {

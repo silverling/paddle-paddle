@@ -16,9 +16,16 @@
 
 #include <memory>
 #include <string>
+#include <exception>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/fluid/framework/op_version_registry.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 

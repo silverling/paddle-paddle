@@ -14,10 +14,13 @@ limitations under the License. */
 
 #include "paddle/phi/backends/context_pool.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <utility>
 
+#include "glog/logging.h"
 #include "paddle/phi/common/memory_utils.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
 

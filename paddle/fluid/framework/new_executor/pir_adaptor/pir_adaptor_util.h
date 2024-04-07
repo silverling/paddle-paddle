@@ -14,6 +14,15 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/scope.h"
@@ -37,8 +46,29 @@
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/type_name.h"
 #include "paddle/pir/include/core/utils.h"
-
 #include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/phi_tensor_base_vector.h"
+#include "paddle/fluid/framework/tensor_ref_array.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/phi/common/tensor_ref.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace phi {
+class TensorBase;
+}  // namespace phi
+namespace pir {
+class Block;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {
@@ -46,6 +76,9 @@ namespace framework {
 class IfInstruction;
 class WhileInstruction;
 class PyLayerInstruction;
+class OperatorBase;
+class RuntimeContext;
+
 class ValueExecutionInfo {
  public:
   friend class IfInstruction;

@@ -14,11 +14,22 @@
 
 #pragma once
 
+#include <memory>
+#include <utility>
+
 #include "paddle/phi/api/lib/utils/allocator.h"
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/core/string_tensor.h"
 #include "paddle/phi/infermeta/strings/nullary.h"
 #include "paddle/phi/infermeta/strings/unary.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+
+namespace paddle {
+namespace experimental {
+class DefaultAllocator;
+}  // namespace experimental
+}  // namespace paddle
 
 namespace phi {
 namespace strings {

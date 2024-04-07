@@ -14,13 +14,25 @@
 
 #include "paddle/phi/kernels/array_grad_kernel.h"
 
-#include "paddle/common/layout.h"
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <vector>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/concat_grad_kernel.h"
 #include "paddle/phi/kernels/stack_grad_kernel.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_array.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+namespace dtype {
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void TensorToArrayKernel(const Context& dev_ctx,

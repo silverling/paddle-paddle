@@ -12,21 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "paddle/fluid/framework/new_executor/standalone_executor.h"
+
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <map>
+#include <ostream>
+#include <set>
+#include <tuple>
+#include <utility>
+
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/new_executor/feed_fetch_utils.h"
-#include "paddle/fluid/framework/new_executor/interpreter/interpreter_util.h"
 #include "paddle/fluid/framework/new_executor/pir_interpreter.h"
 #include "paddle/fluid/framework/new_executor/program_interpreter.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
-
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
-
-#include "paddle/fluid/ir_adaptor/translator/translate.h"
 #include "paddle/fluid/pir/transforms/general/inplace_pass.h"
 #include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_manager.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpreter/job.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_attribute.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
 
 COMMON_DECLARE_bool(enable_pir_in_executor);
 COMMON_DECLARE_bool(enable_pir_api);

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include "paddle/phi/core/distributed/gloo_comm_context.h"
-#include "paddle/phi/core/distributed/gloo_utils.h"
 
 #include <gloo/allgather.h>
 #include <gloo/allreduce.h>
@@ -23,11 +22,25 @@
 #include <gloo/reduce.h>
 #include <gloo/scatter.h>
 #include <gloo/types.h>
+#include <algorithm>
+#include <type_traits>
 
-#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/distributed/gloo_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/check/static_check.h"
-#include "paddle/phi/core/enforce.h"
+#include "glog/logging.h"
+#include "gloo/rendezvous/context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/place.h"
+
+namespace gloo {
+namespace rendezvous {
+class Store;
+}  // namespace rendezvous
+namespace transport {
+class Device;
+}  // namespace transport
+}  // namespace gloo
 
 namespace phi {
 namespace distributed {

@@ -14,6 +14,14 @@
 
 #include "paddle/phi/kernels/nll_loss_kernel.h"
 
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
+
+namespace paddle {
+template <class T> class optional;
+}  // namespace paddle
+
 namespace phi {
 template <typename T, typename Context>
 void NllLossKernel(const Context& dev_ctx,

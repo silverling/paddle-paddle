@@ -13,12 +13,20 @@
 // limitations under the License.
 #include "paddle/phi/kernels/svd_kernel.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <utility>
+#include <vector>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/complex_functors.h"
 #include "paddle/phi/kernels/funcs/lapack/lapack_function.h"
 #include "paddle/phi/kernels/transpose_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/type_traits.h"
 
 namespace phi {
 

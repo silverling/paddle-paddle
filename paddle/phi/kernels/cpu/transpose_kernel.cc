@@ -14,14 +14,20 @@
 
 #include "paddle/phi/kernels/transpose_kernel.h"
 
+#include <stdint.h>
 #include <vector>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/common/bfloat16.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/phi/core/tensor_utils.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+template <typename T> struct __attribute__((aligned(sizeof(T) * 2))) complex;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void TransposeKernel(const Context& ctx,

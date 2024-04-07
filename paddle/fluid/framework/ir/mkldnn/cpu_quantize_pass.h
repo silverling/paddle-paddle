@@ -19,10 +19,12 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <initializer_list>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace paddle {
 namespace framework {

@@ -14,6 +14,8 @@
 
 #pragma once
 #include <vector>
+#include <cstdint>
+#include <string>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/fluid/pir/dialect/operator/interface/decomp.h"
@@ -30,9 +32,30 @@
 #include "paddle/pir/include/core/ir_printer.h"
 #include "paddle/pir/include/core/op_base.h"
 #include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/type_id.h"
+#include "paddle/pir/include/core/value.h"
+#include "paddle/utils/test_macros.h"
+
+namespace phi {
+class InferMetaContext;
+}  // namespace phi
+namespace pir {
+class Builder;
+class Operation;
+class ShapeConstraintIRAnalysis;
+class Type;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {
+class DecompInterface;
+class GetKernelTypeForVarInterface;
+class InferMetaInterface;
+class InferSymbolicShapeInterface;
+class InplaceTrait;
+class VjpInterface;
 
 class AddNOp : public pir::Op<AddNOp,
                               paddle::dialect::OpYamlInfoInterface,

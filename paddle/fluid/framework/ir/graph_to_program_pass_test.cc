@@ -14,20 +14,28 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/graph_to_program_pass.h"
 
+#include <stddef.h>
 #include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <unordered_set>
+#include <vector>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/details/build_strategy.h"
 #include "paddle/fluid/framework/ir/graph.h"
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/var_desc.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Node;
 
 void BuildNoCircleGraph(Graph* g) {
   OpDesc op1;

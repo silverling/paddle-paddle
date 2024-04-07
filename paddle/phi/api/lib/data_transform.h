@@ -14,15 +14,28 @@ limitations under the License. */
 
 #pragma once
 
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/core/distributed/type_defs.h"
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/phi/core/selected_rows.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
 class DeviceContext;
+class SelectedRows;
+class SparseCooTensor;
+class SparseCsrTensor;
+
 namespace distributed {
 class DistTensor;
 class TensorDistAttr;
@@ -30,6 +43,8 @@ class TensorDistAttr;
 }  // namespace phi
 
 namespace paddle {
+class Tensor;
+
 namespace experimental {
 
 class TransformFlag {

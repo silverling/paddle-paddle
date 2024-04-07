@@ -13,15 +13,22 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/fused_adam_kernel.h"
+
+#include <stddef.h>
 #include <vector>
 
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/tensor_utils.h"
-
 #include "paddle/phi/kernels/adam_kernel.h"
 #include "paddle/phi/kernels/adamw_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/none.h"
 
 namespace phi {
+class CPUContext;
 
 static paddle::optional<DenseTensor> TensorPtrToOptionalTensor(
     const paddle::optional<std::vector<const DenseTensor*>>& t, size_t idx) {

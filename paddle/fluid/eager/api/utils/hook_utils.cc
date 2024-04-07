@@ -14,10 +14,22 @@
 
 #include "paddle/fluid/eager/api/utils/hook_utils.h"
 
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/utils.h"
-#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/grad_node_info.h"
+#include "paddle/fluid/eager/hooks.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace egr {
 namespace egr_utils_api {

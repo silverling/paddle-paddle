@@ -15,11 +15,15 @@ limitations under the License. */
 #include "paddle/fluid/framework/io/fs.h"
 
 #include <sys/stat.h>
-
+#include <string.h>
 #include <memory>
+#include <algorithm>
 
 #include "glog/logging.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/string/string_helper.h"
+#include "shell.h"
 
 namespace paddle {
 namespace framework {

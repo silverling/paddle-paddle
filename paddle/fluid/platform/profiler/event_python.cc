@@ -11,10 +11,12 @@ limitations under the License. */
 
 #include "paddle/fluid/platform/profiler/event_python.h"
 
+#include <utility>
+
 #include "paddle/fluid/platform/profiler/chrometracing_logger.h"
 #include "paddle/fluid/platform/profiler/dump/deserialization_reader.h"
 #include "paddle/fluid/platform/profiler/dump/serialization_logger.h"
-#include "paddle/fluid/platform/profiler/extra_info.h"
+#include "paddle/fluid/platform/profiler/event_node.h"
 
 namespace paddle {
 namespace platform {

@@ -14,11 +14,20 @@ limitations under the License. */
 
 #include "paddle/fluid/memory/memcpy.h"
 
-#include "paddle/fluid/platform/device/device_wrapper.h"
-#include "paddle/fluid/platform/device_context.h"
+#include <cuda_runtime.h>
+#include <cstring>
+#include <ostream>
+
 #include "paddle/fluid/platform/profiler/event_tracing.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/utils/test_macros.h"
+#include "driver_types.h"
+#include "glog/logging.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
 
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/platform/device/xpu/xpu_header.h"

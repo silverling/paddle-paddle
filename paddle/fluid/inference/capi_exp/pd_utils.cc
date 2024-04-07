@@ -11,12 +11,21 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include <string>
+#include <cstdint>
+#include <memory>
+#include <vector>
 
-#include "paddle/fluid/inference/api/paddle_inference_api.h"
 #include "paddle/fluid/inference/capi_exp/pd_utils.h"
 #include "paddle/fluid/inference/capi_exp/utils_internal.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
+#include "paddle/fluid/inference/capi_exp/pd_types.h"
 
 #define DESTROY_ONE_DIM_ARRAY(type)                                           \
   void PD_OneDimArray##type##Destroy(__pd_take PD_OneDimArray##type* array) { \

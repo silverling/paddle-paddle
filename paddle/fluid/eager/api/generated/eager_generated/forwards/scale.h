@@ -16,6 +16,8 @@
 
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/api/include/tensor.h"
+
 namespace egr {
 
 TEST_API paddle::Tensor scale(const paddle::Tensor& x,

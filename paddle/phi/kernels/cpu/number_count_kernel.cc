@@ -14,10 +14,16 @@
 
 #include "paddle/phi/kernels/number_count_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+
 template <typename T, typename Context>
 void NumberCountKernel(const Context& dev_ctx,
                        const DenseTensor& numbers,

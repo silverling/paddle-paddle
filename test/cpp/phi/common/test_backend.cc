@@ -12,12 +12,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <stddef.h>
 #include <iostream>
+#include <exception>
+#include <string>
 
-#include "paddle/common/exception.h"
 #include "paddle/phi/common/backend.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/common/place.h"
 
 namespace phi {
 namespace tests {

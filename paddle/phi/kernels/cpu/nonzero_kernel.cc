@@ -14,10 +14,20 @@
 
 #include "paddle/phi/kernels/nonzero_kernel.h"
 
+#include <stddef.h>
+#include <cstdint>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/funcs/for_range.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/hostdevice.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace phi {
 

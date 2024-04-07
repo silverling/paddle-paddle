@@ -15,14 +15,22 @@
 #include "paddle/phi/kernels/funcs/jit/gen/gru.h"
 
 #include <cstddef>  // offsetof
+#include <memory>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/jit/macro.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/gen_base.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
+#include "xbyak_mnemonic.h"
 
 namespace phi {
 namespace jit {
 namespace gen {
+class GRUH1Creator;
+class GRUHtPart1Creator;
+class GRUHtPart2Creator;
 
 void GRUJitCode::genCode() {
   reg64_t reg_ptr_gates = rax;

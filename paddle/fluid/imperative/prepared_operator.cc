@@ -14,14 +14,26 @@
 
 #include "paddle/fluid/imperative/prepared_operator.h"
 
-#include "paddle/fluid/eager/eager_tensor.h"
+#include <functional>
+#include <map>
+
 #include "paddle/fluid/framework/data_type_transform.h"
 #include "paddle/fluid/framework/details/nan_inf_utils.h"
 #include "paddle/fluid/imperative/infer_shape_context.h"
-#include "paddle/fluid/imperative/tracer.h"
-#include "paddle/phi/common/int_array.h"
-#include "paddle/phi/common/scalar.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/execution_context.h"
+#include "paddle/fluid/imperative/saved_variable_wrapper_list.h"
+#include "paddle/fluid/platform/event.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/core/compat/op_utils.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/utils/flat_hash_map.h"
 #ifdef PADDLE_WITH_XPU
 #include "paddle/fluid/platform/device/xpu/xpu_op_list.h"
 #endif
@@ -29,7 +41,6 @@
 #include "paddle/fluid/platform/mkldnn_op_list.h"
 #endif
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/library_type.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"

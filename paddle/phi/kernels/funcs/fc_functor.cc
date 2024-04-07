@@ -14,11 +14,18 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/fc_functor.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <string.h>
+
 #include "paddle/phi/kernels/funcs/blas/blas.h"
-#include "paddle/phi/kernels/funcs/jit/kernels.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/kernels/funcs/jit/helper.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 
 namespace phi {
+class CPUPlace;
+
 namespace funcs {
 
 template <typename DeviceContext, typename T>

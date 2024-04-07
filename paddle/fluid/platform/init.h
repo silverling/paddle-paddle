@@ -16,6 +16,7 @@ limitations under the License. */
 #include <mutex>  // NOLINT
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include "glog/logging.h"
 #include "paddle/utils/test_macros.h"

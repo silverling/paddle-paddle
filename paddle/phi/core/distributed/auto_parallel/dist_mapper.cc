@@ -13,10 +13,15 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <algorithm>
+#include <cstdint>
 
 #include "paddle/phi/core/distributed/auto_parallel/dist_mapper.h"
 #include "paddle/phi/core/distributed/auto_parallel/proto_helper.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
 
 namespace phi {
 namespace distributed {

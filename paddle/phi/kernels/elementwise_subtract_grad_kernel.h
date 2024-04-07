@@ -18,6 +18,8 @@ limitations under the License. */
 #include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
+
 template <typename T, typename Context>
 void SubtractGradKernel(const Context& dev_ctx,
                         const DenseTensor& x,

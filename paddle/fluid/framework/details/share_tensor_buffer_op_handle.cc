@@ -15,8 +15,16 @@
 #include "paddle/fluid/framework/details/share_tensor_buffer_op_handle.h"
 
 #include <string>
+#include <map>
+#include <utility>
 
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/computation_op_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
@@ -29,8 +37,6 @@ class MemOptVarInfo;
 namespace paddle {
 namespace framework {
 namespace details {
-
-class ComputationOpHandle;
 
 ComputationOpHandle *GetUniquePendingComputationOpHandle(
     ShareTensorBufferOpHandle *share_tensor_op) {

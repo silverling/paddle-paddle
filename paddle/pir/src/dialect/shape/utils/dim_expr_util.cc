@@ -14,7 +14,21 @@
 
 #include "paddle/pir/include/dialect/shape/utils/dim_expr_util.h"
 
+#include <bits/utility.h>
 #include <numeric>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <optional>
+#include <type_traits>
+#include <utility>
+#include <variant>
+#include <vector>
+
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace symbol {
 

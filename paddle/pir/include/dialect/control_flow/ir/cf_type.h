@@ -17,8 +17,12 @@
 
 #include "paddle/pir/include/core/type.h"
 #include "paddle/pir/include/core/type_base.h"
+#include "paddle/pir/include/core/dll_decl.h"
+#include "paddle/pir/include/core/storage_manager_support.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
+class TypeStorage;
 
 class IR_API ContainerType : public Type {
  public:

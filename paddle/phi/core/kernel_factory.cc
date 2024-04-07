@@ -14,9 +14,16 @@
 
 #include "paddle/phi/core/kernel_factory.h"
 
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 #if defined(PADDLE_WITH_XPU)
 #include "paddle/phi/backends/xpu/xpu_op_list.h"
 #include "paddle/phi/common/data_type.h"

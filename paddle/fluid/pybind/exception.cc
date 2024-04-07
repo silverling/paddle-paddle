@@ -16,6 +16,14 @@ limitations under the License. */
 
 #include "paddle/common/exception.h"
 #include "paddle/fluid/memory/allocation/allocator.h"
+#include "object.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/errors.h"
+#include "pybind11/detail/descr.h"
+#include "pyerrors.h"
+
 namespace paddle {
 namespace pybind {
 

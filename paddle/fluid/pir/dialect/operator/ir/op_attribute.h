@@ -20,6 +20,18 @@
 #include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/parser/ir_parser.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/attribute_base.h"
+#include "paddle/pir/include/core/type_id.h"
+
+namespace pir {
+class IrContext;
+class IrParser;
+}  // namespace pir
 
 namespace paddle {
 namespace dialect {

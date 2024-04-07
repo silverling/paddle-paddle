@@ -14,10 +14,15 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/scatter.h"
 
-#include <gtest/gtest.h>
+#include <string>
 
-#include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/place.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 TEST(scatter, ScatterUpdate) {
   phi::DenseTensor src;

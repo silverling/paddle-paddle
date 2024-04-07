@@ -14,25 +14,59 @@
 
 #include "paddle/fluid/pybind/reader_py.h"
 
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
 #include <exception>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include "Python.h"
+#include <cstdint>
+#include <future>
+#include <ostream>
+#include <type_traits>
 
 #include "paddle/common/ddim.h"
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/reader.h"
 #include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/imperative/tracer.h"
-#include "paddle/fluid/operators/reader/buffered_reader.h"
 #include "paddle/fluid/operators/reader/lod_tensor_blocking_queue.h"
-#include "paddle/fluid/operators/reader/py_reader.h"
 #include "paddle/fluid/platform/place.h"
-#include "pybind11/stl.h"
+#include "ThreadPool.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/none.h"
+#include "paddle/utils/optional.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/gil.h"
+#include "pybind11/pytypes.h"
+
+namespace paddle {
+namespace operators {
+namespace reader {
+class BufferedReader;
+class PyReader;
+}  // namespace reader
+}  // namespace operators
+}  // namespace paddle
 
 COMMON_DECLARE_bool(reader_queue_speed_test_mode);
 

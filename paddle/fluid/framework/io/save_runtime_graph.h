@@ -9,10 +9,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 #pragma once
+#include <stdint.h>
+#include <string>
+
 #include "paddle/fluid/framework/ir/graph.h"
 
 namespace paddle {
 namespace framework {
+namespace ir {
+class Graph;
+}  // namespace ir
+
 void save_runtime_cinn_graph(const ir::Graph& graph,
                              int64_t graph_compilation_key,
                              std::string clusters_ops,

@@ -28,6 +28,7 @@
 #include <stdio.h>
 
 #include "pd_types.h"  // NOLINT
+#include "paddle/fluid/inference/capi_exp/pd_common.h"
 
 #ifdef __cplusplus
 extern "C" {

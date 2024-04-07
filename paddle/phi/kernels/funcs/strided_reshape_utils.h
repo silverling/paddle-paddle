@@ -16,6 +16,7 @@
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/reshape_kernel.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 

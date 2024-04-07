@@ -13,10 +13,16 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/fused_softmax_mask_upper_triangle_kernel.h"
+
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/place.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace fusion {
 
 template <typename T, typename Context>

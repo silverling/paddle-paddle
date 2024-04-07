@@ -18,6 +18,11 @@ limitations under the License. */
 #include <vector>
 
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
 namespace operators {

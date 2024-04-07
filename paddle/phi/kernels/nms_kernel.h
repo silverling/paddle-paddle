@@ -14,10 +14,13 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include "paddle/common/hostdevice.h"
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 HOSTDEVICE static inline int64_t CeilDivide(int64_t n, int64_t m) {
   return (n + m - 1) / m;

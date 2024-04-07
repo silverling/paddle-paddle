@@ -13,7 +13,15 @@
 // limitations under the License.
 
 #include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <numeric>
+#include <vector>
+
 #include "paddle/pir/include/core/type_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/pir/include/core/builtin_type_interfaces.h"
+#include "paddle/pir/include/core/type.h"
 
 namespace pir {
 

@@ -16,20 +16,24 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <unordered_set>
 
-#include "paddle/phi/core/enforce.h"
-
-namespace paddle {
-namespace framework {
-class OpDesc;
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 void InterpolateOneDNNPass::ApplyImpl(ir::Graph* graph) const {
   PADDLE_ENFORCE_NOT_NULL(graph,

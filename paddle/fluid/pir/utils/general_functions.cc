@@ -14,20 +14,25 @@
 
 #include "paddle/fluid/pir/utils/general_functions.h"
 
+#include <stddef.h>
 #include <unordered_set>
+#include <algorithm>
+#include <cstdint>
 
 #include "paddle/common/ddim.h"
 #include "paddle/common/enforce.h"
 #include "paddle/common/errors.h"
-
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/op_operand.h"
 #include "paddle/pir/include/core/operation.h"
-#include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/value.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/region.h"
 
 namespace {
 

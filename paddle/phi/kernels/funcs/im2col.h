@@ -22,6 +22,8 @@ limitations under the License. */
 #include "paddle/phi/core/enforce.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 using DataLayout = phi::DataLayout;

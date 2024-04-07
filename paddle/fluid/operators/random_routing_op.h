@@ -16,6 +16,7 @@
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
 
 #if defined(PADDLE_WITH_GLOO)
 #include "paddle/fluid/framework/fleet/gloo_wrapper.h"

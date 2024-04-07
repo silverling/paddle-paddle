@@ -30,6 +30,9 @@
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {
@@ -40,6 +43,8 @@ class OpDesc;
 namespace paddle {
 namespace framework {
 namespace details {
+struct VarHandle;
+struct VarHandleBase;
 
 // all variable in each devices.
 // The outside vector is the device vector. Each element of this vector is a

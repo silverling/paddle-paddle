@@ -18,6 +18,8 @@ limitations under the License. */
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 template <typename DeviceContext, typename T>

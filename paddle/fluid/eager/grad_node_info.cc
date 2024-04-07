@@ -14,27 +14,30 @@
 
 #include "paddle/fluid/eager/grad_node_info.h"
 
-#include "glog/logging.h"
+#include <ext/alloc_traits.h>
+
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/utils.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/data_type_transform.h"
-#include "paddle/fluid/framework/var_type.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/dense_tensor.h"
-
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/core/sparse_csr_tensor.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
+#include "paddle/phi/core/enforce.h"
 
 /**
  * Implementation of GradNodeBase, Edge and GradTensorHolder.
  **/
 namespace egr {
+class TensorHook;
 
 static void CheckTensor(const paddle::Tensor& pre, const paddle::Tensor& post) {
   if (!pre.initialized() && post.initialized()) {

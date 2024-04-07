@@ -17,6 +17,8 @@
 #include <glog/logging.h>
 #include <memory>
 #include <unordered_map>
+#include <mutex>
+#include <ostream>
 
 #include "paddle/common/enforce.h"
 

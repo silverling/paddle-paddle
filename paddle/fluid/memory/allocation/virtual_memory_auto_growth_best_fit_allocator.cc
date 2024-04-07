@@ -14,7 +14,10 @@
 
 #include "paddle/fluid/memory/allocation/virtual_memory_auto_growth_best_fit_allocator.h"
 
+#include <stdint.h>
 #include <mutex>
+#include <iterator>
+#include <type_traits>
 
 #include "paddle/fluid/memory/allocation/aligned_allocator.h"
 

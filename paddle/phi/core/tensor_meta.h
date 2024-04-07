@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <vector>
 
 #include "paddle/common/layout.h"

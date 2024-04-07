@@ -14,15 +14,21 @@
 
 #include "paddle/fluid/eager/pylayer/py_layer_node.h"
 
-#include "glog/logging.h"
-#include "paddle/fluid/eager/eager_tensor.h"
-#include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/phi/api/all.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "abstract.h"
+#include "listobject.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/phi/api/include/api.h"
+#include "paddle/utils/pybind.h"
+#include "pybind11/gil.h"
+#include "pyport.h"
+#include "tupleobject.h"
+
 #pragma GCC diagnostic ignored "-Wattributes"
 #include "pybind11/pytypes.h"
 

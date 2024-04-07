@@ -13,13 +13,13 @@
 // limitations under the License.
 
 #include "paddle/phi/core/distributed/store/socket.h"
+
+#include <netinet/in.h>
 #include <array>
 
 #ifndef _WIN32
 #include <arpa/inet.h>
-#include <netinet/ip.h>
 #include <sys/socket.h>
-#include <unistd.h>
 #endif
 #include <cerrno>
 #include <cstdio>

@@ -14,9 +14,14 @@
 
 #include "paddle/phi/kernels/deformable_conv_grad_kernel.h"
 
+#include <bits/std_abs.h>
+#include <math.h>
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/deformable_conv_grad_kernel_impl.h"
+#include "paddle/phi/kernels/funcs/deformable_conv_functor.h"
 
 namespace phi {
 

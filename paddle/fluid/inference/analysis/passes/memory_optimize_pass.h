@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #pragma once
+#include <stddef.h>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -30,6 +31,7 @@ class Graph;
 namespace paddle {
 namespace inference {
 namespace analysis {
+struct Argument;
 
 /* Memory optimization.
  * We will perform the following operation:

@@ -14,13 +14,15 @@
 
 #pragma once
 #include <glog/logging.h>
-
 #include <memory>
 #include <unordered_set>
+#include <string>
 
 #include "paddle/common/layout.h"
 #include "paddle/fluid/framework/type_defs.h"
 #include "paddle/fluid/imperative/tracer.h"
+#include "paddle/fluid/imperative/type_defs.h"
+
 namespace paddle {
 namespace imperative {
 

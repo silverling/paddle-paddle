@@ -17,6 +17,7 @@
 #include "paddle/pir/include/core/cast_utils.h"
 #include "paddle/pir/include/core/dll_decl.h"
 #include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace paddle {
 namespace dialect {

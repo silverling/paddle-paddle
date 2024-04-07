@@ -13,7 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/platform/place.h"
+
+#include <string>
+
 #include "paddle/fluid/platform/flags.h"
+#include "paddle/common/flags.h"
+
 PADDLE_DEFINE_EXPORTED_bool(
     benchmark,
     false,

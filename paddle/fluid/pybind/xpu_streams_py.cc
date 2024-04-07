@@ -14,11 +14,9 @@
 
 #include "paddle/fluid/pybind/xpu_streams_py.h"
 
-#include <string>
-#include <vector>
-
-#include "paddle/fluid/platform/device_event_base.h"
-#include "paddle/fluid/platform/event.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "pybind11/detail/descr.h"
 #if defined(PADDLE_WITH_XPU)
 #include "paddle/phi/backends/xpu/enforce_xpu.h"
 #endif

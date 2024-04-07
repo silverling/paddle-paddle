@@ -12,24 +12,48 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <glog/logging.h>
+#include <stddef.h>
+#include <thread>  // NOLINT
+#include <algorithm>
+#include <array>
+#include <cstdint>
+#include <functional>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <ostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/api/analysis_predictor.h"
 #include "paddle/fluid/inference/api/resource_manager.h"
-#if defined(PADDLE_WITH_CUDA)
-#include <cuda_runtime.h>
-#endif
-#include <glog/logging.h>
-#include <gtest/gtest.h>
-
-#include <thread>  // NOLINT
-
-#include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/inference/api/helper.h"
 #include "paddle/fluid/inference/api/paddle_api.h"
 #include "paddle/fluid/inference/api/paddle_inference_api.h"
-#include "paddle/fluid/inference/utils/io_utils.h"
 #include "paddle/phi/backends/cpu/cpu_info.h"
-#include "test/cpp/inference/api/tester_helper.h"
+#include "cuda_runtime_api.h"
+#include "driver_types.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/inference/api/paddle_analysis_config.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+#include "paddle/fluid/inference/api/paddle_tensor.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/cuda_stream.h"
+
+namespace common {
+namespace enforce {
+struct EnforceNotMet;
+}  // namespace enforce
+}  // namespace common
+namespace paddle {
+class Tensor;
+}  // namespace paddle
 
 PD_DEFINE_string(dirname, "", "dirname to tests.");
 

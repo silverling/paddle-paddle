@@ -14,15 +14,20 @@
 
 #include "paddle/phi/core/distributed/nccl_comm_context.h"
 
-#include "glog/logging.h"
+#include <ostream>
+#include <utility>
 
+#include "glog/logging.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/check/nccl_dynamic_check.h"
 #include "paddle/phi/core/distributed/check/static_check.h"
 #include "paddle/phi/core/distributed/nccl_tools.h"
-#include "paddle/phi/core/distributed/utils.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/utils/data_type.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/backends/dynload/nccl.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
 namespace distributed {

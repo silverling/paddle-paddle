@@ -14,7 +14,9 @@
 
 #include "paddle/fluid/memory/allocation/naive_best_fit_allocator.h"
 
-#include "gtest/gtest.h"
+#include <vector>
+
+#include "gtest/gtest_pred_impl.h"
 
 namespace paddle {
 namespace memory {

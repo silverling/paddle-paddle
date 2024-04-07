@@ -14,7 +14,10 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <vector>
+#include <string>
+#include <tuple>
 
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/place.h"

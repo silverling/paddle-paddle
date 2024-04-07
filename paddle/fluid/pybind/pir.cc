@@ -14,7 +14,7 @@
 
 #include "paddle/fluid/pybind/pir.h"
 
-#include <Python.h>
+#include <bits/utility.h>
 #include <algorithm>
 #include <memory>
 #include <sstream>
@@ -22,10 +22,20 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include <exception>
+#include <iostream>
+#include <iterator>
+#include <list>
+#include <map>
+#include <new>
+#include <tuple>
+#include <type_traits>
+#include <vector>
 
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/ir/pass.h"
-#include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/ir_adaptor/translator/program_translator.h"
 #include "paddle/fluid/ir_adaptor/translator/translate.h"
 #include "paddle/fluid/ir_adaptor/translator/utils.h"
@@ -39,17 +49,12 @@
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_api.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/trait/inplace.h"
 #include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_parser.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
-#include "paddle/fluid/pir/transforms/passes.h"
 #include "paddle/fluid/pir/transforms/shape_optimization_pass.h"
 #include "paddle/fluid/pybind/control_flow_api.h"
 #include "paddle/fluid/pybind/eager_utils.h"
-#include "paddle/fluid/pybind/pybind_variant_caster.h"
-#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/block.h"
@@ -61,13 +66,57 @@
 #include "paddle/pir/include/core/type.h"
 #include "paddle/pir/include/core/value.h"
 #include "paddle/pir/include/core/visitors.h"
-#include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_attribute.h"
 #include "paddle/pir/include/dialect/shape/ir/shape_dialect.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_manager.h"
 #include "paddle/pir/include/pass/pass_registry.h"
-#include "pybind11/stl.h"
+#include "abstract.h"
+#include "object.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/pir/dialect/operator/utils/op_yaml_info_util.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/common/reduce_type.h"
+#include "paddle/pir/include/core/block_argument.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "pybind11/attr.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/detail/internals.h"
+#include "pybind11/detail/type_caster_base.h"
+#include "pybind11/gil.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
+
+namespace paddle {
+namespace dialect {
+class InplaceTrait;
+}  // namespace dialect
+namespace framework {
+class ProgramDesc;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+namespace distributed {
+class ProcessMesh;
+}  // namespace distributed
+}  // namespace phi
 
 #ifdef PADDLE_WITH_CINN
 #include "paddle/cinn/hlir/dialect/operator/ir/op_dialect.h"

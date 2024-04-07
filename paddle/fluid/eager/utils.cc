@@ -13,20 +13,36 @@
 // limitations under the License.
 
 #include "paddle/fluid/eager/utils.h"
+
+#include <ext/alloc_traits.h>
+
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
 #include "paddle/fluid/eager/api/utils/global_utils.h"
-#include "paddle/fluid/eager/api/utils/hook_utils.h"
 #include "paddle/fluid/eager/grad_node_info.h"
 #include "paddle/fluid/eager/tensor_wrapper.h"
-
-#include "paddle/common/layout.h"
-#include "paddle/phi/api/all.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/tensor_meta.h"
-
-#include "paddle/fluid/framework/data_layout.h"
-#include "paddle/fluid/framework/phi_utils.h"
 #include "paddle/fluid/framework/variable.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/phi/api/include/api.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_base.h"
+#include "paddle/phi/core/utils/type_info.h"
+#include "paddle/phi/core/utils/type_registry.h"
+#include "paddle/utils/string/printf.h"
 
 namespace egr {
 

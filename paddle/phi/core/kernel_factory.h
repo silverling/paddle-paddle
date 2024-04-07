@@ -14,10 +14,16 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <map>
 #include <ostream>
 #include <unordered_map>
 #include <unordered_set>
+#include <functional>
+#include <string>
+#include <typeindex>
+
 #include "paddle/common/layout.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
@@ -27,6 +33,9 @@
 #include "paddle/phi/core/utils/data_type.h"
 #include "paddle/utils/flat_hash_map.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/test_macros.h"
+
 namespace phi {
 
 struct OpCount {

@@ -14,9 +14,12 @@
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DenseTensor;
 
 /*
  * All tensors' dimension should be the same and the values of

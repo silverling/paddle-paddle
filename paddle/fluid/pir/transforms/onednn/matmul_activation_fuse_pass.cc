@@ -14,12 +14,27 @@
 
 #include "paddle/fluid/pir/transforms/onednn/matmul_activation_fuse_pass.h"
 
+#include <cstdint>
+#include <set>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <variant>
+
 #include "paddle/fluid/pir/dialect/operator/ir/onednn_op.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/drr/include/drr_pattern_base.h"
-
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_registry.h"
+#include "paddle/fluid/pir/drr/include/drr_match_context.h"
+#include "paddle/fluid/pir/drr/include/drr_pattern_context.h"
+#include "paddle/fluid/pir/drr/include/drr_rewrite_pattern.h"
+#include "paddle/pir/include/pattern_rewrite/pattern_match.h"
+
+namespace pir {
+class IrContext;
+}  // namespace pir
 
 namespace {
 std::set<std::string> act_ops = {{paddle::dialect::AbsOp::name()},

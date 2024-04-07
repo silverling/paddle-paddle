@@ -15,13 +15,18 @@ limitations under the License. */
 
 #include "paddle/phi/backends/gpu/gpu_context.h"
 
-#include <algorithm>
+#include <cublas_v2.h>
+#include <cuda_runtime.h>
+#include <cxxabi.h>
 #include <array>
 #include <functional>
 #include <future>
 #include <memory>
 #include <mutex>
 #include <unordered_map>
+#include <ostream>
+#include <system_error>
+#include <utility>
 
 #include "glog/logging.h"
 #include "paddle/common/exception.h"
@@ -32,16 +37,19 @@ limitations under the License. */
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/allocator.h"
 #include "paddle/phi/core/cuda_stream.h"
+#include "cuda.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/gpu/gpu_types.h"
+#include "paddle/phi/core/stream.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/variant.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDeviceGpu.h"
 
 #ifdef PADDLE_WITH_CUDA
 #include "paddle/phi/backends/dynload/cublas.h"
 #include "paddle/phi/backends/dynload/cudnn.h"
-#include "paddle/phi/backends/dynload/cusolver.h"
-#include "paddle/phi/backends/dynload/cusparse.h"
-#if !defined(__APPLE__) && defined(PADDLE_WITH_NCCL)
-#include "paddle/phi/backends/dynload/nccl.h"
-#endif  // !defined(__APPLE__) && defined(PADDLE_WITH_NCCL)
-#endif  // PADDLE_WITH_CUDA
 
 #ifdef PADDLE_WITH_HIP
 #include "paddle/phi/backends/dynload/miopen.h"
@@ -50,10 +58,6 @@ limitations under the License. */
 #include "paddle/phi/backends/dynload/rccl.h"
 #endif  // !defined(__APPLE__) && defined(PADDLE_WITH_RCCL)
 #endif  // PADDLE_WITH_HIP
-
-// NOTE: The paddle framework should add WITH_EIGEN option to support compile
-// without eigen.
-#include "unsupported/Eigen/CXX11/Tensor"
 
 #include "paddle/phi/core/enforce.h"
 

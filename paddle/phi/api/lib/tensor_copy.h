@@ -15,8 +15,11 @@ limitations under the License. */
 #pragma once
 
 #include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
+class Tensor;
+
 namespace experimental {
 
 void copy(const Tensor& src, const Place& place, bool blocking, Tensor* dst);

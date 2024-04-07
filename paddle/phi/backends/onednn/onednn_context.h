@@ -14,16 +14,25 @@ limitations under the License. */
 
 #pragma once
 #ifdef PADDLE_WITH_DNNL
+#include <stddef.h>
 #include <memory>
 #include <mutex>     // NOLINT
+#include <map>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "dnnl.hpp"  // NOLINT
 #include "paddle/common/layout.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/attribute.h"
 #include "paddle/utils/test_macros.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
 
 namespace phi {
+class DenseTensor;
 
 using TensorNameMap = std::map<std::string, std::vector<std::string>>;
 
@@ -159,6 +168,7 @@ class OneDNNContext : public CPUContext {
 
  private:
   struct Impl;
+
   std::unique_ptr<Impl> impl_;
 };
 

@@ -14,13 +14,23 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/tensor_base.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/utils/type_info.h"
 
 namespace phi {
 
 class DenseTensorUtils;
+class Allocator;
+class Place;
 
 /// \brief The SparseCsrTensor uses three 1-D DenseTensors to represent
 /// the row index , column index and non zero elements of the original

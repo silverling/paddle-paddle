@@ -13,17 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <NvInfer.h>
-
 #include <string>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/fluid/framework/op_desc.h"
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
 #include "paddle/fluid/inference/tensorrt/engine.h"
 #include "paddle/fluid/inference/tensorrt/helper.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+namespace proto {
+class OpDesc;
+}  // namespace proto
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 

@@ -13,14 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/phi/kernels/selected_rows/uniform_kernel.h"
-#include "paddle/phi/kernels/legacy/uniform_kernel.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
-#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/kernels/legacy/uniform_kernel.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/uniform_kernel.h"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
+
 namespace sr {
 
 template <typename T, typename Context>

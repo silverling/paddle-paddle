@@ -12,10 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <ctype.h>
+#include <stddef.h>
 #include <sstream>
 #include <string>
 #include <tuple>
 #include <unordered_set>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <map>
+#include <memory>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
@@ -24,10 +34,13 @@
 #include "paddle/fluid/inference/api/paddle_pass_builder.h"
 #include "paddle/fluid/inference/utils/table_printer.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
-#include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/utils/string/split.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/inference/api/paddle_mkldnn_quantizer_config.h"
+#include "paddle/phi/core/enforce.h"
 
 #ifdef PADDLE_WITH_TENSORRT
 #include "paddle/fluid/inference/tensorrt/helper.h"
@@ -38,7 +51,6 @@ COMMON_DECLARE_uint64(initial_gpu_memory_in_mb);
 #endif
 
 namespace paddle {
-struct MkldnnQuantizerConfig;
 
 extern const std::vector<std::string> kTRTSubgraphPasses;
 extern const std::vector<std::string> kDlnneSubgraphPasses;

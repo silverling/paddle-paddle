@@ -15,11 +15,11 @@
 #include "paddle/utils/array_ref.h"
 
 #include <array>
-#include <cstdlib>
-#include <ctime>
+#include <algorithm>
+#include <memory>
 
 #include "glog/logging.h"
-#include "gtest/gtest.h"
+#include "gtest/gtest_pred_impl.h"
 
 TEST(array_ref, array_ref) {
   paddle::array_ref<int> a;

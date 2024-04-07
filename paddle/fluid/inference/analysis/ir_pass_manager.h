@@ -36,8 +36,17 @@
 #include "paddle/fluid/inference/analysis/helper.h"
 
 namespace paddle {
+namespace framework {
+class ProgramDesc;
+namespace ir {
+class Graph;
+}  // namespace ir
+}  // namespace framework
+
 namespace inference {
 namespace analysis {
+struct Argument;
+
 using framework::ProgramDesc;
 using framework::ir::Graph;
 using framework::ir::Pass;

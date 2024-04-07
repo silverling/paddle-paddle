@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <chrono>
 #include <iostream>
 #include <map>
@@ -21,6 +22,10 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <atomic>
+#include <functional>
+#include <set>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/executor_gc_helper.h"
 #include "paddle/fluid/framework/garbage_collector.h"
@@ -38,12 +43,33 @@
 #include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/init.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/pir/include/core/operation_utils.h"
+
+namespace paddle {
+namespace framework {
+class BlockDesc;
+class EventsWaiter;
+class OperatorBase;
+class Variable;
+namespace interpreter {
+struct ExecutionConfig;
+}  // namespace interpreter
+}  // namespace framework
+}  // namespace paddle
+namespace pir {
+class Block;
+class Operation;
+class Value;
+}  // namespace pir
 
 using AtomicVectorSizeT = std::vector<std::atomic<size_t>>;
 
 namespace paddle {
 namespace framework {
 class InstructionBase;
+
 namespace interpreter {
 class AsyncWorkQueue {
  public:

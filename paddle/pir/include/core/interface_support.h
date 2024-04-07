@@ -14,8 +14,17 @@
 
 #pragma once
 
+#include <bits/utility.h>
+#include <stddef.h>
+#include <initializer_list>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/interface_value.h"
+#include "paddle/common/errors.h"
+#include "paddle/pir/include/core/type_id.h"
 
 namespace pir {
 namespace detail {

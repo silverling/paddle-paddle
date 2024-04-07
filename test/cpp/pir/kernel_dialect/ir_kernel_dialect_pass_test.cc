@@ -12,41 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <bits/std_abs.h>
+#include <stdlib.h>
 #include <sstream>
+#include <cstdint>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/tensor.h"
-#include "paddle/fluid/framework/variable.h"
-#include "paddle/fluid/framework/variable_helper.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_attribute.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_dialect.h"
 #include "paddle/fluid/pir/dialect/kernel/ir/kernel_op.h"
-#include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
-#include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
-#include "paddle/fluid/platform/init.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/common/place.h"
-#include "paddle/phi/core/kernel_context.h"
 #include "paddle/phi/core/kernel_factory.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/core/meta_tensor.h"
-#include "paddle/phi/infermeta/binary.h"
-#include "paddle/phi/kernels/elementwise_add_kernel.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
-#include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/program.h"
-#include "paddle/pir/include/core/utils.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_dialect.h"
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
+
+namespace pir {
+class Block;
+}  // namespace pir
 
 PD_DECLARE_KERNEL(full, CPU, ALL_LAYOUT);
 PD_DECLARE_KERNEL(full_int_array, CPU, ALL_LAYOUT);

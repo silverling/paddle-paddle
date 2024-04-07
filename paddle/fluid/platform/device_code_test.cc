@@ -14,11 +14,23 @@ limitations under the License. */
 
 #include "paddle/phi/backends/device_code.h"
 
+#include <stdint.h>
 #include <utility>
+#include <ostream>
 
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/platform/init.h"
+#include "glog/logging.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/dynload/cuda_driver.h"
+#include "paddle/phi/backends/dynload/nvrtc.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 #ifdef PADDLE_WITH_CUDA
 constexpr auto saxpy_code = R"(
@@ -35,6 +47,7 @@ void saxpy_kernel(float a, float *x, float* y, float* z, size_t n) {
 #ifdef PADDLE_WITH_HIP
 constexpr auto saxpy_code = R"(
 #include <hip/hip_runtime.h>
+
 extern "C" __global__
 void saxpy_kernel(float a, float *x, float* y, float* z, size_t n) {
   for (size_t tid = blockIdx.x * blockDim.x + threadIdx.x; tid < n;

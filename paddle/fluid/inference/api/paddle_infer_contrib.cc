@@ -14,11 +14,21 @@
 
 #include "paddle/fluid/inference/api/paddle_infer_contrib.h"
 
-#include "paddle/fluid/framework/scope.h"
+#include <stdint.h>
+
 #include "paddle/fluid/memory/memcpy.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/float16.h"
+#include "cuda_runtime_api.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/inference/api/paddle_api.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle_infer {
 namespace contrib {

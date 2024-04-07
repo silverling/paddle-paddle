@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 
 #include "glog/logging.h"

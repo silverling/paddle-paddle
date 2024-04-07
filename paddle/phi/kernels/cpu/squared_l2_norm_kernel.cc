@@ -17,6 +17,9 @@
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/squared_l2_norm_kernel_impl.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h"
+#include "unsupported/Eigen/CXX11/src/util/CXX11Meta.h"
 
 PD_REGISTER_KERNEL(
     squared_l2_norm, CPU, ALL_LAYOUT, phi::SquaredL2NormKernel, float, double) {

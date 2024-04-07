@@ -14,12 +14,45 @@
 
 #include "paddle/phi/kernels/qr_kernel.h"
 
-#include <Eigen/Dense>
+#include <string.h>
+#include <algorithm>
+#include <new>
+#include <tuple>
+#include <utility>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/complex_functors.h"
 #include "paddle/phi/kernels/funcs/parse_qr_mode.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/CwiseNullaryOp.h"
+#include "Eigen/src/Core/Diagonal.h"
+#include "Eigen/src/Core/Dot.h"
+#include "Eigen/src/Core/GeneralProduct.h"
+#include "Eigen/src/Core/GenericPacketMath.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/MathFunctions.h"
+#include "Eigen/src/Core/Matrix.h"
+#include "Eigen/src/Core/NoAlias.h"
+#include "Eigen/src/Core/Redux.h"
+#include "Eigen/src/Core/SelfCwiseBinaryOp.h"
+#include "Eigen/src/Core/Transpose.h"
+#include "Eigen/src/Core/TriangularMatrix.h"
+#include "Eigen/src/Core/arch/AVX/PacketMath.h"
+#include "Eigen/src/Core/arch/SSE/PacketMath.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "Eigen/src/Householder/BlockHouseholder.h"
+#include "Eigen/src/Householder/Householder.h"
+#include "Eigen/src/QR/HouseholderQR.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
 
 namespace phi {
 

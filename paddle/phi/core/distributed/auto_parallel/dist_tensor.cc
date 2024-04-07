@@ -14,15 +14,30 @@
 
 #include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
 
+#include <cstdint>
+#include <ostream>
+#include <string>
+#include <utility>
+
 #include "glog/logging.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_function_registry.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/core/distributed/store/store_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/reduce_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace phi {
+class Place;
+
 namespace distributed {
 
 inline void check_defined(const DistTensor& dist_tensor,

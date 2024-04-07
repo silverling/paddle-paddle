@@ -13,10 +13,25 @@
 // limitations under the License.
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <algorithm>
+#include <ostream>
+
 #include "paddle/fluid/framework/details/computation_op_handle.h"
 #include "paddle/fluid/framework/details/eager_deletion_op_handle.h"
 #include "paddle/fluid/framework/details/share_tensor_buffer_op_handle.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/details/var_handle.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

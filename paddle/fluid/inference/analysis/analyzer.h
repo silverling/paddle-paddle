@@ -40,10 +40,12 @@ limitations under the License. */
 #include "paddle/common/flags.h"
 #include "paddle/fluid/inference/analysis/analysis_pass.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace inference {
 namespace analysis {
+struct Argument;
 
 class TEST_API Analyzer final {
  public:

@@ -15,12 +15,26 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/details/build_strategy.h"
 
-#include <glog/logging.h>
-
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/details/reduce_op_handle.h"
 #include "paddle/fluid/framework/ir/graph_printer.h"
 #include "paddle/fluid/framework/ir/multi_devices_graph_pass/multi_devices_graph_pass.h"
+#include "cuda.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/details/multi_devices_helper.h"
+#include "paddle/fluid/framework/details/op_handle_base.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/ir/pass_builder.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/utils/string/printf.h"
+
+namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+}  // namespace paddle
 
 PD_DECLARE_bool(convert_all_blocks);
 COMMON_DECLARE_bool(use_mkldnn);

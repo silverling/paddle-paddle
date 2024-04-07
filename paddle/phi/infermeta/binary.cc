@@ -14,8 +14,14 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/binary.h"
 
+#include <bits/std_abs.h>
 #include <algorithm>
 #include <vector>
+#include <cmath>
+#include <cstdint>
+#include <cstdlib>
+#include <limits>
+#include <ostream>
 
 #include "glog/logging.h"
 #include "paddle/common/ddim.h"
@@ -24,15 +30,15 @@ limitations under the License. */
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/type_traits.h"
 #include "paddle/phi/core/infermeta_utils.h"
-#include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/infermeta/unary.h"
 #include "paddle/phi/kernels/cpu/conv_util.h"
 #include "paddle/phi/kernels/funcs/axis_utils.h"
 #include "paddle/phi/kernels/funcs/common_shape.h"
-
-#ifdef PADDLE_WITH_DNNL
-#include "paddle/phi/backends/onednn/onednn_helper.h"
-#endif
+#include "paddle/common/dim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
 namespace detail {

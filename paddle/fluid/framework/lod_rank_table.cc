@@ -14,8 +14,12 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/lod_rank_table.h"
 
+#include <algorithm>
+#include <ostream>
+
 #include "glog/logging.h"
-#include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

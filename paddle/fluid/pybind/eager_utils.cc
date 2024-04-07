@@ -10,9 +10,43 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/fluid/pybind/eager_utils.h"
-#include <Python.h>
-#include "paddle/common/exception.h"
+
+#include <ext/alloc_traits.h>
+
 #include "paddle/pir/include/core/value.h"
+#include "abstract.h"
+#include "boolobject.h"
+#include "complexobject.h"
+#include "dictobject.h"
+#include "floatobject.h"
+#include "import.h"
+#include "listobject.h"
+#include "longobject.h"
+#include "methodobject.h"
+#include "modsupport.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/eager/api/utils/global_utils.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/framework/lod_tensor_array.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/phi/api/include/tensor.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/selected_rows.h"
+#include "paddle/phi/core/tensor_array.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/core/utils/data_type.h"
+#include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/utils/none.h"
+#include "paddle/utils/pybind.h"
+#include "pybind11/numpy.h"
+#include "pythread.h"
+#include "unicodeobject.h"
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
@@ -20,34 +54,38 @@ limitations under the License. */
 
 #include <string>
 #include <vector>
+#include <complex>
+#include <cstdint>
+#include <cstdio>
+#include <exception>
+#include <new>
+#include <ostream>
+#include <utility>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/eager/accumulation/accumulation_node.h"
-#include "paddle/fluid/eager/api/all.h"
 #include "paddle/fluid/eager/autograd_meta.h"
 #include "paddle/fluid/eager/hooks.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/scope_guard.h"
 #include "paddle/fluid/jit/function.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/operators/py_func_op.h"
-#include "paddle/fluid/operators/utils.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/utils/utils.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/pybind/eager.h"
 #include "paddle/fluid/pybind/op_function_common.h"
 #include "paddle/fluid/pybind/pir.h"
 #include "paddle/fluid/pybind/tensor_py.h"
 #include "paddle/phi/api/ext/op_meta_info.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/common/data_type.h"
-#include "paddle/phi/core/compat/convert_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/distributed/auto_parallel/placement_types.h"
 #include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
 #include "paddle/pir/include/core/attribute.h"
+
+namespace egr {
+class GradNodeBase;
+}  // namespace egr
 
 COMMON_DECLARE_bool(check_nan_inf);
 COMMON_DECLARE_int32(check_nan_inf_level);

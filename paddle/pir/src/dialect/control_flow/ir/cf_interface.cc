@@ -13,7 +13,11 @@
 // limitations under the License.
 
 #include "paddle/pir/include/dialect/control_flow/ir/cf_interface.h"
+
 #include "paddle/pir/include/dialect/control_flow/ir/cf_op.h"
+#include "paddle/common/enforce.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace pir {
 TuplePushOp ContainerOpInterface::tuple_push_op() {

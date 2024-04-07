@@ -14,11 +14,20 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/spmd_rules/stack.h"
 
-#include <limits>
-#include <set>
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <string>
 
-#include "paddle/phi/infermeta/spmd_rules/elementwise.h"
 #include "paddle/phi/infermeta/spmd_rules/utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/utils/variant.h"
 
 namespace phi {
 namespace distributed {

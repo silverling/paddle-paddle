@@ -14,7 +14,6 @@ limitations under the License. */
 
 #include "paddle/phi/core/compat/arg_map_context.h"
 
-#include "paddle/phi/core/enforce.h"
 #include "paddle/utils/string/string_helper.h"
 
 namespace phi {

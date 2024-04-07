@@ -14,12 +14,18 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <iomanip>
 #include <queue>
+#include <map>
+#include <set>
+
 #include "paddle/fluid/distributed/fleet_executor/interceptor.h"
 
 namespace paddle {
 namespace distributed {
+class InterceptorMessage;
+class TaskNode;
 
 /* Condition Interceptor
  * This is a special interceptor and only one condition op in the task node.

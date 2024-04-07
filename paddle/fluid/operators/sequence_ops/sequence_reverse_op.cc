@@ -14,6 +14,21 @@
 
 #include "paddle/fluid/operators/sequence_ops/sequence_reverse_op.h"
 
+#include <stdint.h>
+
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/phi/core/kernel_registry.h"
+
+namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+}  // namespace paddle
+
 namespace ops = paddle::operators;
 
 REGISTER_OPERATOR(sequence_reverse,

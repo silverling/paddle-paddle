@@ -15,11 +15,19 @@ limitations under the License. */
 #pragma once
 #ifdef PADDLE_WITH_CUDA
 #include <cudnn.h>
-
+#include <dlfcn.h>
 #include <mutex>  // NOLINT
 
 #include "paddle/phi/backends/dynload/dynamic_loader.h"
 #include "paddle/phi/common/port.h"
+#include "cudnn_adv_infer.h"
+#include "cudnn_adv_train.h"
+#include "cudnn_cnn_infer.h"
+#include "cudnn_cnn_train.h"
+#include "cudnn_ops_infer.h"
+#include "cudnn_ops_train.h"
+#include "cudnn_version.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
 namespace dynload {

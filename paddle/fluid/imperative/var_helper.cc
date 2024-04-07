@@ -14,20 +14,36 @@
 
 #include "paddle/fluid/imperative/var_helper.h"
 
+#include <vector>
+
 #include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/lod_rank_table.h"
-#include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/lod_tensor_array.h"
 #include "paddle/fluid/framework/reader.h"
-#include "paddle/fluid/framework/scope.h"
-#include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/framework/var_type_traits.h"
 #include "paddle/fluid/imperative/layer.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/string_array.h"
+#include "paddle/fluid/framework/var_type.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/variable_wrapper.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+
+namespace phi {
+class KernelKey;
+}  // namespace phi
+
 namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+
 namespace imperative {
 
 /* GetVariableWrapper */

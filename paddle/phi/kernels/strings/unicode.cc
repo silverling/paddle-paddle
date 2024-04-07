@@ -15,9 +15,11 @@ limitations under the License. */
 #include "paddle/phi/kernels/strings/unicode.h"
 
 #include <utf8proc.h>
+#include <cuda_runtime.h>
 
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/kernels/strings/unicode_flag.h"
+#include "driver_types.h"
 
 namespace phi {
 namespace strings {

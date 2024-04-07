@@ -13,11 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include "paddle/common/enforce.h"
+
+#include <dlfcn.h>
+#include <execinfo.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <array>
 #include <atomic>
 #include <map>
 #include <string>
-#include <vector>
+
 #include "paddle/common/flags.h"
 
 REGISTER_LOG_SIMPLY_STR(std::string);

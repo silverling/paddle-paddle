@@ -25,11 +25,16 @@
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/place.h"
-
 #include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
-
 #include "paddle/pir/include/core/program.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
+namespace pir {
+class Program;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {
@@ -40,6 +45,7 @@ namespace framework {
  */
 class ProgramDesc;
 class Scope;
+class InterpreterCore;
 
 class NaiveExecutor {
  public:

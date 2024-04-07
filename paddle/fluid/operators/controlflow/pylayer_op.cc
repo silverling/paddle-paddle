@@ -14,12 +14,35 @@
 
 #include "paddle/fluid/operators/controlflow/pylayer_op.h"
 
-#include "paddle/common/flags.h"
-#include "paddle/fluid/operators/assign_op.h"
+#include <stddef.h>
+#include <algorithm>
+#include <ostream>
+#include <set>
+
 #include "paddle/fluid/operators/controlflow/control_flow_op_helper.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/new_executor/interpretercore.h"
+#include "paddle/fluid/framework/op_info.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_event_base.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+
 namespace operators {
 
 namespace {  // NOLINT

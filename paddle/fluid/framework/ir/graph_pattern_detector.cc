@@ -14,11 +14,17 @@
 
 #include "paddle/fluid/framework/ir/graph_pattern_detector.h"
 
+#include <algorithm>
+#include <array>
+#include <ostream>
+
 #include "paddle/fluid/framework/ir/graph_traits.h"
-#include "paddle/fluid/framework/ir/graph_viz_pass.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/utils/string/pretty_log.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/analysis/dot.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace framework {

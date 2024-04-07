@@ -14,11 +14,19 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/funcs/gather_scatter_functor.h"
 
-#include "glog/logging.h"
+#include <stdint.h>
+#include <ostream>
+#include <vector>
 
+#include "glog/logging.h"
 #include "paddle/common/macros.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class DeviceContext;
+
 namespace funcs {
 
 class TensorAssign {

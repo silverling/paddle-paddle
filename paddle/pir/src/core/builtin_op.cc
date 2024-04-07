@@ -13,11 +13,25 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <memory>
+#include <ostream>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/common/enforce.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
 #include "paddle/pir/include/core/builtin_type.h"
+#include "paddle/pir/include/core/builder.h"
+#include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/op_info.h"
+#include "paddle/pir/include/core/op_operand.h"
+#include "paddle/pir/include/core/op_result.h"
+#include "paddle/pir/include/core/operation.h"
+#include "paddle/pir/include/core/operation_utils.h"
+#include "paddle/pir/include/core/region.h"
 
 namespace pir {
 

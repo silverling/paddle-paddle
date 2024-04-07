@@ -14,17 +14,21 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <future>  // NOLINT
 #include <map>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <set>
+#include <vector>
 
 #include "paddle/common/macros.h"
 #include "paddle/phi/backends/all_context.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/device_context.h"
 #include "paddle/utils/test_macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
 
 namespace phi {
 

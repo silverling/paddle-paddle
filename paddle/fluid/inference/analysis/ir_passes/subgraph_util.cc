@@ -18,15 +18,19 @@ limitations under the License. */
 
 #include "paddle/fluid/inference/analysis/ir_passes/subgraph_util.h"
 
-#include "paddle/fluid/platform/enforce.h"
+#include <stddef.h>
+#include <algorithm>
+#include <iterator>
+#include <utility>
 
-namespace paddle {
-namespace framework {
-namespace ir {
-class Node;
-}  // namespace ir
-}  // namespace framework
-}  // namespace paddle
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace inference {

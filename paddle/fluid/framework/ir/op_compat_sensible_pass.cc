@@ -15,11 +15,30 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/op_compat_sensible_pass.h"
 
 #include <memory>
-#include <mutex>
 #include <unordered_map>
+#include <ostream>
 
 #include "paddle/fluid/framework/op_def_api.h"
 #include "paddle/fluid/framework/op_info.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_def.pb.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/common/scalar.h"
+#include "paddle/utils/blank.h"
+#include "paddle/utils/variant.h"
+
+namespace paddle {
+namespace framework {
+namespace ir {
+class Graph;
+}  // namespace ir
+}  // namespace framework
+}  // namespace paddle
 
 namespace {
 std::unordered_set<std::string> global_extra_attrs = {

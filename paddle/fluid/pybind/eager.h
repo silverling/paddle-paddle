@@ -11,6 +11,8 @@ limitations under the License. */
 #pragma once
 
 #include <Python.h>
+#include <memory>
+#include <vector>
 // Avoid a problem with copysign defined in pyconfig.h on Windows.
 #ifdef copysign
 #undef copysign
@@ -22,6 +24,12 @@ limitations under the License. */
 #include "paddle/utils/pybind.h"
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
+#include "object.h"
+
+namespace egr {
+class GradNodePyLayer;
+class UnPackHookBase;
+}  // namespace egr
 
 namespace paddle {
 namespace pybind {

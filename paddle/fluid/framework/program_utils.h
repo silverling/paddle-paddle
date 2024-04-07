@@ -13,10 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <set>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/program_desc.h"
 
 namespace paddle {
 namespace framework {
+class BlockDesc;
+class ProgramDesc;
 
 void MergePrograms(ProgramDesc *dst,
                    const std::vector<ProgramDesc> &srcs,

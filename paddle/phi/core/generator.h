@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <atomic>
 #include <cstdint>
 #include <deque>
@@ -23,6 +24,7 @@ limitations under the License. */
 #include <typeinfo>
 #include <utility>
 #include <vector>
+#include <string>
 
 #include "paddle/phi/common/place.h"
 

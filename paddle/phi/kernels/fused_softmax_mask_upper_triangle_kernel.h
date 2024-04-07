@@ -17,6 +17,7 @@
 #include "paddle/phi/core/kernel_registry.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void FusedSoftmaxMaskFuseUpperTriangleKernel(const Context& dev_ctx,

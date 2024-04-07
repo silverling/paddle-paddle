@@ -16,14 +16,34 @@
 
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
+#include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "paddle/fluid/framework/infershape_utils.h"
 #include "paddle/phi/core/infermeta_utils.h"
 #include "paddle/phi/infermeta/unary.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/no_need_buffer_vars_inference.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/imperative/dygraph_grad_maker.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/operators/reduce_ops/reduce_op.h"
 
 namespace paddle {
+namespace framework {
+class BlockDesc;
+}  // namespace framework
+namespace imperative {
+class GradOpNode;
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 // NOTE(dengkaipeng): Input(Out) is unnecessary in reduce_mean_grad

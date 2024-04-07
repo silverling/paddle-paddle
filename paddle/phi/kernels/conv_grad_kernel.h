@@ -14,9 +14,14 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void ConvGradKernel(const Context& dev_ctx,

@@ -16,6 +16,7 @@
 
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
+
 typedef SSIZE_T ssize_t;
 #endif
 
@@ -23,10 +24,12 @@ typedef SSIZE_T ssize_t;
 #include <pybind11/complex.h>
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
-
+#include <stdint.h>
+#include <sys/types.h>
 #include <memory>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "paddle/fluid/framework/attribute.h"
 #include "paddle/fluid/framework/op_info.h"
@@ -35,6 +38,12 @@ typedef SSIZE_T ssize_t;
 #include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/imperative/type_defs.h"
 #include "paddle/fluid/pybind/imperative.h"
+#include "object.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/scalar.h"
+#include "pybind11/detail/common.h"
 
 namespace py = pybind11;
 namespace paddle {

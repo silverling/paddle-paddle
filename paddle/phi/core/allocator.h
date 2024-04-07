@@ -14,9 +14,11 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <utility>
 
 #include "paddle/phi/common/place.h"
 

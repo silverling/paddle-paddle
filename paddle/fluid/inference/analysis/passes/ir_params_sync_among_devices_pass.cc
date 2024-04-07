@@ -14,18 +14,30 @@
 
 #include "paddle/fluid/inference/analysis/passes/ir_params_sync_among_devices_pass.h"
 
-#include <cstdlib>
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <algorithm>
+#include <ostream>
 
-#include "paddle/fluid/framework/framework.pb.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/place.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/ir/fuse_pass_base.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/inference/analysis/argument.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/utils/any.h"
 
 PD_DEFINE_bool(  // NOLINT
     custom_model_save_cpu,

@@ -13,10 +13,14 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/op_result.h"
+
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/src/core/op_result_impl.h"
-
 #include "paddle/common/enforce.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 #define CHECK_OPRESULT_NULL_IMPL(func_name) \
   IR_ENFORCE(impl_, "impl_ pointer is null when call OpResult::" #func_name)

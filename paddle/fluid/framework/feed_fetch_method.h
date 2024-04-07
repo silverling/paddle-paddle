@@ -14,7 +14,9 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+#include <vector>
 
 #include "paddle/fluid/framework/feed_fetch_type.h"
 #include "paddle/fluid/framework/scope.h"

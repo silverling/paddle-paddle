@@ -14,8 +14,17 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <cstddef>
 #include <list>
+#include <algorithm>
+#include <initializer_list>
+#include <iterator>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "paddle/pir/include/core/block_argument.h"
 #include "paddle/pir/include/core/block_operand.h"
@@ -23,6 +32,8 @@
 #include "paddle/pir/include/core/iterator.h"
 #include "paddle/pir/include/core/region.h"
 #include "paddle/pir/include/core/visitors.h"
+#include "paddle/pir/include/core/type.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace pir {
 class Operation;

@@ -13,15 +13,26 @@
 // limitations under the License.
 #pragma once
 
+#include <stdint.h>
 #include <map>
 #include <vector>
+#include <memory>
+#include <string>
 
 #include "paddle/fluid/framework/new_executor/interpreter/plan.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace framework {
+class ProgramDesc;
+class Scope;
 
 void SetColAttrForFeedFetchOps(std::shared_ptr<ProgramDesc> program_desc,
                                const int64_t micro_batch_num,

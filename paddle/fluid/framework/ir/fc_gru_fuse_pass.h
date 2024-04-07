@@ -21,7 +21,10 @@
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace ir {
+class Graph;
 
 // The MulGRUFusePass and MulGRUFusePass will fuse to the same FusionGRU op.
 

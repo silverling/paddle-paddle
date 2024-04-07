@@ -19,6 +19,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <cstdint>
+#include <utility>
 
 #include "brpc/channel.h"
 #include "brpc/server.h"
@@ -26,9 +28,18 @@
 #include "paddle/fluid/distributed/rpc/rpc.pb.h"
 #include "paddle/fluid/distributed/rpc/rpc_service.h"
 #include "paddle/fluid/platform/macros.h"
+#include "brpc/controller.h"
+#include "google/protobuf/stubs/callback.h"
+#include "paddle/common/macros.h"
+
+namespace brpc {
+class Channel;
+}  // namespace brpc
 
 namespace paddle {
 namespace distributed {
+class RpcService;
+
 struct WorkerInfo {
   std::string name_;
   uint32_t id_;

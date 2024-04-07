@@ -19,9 +19,14 @@
 #include <map>
 #include <thread>
 #include <vector>
+#include <atomic>
+#include <memory>
+#include <type_traits>
+#include <utility>
 
 #include "paddle/fluid/framework/blocking_queue.h"
 #include "paddle/fluid/platform/macros.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace distributed {

@@ -14,12 +14,16 @@ limitations under the License. */
 
 #include "paddle/fluid/memory/allocation/system_allocator.h"
 
-#include <gtest/gtest.h>
 #include <memory>
+#include <string>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/memory/allocation/allocator.h"
-#include "paddle/fluid/platform/device/device_wrapper.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/phi/core/enforce.h"
 
 COMMON_DECLARE_bool(use_pinned_memory);
 

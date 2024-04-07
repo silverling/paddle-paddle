@@ -13,9 +13,13 @@
 // limitations under the License.
 
 #include "paddle/utils/pybind.h"
+
+#include <new>
+#include <string>
+
 #include "paddle/common/flags.h"
-#include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 COMMON_DECLARE_string(tensor_operants_mode);
 namespace paddle {

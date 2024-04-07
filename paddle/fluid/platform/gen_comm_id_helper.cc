@@ -20,8 +20,10 @@ limitations under the License. */
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
-#include <cstdlib>
-
+#include <bits/chrono.h>
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
 #include <algorithm>
 #include <array>
 #include <string>
@@ -29,8 +31,9 @@ limitations under the License. */
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-#include "paddle/fluid/platform/enforce.h"
 #include "paddle/utils/string/split.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 #if defined(PADDLE_WITH_XPU_BKCL)
 #include "xpu/bkcl.h"
 #endif

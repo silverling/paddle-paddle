@@ -14,13 +14,65 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/data_norm_op.h"
 
-#include <memory>
+#include <stdint.h>
+#include <string.h>
 #include <string>
+#include <algorithm>
+#include <new>
+#include <vector>
 
-#include "paddle/fluid/framework/data_layout.h"
 #include "paddle/fluid/framework/op_version_registry.h"
+#include "Eigen/src/Core/Array.h"
+#include "Eigen/src/Core/ArrayBase.h"
+#include "Eigen/src/Core/Assign.h"
+#include "Eigen/src/Core/AssignEvaluator.h"
+#include "Eigen/src/Core/Block.h"
+#include "Eigen/src/Core/CwiseBinaryOp.h"
+#include "Eigen/src/Core/CwiseNullaryOp.h"
+#include "Eigen/src/Core/Map.h"
+#include "Eigen/src/Core/Matrix.h"
+#include "Eigen/src/Core/VectorwiseOp.h"
+#include "Eigen/src/Core/functors/BinaryFunctors.h"
+#include "Eigen/src/Core/util/Constants.h"
+#include "Eigen/src/Core/util/Memory.h"
+#include "Eigen/src/Core/util/XprHelper.h"
+#include "Eigen/src/plugins/ArrayCwiseUnaryOps.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/layout.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/grad_op_desc_maker.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/utils/variant.h"
+#include "src/Core/ArrayBase.h"
+#include "src/Core/DenseBase.h"
+
+namespace phi {
+class CPUContext;
+}  // namespace phi
 
 namespace paddle {
+namespace framework {
+class OpDesc;
+}  // namespace framework
+namespace imperative {
+class OpBase;
+}  // namespace imperative
+
 namespace operators {
 
 using DataLayout = phi::DataLayout;

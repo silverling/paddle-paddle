@@ -13,13 +13,23 @@
 // limitations under the License.
 
 #include <glog/logging.h>
+#include <stdint.h>
+#include <any>
+#include <exception>
+#include <memory>
+#include <ostream>
+#include <string>
 
 #include "paddle/common/macros.h"
-#include "paddle/pir/include/core/operation.h"
 #include "paddle/pir/include/pass/pass.h"
 #include "paddle/pir/include/pass/pass_instrumentation.h"
 #include "paddle/pir/include/pass/pass_manager.h"
 #include "paddle/utils/string/pretty_log.h"
+#include "paddle/common/enforce.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 REGISTER_FILE_SYMBOLS(print_statistics);
 

@@ -14,12 +14,25 @@
 
 #include "paddle/fluid/imperative/heter_ccl_context.h"
 
-#include <chrono>
+#include <bits/chrono.h>
 #include <thread>  // NOLINT
+#include <string>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/tensor_util.h"
 #include "paddle/fluid/framework/variable.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/dim.h"
+#include "paddle/fluid/imperative/type_defs.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace imperative = paddle::imperative;
 namespace platform = paddle::platform;

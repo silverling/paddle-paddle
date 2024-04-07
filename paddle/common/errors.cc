@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/common/errors.h"
 
 #include <stdexcept>
+#include <memory>
 
 namespace common {
 std::string error_name(ErrorCode code) {

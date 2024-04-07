@@ -12,17 +12,59 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+#include <cxxabi.h>
+#include <ext/alloc_traits.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include <string>
+#include <algorithm>
+#include <exception>
+#include <future>
+#include <memory>
+#include <ostream>
+#include <thread>
+#include <vector>
 
 #include "paddle/fluid/framework/device_worker_factory.h"
 #include "paddle/fluid/framework/threadpool.h"
 #include "paddle/fluid/framework/trainer.h"
-#include "paddle/fluid/platform/lodtensor_printer.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/barrier.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/channel.h"
+#include "paddle/fluid/framework/convert_utils.h"
+#include "paddle/fluid/framework/data_set.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/device_worker.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/trainer_desc.pb.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/bfloat16.h"
+#include "paddle/fluid/platform/complex.h"
+#include "paddle/fluid/platform/float16.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/threadpool.h"
+#include "paddle/utils/string/string_helper.h"
 #if defined PADDLE_WITH_PSCORE
 #include "paddle/fluid/distributed/ps/service/communicator/communicator.h"
 #endif
 #include "paddle/common/flags.h"
-#include "paddle/fluid/framework/program_utils.h"
+
+namespace paddle {
+namespace framework {
+class DataFeed;
+}  // namespace framework
+}  // namespace paddle
 
 PHI_DEFINE_EXPORTED_bool(enable_dump_main_program,
                          false,

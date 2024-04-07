@@ -12,12 +12,30 @@ limitations under the License. */
 #pragma once
 
 #include <memory>
+#include <iosfwd>
+#include <string>
 
 #include "paddle/fluid/platform/profiler/dump/nodetree.pb.h"
 #include "paddle/fluid/platform/profiler/event_python.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
 
 namespace paddle {
 namespace platform {
+class CudaRuntimeTraceEventNode;
+class CudaRuntimeTraceEventNodeProto;
+class DevicePropertyProto;
+class DeviceTraceEventNode;
+class DeviceTraceEventNodeProto;
+class DeviceTraceEventProto;
+class HostTraceEventNode;
+class HostTraceEventNodeProto;
+class MemTraceEventNode;
+class MemTraceEventNodeProto;
+class NodeTreesProto;
+class OperatorSupplementEventNode;
+class OperatorSupplementEventNodeProto;
+class ProfilerResult;
 
 class DeserializationReader {
  public:

@@ -20,6 +20,11 @@
 #include "paddle/fluid/framework/io/crypto/aes_cipher.h"
 #include "paddle/fluid/framework/io/crypto/cipher.h"
 #include "paddle/fluid/framework/io/crypto/cipher_utils.h"
+#include "pybind11/cast.h"
+#include "pybind11/detail/common.h"
+#include "pybind11/detail/descr.h"
+#include "pybind11/pybind11.h"
+#include "pybind11/pytypes.h"
 
 namespace py = pybind11;
 

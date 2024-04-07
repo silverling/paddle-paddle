@@ -12,20 +12,43 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
-
+#include <stddef.h>
 #include <cmath>
 #include <string>
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
+#include <memory>
+#include <ostream>
+#include <random>
+#include <typeindex>
+#include <unordered_set>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/fusion_group/code_generator.h"
 #include "paddle/fluid/framework/ir/fusion_group/operation.h"
 #include "paddle/fluid/framework/ir/pass_tester_helper.h"
 #include "paddle/fluid/platform/float16.h"
 #include "paddle/phi/backends/device_code.h"
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/fusion_group/code_generator_helper.h"
+#include "paddle/fluid/framework/ir/fusion_group/subgraph.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 

@@ -14,12 +14,36 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/fused/fused_embedding_fc_lstm_op.h"
 
+#include <ext/alloc_traits.h>
+#include <stdint.h>
 #include <string>
+#include <algorithm>
+#include <cstring>
+#include <functional>
+#include <memory>
+#include <vector>
 
 #include "paddle/phi/backends/cpu/cpu_info.h"
 #include "paddle/phi/kernels/funcs/blas/blas.h"
 #include "paddle/phi/kernels/funcs/cpu_vec.h"
 #include "paddle/phi/kernels/funcs/sequence2batch.h"
+#include "mkl_cblas.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/attribute.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/shape_inference.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

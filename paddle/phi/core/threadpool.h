@@ -23,9 +23,13 @@
 #include <thread>  // NOLINT
 #include <utility>
 #include <vector>
+#include <exception>
 
 #include "paddle/common/macros.h"  // for DISABLE_COPY_AND_ASSIGN
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
 

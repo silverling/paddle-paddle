@@ -13,10 +13,24 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/data_layout_transform.h"
-#include "paddle/fluid/framework/op_kernel_type.h"
 
+#include <stddef.h>
+#include <cstdint>
+
+#include "paddle/fluid/framework/op_kernel_type.h"
 #include "paddle/phi/core/utils/data_type.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 namespace paddle {
 namespace framework {

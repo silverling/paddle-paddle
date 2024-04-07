@@ -15,24 +15,15 @@
 #include "paddle/fluid/framework/details/share_tensor_buffer_functor.h"
 
 #include <string>
+#include <memory>
+#include <ostream>
 
-#include "glog/logging.h"
 #include "paddle/fluid/platform/enforce.h"
-
-namespace paddle {
-namespace framework {
-class Scope;
-class Variable;
-
-namespace ir {
-class MemOptVarInfo;
-}  // namespace ir
-}  // namespace framework
-}  // namespace paddle
-
-namespace phi {
-class DenseTensor;
-}  // namespace phi
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/ir/memory_optimize_pass/memory_optimization_var_info.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
 namespace framework {

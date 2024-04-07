@@ -14,9 +14,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 
 #include <string>
-#include <vector>
 
-#include "paddle/common/flags.h"
 #include "paddle/phi/backends/dynload/dynamic_loader.h"
 
 namespace paddle {

@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <functional>
 #include <memory>
 #include <sstream>
@@ -22,17 +23,33 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <set>
 
 #include "paddle/fluid/framework/op_proto_maker.h"
 #include "paddle/fluid/framework/parallel_executor.h"
 #include "paddle/fluid/framework/program_desc.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/utils/string/string_helper.h"
-
 #include "paddle/fluid/ir_adaptor/translator/program_translator.h"
 #include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/program.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/flags.h"
+#include "paddle/fluid/framework/details/build_strategy.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
+
+namespace paddle {
+class Tensor;
+namespace framework {
+class BlockDesc;
+class ProgramDesc;
+class Scope;
+}  // namespace framework
+}  // namespace paddle
 
 COMMON_DECLARE_bool(enable_pir_in_executor);
 COMMON_DECLARE_bool(enable_pir_with_pt_in_dy2st);

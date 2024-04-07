@@ -14,14 +14,16 @@
 
 #include "paddle/fluid/platform/complex.h"
 
+#include <math.h>
 #include <complex>
+#include <iostream>
+#include <memory>
 
-#include "paddle/phi/kernels/funcs/eigen/extensions.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 #define GLOG_NO_ABBREVIATED_SEVERITIES  // msvc conflict logging with windows.h
-#include "gtest/gtest.h"
-#include "paddle/fluid/framework/lod_tensor.h"
-#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace platform {

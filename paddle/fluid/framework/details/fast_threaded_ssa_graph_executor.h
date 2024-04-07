@@ -14,23 +14,37 @@
 
 #pragma once
 #include <ThreadPool.h>
-
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <atomic>
+#include <future>
+#include <map>
 
 #include "paddle/fluid/framework/blocking_queue.h"
 #include "paddle/fluid/framework/details/exception_holder.h"
 #include "paddle/fluid/framework/details/execution_strategy.h"
 #include "paddle/fluid/framework/details/ssa_graph_executor.h"
+#include "paddle/fluid/framework/feed_fetch_type.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/place.h"
 
 namespace paddle {
 namespace framework {
 class Scope;
+namespace ir {
+class Graph;
+}  // namespace ir
+template <typename T> class BlockingQueue;
+
 namespace details {
 
 class OpHandleBase;
+struct VarHandleBase;
+
 class FastThreadedSSAGraphExecutor : public SSAGraphExecutor {
  public:
   FastThreadedSSAGraphExecutor(const ExecutionStrategy &strategy,

@@ -13,6 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 #include "paddle/fluid/operators/collective/c_sync_calc_stream_op.h"
 
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/op_registry.h"
+#include "paddle/fluid/framework/var_type_traits.h"
+#include "paddle/fluid/platform/errors.h"
+
 namespace paddle {
 namespace operators {
 

@@ -14,8 +14,16 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <string>
+
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/operators/math/beam_search.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

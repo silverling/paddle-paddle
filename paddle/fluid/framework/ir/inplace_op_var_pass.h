@@ -14,6 +14,11 @@
 
 #pragma once
 
+#include <set>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 
 namespace paddle {
@@ -21,6 +26,7 @@ namespace framework {
 namespace ir {
 
 class Graph;
+class Node;
 
 class InplaceOpVarPass : public FusePassBase {
  protected:

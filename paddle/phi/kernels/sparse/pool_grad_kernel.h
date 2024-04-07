@@ -14,11 +14,15 @@ limitations under the License. */
 
 #pragma once
 
+#include <vector>
+
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/sparse_coo_tensor.h"
 #include "paddle/phi/kernels/empty_kernel.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace sparse {
 
 template <typename T, typename Context>

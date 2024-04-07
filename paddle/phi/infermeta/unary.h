@@ -14,9 +14,14 @@ limitations under the License. */
 
 #pragma once
 
+#include <stdint.h>
+#include <string>
+#include <vector>
+
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/common/data_type.h"
 
 namespace phi {
 

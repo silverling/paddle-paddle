@@ -12,13 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "paddle/fluid/eager/accumulation/accumulation_node.h"
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/eager/amp_auto_cast.h"
 #include "paddle/fluid/eager/api/manual/fluid_manual/dygraph_forward_api.h"
 #include "paddle/fluid/eager/api/manual/fluid_manual/nodes/nodes.h"
 #include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/imperative/amp_utils.h"
 #include "paddle/fluid/platform/profiler/event_tracing.h"
+#include "paddle/fluid/eager/eager_tensor.h"
+#include "paddle/fluid/eager/type_defs.h"
+#include "paddle/fluid/eager/utils.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/imperative/amp_auto_cast.h"
+#include "paddle/fluid/imperative/tracer.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/utils/small_vector.h"
+
+namespace egr {
+class AutogradMeta;
+}  // namespace egr
 
 paddle::Tensor fused_gemm_epilogue_dygraph_function(
     const paddle::Tensor& X,

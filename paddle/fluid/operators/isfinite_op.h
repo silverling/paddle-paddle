@@ -15,6 +15,9 @@
 #pragma once
 
 #include <vector>
+#include <cstdint>
+#include <numeric>
+#include <string>
 
 #include "paddle/fluid/framework/convert_utils.h"
 #include "paddle/fluid/framework/eigen.h"
@@ -25,6 +28,21 @@
 #include "paddle/phi/kernels/isfinite_kernel.h"
 #include "paddle/phi/kernels/reduce_all_kernel.h"
 #include "paddle/phi/kernels/reduce_any_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/data_type.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/selected_rows.h"
 
 namespace phi {
 class DenseTensor;
@@ -32,6 +50,13 @@ class DenseTensor;
 
 namespace paddle {
 namespace framework {
+struct IsfiniteVisitorCPU;
+struct IsfiniteVisitorGPU;
+struct IsinfVisitorCPU;
+struct IsinfVisitorGPU;
+struct IsnanVisitorCPU;
+struct IsnanVisitorGPU;
+
 // store the result bool in gpu tensor, async operation. Faster than above ones.
 void TensorContainsNAN(const phi::DenseTensor& tensor, phi::DenseTensor* out);
 void TensorContainsInf(const phi::DenseTensor& tensor, phi::DenseTensor* out);

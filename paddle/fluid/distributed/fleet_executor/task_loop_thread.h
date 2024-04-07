@@ -19,6 +19,7 @@
 #include <thread>
 
 #include "paddle/fluid/platform/macros.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace distributed {

@@ -18,8 +18,10 @@ limitations under the License. */
 
 #include "paddle/phi/common/scalar.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void AucKernel(const Context& dev_ctx,

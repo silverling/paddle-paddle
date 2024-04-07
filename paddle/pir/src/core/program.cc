@@ -13,10 +13,14 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/program.h"
-#include "glog/logging.h"
+
 #include "paddle/pir/include/core/ir_context.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/operation.h"
 
 namespace pir {
+class IrMapping;
+class Parameter;
 
 Program::Program(IrContext* context) {
   module_ = ModuleOp::Create(context, this);

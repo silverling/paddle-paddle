@@ -14,14 +14,25 @@ limitations under the License. */
 
 #include "paddle/fluid/framework/ir/graph.h"
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/details/multi_devices_helper.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/operator.h"
 #include "paddle/fluid/framework/program_desc.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/op_proto_maker.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/framework/var_type_inference.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
+class Scope;
 
 class NOP : public OperatorBase {
  public:

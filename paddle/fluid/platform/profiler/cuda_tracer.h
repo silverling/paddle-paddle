@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <cstdint>
 #include <mutex>
 #include <vector>
@@ -21,9 +22,11 @@
 #include "paddle/fluid/platform/dynload/cupti.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/profiler/tracer_base.h"
+#include "paddle/common/macros.h"
 
 namespace paddle {
 namespace platform {
+class TraceEventCollector;
 
 // Based on CUDA CUPTI
 class CudaTracer : public TracerBase {

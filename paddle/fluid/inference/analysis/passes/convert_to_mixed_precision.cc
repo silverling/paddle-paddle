@@ -14,6 +14,10 @@
 
 #include "paddle/fluid/inference/analysis/passes/convert_to_mixed_precision.h"
 
+#include <algorithm>
+#include <ostream>
+#include <vector>
+
 #include "paddle/fluid/framework/executor.h"
 #include "paddle/fluid/framework/ir/auto_mixed_precision_pass.h"
 #include "paddle/fluid/framework/ir/constant_folding_pass.h"
@@ -21,8 +25,24 @@
 #include "paddle/fluid/framework/ir/identity_op_clean_pass.h"
 #include "paddle/fluid/inference/io.h"
 #include "paddle/phi/common/backend.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/block_desc.h"
+#include "paddle/fluid/framework/ir/fuse_pass_base.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/enforce.h"
 
 namespace paddle {
+namespace framework {
+namespace ir {
+class Node;
+}  // namespace ir
+}  // namespace framework
+
 namespace inference {
 namespace analysis {
 

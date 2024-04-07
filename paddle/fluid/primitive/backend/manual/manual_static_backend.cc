@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
+#include <algorithm>
+#include <memory>
+#include <vector>
+
 #include "paddle/fluid/pir/dialect/operator/ir/manual_api.h"
-#include "paddle/fluid/pir/dialect/operator/ir/pd_api.h"
-#include "paddle/fluid/primitive/backend/generated/generated_backend.h"
 #include "paddle/fluid/primitive/backend/manual/manual_backend.h"
-#include "paddle/fluid/primitive/primitive/primitive.h"
 #include "paddle/fluid/primitive/type/lazy_tensor.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace paddle {
 namespace primitive {

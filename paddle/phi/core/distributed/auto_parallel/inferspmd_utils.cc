@@ -14,6 +14,14 @@ limitations under the License. */
 
 #include "paddle/phi/core/distributed/auto_parallel/inferspmd_utils.h"
 
+#include <algorithm>
+#include <cstdint>
+#include <type_traits>
+#include <typeindex>
+#include <typeinfo>
+
+#include "paddle/phi/core/enforce.h"
+
 namespace phi {
 namespace distributed {
 

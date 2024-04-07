@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 #include <string>
+#include <iosfwd>
 
 #include "paddle/fluid/framework/scope.h"
 

@@ -13,9 +13,13 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #include <map>  // NOLINT
+#include <iostream>
+#include <utility>
 
-#include "gtest/gtest.h"
 #include "paddle/phi/common/place.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 namespace phi {
 namespace tests {

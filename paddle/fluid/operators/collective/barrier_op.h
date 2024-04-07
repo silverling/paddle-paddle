@@ -17,11 +17,15 @@ limitations under the License. */
 #include <algorithm>
 #include <utility>
 #include <vector>
+#include <memory>
 
 #include "paddle/common/ddim.h"
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/op_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/operator.h"
 
 #if defined(PADDLE_WITH_GLOO)
 #include <gloo/barrier.h>

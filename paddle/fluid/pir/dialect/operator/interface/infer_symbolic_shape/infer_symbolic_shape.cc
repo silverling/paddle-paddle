@@ -14,6 +14,10 @@
 
 #include "paddle/fluid/pir/dialect/operator/interface/infer_symbolic_shape/infer_symbolic_shape.h"
 
+namespace pir {
+class ShapeConstraintIRAnalysis;
+}  // namespace pir
+
 // This file implements the infer_symbolic_shape interface for both paddle and
 // cinn operators.
 

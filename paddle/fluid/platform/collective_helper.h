@@ -18,12 +18,25 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <mutex>
+#include <utility>
 
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/backends/device_manager.h"
 #include "paddle/utils/variant.h"
+#include "nccl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+
+namespace phi {
+class GPUContext;
+}  // namespace phi
 
 namespace paddle {
 namespace platform {

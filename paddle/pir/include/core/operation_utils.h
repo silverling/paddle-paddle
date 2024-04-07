@@ -14,8 +14,13 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <initializer_list>
 #include <memory>
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/dll_decl.h"
@@ -27,6 +32,8 @@
 
 namespace pir {
 class Block;
+class IrContext;
+
 using AttributeMap = std::unordered_map<std::string, Attribute>;
 using PropertyMap = std::unordered_map<std::string, Property>;
 

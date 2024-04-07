@@ -14,6 +14,8 @@ limitations under the License. */
 
 #pragma once
 
+#include <NvInfer.h>
+#include <stddef.h>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -23,10 +25,9 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <ostream>
 
-#include <NvInfer.h>
 #include "NvInferRuntimeCommon.h"
-
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/inference/tensorrt/helper.h"
@@ -38,6 +39,31 @@ limitations under the License. */
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/core/stream.h"
+#include "NvInferRuntime.h"
+#include "NvInferRuntimeBase.h"
+#include "NvInferRuntimePlugin.h"
+#include "cuda_runtime.h"
+#include "cuda_runtime_api.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
+#include "paddle/fluid/platform/dynload/tensorrt.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/dense_tensor.h"
+
+namespace paddle {
+namespace framework {
+class Scope;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class Stream;
+}  // namespace phi
 
 COMMON_DECLARE_bool(trt_ibuilder_cache);
 

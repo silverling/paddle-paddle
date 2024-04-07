@@ -14,12 +14,16 @@
 
 #pragma once
 #include <memory>
+#include <string>
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace ir {
+class Graph;
 
 ///
 /// Fuse quant + conv2d/depthwise_conv2d/matrix_multiply + dequant

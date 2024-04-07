@@ -14,34 +14,34 @@
 
 #include "paddle/fluid/pir/transforms/general/constant_folding_pass.h"
 
+#include <bits/chrono.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <any>
+#include <exception>
+#include <ostream>
+#include <set>
+#include <tuple>
+#include <utility>
 
 #include "paddle/fluid/framework/new_executor/interpretercore.h"
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/pir/dialect/operator/interface/op_yaml_info.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
-#include "paddle/fluid/pir/dialect/operator/ir/op_dialect.h"
 #include "paddle/fluid/pir/dialect/operator/ir/op_type.h"
 #include "paddle/fluid/pir/dialect/operator/ir/pd_op.h"
 #include "paddle/fluid/pir/transforms/pd_op_to_kernel_pass.h"
 #include "paddle/fluid/pir/utils/general_functions.h"
-
 #include "paddle/common/errors.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/dense_tensor.h"
-#include "paddle/phi/core/enforce.h"
-
 #include "paddle/pir/include/core/builder.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
 #include "paddle/pir/include/core/builtin_op.h"
-#include "paddle/pir/include/core/builtin_type.h"
-#include "paddle/pir/include/core/ir_context.h"
-#include "paddle/pir/include/core/op_trait.h"
 #include "paddle/pir/include/core/operation.h"
-#include "paddle/pir/include/core/parameter.h"
 #include "paddle/pir/include/core/program.h"
 #include "paddle/pir/include/core/region.h"
 #include "paddle/pir/include/core/value.h"
@@ -49,6 +49,23 @@
 #include "paddle/pir/include/pattern_rewrite/frozen_rewrite_pattern_set.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_match.h"
 #include "paddle/pir/include/pattern_rewrite/pattern_rewrite_driver.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/framework/tensor_util.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/pir/include/core/attribute.h"
+#include "paddle/pir/include/core/block.h"
+#include "paddle/pir/include/core/iterator.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/type.h"
+
+namespace pir {
+class IrContext;
+class SideEffectTrait;
+}  // namespace pir
 
 namespace {
 

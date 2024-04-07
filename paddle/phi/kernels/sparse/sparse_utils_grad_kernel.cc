@@ -14,9 +14,22 @@ limitations under the License. */
 
 #include "paddle/phi/kernels/sparse/sparse_utils_grad_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/sparse_coo_tensor.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class GPUContext;
+namespace dtype {
+struct float16;
+}  // namespace dtype
+
 namespace sparse {
 
 template <typename T, typename Context>

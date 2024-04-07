@@ -13,6 +13,9 @@
 // limitations under the License.
 
 #include "paddle/pir/include/core/operation_utils.h"
+
+#include <utility>
+
 #include "paddle/pir/include/core/ir_context.h"
 #include "paddle/pir/include/core/region.h"
 

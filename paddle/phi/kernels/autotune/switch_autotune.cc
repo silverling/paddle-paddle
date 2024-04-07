@@ -14,6 +14,9 @@
 
 #include "paddle/phi/kernels/autotune/switch_autotune.h"
 
+#include <algorithm>
+#include <ostream>
+
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
 

@@ -14,11 +14,16 @@
 
 #include "paddle/phi/core/distributed/check/nccl_dynamic_check.h"
 
-#include "glog/logging.h"
+#include <ostream>
 
+#include "glog/logging.h"
 #include "paddle/common/errors.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/enforce.h"
+#include "driver_types.h"
+#include "nccl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/phi/core/ddim.h"
 
 #if defined(PADDLE_WITH_RCCL)
 #include <hip/hip_runtime.h>

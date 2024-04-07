@@ -17,8 +17,10 @@
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/full_kernel.h"
 #include "paddle/phi/kernels/matrix_rank_tol_kernel.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
+class CPUContext;
 
 template <typename T, typename Context>
 void MatrixRankKernel(const Context& dev_ctx,

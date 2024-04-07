@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
+#include <memory>
 
 #include "paddle/fluid/pir/dialect/operator/ir/op_attribute.h"
 #include "paddle/pir/include/core/attribute.h"
 #include "paddle/pir/include/core/builtin_attribute.h"
-#include "paddle/pir/include/core/builtin_dialect.h"
-#include "paddle/pir/include/core/dialect.h"
 #include "paddle/pir/include/core/ir_context.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
 
 using ScalarAttribute = paddle::dialect::ScalarAttribute;
 

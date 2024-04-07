@@ -14,14 +14,32 @@
 
 #include "paddle/fluid/imperative/layout_autotune.h"
 
+#include <ostream>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/common/errors.h"
-#include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/framework/op_info.h"
-#include "paddle/fluid/imperative/layout_transformer.h"
 #include "paddle/phi/backends/gpu/gpu_info.h"
 #include "paddle/phi/core/enforce.h"
+#include "glog/logging.h"
+#include "paddle/common/enforce.h"
+#include "paddle/fluid/framework/attribute_checker.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/imperative/tracer.h"
+#include "paddle/fluid/imperative/var_helper.h"
+#include "paddle/utils/flat_hash_map.h"
+
 namespace paddle {
 namespace imperative {
+template <typename VarType> class ArgmaxOpTransformer;
+template <typename VarType> class ConcatOpTransformer;
+template <typename VarType> class ElementwiseOpTransformer;
+template <typename VarType> class FlattenOpTransformer;
+template <typename VarType> class HeavilyLayoutSensitiveOpTransformer;
+template <typename VarType> class LayoutTransformer;
+template <typename VarType> class LightlyLayoutSensitiveOpTransformer;
+template <typename VarType> class TransposeOpTransformer;
 
 LayoutAutoTune::LayoutAutoTune() {
   const auto& op_info = paddle::framework::OpInfoMap::Instance().map();

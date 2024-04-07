@@ -14,7 +14,10 @@
 
 #include "paddle/fluid/distributed/fleet_executor/dist_model_tensor_wrapper.h"
 
-#include "paddle/fluid/platform/enforce.h"
+#include <cstring>
+
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace distributed {

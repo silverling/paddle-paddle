@@ -13,9 +13,23 @@
 // limitations under the License.
 
 #include "paddle/fluid/framework/new_executor/instruction/control_flow/has_elements_instruction.h"
+
+#include <ostream>
+#include <unordered_map>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_util.h"
 #include "paddle/fluid/framework/new_executor/pir_adaptor/pir_adaptor_util.h"
 #include "paddle/fluid/pir/dialect/operator/ir/control_flow_op.h"
+#include "paddle/common/ddim.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/device_context.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/pir/include/core/op_base.h"
+#include "paddle/pir/include/core/value.h"
 
 namespace paddle {
 namespace framework {

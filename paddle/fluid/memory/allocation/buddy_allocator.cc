@@ -15,17 +15,17 @@ limitations under the License. */
 #include "paddle/fluid/memory/allocation/buddy_allocator.h"
 
 #include <algorithm>
+#include <ostream>
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
+#include "paddle/fluid/memory/allocation/system_allocator.h"
+#include "paddle/fluid/platform/device/gpu/gpu_info.h"
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
 #define USE_DEVICE
 COMMON_DECLARE_uint64(reallocate_gpu_memory_in_mb);
 #endif
-
-#include "paddle/fluid/platform/device/device_wrapper.h"
-#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace memory {

@@ -18,6 +18,10 @@
 #include "paddle/phi/backends/dynload/mklml.h"
 #include "paddle/phi/kernels/funcs/jit/refer/refer.h"
 #include "paddle/phi/kernels/funcs/jit/registry.h"
+#include "mkl_cblas.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_pool.h"
 
 namespace phi {
 namespace jit {

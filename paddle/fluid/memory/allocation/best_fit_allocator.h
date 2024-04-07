@@ -14,7 +14,7 @@
 
 #pragma once
 #include <stdint.h>
-
+#include <stddef.h>
 #include <array>
 #include <list>
 #include <map>
@@ -22,6 +22,7 @@
 #include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/memory/allocation/spin_lock.h"
 #include "paddle/fluid/platform//place.h"
+#include "paddle/phi/core/allocator.h"
 
 namespace paddle {
 namespace memory {

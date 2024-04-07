@@ -12,13 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <vector>
+
 #include "glog/logging.h"
-#include "gtest/gtest.h"
 #include "paddle/phi/api/include/api.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/selected_rows.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 PD_DECLARE_KERNEL(empty, CPU, ALL_LAYOUT);
 

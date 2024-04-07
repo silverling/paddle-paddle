@@ -14,11 +14,16 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <memory>
+
 #include "paddle/common/macros.h"
 #include "paddle/fluid/platform/device/gpu/gpu_types.h"
 #include "paddle/phi/backends/gpu/cuda/cuda_graph_with_memory_pool.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/enforce.h"
+#include "cuda.h"
+#include "paddle/phi/backends/gpu/cuda/cuda_graph.h"
 
 namespace paddle {
 namespace platform {

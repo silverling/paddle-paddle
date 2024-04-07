@@ -18,14 +18,13 @@
 #include <array>
 #include <numeric>
 #include <string>
+#include <cmath>
 
 #include "paddle/common/layout.h"
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/funcs/blas/blas.h"
-#include "paddle/phi/kernels/funcs/eigen/common.h"
-#include "paddle/phi/kernels/funcs/eigen/extensions.h"
-#include "paddle/phi/kernels/funcs/math_function.h"
+#include "paddle/common/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

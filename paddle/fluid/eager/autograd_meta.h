@@ -14,8 +14,17 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <memory>
+#include <utility>
+
 #include "paddle/fluid/eager/api/utils/global_utils.h"
 #include "paddle/fluid/eager/grad_node_info.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/api/include/tensor.h"
+
 namespace egr {
 
 using AbstractAutogradMeta = paddle::AbstractAutogradMeta;

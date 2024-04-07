@@ -14,10 +14,13 @@
 
 #include "paddle/phi/kernels/trunc_kernel.h"
 
+#include <stddef.h>
+#include <stdint.h>
 #include <cmath>
 
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

@@ -14,6 +14,12 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/data_type.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/framework/tensor.h"
@@ -23,6 +29,13 @@
 #include "paddle/phi/kernels/funcs/fft_fill_conj.h"
 #include "paddle/phi/kernels/funcs/frame_functor.h"
 #include "paddle/phi/kernels/funcs/padding.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/operators/elementwise/elementwise_functor.h"
+#include "paddle/fluid/platform/complex.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace operators {

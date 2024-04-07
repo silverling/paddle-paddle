@@ -14,12 +14,15 @@
 
 #include "paddle/phi/kernels/complex_kernel.h"
 
+#include <stdint.h>
+
 #include "paddle/phi/backends/cpu/cpu_context.h"
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/kernels/impl/complex_kernel_impl.h"
-
 // See Note [ Why still include the fluid headers? ]
 #include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/type_traits.h"
+#include "paddle/phi/core/kernel_factory.h"
 
 PD_REGISTER_KERNEL(conj,
                    CPU,

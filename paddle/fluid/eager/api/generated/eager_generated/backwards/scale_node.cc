@@ -14,13 +14,26 @@
 
 #include "paddle/fluid/eager/api/generated/eager_generated/backwards/scale_node.h"
 
-#include "glog/logging.h"
+#include <stdint.h>
+#include <utility>
+
 #include "paddle/fluid/eager/api/utils/global_utils.h"
-#include "paddle/fluid/eager/eager_tensor.h"
 #include "paddle/fluid/platform/device_context.h"
 #include "paddle/fluid/platform/enforce.h"
-#include "paddle/fluid/platform/errors.h"
 #include "paddle/phi/kernels/scale_kernel.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/phi_utils.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/device_context.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace egr {
 

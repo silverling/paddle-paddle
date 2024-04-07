@@ -12,12 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <NvInferRuntimeCommon.h>
-#include <cstddef>
 #include <iostream>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/inference/tensorrt/convert/op_converter.h"
+#include "NvInfer.h"
+#include "NvInferRuntimeBase.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/inference/tensorrt/engine.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace framework {
+class Scope;
+namespace proto {
+class OpDesc;
+}  // namespace proto
+}  // namespace framework
+
 namespace inference {
 namespace tensorrt {
 

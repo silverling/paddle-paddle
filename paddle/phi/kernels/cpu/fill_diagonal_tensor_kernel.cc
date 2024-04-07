@@ -13,10 +13,20 @@
 // limitations under the License.
 
 #include "paddle/phi/kernels/fill_diagonal_tensor_kernel.h"
+
 #include <array>
+#include <algorithm>
+#include <cstdint>
+#include <vector>
 
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
 
 namespace phi {
 

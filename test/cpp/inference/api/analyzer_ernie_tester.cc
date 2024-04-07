@@ -14,6 +14,16 @@
 
 #include "test/cpp/inference/api/analyzer_ernie_tester.h"
 
+#include <stdlib.h>
+#include <memory>
+#include <unordered_map>
+
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/inference/api/analysis_predictor.h"
+#include "paddle/fluid/inference/api/paddle_pass_builder.h"
+
 namespace paddle {
 namespace inference {
 

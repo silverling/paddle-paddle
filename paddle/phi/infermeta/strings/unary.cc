@@ -14,7 +14,10 @@ limitations under the License. */
 
 #include "paddle/phi/infermeta/strings/unary.h"
 
-#include "paddle/phi/core/infermeta_utils.h"
+#include "paddle/common/layout.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/meta_tensor.h"
+#include "paddle/phi/core/tensor_meta.h"
 
 namespace phi {
 namespace strings {

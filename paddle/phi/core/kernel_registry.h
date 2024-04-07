@@ -14,11 +14,25 @@
 
 #pragma once
 
+#include <bits/utility.h>
+#include <stdint.h>
 #include <typeindex>
 #include <typeinfo>
+#include <cstring>
+#include <string>
+#include <tuple>
+#include <vector>
 
 #include "paddle/phi/core/custom_kernel.h"
 #include "paddle/phi/core/kernel_utils.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/common/backend.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/phi/core/type_defs.h"
+#include "paddle/utils/flat_hash_map.h"
+#include "paddle/utils/test_macros.h"
 
 namespace phi {
 

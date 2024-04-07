@@ -14,11 +14,13 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 
 #include "glog/logging.h"
 #include "paddle/phi/core/enforce.h"
 #include "paddle/phi/kernels/funcs/jit/gen/jitcode.h"
+#include "paddle/phi/kernels/funcs/jit/kernel_base.h"
 
 namespace phi {
 namespace jit {

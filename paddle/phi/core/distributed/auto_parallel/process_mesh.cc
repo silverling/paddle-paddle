@@ -17,8 +17,8 @@ limitations under the License. */
 #include <algorithm>
 #include <iterator>
 
-#include "paddle/phi/core/distributed/auto_parallel/proto_helper.h"
 #include "paddle/phi/core/distributed/auto_parallel/utils.h"
+#include "paddle/phi/core/distributed/auto_parallel/auto_parallel.pb.h"
 
 namespace phi {
 namespace distributed {

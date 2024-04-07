@@ -14,8 +14,17 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
 #include "paddle/fluid/framework/new_executor/interpreter/execution_config.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 namespace ir {
 class Operation;
@@ -27,6 +36,10 @@ class Scope;
 class Value;
 class PirInterpreter;
 class ValueExecutionInfo;
+class Variable;
+namespace interpreter {
+struct ExecutionConfig;
+}  // namespace interpreter
 
 class IfInstruction : public InstructionBase {
  public:

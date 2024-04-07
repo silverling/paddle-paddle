@@ -14,9 +14,11 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <iosfwd>
 
 #include "paddle/common/macros.h"
 #include "paddle/utils/test_macros.h"

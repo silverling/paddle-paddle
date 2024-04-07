@@ -12,28 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <paddle/fluid/framework/op_registry.h>
-
-#include <chrono>
+#include <bits/chrono.h>
+#include <stddef.h>
 #include <iostream>
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdint>
+#include <initializer_list>
+#include <ratio>
+#include <utility>
 
-#include "glog/logging.h"
-#include "gtest/gtest.h"
-#include "paddle/fluid/imperative/basic_engine.h"
-#include "paddle/fluid/imperative/tracer.h"
 #include "paddle/fluid/memory/memcpy.h"
 #include "test/cpp/eager/performance_tests/benchmark_utils.h"
 #include "test/cpp/eager/test_utils.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/imperative/layer.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 #ifdef WITH_GPERFTOOLS
 #include "gperftools/profiler.h"
 #endif
-
-#include "paddle/phi/core/kernel_registry.h"
 
 namespace paddle {
 namespace imperative {

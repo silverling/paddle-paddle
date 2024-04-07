@@ -14,14 +14,18 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <functional>
 #include <future>
 #include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <utility>
 
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
 
 namespace paddle {
 namespace framework {

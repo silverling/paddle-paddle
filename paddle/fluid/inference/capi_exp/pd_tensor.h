@@ -24,6 +24,9 @@
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "pd_common.h"  // NOLINT
 
 typedef struct PD_Tensor PD_Tensor;

@@ -14,12 +14,22 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
+#include <vector>
+
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
+#include "paddle/fluid/framework/new_executor/new_executor_defs.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace pir {
+class Operation;
+}  // namespace pir
 
 namespace paddle {
 namespace framework {
 class ValueExecutionInfo;
+class Variable;
 
 class SelectOutputInstruction : public InstructionBase {
  public:

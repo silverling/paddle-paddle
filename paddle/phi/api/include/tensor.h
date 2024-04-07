@@ -18,14 +18,18 @@ limitations under the License. */
 #include <memory>
 #include <utility>
 #include <vector>
+#include <cstdint>
+#include <string>
 
 #ifdef PADDLE_WITH_CUDA
 #include <cuda_runtime.h>
+
 using gpuStream_t = cudaStream_t;
 #endif
 
 #ifdef PADDLE_WITH_HIP
 #include <hip/hip_runtime.h>
+
 using gpuStream_t = hipStream_t;
 #endif
 
@@ -35,6 +39,7 @@ using gpuStream_t = hipStream_t;
 #include "paddle/phi/common/int_array.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/common/scalar.h"
+#include "driver_types.h"
 
 namespace phi {
 class DenseTensor;

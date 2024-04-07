@@ -19,6 +19,10 @@
 #include "paddle/phi/core/tensor_utils.h"
 #include "paddle/phi/kernels/mean_all_kernel.h"
 #include "paddle/phi/kernels/reduce_sum_kernel.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/common/int_array.h"
+#include "paddle/phi/core/dense_tensor.h"
 
 namespace phi {
 

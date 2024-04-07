@@ -14,12 +14,17 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <array>
 #include <unordered_map>
 #include <vector>
 
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/phi/kernels/funcs/math_function.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 namespace paddle {
 namespace operators {

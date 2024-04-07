@@ -14,13 +14,11 @@ limitations under the License. */
 
 #include "paddle/phi/core/os_info.h"
 
-#include <functional>
+#include <syscall.h>
 #include <sstream>
 #include <thread>
-#include <vector>
+#include <utility>
 #if defined(__linux__)
-#include <sys/syscall.h>
-#include <sys/types.h>
 #include <unistd.h>
 #elif defined(_MSC_VER)
 #include <processthreadsapi.h>

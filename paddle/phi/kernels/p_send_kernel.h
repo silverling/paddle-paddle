@@ -18,6 +18,8 @@
 #include "paddle/phi/core/tensor_array.h"
 
 namespace phi {
+class DenseTensor;
+class TensorArray;
 
 template <typename T, typename Context>
 void PSendKernel(const Context& dev_ctx,

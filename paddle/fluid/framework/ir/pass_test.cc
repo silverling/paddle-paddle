@@ -15,14 +15,17 @@ limitations under the License. */
 #include "paddle/fluid/framework/ir/pass.h"
 
 #include <string>
+#include <initializer_list>
 
-#include "gtest/gtest.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
 
 namespace paddle {
 namespace framework {
 namespace ir {
-class Graph;
-class Node;
 
 void BuildCircleGraph(Graph* g) {
   ir::Node* o1 = g->CreateEmptyNode("op1", Node::Type::kOperation);

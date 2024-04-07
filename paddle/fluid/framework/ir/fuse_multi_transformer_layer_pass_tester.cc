@@ -9,11 +9,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <gtest/gtest.h>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <vector>
 
-#include "paddle/fluid/framework/ir/fuse_multi_transformer_layer_pass.h"
 #include "paddle/fluid/framework/ir/pass_tester_helper.h"
-#include "paddle/fluid/framework/op_version_registry.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 #define DEF_INPUT_DATA                                                  \
   Layers layers;                                                        \

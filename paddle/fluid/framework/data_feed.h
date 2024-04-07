@@ -19,6 +19,13 @@ limitations under the License. */
 #define _LINUX
 #endif
 
+#include <dlfcn.h>
+#include <ext/alloc_traits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
 #include <fstream>
 #include <future>  // NOLINT
 #include <memory>
@@ -31,6 +38,13 @@ limitations under the License. */
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <atomic>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <new>
+#include <set>
+
 #include "paddle/common/macros.h"
 #include "paddle/fluid/framework/archive.h"
 #include "paddle/fluid/framework/blocking_queue.h"
@@ -42,6 +56,14 @@ limitations under the License. */
 #include "paddle/fluid/framework/variable.h"
 #include "paddle/fluid/platform/timer.h"
 #include "paddle/utils/string/string_helper.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/fleet/heter_ps/log_patch.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/backends/gpu/forwards.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 #if defined(PADDLE_WITH_CUDA)
 #include "paddle/fluid/framework/fleet/heter_ps/gpu_graph_utils.h"
 #include "paddle/fluid/platform/cuda_device_guard.h"
@@ -49,6 +71,15 @@ limitations under the License. */
 #include "paddle/phi/core/cuda_stream.h"
 #endif
 #include "paddle/common/flags.h"
+
+namespace paddle {
+namespace framework {
+template <class Type> class Archive;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 COMMON_DECLARE_int32(record_pool_max_size);
 COMMON_DECLARE_int32(slotpool_thread_num);

@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 #include <vector>
 
@@ -37,6 +38,8 @@ class Node;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 struct FetchAsyncOpHandle : public OpHandleBase {

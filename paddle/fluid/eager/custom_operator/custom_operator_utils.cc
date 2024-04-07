@@ -14,19 +14,45 @@
 
 #include "paddle/fluid/eager/custom_operator/custom_operator_utils.h"
 
-#include "paddle/common/flags.h"
+#include <stddef.h>
+#include <algorithm>
+#include <cstdint>
+#include <memory>
+#include <ostream>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "paddle/fluid/eager/autograd_meta.h"
-#include "paddle/fluid/framework/custom_operator.h"
 #include "paddle/fluid/framework/custom_operator_utils.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/api/lib/kernel_dispatch.h"
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/phi/api/ext/op_meta_info.h"
+#include "paddle/phi/backends/context_pool.h"
+#include "paddle/phi/common/data_type.h"
+#include "paddle/phi/core/allocator.h"
+#include "paddle/phi/core/ddim.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_attr.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_meta_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/dist_tensor.h"
+#include "paddle/phi/core/distributed/auto_parallel/process_mesh.h"
+#include "paddle/phi/core/distributed/type_defs.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/tensor_meta.h"
+#include "paddle/phi/infermeta/spmd_rules/replicated.h"
+#include "paddle/utils/variant.h"
 #ifdef PADDLE_WITH_DISTRIBUTE
 #include "paddle/phi/api/lib/api_gen_utils.h"
 #include "paddle/phi/core/distributed/auto_parallel/reshard/reshard_utils.h"
-#include "paddle/phi/infermeta/spmd_rules/rules.h"
 #endif
 
 namespace egr {

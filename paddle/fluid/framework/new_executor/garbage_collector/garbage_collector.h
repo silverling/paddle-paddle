@@ -13,7 +13,11 @@
 // limitations under the License.
 #pragma once
 
+#include <stdint.h>
 #include <queue>
+#include <deque>
+#include <memory>
+#include <vector>
 
 #include "paddle/common/flags.h"
 #include "paddle/fluid/framework/new_executor/instruction/instruction_base.h"
@@ -21,6 +25,23 @@
 #include "paddle/fluid/platform/device_event.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/platform/errors.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/memory/allocation/allocator_facade.h"
+#include "paddle/fluid/memory/malloc.h"
+#include "paddle/fluid/platform/place.h"
+
+namespace paddle {
+namespace framework {
+class Instruction;
+class InstructionBase;
+class Variable;
+}  // namespace framework
+}  // namespace paddle
+namespace phi {
+class Allocation;
+}  // namespace phi
 
 COMMON_DECLARE_bool(fast_eager_deletion_mode);
 COMMON_DECLARE_bool(new_executor_use_cuda_graph);

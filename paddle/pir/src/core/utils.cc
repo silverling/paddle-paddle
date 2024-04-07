@@ -14,6 +14,9 @@
 
 #include "paddle/pir/include/core/utils.h"
 
+#include <features.h>
+#include <cassert>
+
 namespace pir {
 namespace detail {
 

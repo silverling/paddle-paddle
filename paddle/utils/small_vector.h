@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -34,6 +35,9 @@
 #include <new>
 #include <stdexcept>
 #include <string>
+#include <functional>
+#include <type_traits>
+#include <utility>
 
 namespace paddle {
 

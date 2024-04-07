@@ -18,8 +18,10 @@
 #include <vector>
 
 #include "paddle/phi/core/dense_tensor.h"
+#include "paddle/utils/optional.h"
 
 namespace phi {
+class DenseTensor;
 
 template <typename T, typename Context>
 void BoxCoderKernel(const Context& dev_ctx,

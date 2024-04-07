@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <bits/utility.h>
+#include <stddef.h>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -22,6 +24,7 @@
 #include "paddle/phi/api/include/tensor.h"
 #include "paddle/utils/optional.h"
 #include "paddle/utils/small_vector.h"
+#include "paddle/utils/test_macros.h"
 
 namespace egr {
 

@@ -15,7 +15,20 @@ limitations under the License. */
 
 #include "paddle/fluid/memory/allocation/system_allocator.h"
 
+#include <cuda_runtime.h>
+#include <mm_malloc.h>
+#include <stdlib.h>
+#include <ostream>
+#include <string>
+
 #include "paddle/fluid/memory/stats.h"
+#include "driver_types.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/fluid/platform/profiler/trace_event.h"
+#include "paddle/phi/common/place.h"
+#include "paddle/utils/string/printf.h"
 
 #ifdef _WIN32
 #include <malloc.h>
@@ -28,16 +41,9 @@ limitations under the License. */
 #endif
 
 #include "paddle/common/flags.h"
-#include "paddle/fluid/memory/allocation/allocator.h"
 #include "paddle/fluid/platform/device/gpu/gpu_info.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/backends/cpu/cpu_info.h"
-
-#if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)
-#include "paddle/fluid/platform/cuda_device_guard.h"
-#endif
-
-#include "paddle/fluid/platform/device/device_wrapper.h"
 #include "paddle/fluid/platform/profiler/mem_tracing.h"
 
 COMMON_DECLARE_bool(use_pinned_memory);

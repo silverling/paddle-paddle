@@ -14,13 +14,19 @@
 
 #include "paddle/phi/kernels/flatten_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
+#include <stdint.h>
+
 #include "paddle/phi/core/kernel_registry.h"
 #include "paddle/phi/core/tensor_utils.h"
-#include "paddle/phi/infermeta/unary.h"
-#include "paddle/phi/kernels/funcs/common_shape.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/backends/gpu/gpu_context.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void FlattenInferKernel(const Context& dev_ctx,

@@ -17,6 +17,7 @@
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
+
 #pragma comment(lib, "Ws2_32.lib")
 #else
 #include <fcntl.h>
@@ -27,11 +28,18 @@
 #include <unistd.h>
 #endif
 
+#include <bits/chrono.h>
 #include <chrono>
 #include <iostream>
 #include <vector>
+#include <string>
+#include <system_error>
 
 #include "paddle/phi/core/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+
+struct addrinfo;
 
 // Utility functions for TCP socket.
 namespace phi {

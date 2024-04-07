@@ -14,11 +14,15 @@ limitations under the License. */
 
 #pragma once
 
+#include <string>
+
 #include "paddle/common/layout.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
 #include "paddle/phi/common/place.h"
 #include "paddle/phi/core/tensor_meta.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "paddle/utils/test_macros.h"
 
 #ifdef PADDLE_WITH_DNNL
 #include "dnnl.hpp"  //NOLINT

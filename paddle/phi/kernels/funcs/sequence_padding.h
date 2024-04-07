@@ -14,14 +14,22 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <vector>
 
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/lod_utils.h"
 #include "paddle/phi/core/mixed_vector.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/ddim.h"
 
 namespace phi {
+class DenseTensor;
+
 namespace funcs {
 
 enum PadLayout { kBatchLengthWidth = 0, kLengthBatchWidth };

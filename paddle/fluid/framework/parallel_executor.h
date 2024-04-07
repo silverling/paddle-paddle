@@ -14,6 +14,7 @@ limitations under the License. */
 
 #pragma once
 
+#include <stddef.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -32,6 +33,14 @@ limitations under the License. */
 #include "paddle/fluid/framework/scope.h"
 #include "paddle/fluid/framework/tensor.h"
 #include "paddle/fluid/platform/device_context.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/errors.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/utils/test_macros.h"
+
+namespace phi {
+class DenseTensor;
+}  // namespace phi
 
 #if defined(PADDLE_WITH_NCCL) || defined(PADDLE_WITH_RCCL)
 #include "paddle/fluid/platform/device/gpu/nccl_helper.h"
@@ -41,6 +50,14 @@ namespace paddle {
 namespace framework {
 
 class ParallelExecutorPrivate;
+class Scope;
+namespace details {
+struct BuildStrategy;
+struct ExecutionStrategy;
+}  // namespace details
+namespace ir {
+class Graph;
+}  // namespace ir
 
 using details::BuildStrategy;
 using details::ExecutionStrategy;

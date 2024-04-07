@@ -14,12 +14,21 @@
 
 #include "paddle/phi/kernels/npu_identity_kernel.h"
 
-#include "glog/logging.h"
+#include <stdint.h>
+#include <ostream>
 
+#include "glog/logging.h"
 #include "paddle/phi/core/kernel_registry.h"
-#include "paddle/phi/kernels/empty_kernel.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 namespace phi {
+class CPUContext;
+class GPUContext;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void NPUIdentityKernel(const Context& dev_ctx UNUSED,

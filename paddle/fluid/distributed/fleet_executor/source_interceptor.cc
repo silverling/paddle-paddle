@@ -14,7 +14,12 @@
 
 #include "paddle/fluid/distributed/fleet_executor/source_interceptor.h"
 
+#include <cstdint>
+#include <unordered_map>
+#include <utility>
+
 #include "paddle/fluid/distributed/fleet_executor/task_node.h"
+#include "paddle/fluid/distributed/fleet_executor/interceptor_message.pb.h"
 
 namespace paddle {
 namespace distributed {

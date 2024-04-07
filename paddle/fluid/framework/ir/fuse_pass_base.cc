@@ -14,7 +14,17 @@
 
 #include "paddle/fluid/framework/ir/fuse_pass_base.h"
 
+#include <ostream>
+#include <unordered_map>
+
 #include "paddle/fluid/platform/enforce.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/node.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/utils/any.h"
 
 namespace paddle {
 namespace framework {
@@ -25,8 +35,6 @@ class Scope;
 namespace paddle {
 namespace framework {
 namespace ir {
-
-class Graph;
 
 void FusePassBase::Init(const std::string& repr, Graph* graph) const {
   repr_ = repr;

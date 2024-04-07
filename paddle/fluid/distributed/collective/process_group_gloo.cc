@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <iostream>
-
 #ifdef _WIN32
 #include <gloo/common/win.h>
 #include <winsock2.h>
@@ -24,13 +22,28 @@
 #include <unistd.h>
 #endif
 
-#include <gloo/reduce.h>
+#include <bits/local_lim.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <array>
 
-#include "paddle/fluid/distributed/collective/common.h"
 #include "paddle/fluid/distributed/collective/process_group_gloo.h"
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/phi/api/lib/data_transform.h"
 #include "paddle/phi/core/distributed/comm_context_manager.h"
+#include "gloo/rendezvous/context.h"
+#include "gloo/transport/tcp/attr.h"
+#include "gloo/transport/tcp/device.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/distributed/gloo_comm_context.h"
+#include "paddle/phi/core/distributed/store/tcp_utils.h"
+
+namespace gloo {
+namespace transport {
+class Device;
+}  // namespace transport
+}  // namespace gloo
 
 namespace paddle {
 namespace distributed {

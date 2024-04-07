@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -22,6 +23,7 @@
 #include "paddle/fluid/framework/details/fused_all_reduce_op_handle.h"
 #include "paddle/fluid/framework/lod_tensor.h"
 #include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/platform/place.h"
 
 namespace paddle {
 namespace framework {
@@ -40,6 +42,8 @@ class NCCLCommunicator;
 
 namespace paddle {
 namespace framework {
+class Scope;
+
 namespace details {
 
 class GradMergeAllReduceOpHandle : public AllReduceOpHandle {

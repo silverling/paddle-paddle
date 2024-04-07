@@ -14,6 +14,12 @@
 
 #include "paddle/fluid/distributed/collective/common.h"
 
+#include <algorithm>
+#include <iosfwd>
+
+#include "paddle/phi/common/place.h"
+#include "paddle/phi/core/dense_tensor.h"
+
 namespace paddle {
 namespace distributed {
 

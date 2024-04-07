@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #pragma once
+#include <stdint.h>
 #include <cmath>
 #include <memory>
 #include <vector>
@@ -21,14 +22,23 @@ limitations under the License. */
 #include "paddle/phi/common/memory_utils.h"
 #include "paddle/phi/core/dense_tensor.h"
 #include "paddle/phi/core/utils/data_type.h"
+#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/common/complex.h"
+#include "paddle/phi/common/float16.h"
 #ifdef PADDLE_WITH_XPU
 #include <type_traits>
+
 #include "paddle/phi/backends/context_pool.h"
 #include "paddle/phi/backends/xpu/enforce_xpu.h"
 #include "paddle/phi/backends/xpu/xpu_header.h"
 #endif
 
 namespace phi {
+class DenseTensor;
+class DeviceContext;
+class GPUContext;
+
 namespace funcs {
 
 #if defined(PADDLE_WITH_CUDA) || defined(PADDLE_WITH_HIP)

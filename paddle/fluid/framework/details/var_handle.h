@@ -14,15 +14,22 @@
 
 #pragma once
 
+#include <stddef.h>
 #include <algorithm>
 #include <sstream>
 #include <string>
 #include <unordered_set>
 #include <utility>
+#include <vector>
 
 #include "paddle/fluid/framework/ir/node.h"
 #include "paddle/fluid/platform/macros.h"
 #include "paddle/fluid/platform/place.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
+#include "paddle/fluid/platform/device/gpu/gpu_types.h"
+#include "paddle/utils/test_macros.h"
 
 namespace paddle {
 namespace framework {

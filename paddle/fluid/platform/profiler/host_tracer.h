@@ -19,6 +19,7 @@
 
 namespace paddle {
 namespace platform {
+class TraceEventCollector;
 
 using HostTraceLevel = phi::HostTraceLevel;
 using HostTracerOptions = phi::HostTracerOptions;

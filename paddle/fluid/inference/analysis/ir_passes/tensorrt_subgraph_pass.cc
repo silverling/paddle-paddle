@@ -14,11 +14,21 @@
 // limitations under the License.
 
 #include "paddle/fluid/inference/analysis/ir_passes/tensorrt_subgraph_pass.h"
+
 #include <fcntl.h>
-#include <cstddef>
+#include <stdint.h>
+#include <unistd.h>
 #include <memory>
 #include <string>
 #include <unordered_set>
+#include <algorithm>
+#include <exception>
+#include <iterator>
+#include <map>
+#include <ostream>
+#include <set>
+#include <unordered_map>
+#include <utility>
 
 #include "paddle/fluid/framework/block_desc.h"
 #include "paddle/fluid/framework/ir/graph_helper.h"
@@ -37,6 +47,23 @@
 #include "paddle/fluid/inference/utils/io_utils.h"
 #include "paddle/phi/common/backend.h"
 #include "paddle/phi/common/data_type.h"
+#include "NvInferRuntime.h"
+#include "net/proto2/public/repeated_field.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/fluid/framework/framework.pb.h"
+#include "paddle/fluid/framework/ir/graph.h"
+#include "paddle/fluid/framework/ir/pass.h"
+#include "paddle/fluid/framework/op_desc.h"
+#include "paddle/fluid/framework/program_desc.h"
+#include "paddle/fluid/framework/proto_desc.h"
+#include "paddle/fluid/framework/var_desc.h"
+#include "paddle/fluid/inference/tensorrt/helper.h"
+#include "paddle/fluid/inference/utils/singleton.h"
+#include "paddle/fluid/platform/enforce.h"
+#include "paddle/phi/core/compat/convert_utils.h"
+#include "paddle/utils/any.h"
+#include "paddle/utils/variant.h"
 
 namespace paddle {
 namespace inference {

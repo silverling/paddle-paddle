@@ -17,9 +17,15 @@
 #include <cinttypes>
 #include <memory>
 #include <string>
-#include <vector>
+#include <ostream>
+#include <typeinfo>
+#include <unordered_map>
 
 #include "paddle/phi/backends/onednn/onednn_helper.h"
+#include "glog/logging.h"
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
 
 namespace phi {
 namespace funcs {

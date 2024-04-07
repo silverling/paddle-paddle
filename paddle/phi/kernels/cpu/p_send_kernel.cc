@@ -14,14 +14,20 @@
 
 #include "paddle/phi/kernels/p_send_kernel.h"
 
-#include "paddle/phi/backends/all_context.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include <stdint.h>
 
-#if defined(PADDLE_WITH_GLOO)
-#include "paddle/phi/core/distributed/gloo_comm_context.h"
-#endif
+#include "paddle/phi/core/kernel_registry.h"
+#include "paddle/common/enforce.h"
+#include "paddle/common/errors.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
+class CPUContext;
+class DenseTensor;
+class TensorArray;
+namespace dtype {
+struct float16;
+}  // namespace dtype
 
 template <typename T, typename Context>
 void PSendKernel(const Context& dev_ctx UNUSED,

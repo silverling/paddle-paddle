@@ -12,15 +12,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
-#include <iostream>
+#include <ext/alloc_traits.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 #include <vector>
+#include <memory>
 
-#include "gtest/gtest.h"
 #include "paddle/fluid/framework/op_registry.h"
 #include "paddle/fluid/platform/bfloat16.h"
 #include "paddle/fluid/platform/float16.h"
-#include "paddle/phi/core/kernel_registry.h"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest-test-part.h"
+#include "gtest/gtest_pred_impl.h"
+#include "paddle/fluid/framework/lod_tensor.h"
+#include "paddle/fluid/framework/operator.h"
+#include "paddle/fluid/framework/scope.h"
+#include "paddle/fluid/framework/type_defs.h"
+#include "paddle/fluid/framework/variable.h"
+#include "paddle/fluid/platform/place.h"
+#include "paddle/phi/common/bfloat16.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
 
 template <typename T, typename U>
 T* CreateForSaveCombineOp(int x,

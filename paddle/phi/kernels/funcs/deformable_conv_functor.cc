@@ -14,7 +14,7 @@
 
 #include "paddle/phi/kernels/funcs/deformable_conv_functor.h"
 
-#include "paddle/phi/backends/cpu/cpu_context.h"
+#include "paddle/common/macros.h"
 
 namespace phi {
 namespace funcs {

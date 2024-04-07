@@ -14,7 +14,11 @@
 
 #include "paddle/pir/include/core/builtin_attribute.h"
 
+#include <string.h>
+#include <new>
+
 namespace pir {
+class IrContext;
 
 bool BoolAttribute::data() const { return storage()->data(); }
 

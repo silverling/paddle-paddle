@@ -14,9 +14,11 @@ limitations under the License. */
 
 #include "paddle/fluid/operators/math/sampler.h"
 
-#include <glog/logging.h>
+#include <cmath>
+#include <ostream>
 
 #include "paddle/phi/core/generator.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace operators {

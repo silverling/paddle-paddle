@@ -14,10 +14,33 @@
 
 #include "paddle/phi/kernels/pool_grad_kernel.h"
 
+#include <cstdint>
+#include <functional>
+#include <utility>
+
 #include "paddle/phi/backends/onednn/onednn_reuse.h"
 #include "paddle/phi/core/kernel_registry.h"
+#include "oneapi/dnnl/dnnl_common.hpp"
+#include "oneapi/dnnl/dnnl_types.h"
+#include "paddle/common/ddim.h"
+#include "paddle/common/layout.h"
+#include "paddle/common/macros.h"
+#include "paddle/phi/backends/onednn/onednn_context.h"
+#include "paddle/phi/common/tensor_ref.h"
+#include "paddle/phi/core/attribute.h"
+#include "paddle/phi/core/compat/get_kerneltype_forvar_utils.h"
+#include "paddle/phi/core/dense_tensor.h"
+#include "paddle/phi/core/dense_tensor.inl"
+#include "paddle/phi/core/enforce.h"
+#include "paddle/phi/core/kernel_context.h"
+#include "paddle/phi/core/kernel_factory.h"
+#include "paddle/utils/flat_hash_map.h"
 
 namespace phi {
+namespace dtype {
+struct bfloat16;
+}  // namespace dtype
+
 bool Pool2dGradCheckIfOneDNNSupport(const KernelContext* ctx) {
   if (ctx->AttrAt<bool>(8) == false) {
     // adaptive

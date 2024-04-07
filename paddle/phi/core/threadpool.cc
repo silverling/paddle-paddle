@@ -15,10 +15,11 @@
 #include "paddle/phi/core/threadpool.h"
 
 #include <thread>
+#include <ostream>
+#include <string>
 
 #include "glog/logging.h"
 #include "paddle/common/flags.h"
-#include "paddle/phi/core/enforce.h"
 
 COMMON_DECLARE_int32(dist_threadpool_size);
 PD_DEFINE_int32(io_threadpool_size,
